@@ -1,0 +1,33 @@
+@use "sass:math";
+@use "sass:color";
+@use "sass:map";
+@use "sass:string";
+
+$colors: (
+    primaire: #CD8C2B,
+    secondaire: #073022,
+    tertiaire: #FFFFFF,
+);
+
+$fontsVariantes: (
+    1: "'Nunito',sans-serif",
+    2: "'Playfair Display',sans-serif",
+);
+html,body
+{
+    scroll-behavior: smooth;
+}
+body {
+    font-family: var(--font-family1);
+    position: relative;
+    max-width: 100vw;
+    min-height: 100vh;
+    text-rendering: optimizeLegibility;
+}
+
+@import "./abstracts";
+@import "./base";
+@import "./components";
+@import "./layout";
+@import "./pages";
+@import "./libs";
