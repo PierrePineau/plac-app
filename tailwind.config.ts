@@ -9,7 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       width: {
-        sideBarWidth: "326px"
+        sideBarWidth: "326px",
+        searchBarWidth: "400px"
       },
       colors: {
         neutral: {

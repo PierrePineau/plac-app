@@ -14,7 +14,7 @@ import {
 
 export default function NavBar() {
   return (
-    <div className="flex flex-1 bg-gray-50">
+    <div>
       <div className="hidden md:flex w-sideBarWidth md:flex-col">
         <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white p-8">
           <div className="flex flex-row justify-between items-center flex-shrink-0 pb-10">
