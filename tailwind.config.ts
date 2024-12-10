@@ -70,6 +70,7 @@ const config: Config = {
         satoshi: ["Satoshi", "sans-serif"]
       },
       fontSize: {
+        stat: ["40px", { fontWeight: "bold", lineHeight: "54px", letterSpacing: "-2px" }],
         h1Desktop: [
           "32px",
           { fontWeight: "bold", lineHeight: "auto", letterSpacing: "-2%" }

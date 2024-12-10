@@ -1,24 +1,32 @@
 import Header from "../components/header";
 import NavBar from "../components/navBar";
+import Stats from "./components/stats";
 
 export default function Home() {
   return (
-    <div className="flex flex-row h-screen">
-      {/* Sidebar fixe */}
-      <div className="bg-white shadow-md hidden md:block">
+    <div className="flex flex-row bg-white h-full">
+      <div className="bg-white hidden md:block border-r border-neutral-200">
         <NavBar />
       </div>
 
-      {/* Contenu principal */}
       <div className="flex flex-col flex-1">
-        {/* Header */}
-        <div className="sticky top-0 bg-white shadow-md z-10">
+        <div className="top-0 bg-white z-10 border-b border-neutral-200">
           <Header />
         </div>
-
-        {/* Contenu */}
-        <div className="flex-1 p-4 bg-gray-100 overflow-auto">
-          {/* Votre contenu ici */}
+        <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
+          <div className="flex flex-col">
+            <p className="text-h1Desktop text-neutral-950 font-satoshi">
+              Bonjour
+            </p>
+            <p className="text-paragraphMedium font-satoshi text-neutral-400">
+              Lorem ipsum
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-6">
+            <Stats title="Total d'utilisateur" value={1910} />
+            <Stats title="Total d'utilisateur" value={1910} />
+            <Stats title="Total d'utilisateur" value={1910} />
+          </div>
         </div>
       </div>
     </div>
