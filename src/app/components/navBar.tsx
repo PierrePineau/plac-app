@@ -34,14 +34,14 @@ export default function NavBar() {
             <div className="space-y-4 pb-12">
               <nav className="flex-1 space-y-2">
                 <a
-                  href="#"
+                  href="home"
                   title=""
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <House className=" text-black w-6 h-6" />
                   Accueil
                 </a>
                 <a
-                  href="#"
+                  href="chantiers"
                   title=""
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <Building className=" text-black w-6 h-6" />

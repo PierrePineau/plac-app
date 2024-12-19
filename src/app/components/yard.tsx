@@ -7,9 +7,6 @@ interface YardProps {
 export default function Yard({ yards }: YardProps) {
   return (
     <div className="flex flex-col gap-6">
-      <p className="text-h2Desktop font-satoshi text-neutral-950">
-        Mes Chantiers
-      </p>
       <div className="grid grid-cols-3 gap-8">
         {yards?.length ? (
           yards.map((yard) => (

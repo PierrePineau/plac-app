@@ -5,7 +5,8 @@ import Header from "../components/header";
 import NavBar from "../components/navBar";
 import SearchBar from "../components/searchBar";
 import Stats from "./components/stats";
-import Yard from "./components/yard";
+import Yard from "../components/yard";
+import "../globals.css";
 
 const yards: Yard[] = [
   {
@@ -131,6 +132,9 @@ export default function Home() {
             <Stats title="Total d'utilisateur" value={1910} />
             <Stats title="Total d'utilisateur" value={1910} />
           </div>
+          <p className="text-h2Desktop font-satoshi text-neutral-950">
+            Mes derniers chantiers
+          </p>
           <Yard yards={yards} />
           <div>
             <p className="text-h2Desktop font-satoshi text-neutral-950">
