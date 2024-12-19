@@ -1,10 +1,5 @@
 import { Users } from "lucide-react";
 
-type StatsProps = {
-  title: string;
-  value: number;
-};
-
 export default function Stats({ title, value }: StatsProps): JSX.Element {
   return (
     <div className="flex flex-col gap-6 border rounded-lg p-6">

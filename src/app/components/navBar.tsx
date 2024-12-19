@@ -31,14 +31,14 @@ export default function NavBar() {
           </div>
 
           <div className="flex flex-col">
-            <div className="space-y-4 pb-32">
+            <div className="space-y-4 pb-12">
               <nav className="flex-1 space-y-2">
                 <a
                   href="#"
                   title=""
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <House className=" text-black w-6 h-6" />
-                  Acceuil
+                  Accueil
                 </a>
                 <a
                   href="#"
@@ -125,14 +125,6 @@ export default function NavBar() {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="flex flex-col flex-1">
-        <main>
-          <div className="py-6">
-            <div className="px-4 mx-auto max-w-7xl sm:px-6 md:px-8"></div>
-          </div>
-        </main>
       </div>
     </div>
   );

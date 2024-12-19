@@ -1,23 +1,13 @@
-import { Bell, Search } from "lucide-react";
+import { Bell } from "lucide-react";
+import SearchBar from "./searchBar";
 
 export default function Header() {
   return (
     <div className="justify-start bg-white px-8 py-5">
       <div className="flex flex-row justify-between items-center">
-        <form className="w-searchBarWidth">
-          <div className="relative">
-            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none text-neutral-400">
-              <Search />
-            </div>
-            <input
-              type="search"
-              id="default-search"
-              className="rounded-md w-full px-3 py-2 ps-10 border placeholder:text-paragraphMedium text-neutral-950 placeholder:text-neutral-400"
-              placeholder="Rechercher"
-              required
-            />
-          </div>
-        </form>
+        <div className="w-searchBarWidth">
+          <SearchBar placeholder="Rechercher" />
+        </div>
         <div className="flex flex-row justify-center items-center gap-3">
           <Bell className="text-black" />
           <img
