@@ -48,36 +48,6 @@ const yards: Yard[] = [
   }
 ];
 
-type EndOfDayRecord = {
-  id: number;
-  siteName: string;
-  date: string;
-  hoursWorked: number;
-  status: string;
-};
-
-// Utilisation du composant DataTable
-const data = [
-  {
-    user: "John Doe",
-    number: "12345",
-    date: "2024-12-09",
-    content: "Rapport de chantier terminé"
-  },
-  {
-    user: "Jane Smith",
-    number: "67890",
-    date: "2024-12-08",
-    content: "Inspection partielle réalisée"
-  },
-  {
-    user: "Alice Johnson",
-    number: "54321",
-    date: "2024-12-07",
-    content: "Travaux en attente"
-  }
-];
-
 export default function Chantiers() {
   return (
     <div className="flex flex-row bg-white h-full">
