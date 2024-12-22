@@ -2,15 +2,16 @@ import {
   ArrowLeftFromLine,
   House,
   Building,
-  Link,
   Users,
   Calendar,
   Newspaper,
   MessageCircle,
   Settings,
   LogOut,
-  Rocket
+  Rocket,
+  LinkIcon
 } from "lucide-react";
+import Link from "next/link";
 
 export default function NavBar() {
   return (
@@ -33,48 +34,42 @@ export default function NavBar() {
           <div className="flex flex-col">
             <div className="space-y-4 pb-12">
               <nav className="flex-1 space-y-2">
-                <a
-                  href="home"
-                  title=""
+                <Link
+                  href="/home"
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <House className=" text-black w-6 h-6" />
                   Accueil
-                </a>
-                <a
-                  href="chantiers"
-                  title=""
+                </Link>
+                <Link
+                  href="/yards"
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <Building className=" text-black w-6 h-6" />
                   Mes chantiers
-                </a>
-                <a
-                  href="#"
-                  title=""
+                </Link>
+                <Link
+                  href="/company"
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
-                  <Link className=" text-black w-6 h-6" />
+                  <LinkIcon className=" text-black w-6 h-6" />
                   Mon entreprise
-                </a>
-                <a
-                  href="#"
-                  title=""
+                </Link>
+                <Link
+                  href="/clients"
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <Users className=" text-black w-6 h-6" />
                   Mes clients
-                </a>
-                <a
-                  href="#"
-                  title=""
+                </Link>
+                <Link
+                  href="/planning"
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <Calendar className=" text-black w-6 h-6" />
                   Planning
-                </a>
-                <a
-                  href="#"
-                  title=""
+                </Link>
+                <Link
+                  href="/end_of_day_sheet"
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <Newspaper className=" text-black w-6 h-6" />
                   Fiche de fin de journée
-                </a>
+                </Link>
               </nav>
 
               <div className=" font-satoshi font-bold text-sidebar_title text-neutral-300 ">
@@ -82,27 +77,24 @@ export default function NavBar() {
               </div>
 
               <nav className="flex-1 space-y-2">
-                <a
-                  href="#"
-                  title=""
+                <Link
+                  href="/clients"
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <MessageCircle className=" text-black w-6 h-6" />
                   Messagerie
-                </a>
-                <a
-                  href="#"
-                  title=""
+                </Link>
+                <Link
+                  href="/clients"
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <Settings className=" text-black w-6 h-6" />
                   Paramètres
-                </a>
-                <a
-                  href="#"
-                  title=""
+                </Link>
+                <Link
+                  href="/clients"
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <LogOut className=" text-black w-6 h-6" />
                   Déconnexion
-                </a>
+                </Link>
               </nav>
             </div>
 
