@@ -7,6 +7,8 @@ import SearchBar from "../components/searchBar";
 import Stats from "./components/stats";
 import Yard from "../components/yard";
 import "../globals.css";
+import CustomButton from "../components/custombutton";
+import { ListRestart } from "lucide-react";
 
 const yards: Yard[] = [
   {
@@ -19,7 +21,7 @@ const yards: Yard[] = [
     archived: false,
     deleted: false,
     client: "Client A",
-    medias: "media1.jpg",
+    medias: ["media1.jpg"],
     files: "file1.pdf"
   },
   {
@@ -32,7 +34,7 @@ const yards: Yard[] = [
     archived: false,
     deleted: false,
     client: "Client B",
-    medias: "media2.jpg",
+    medias: ["media1.jpg"],
     files: "file2.pdf"
   },
   {
@@ -45,7 +47,7 @@ const yards: Yard[] = [
     archived: false,
     deleted: false,
     client: "Client B",
-    medias: "media2.jpg",
+    medias: ["media1.jpg"],
     files: "file2.pdf"
   }
 ];
@@ -152,7 +154,16 @@ export default function Home() {
               />
               <Dropdown label="Statut" options={options} />
             </div>
-            <div></div>
+            <div className="mt-6">
+              <CustomButton
+                text="Réinitialiser les filtres"
+                icon={<ListRestart className="text-neutral-950" />}
+                color="bg-white"
+                textColor="text-neutral-950"
+                border="border border-neutral-200 h-12"
+                onClick={() => {}}
+              />
+            </div>
           </div>
           <DataTable
             data={data}
@@ -175,7 +186,16 @@ export default function Home() {
               />
               <Dropdown label="Statut" options={options} />
             </div>
-            <div></div>
+            <div className="mt-6">
+              <CustomButton
+                text="Réinitialiser les filtres"
+                icon={<ListRestart className="text-neutral-950" />}
+                color="bg-white"
+                textColor="text-neutral-950"
+                border="border border-neutral-200 h-12"
+                onClick={() => {}}
+              />
+            </div>
           </div>
           <DataTable
             data={data}

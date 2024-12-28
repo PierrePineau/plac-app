@@ -8,6 +8,7 @@ import Tabs from "../components/tabs";
 import GeneralTab from "../components/tabsComponents/generalTab";
 import DocumentsTab from "../components/tabsComponents/documentsTab";
 import NotesTab from "../components/tabsComponents/notesTab";
+import NotesGrid from "../components/tabsComponents/notesTab";
 
 const yard: Yard = {
   id: 1,
@@ -20,15 +21,42 @@ const yard: Yard = {
   archived: false,
   deleted: false,
   client: "Lorem Ipsum",
-  medias: "/images/yard-image.jpg",
+  medias: ["/images/yard-image.jpg"],
   files: "file1.pdf"
 };
+
+const mockNotes: Note[] = [
+  {
+    id: 1,
+    title: "Note 1",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ligula quam, gravida sed ultrices eget, hendrerit eget n...",
+    date: "Hier",
+    time: "11h51"
+  },
+  {
+    id: 2,
+    title: "Note 2",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ligula quam, gravida sed ultrices eget, hendrerit eget n...",
+    date: "Hier",
+    time: "11h51"
+  },
+  {
+    id: 3,
+    title: "Note 3",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ligula quam, gravida sed ultrices eget, hendrerit eget n...",
+    date: "Hier",
+    time: "11h51"
+  }
+];
 
 export default function Chantiers() {
   const tabs = [
     { label: "Général", content: <GeneralTab yard={yard} /> },
-    { label: "Documents & Médias", content: <DocumentsTab /> },
-    { label: "Bloc notes", content: <NotesTab /> }
+    { label: "Documents & Médias", content: <DocumentsTab yard={yard} /> },
+    { label: "Bloc notes", content: <NotesGrid notes={mockNotes} /> }
   ];
   return (
     <div className="flex flex-row bg-white h-full">

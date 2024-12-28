@@ -19,6 +19,7 @@
     "next": "15.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.3.5",
     "react-redux": "^9.1.2",
     "realfavicon": "0.4.6",
     "redux-persist": "^6.0.0",

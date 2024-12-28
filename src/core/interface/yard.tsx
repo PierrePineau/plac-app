@@ -8,6 +8,14 @@ type Yard = {
   archived: boolean;
   deleted: boolean;
   client: string; //a terme sera relier avec l'interface client
-  medias: string; // relier à la table media
+  medias: string[]; // relier à la table media
   files: string; //relier à la table files
+};
+
+type Note = {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+  time: string;
 };

@@ -1,13 +1,16 @@
+import BubbleText from "@/app/components/bubbleText";
 import { Users } from "lucide-react";
 
 export default function Stats({ title, value }: StatsProps): JSX.Element {
   return (
     <div className="flex flex-col gap-6 border rounded-lg p-6">
-      <div className="flex items-center justify-center rounded-full w-20 h-20 bg-brand-50">
-        <div className="flex items-center justify-center rounded-full w-16 h-16 bg-brand-200">
-          <Users className="text-neutral-950" />
-        </div>
-      </div>
+      <BubbleText
+        icon={<Users className="text-neutral-950" />}
+        widthBubble="w-20"
+        heightBubble="h-20"
+        widthSubBubble="w-16"
+        heightSubBubble="h-16"
+      />
       <div>
         <p className="text-paragraphMedium text-neutral-400 font-satoshi">
           {title}

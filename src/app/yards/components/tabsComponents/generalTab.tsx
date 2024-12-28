@@ -29,7 +29,13 @@ const GeneralTab: React.FC<YardProps> = ({ yard }) => {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
         <div className="flex items-center space-x-3">
-          <BubbleText icon={<HardHat className="text-brand-500" />} />
+          <BubbleText
+            icon={<HardHat className="text-brand-500" />}
+            widthBubble="w-12"
+            heightBubble="h-12"
+            widthSubBubble="w-10"
+            heightSubBubble="h-10"
+          />
           <div>
             <p className="text-sm font-satoshi text-neutral-500">
               Chef de chantier
@@ -41,7 +47,13 @@ const GeneralTab: React.FC<YardProps> = ({ yard }) => {
         </div>
 
         <div className="flex items-center space-x-3">
-          <BubbleText icon={<CalendarPlus className="text-brand-500" />} />
+          <BubbleText
+            icon={<CalendarPlus className="text-brand-500" />}
+            widthBubble="w-12"
+            heightBubble="h-12"
+            widthSubBubble="w-10"
+            heightSubBubble="h-10"
+          />
           <div>
             <p className="text-sm font-satoshi text-neutral-500">
               Date de début
@@ -53,7 +65,13 @@ const GeneralTab: React.FC<YardProps> = ({ yard }) => {
         </div>
 
         <div className="flex items-center space-x-3">
-          <BubbleText icon={<CalendarMinus className="text-brand-500" />} />
+          <BubbleText
+            icon={<CalendarMinus className="text-brand-500" />}
+            widthBubble="w-12"
+            heightBubble="h-12"
+            widthSubBubble="w-10"
+            heightSubBubble="h-10"
+          />
           <div>
             <p className="text-sm font-satoshi text-neutral-500">Date de fin</p>
             <p className="font-satoshi text-paragraphBold text-neutral-950">
@@ -63,7 +81,13 @@ const GeneralTab: React.FC<YardProps> = ({ yard }) => {
         </div>
 
         <div className="flex items-center space-x-3">
-          <BubbleText icon={<MapPin className="text-brand-500" />} />
+          <BubbleText
+            icon={<MapPin className="text-brand-500" />}
+            widthBubble="w-12"
+            heightBubble="h-12"
+            widthSubBubble="w-10"
+            heightSubBubble="h-10"
+          />
           <div>
             <p className="text-sm font-satoshi text-neutral-500">
               Localisation
@@ -94,7 +118,13 @@ const GeneralTab: React.FC<YardProps> = ({ yard }) => {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
         <div className="flex items-center space-x-3">
-          <BubbleText icon={<User className="text-accent-500" />} />
+          <BubbleText
+            icon={<User className="text-accent-500" />}
+            widthBubble="w-12"
+            heightBubble="h-12"
+            widthSubBubble="w-10"
+            heightSubBubble="h-10"
+          />
           <div>
             <p className="text-sm font-satoshi text-neutral-500">
               Nom & Prénom
@@ -106,7 +136,13 @@ const GeneralTab: React.FC<YardProps> = ({ yard }) => {
         </div>
 
         <div className="flex items-center space-x-3">
-          <BubbleText icon={<Mail className="text-accent-500" />} />
+          <BubbleText
+            icon={<Mail className="text-accent-500" />}
+            widthBubble="w-12"
+            heightBubble="h-12"
+            widthSubBubble="w-10"
+            heightSubBubble="h-10"
+          />
           <div>
             <p className="text-sm font-satoshi text-neutral-500">Email</p>
             <p className="font-satoshi text-paragraphBold text-neutral-950">
@@ -116,7 +152,13 @@ const GeneralTab: React.FC<YardProps> = ({ yard }) => {
         </div>
 
         <div className="flex items-center space-x-3">
-          <BubbleText icon={<Phone className="text-accent-500" />} />
+          <BubbleText
+            icon={<Phone className="text-accent-500" />}
+            widthBubble="w-12"
+            heightBubble="h-12"
+            widthSubBubble="w-10"
+            heightSubBubble="h-10"
+          />
           <div>
             <p className="text-sm font-satoshi text-neutral-500">
               N° de téléphone
