@@ -8,20 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        satoshi: ["Satoshi", "sans-serif"] // Déclarez la police "Satoshi"
-      },
-      fontSize: {
-        h1: ["32px", { lineHeight: "auto", letterSpacing: "-0.02em" }],
-        h2: ["24px", { lineHeight: "auto", letterSpacing: "-0.02em" }],
-        h3: ["20px", { lineHeight: "auto", letterSpacing: "-0.02em" }],
-        paragraph: ["16px", { lineHeight: "auto", letterSpacing: "0" }],
-        button: ["16px", { lineHeight: "22px", letterSpacing: "0" }]
-      },
-      fontWeight: {
-        regular: "400",
-        medium: "500",
-        bold: "700"
+      width: {
+        sideBarWidth: "326px",
+        searchBarWidth: "400px"
       },
       colors: {
         neutral: {
@@ -39,25 +28,25 @@ const config: Config = {
         },
         brand: {
           50: "#EEF4FF",
-          100: "#D9E4FF",
+          100: "#DDE4FF",
           200: "#BCD1FF",
           300: "#8EB4FF",
           400: "#598CFF",
           500: "#295BFF",
           600: "#1B3FFF",
-          700: "#142CE1",
-          800: "#1725B6",
+          700: "#142ECC",
+          800: "#172586",
           900: "#19268F",
           950: "#011565"
         },
         accent: {
-          50: "#FFF8ED",
-          100: "#FEEFD6",
+          50: "#FFFDED",
+          100: "#FFEFDB",
           200: "#FCDCAC",
           300: "#FBC987",
           400: "#F79D40",
-          500: "#FF581A",
-          600: "#E66510",
+          500: "#F5811A",
+          600: "#E66615",
           700: "#BF4C0F",
           800: "#973D15",
           900: "#743414",
@@ -65,20 +54,87 @@ const config: Config = {
         },
         negative: {
           50: "#FEF2F2",
-          100: "#FEE2E2",
-          200: "#FECACA",
-          300: "#FCA5A5",
-          400: "#F87171",
-          500: "#FF4444",
+          100: "#FEEFEF",
+          200: "#FEACAC",
+          300: "#FC8A8A",
+          400: "#F65454",
+          500: "#EF4444",
           600: "#DC2626",
           700: "#B91C1C",
           800: "#991B1B",
           900: "#7F1D1D",
           950: "#450A0A"
         }
+      },
+      fontFamily: {
+        satoshi: ["Satoshi", "sans-serif"]
+      },
+      fontSize: {
+        stat: ["40px", { fontWeight: "bold", lineHeight: "54px", letterSpacing: "-2px" }],
+        h1Desktop: [
+          "32px",
+          { fontWeight: "bold", lineHeight: "auto", letterSpacing: "-2%" }
+        ],
+        h2Desktop: [
+          "24px",
+          { fontWeight: "bold", lineHeight: "auto", letterSpacing: "-2%" }
+        ],
+        h3Desktop: [
+          "20px",
+          { fontWeight: "bold", lineHeight: "auto", letterSpacing: "-2%" }
+        ],
+        h1Mobile: [
+          "28px",
+          { fontWeight: "bold", lineHeight: "auto", letterSpacing: "-2%" }
+        ],
+        h2Mobile: [
+          "22px",
+          { fontWeight: "bold", lineHeight: "auto", letterSpacing: "-2%" }
+        ],
+        h3Mobile: [
+          "20px",
+          { fontWeight: "bold", lineHeight: "auto", letterSpacing: "-2%" }
+        ],
+        paragraphRegular: [
+          "16px",
+          { fontWeight: "regular", lineHeight: "auto", letterSpacing: "0%" }
+        ],
+        paragraphMedium: [
+          "16px",
+          { fontWeight: "medium", lineHeight: "auto", letterSpacing: "0%" }
+        ],
+        paragraphBold: [
+          "16px",
+          { fontWeight: "bold", lineHeight: "auto", letterSpacing: "0%" }
+        ],
+        button: [
+          "16px",
+          { fontWeight: "medium", lineHeight: "22px", letterSpacing: "0%" }
+        ],
+        sidebarTitle: [
+          "12px",
+          { fontWeight: "bold", lineHeight: "16px", letterSpacing: "0%" }
+        ],
+        tag: [
+          "14px",
+          { fontWeight: "medium", lineHeight: "auto", letterSpacing: "0%" }
+        ],
+        tapBar: [
+          "12px",
+          { fontWeight: "bold", lineHeight: "auto", letterSpacing: "0%" }
+        ],
+        planningDetail: [
+          "10px",
+          { fontWeight: "medium", lineHeight: "auto", letterSpacing: "0%" }
+        ],
+        planningTitle: [
+          "12px",
+          { fontWeight: "medium", lineHeight: "auto", letterSpacing: "0%" }
+        ]
       }
     }
   },
   plugins: []
 };
+
 export default config;
