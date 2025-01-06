@@ -4,9 +4,10 @@ import { ChevronDown } from "lucide-react";
 interface DropdownProps {
   label?: string;
   options: string[];
+  maxWidth?: string;
 }
 
-export default function Dropdown({ label, options }: DropdownProps) {
+export default function Dropdown({ label, options, maxWidth }: DropdownProps) {
   return (
     <div className="h-full mx-auto">
       {label && (
@@ -15,7 +16,10 @@ export default function Dropdown({ label, options }: DropdownProps) {
         </label>
       )}
       <Menu>
-        <Menu.Button className="min-w-80 w-full max-h-12 h-full rounded-md border border-gray-300 bg-white text-neutral-300">
+        <Menu.Button
+          className={`${
+            maxWidth ?? "min-w-80"
+          } w-full max-h-12 h-full rounded-md border border-gray-300 bg-white text-neutral-300`}>
           <ChevronDown className="" />
         </Menu.Button>
 

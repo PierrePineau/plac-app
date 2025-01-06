@@ -6,7 +6,7 @@ import {
   getSortedRowModel,
   ColumnDef,
   SortingState,
-  flexRender,
+  flexRender
 } from "@tanstack/react-table";
 import { useState } from "react";
 
@@ -19,7 +19,7 @@ interface DataTableProps<T> {
 export default function DataTable<T extends object>({
   data,
   columns,
-  onRowSelectionChange,
+  onRowSelectionChange
 }: DataTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
@@ -54,11 +54,11 @@ export default function DataTable<T extends object>({
     data,
     columns,
     state: {
-      sorting,
+      sorting
     },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
+    getSortedRowModel: getSortedRowModel()
   });
 
   return (
@@ -127,6 +127,17 @@ export default function DataTable<T extends object>({
                           jeanmartin@gmail.com
                         </p>
                       </div>
+                    </div>
+                  ) : cell.column.columnDef.accessorKey === "status" ? (
+                    <div
+                      className={`flex justify-center w-14 h-6 rounded-lg border font-bold ${
+                        cell.getValue() === "Entrée"
+                          ? "border-green-700 text-green-700 bg-green-100"
+                          : cell.getValue() === "Sortie"
+                          ? "border-red-700 text-red-700 bg-red-100"
+                          : "border-neutral-700 text-neutral-700 bg-neutral-100"
+                      }`}>
+                      {cell.getValue()}
                     </div>
                   ) : (
                     flexRender(cell.column.columnDef.cell, cell.getContext())

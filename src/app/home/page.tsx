@@ -9,7 +9,33 @@ import Yard from "../components/yard";
 import "../globals.css";
 import CustomButton from "../components/custombutton";
 import { ListRestart } from "lucide-react";
+import Popup from "../components/popup";
+import { useState } from "react";
 
+// Types pour les données
+type Yard = {
+  id: number;
+  reference: string;
+  code: number;
+  name: string;
+  description: string;
+  address: string;
+  archived: boolean;
+  deleted: boolean;
+  client: string;
+  medias: string[];
+  files: string;
+};
+
+type TableData = {
+  user: string;
+  number: string;
+  date: string;
+  content?: string; // Peut être optionnel selon les colonnes utilisées
+  status?: string; // Peut être optionnel selon les colonnes utilisées
+};
+
+// Données pour le tableau
 const yards: Yard[] = [
   {
     id: 1,
@@ -36,34 +62,12 @@ const yards: Yard[] = [
     client: "Client B",
     medias: ["media1.jpg"],
     files: "file2.pdf"
-  },
-  {
-    id: 3,
-    reference: "Y002",
-    code: 1002,
-    name: "Yard Beta",
-    description: "Secondary yard in Beta City",
-    address: "456 Beta Ave, Beta City",
-    archived: false,
-    deleted: false,
-    client: "Client B",
-    medias: ["media1.jpg"],
-    files: "file2.pdf"
   }
 ];
 
-type EndOfDayRecord = {
-  id: number;
-  siteName: string;
-  date: string;
-  hoursWorked: number;
-  status: string;
-};
-
 const options = ["Option 1", "Option 2", "Option 3"];
 
-// Utilisation du composant DataTable
-const data = [
+const data: TableData[] = [
   {
     user: "John Doe",
     number: "12345",
@@ -84,6 +88,28 @@ const data = [
   }
 ];
 
+const dataEndOfYear: TableData[] = [
+  {
+    user: "John Doe",
+    number: "12345",
+    date: "2024-12-09",
+    status: "Entrée"
+  },
+  {
+    user: "Jane Smith",
+    number: "67890",
+    date: "2024-12-08",
+    status: "Sortie"
+  },
+  {
+    user: "Alice Johnson",
+    number: "54321",
+    date: "2024-12-07",
+    status: "Entrée"
+  }
+];
+
+// Colonnes pour les tableaux
 const columns = [
   {
     accessorKey: "user",
@@ -106,10 +132,33 @@ const columns = [
   }
 ];
 
+const columnsEndOfYear = [
+  {
+    accessorKey: "user",
+    header: "Utilisateurs"
+  },
+  {
+    accessorKey: "number",
+    header: "Numéro"
+  },
+  {
+    accessorKey: "date",
+    header: "Date",
+    cell: (info: any) =>
+      new Date(info.getValue() as string).toLocaleDateString(),
+    enableSorting: true
+  },
+  {
+    accessorKey: "status",
+    header: "Statut"
+  }
+];
+
 export default function Home() {
-  const handleRowSelectionChange = (selectedRows: typeof data) => {
+  const handleRowSelectionChange = (selectedRows: TableData[]) => {
     console.log("Selected Rows:", selectedRows);
   };
+
   return (
     <div className="flex flex-row bg-white h-full">
       <div className="sticky bg-white hidden md:block border-r border-neutral-200">
@@ -198,8 +247,8 @@ export default function Home() {
             </div>
           </div>
           <DataTable
-            data={data}
-            columns={columns}
+            data={dataEndOfYear}
+            columns={columnsEndOfYear}
             onRowSelectionChange={handleRowSelectionChange}
           />
         </div>
