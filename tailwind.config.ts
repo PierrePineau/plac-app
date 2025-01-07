@@ -10,7 +10,9 @@ const config: Config = {
     extend: {
       width: {
         sideBarWidth: "326px",
-        searchBarWidth: "400px"
+        searchBarWidth: "400px",
+        landingPageImageWidth: "842px",
+        landingPageImageHeigth: "69px"
       },
       colors: {
         neutral: {
@@ -36,8 +38,10 @@ const config: Config = {
           600: "#1B3FFF",
           700: "#142ECC",
           800: "#172586",
+          850: "#7B97B6",
           900: "#19268F",
-          950: "#011565"
+          950: "#011565",
+          1000: "#000F4B"
         },
         accent: {
           50: "#FFFDED",
@@ -70,7 +74,10 @@ const config: Config = {
         satoshi: ["Satoshi", "sans-serif"]
       },
       fontSize: {
-        stat: ["40px", { fontWeight: "bold", lineHeight: "54px", letterSpacing: "-2px" }],
+        stat: [
+          "40px",
+          { fontWeight: "bold", lineHeight: "54px", letterSpacing: "-2px" }
+        ],
         h1Desktop: [
           "32px",
           { fontWeight: "bold", lineHeight: "auto", letterSpacing: "-2%" }
