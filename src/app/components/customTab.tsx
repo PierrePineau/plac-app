@@ -8,23 +8,36 @@ import {
   SortingState,
   flexRender
 } from "@tanstack/react-table";
+import { EllipsisVertical } from "lucide-react";
 import { useState } from "react";
 
 interface DataTableProps<T> {
   data: T[];
   columns: ColumnDef<T>[];
   onRowSelectionChange?: (selectedRows: T[]) => void;
+  renderCell?: (
+    cellValue: any,
+    column: ColumnDef<T>,
+    row: T
+  ) => React.ReactNode;
+  enableSorting?: boolean;
+  enableRowSelection?: boolean;
 }
 
 export default function DataTable<T extends object>({
   data,
   columns,
-  onRowSelectionChange
+  onRowSelectionChange,
+  renderCell,
+  enableSorting = true,
+  enableRowSelection = true
 }: DataTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
 
   const handleRowSelection = (rowId: number) => {
+    if (!enableRowSelection) return;
+
     const newSelection = new Set(selectedRows);
     if (newSelection.has(rowId)) {
       newSelection.delete(rowId);
@@ -40,6 +53,8 @@ export default function DataTable<T extends object>({
   };
 
   const handleSelectAll = () => {
+    if (!enableRowSelection) return;
+
     if (selectedRows.size === data.length) {
       setSelectedRows(new Set());
       if (onRowSelectionChange) onRowSelectionChange([]);
@@ -53,31 +68,34 @@ export default function DataTable<T extends object>({
   const table = useReactTable({
     data,
     columns,
-    state: {
-      sorting
-    },
-    onSortingChange: setSorting,
+    state: { sorting },
+    onSortingChange: enableSorting ? setSorting : undefined,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel()
+    getSortedRowModel: enableSorting ? getSortedRowModel() : undefined
   });
 
   return (
-    <div className="bg-red-200">
-      <table className="w-full border border-neutral-300">
-        <thead className="bg-white text-sm text-gray-600 font-medium rounded-t-lg">
+    <div className="overflow-x-auto">
+      <table className="w-full border border-neutral-300 rounded-lg">
+        {/* Header */}
+        <thead className="bg-neutral-50 text-neutral-400 text-sm font-medium">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
-              <th className="pr-8 border border-neutral-300">
-                <input
-                  type="checkbox"
-                  checked={selectedRows.size === data.length}
-                  onChange={handleSelectAll}
-                />
-              </th>
+              {enableRowSelection && (
+                <th className="w-14 p-2 text-center border border-neutral-300">
+                  <input
+                    type="checkbox"
+                    checked={selectedRows.size === data.length}
+                    onChange={handleSelectAll}
+                  />
+                </th>
+              )}
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="px-4 py-2 text-left font-semibold border border-neutral-300"
+                  className={`px-4 py-2 text-left font-semibold border border-neutral-300 ${
+                    header.column.getCanSort() ? "cursor-pointer" : ""
+                  }`}
                   onClick={header.column.getToggleSortingHandler()}>
                   {flexRender(
                     header.column.columnDef.header,
@@ -94,53 +112,39 @@ export default function DataTable<T extends object>({
             </tr>
           ))}
         </thead>
+
+        {/* Body */}
         <tbody>
           {table.getRowModel().rows.map((row, index) => (
             <tr
               key={row.id}
               className={`border-b ${
-                index % 2 === 0 ? "bg-gray-50" : "bg-white"
-              } hover:bg-gray-100`}>
-              <td className="px-4 py-3">
-                <input
-                  type="checkbox"
-                  checked={selectedRows.has(row.index)}
-                  onChange={() => handleRowSelection(row.index)}
-                />
-              </td>
-              {row.getVisibleCells().map((cell, idx) => (
+                index % 2 === 0 ? "bg-white" : "bg-gray-50"
+              } hover:bg-gray-100 `}>
+              {enableRowSelection && (
+                <td className="w-14 p-2 text-center">
+                  <input
+                    type="checkbox"
+                    checked={selectedRows.has(row.index)}
+                    onChange={() => handleRowSelection(row.index)}
+                  />
+                </td>
+              )}
+              {row.getVisibleCells().map((cell, index) => (
                 <td
                   key={cell.id}
-                  className={`px-4 py-3 text-sm text-gray-800 ${
-                    idx === 0 ? "flex items-center gap-2" : ""
-                  }`}>
-                  {idx === 0 ? (
-                    <div className="flex items-center gap-2">
-                      <img
-                        src="/asset/img/avatar.svg"
-                        alt="Avatar"
-                        className="w-8 h-8 rounded-full"
-                      />
-                      <div>
-                        <p className="font-medium">Lorem ipsum</p>
-                        <p className="text-sm text-gray-500">
-                          jeanmartin@gmail.com
-                        </p>
-                      </div>
-                    </div>
-                  ) : cell.column.columnDef.accessorKey === "status" ? (
-                    <div
-                      className={`flex justify-center w-14 h-6 rounded-lg border font-bold ${
-                        cell.getValue() === "Entrée"
-                          ? "border-green-700 text-green-700 bg-green-100"
-                          : cell.getValue() === "Sortie"
-                          ? "border-red-700 text-red-700 bg-red-100"
-                          : "border-neutral-700 text-neutral-700 bg-neutral-100"
-                      }`}>
-                      {cell.getValue()}
-                    </div>
-                  ) : (
-                    flexRender(cell.column.columnDef.cell, cell.getContext())
+                  className="px-4 py-3 text-sm text-neutral-800 flex-row">
+                  {renderCell
+                    ? renderCell(
+                        cell.getValue(),
+                        cell.column.columnDef,
+                        row.original
+                      )
+                    : flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  {index === row.getVisibleCells().length - 1 && (
+                    <button className="">
+                      <EllipsisVertical />
+                    </button>
                   )}
                 </td>
               ))}

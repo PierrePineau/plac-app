@@ -11,7 +11,6 @@
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.9",
     "@headlessui/react": "^2.2.0",
-    "@reduxjs/toolkit": "^2.3.0",
     "@splidejs/react-splide": "^0.7.12",
     "@tanstack/react-table": "^8.20.5",
     "http-proxy-middleware": "^3.0.3",
@@ -20,10 +19,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.3.5",
-    "react-redux": "^9.1.2",
     "realfavicon": "0.4.6",
-    "redux-persist": "^6.0.0",
-    "sass": "^1.80.4"
+    "sass": "^1.80.4",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@types/node": "^20",

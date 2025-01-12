@@ -5,8 +5,11 @@ import RegisterStepTwo from "./components/register/registerStepTwo";
 import RegisterStepThree from "./components/register/registerStepThree";
 import RegisterStepFour from "./components/register/registerStepFour";
 import LoginForm from "./components/login/loginForm";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const Login = () => {
+  const router = useRouter();
   const [isSignUp, setIsSignUp] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [signupData, setSignupData] = useState({
@@ -17,6 +20,19 @@ const Login = () => {
     password: "",
     confirmPassword: ""
   });
+
+  const login = useAuthStore((state) => state.login);
+  const isLoading = useAuthStore((state) => state.isLoading);
+  const error = useAuthStore((state) => state.error);
+
+  const handleSubmit = async (email: string, password: string) => {
+    await login(email, password);
+    const user = useAuthStore.getState().user;
+    if (user) {
+      router.push("/home");
+    }
+    router.push("/home");
+  };
 
   const updateSignupData = (key: string, value: string) => {
     setSignupData((prevData) => ({ ...prevData, [key]: value }));
@@ -101,7 +117,7 @@ const Login = () => {
           ) : (
             <LoginForm
               registerButton={() => setIsSignUp(true)}
-              connectButton={() => {}}
+              connectButton={handleSubmit}
             />
           )}
         </div>

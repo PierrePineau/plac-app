@@ -1,4 +1,4 @@
-type Yard = {
+interface Yard {
   id: number;
   reference: string;
   code: number;
@@ -10,12 +10,5 @@ type Yard = {
   client: string; //a terme sera relier avec l'interface client
   medias: string[]; // relier à la table media
   files: string; //relier à la table files
-};
+}
 
-type Note = {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-};

@@ -12,21 +12,6 @@ import { ListRestart } from "lucide-react";
 import Popup from "../components/popup";
 import { useState } from "react";
 
-// Types pour les données
-type Yard = {
-  id: number;
-  reference: string;
-  code: number;
-  name: string;
-  description: string;
-  address: string;
-  archived: boolean;
-  deleted: boolean;
-  client: string;
-  medias: string[];
-  files: string;
-};
-
 type TableData = {
   user: string;
   number: string;
@@ -62,6 +47,60 @@ const yards: Yard[] = [
     client: "Client B",
     medias: ["media1.jpg"],
     files: "file2.pdf"
+  }
+];
+
+const mockNotes: Note[] = [
+  {
+    id: 1,
+    title: "Note 1",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ligula quam, gravida sed ultrices eget, hendrerit eget n...",
+    date: "Hier",
+    time: "11h51"
+  },
+  {
+    id: 2,
+    title: "Note 2",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ligula quam, gravida sed ultrices eget, hendrerit eget n...",
+    date: "Hier",
+    time: "11h51"
+  },
+  {
+    id: 3,
+    title: "Note 3",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ligula quam, gravida sed ultrices eget, hendrerit eget n...",
+    date: "Hier",
+    time: "11h51"
+  }
+];
+
+const users: Employe[] = [
+  {
+    id: 1,
+    lastName: "Doe",
+    firstName: "John",
+    avatar: "/asset/img/avatar.svg",
+    email: "johndoe@gmail.com",
+    phone: "06 21 45 38 76",
+    address: "123 Alpha St, Alpha City",
+    role: "client",
+    enable: "true",
+    note: mockNotes
+  },
+  {
+    id: 2,
+    lastName: "Doe",
+    firstName: "Jason",
+    avatar: "/asset/img/avatar.svg",
+    email: "jasondoe@gmail.com",
+    phone: "06 21 46 38 76",
+    address: "123 Alpha St, Alpha City",
+    role: "client",
+    enable: "true",
+    note: mockNotes
   }
 ];
 
@@ -109,48 +148,24 @@ const dataEndOfYear: TableData[] = [
   }
 ];
 
-// Colonnes pour les tableaux
 const columns = [
   {
-    accessorKey: "user",
-    header: "Utilisateurs"
-  },
-  {
-    accessorKey: "number",
-    header: "Numéro"
-  },
-  {
-    accessorKey: "date",
-    header: "Date",
-    cell: (info: any) =>
-      new Date(info.getValue() as string).toLocaleDateString(),
-    enableSorting: true
-  },
-  {
-    accessorKey: "content",
-    header: "Contenu"
-  }
-];
-
-const columnsEndOfYear = [
-  {
-    accessorKey: "user",
-    header: "Utilisateurs"
-  },
-  {
-    accessorKey: "number",
-    header: "Numéro"
-  },
-  {
-    accessorKey: "date",
-    header: "Date",
-    cell: (info: any) =>
-      new Date(info.getValue() as string).toLocaleDateString(),
-    enableSorting: true
-  },
-  {
-    accessorKey: "status",
-    header: "Statut"
+    accessorKey: "name",
+    header: "Utilisateurs",
+    cell: (info: any) => {
+      const { avatar, firstName, lastName, email } = info.row.original;
+      return (
+        <div className="flex items-center space-x-2">
+          <img className="w-auto h-8" src={avatar} alt="Logo Plac" />
+          <div className="flex flex-col gap-1">
+            <p className="text-sm font-semibold">
+              {firstName} {lastName}
+            </p>
+            <p className="text-sm text-gray-500">{email}</p>
+          </div>
+        </div>
+      );
+    }
   }
 ];
 
@@ -158,6 +173,7 @@ export default function Home() {
   const handleRowSelectionChange = (selectedRows: TableData[]) => {
     console.log("Selected Rows:", selectedRows);
   };
+  const [search, setSearch] = useState("");
 
   return (
     <div className="flex flex-row bg-white h-full">
@@ -211,13 +227,15 @@ export default function Home() {
                 textColor="text-neutral-950"
                 border="border border-neutral-200 h-12"
                 onClick={() => {}}
+                hover=""
               />
             </div>
           </div>
           <DataTable
-            data={data}
+            data={users.filter((user) =>
+              user.firstName.toLowerCase().includes(search.toLowerCase())
+            )}
             columns={columns}
-            onRowSelectionChange={handleRowSelectionChange}
           />
           <div>
             <p className="text-h2Desktop font-satoshi text-neutral-950">
@@ -243,13 +261,16 @@ export default function Home() {
                 textColor="text-neutral-950"
                 border="border border-neutral-200 h-12"
                 onClick={() => {}}
+                hover=""
               />
             </div>
           </div>
+
           <DataTable
-            data={dataEndOfYear}
-            columns={columnsEndOfYear}
-            onRowSelectionChange={handleRowSelectionChange}
+            data={users.filter((user) =>
+              user.firstName.toLowerCase().includes(search.toLowerCase())
+            )}
+            columns={columns}
           />
         </div>
       </div>
