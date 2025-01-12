@@ -5,7 +5,7 @@ import Header from "@/app/components/header";
 import CustomButton from "@/app/components/custombutton";
 import { FileEdit } from "lucide-react";
 
-export default function EmployeeDetail({employe: }) {
+export default function EmployeeDetail({employe: Empl}) {
   return (
     <div className="flex flex-row bg-white h-full">
       <div className="sticky bg-white hidden md:block border-r border-neutral-200">
