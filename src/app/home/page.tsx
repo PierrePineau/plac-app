@@ -216,6 +216,7 @@ export default function Home() {
               <SearchBar
                 label="Rechercher un utilisateur"
                 placeholder="Rechercher"
+                onChange={(e: string) => setSearch(e)}
               />
               <Dropdown label="Statut" options={options} />
             </div>
@@ -250,6 +251,7 @@ export default function Home() {
               <SearchBar
                 label="Rechercher un utilisateur"
                 placeholder="Rechercher"
+                onChange={(e: string) => setSearch(e)}
               />
               <Dropdown label="Statut" options={options} />
             </div>

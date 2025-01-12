@@ -150,7 +150,7 @@ export default function Employee() {
             <SearchBar
               label="Rechercher un utilisateur"
               placeholder="Rechercher"
-              onChange={(e: string) => setSearch(e.target.value)}
+              onChange={(e: string) => setSearch(e)}
             />
           </div>
           <DataTable
