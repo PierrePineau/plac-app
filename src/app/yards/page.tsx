@@ -1,53 +1,44 @@
-// Chantiers.tsx
 "use client";
-
-import React, { useState } from "react";
-import CustomButton from "../components/custombutton";
-import Header from "../components/header";
+import { useYardStore } from "@/store/yardStore";
+import { useEffect, useState } from "react";
 import NavBar from "../components/navBar";
-import Yard from "../components/yard";
-import "../globals.css";
+import Header from "../components/header";
+import CustomButton from "../components/custombutton";
 import { Filter, PlusIcon } from "lucide-react";
+import Yard from "../components/yard";
 import Popup from "../components/popup";
 import Dropdown from "../components/customDropdown";
 
-const yards = [
-  {
-    id: 1,
-    reference: "Y001",
-    code: 1001,
-    name: "Yard Alpha",
-    description: "Main yard in Alpha City",
-    address: "123 Alpha St, Alpha City",
-    archived: false,
-    deleted: false,
-    client: "Client A",
-    medias: "media1.jpg",
-    files: "file1.pdf"
-  },
-  {
-    id: 2,
-    reference: "Y002",
-    code: 1002,
-    name: "Yard Beta",
-    description: "Secondary yard in Beta City",
-    address: "456 Beta Ave, Beta City",
-    archived: false,
-    deleted: false,
-    client: "Client B",
-    medias: "media2.jpg",
-    files: "file2.pdf"
-  }
-];
-
 export default function Chantiers() {
+  const { yards, fetchYards, addYard } = useYardStore();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  useEffect(() => {
+    fetchYards();
+  }, [fetchYards]);
 
   const handleAddYard = () => {
     setIsPopupOpen(true);
   };
 
   const handleClosePopup = () => {
+    setIsPopupOpen(false);
+  };
+
+  const handleSaveYard = (event: React.FormEvent) => {
+    event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+
+    const newYard = {
+      name: formData.get("name") as string,
+      description: formData.get("description") as string,
+      startDate: formData.get("startDate") as string,
+      endDate: formData.get("endDate") as string,
+      manager: formData.get("manager") as string,
+      status: formData.get("status") as string
+    };
+
+    addYard(newYard);
     setIsPopupOpen(false);
   };
 
@@ -73,6 +64,7 @@ export default function Chantiers() {
                 color="bg-white"
                 textColor="text-neutral-950"
                 onClick={() => {}}
+                hover={""}
               />
               <CustomButton
                 icon={<PlusIcon className="text-white" />}
@@ -80,6 +72,7 @@ export default function Chantiers() {
                 color="bg-brand-950"
                 textColor="text-white"
                 onClick={handleAddYard}
+                hover={""}
               />
             </div>
           </div>
@@ -92,72 +85,79 @@ export default function Chantiers() {
         onClose={handleClosePopup}
         title="Ajouter un chantier"
         desc="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum">
-        <form className="flex flex-col gap-2">
+        <form className="flex flex-col gap-2" onSubmit={handleSaveYard}>
           <div>
             <label
               htmlFor="name"
-              className=" font-satoshi text-paragraphMedium text-neutral-950">
+              className="font-satoshi text-paragraphMedium text-neutral-950">
               Nom du chantier
             </label>
             <input
               type="text"
               id="name"
-              className=" flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
+              name="name"
+              className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
               placeholder="Nom du chantier"
+              required
             />
           </div>
           <div>
             <label
-              htmlFor="name"
-              className=" font-satoshi text-paragraphMedium text-neutral-950">
+              htmlFor="description"
+              className="font-satoshi text-paragraphMedium text-neutral-950">
               Description
             </label>
             <textarea
               id="description"
+              name="description"
               className="flex min-h-40 p-3 justify-center items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
               placeholder="Description"
+              required
             />
           </div>
           <div className="flex flex-row gap-4 justify-between">
             <div>
               <label
-                htmlFor="name"
-                className=" font-satoshi text-paragraphMedium text-neutral-950">
+                htmlFor="startDate"
+                className="font-satoshi text-paragraphMedium text-neutral-950">
                 Date de début
               </label>
               <input
                 type="date"
-                id="name"
-                className=" flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
-                placeholder="Date de début"
+                id="startDate"
+                name="startDate"
+                className="flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
+                required
               />
             </div>
             <div>
               <label
-                htmlFor="name"
-                className=" font-satoshi text-paragraphMedium text-neutral-950">
+                htmlFor="endDate"
+                className="font-satoshi text-paragraphMedium text-neutral-950">
                 Date de fin
               </label>
               <input
                 type="date"
-                id="name"
-                className=" flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
-                placeholder="Date de fin"
+                id="endDate"
+                name="endDate"
+                className="flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
+                required
               />
             </div>
           </div>
           <div className="flex flex-row gap-4 justify-between">
             <div>
               <label
-                htmlFor="name"
-                className=" font-satoshi text-paragraphMedium text-neutral-950">
+                htmlFor="manager"
+                className="font-satoshi text-paragraphMedium text-neutral-950">
                 Chef de chantier
               </label>
               <input
                 type="text"
-                id="name"
-                className=" flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
-                placeholder="Chef de chantier"
+                id="manager"
+                name="manager"
+                className="flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
+                required
               />
             </div>
             <div>

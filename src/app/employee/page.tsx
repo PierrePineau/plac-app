@@ -1,7 +1,7 @@
 // Chantiers.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomButton from "../components/custombutton";
 import Header from "../components/header";
 import NavBar from "../components/navBar";
@@ -12,61 +12,8 @@ import Popup from "../components/popup";
 import Dropdown from "../components/customDropdown";
 import DataTable from "../components/customTab";
 import SearchBar from "../components/searchBar";
+import { useEmployeStore } from "@/store/employeeStore";
 import { useRouter } from "next/navigation";
-
-const mockNotes: Note[] = [
-  {
-    id: 1,
-    title: "Note 1",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ligula quam, gravida sed ultrices eget, hendrerit eget n...",
-    date: "Hier",
-    time: "11h51"
-  },
-  {
-    id: 2,
-    title: "Note 2",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ligula quam, gravida sed ultrices eget, hendrerit eget n...",
-    date: "Hier",
-    time: "11h51"
-  },
-  {
-    id: 3,
-    title: "Note 3",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ligula quam, gravida sed ultrices eget, hendrerit eget n...",
-    date: "Hier",
-    time: "11h51"
-  }
-];
-
-const employees: Employe[] = [
-  {
-    id: 1,
-    lastName: "Doe",
-    firstName: "John",
-    avatar: "/asset/img/avatar.svg",
-    email: "johndoe@gmail.com",
-    phone: "06 21 45 38 76",
-    address: "123 Alpha St, Alpha City",
-    role: "client",
-    enable: "true",
-    note: mockNotes
-  },
-  {
-    id: 2,
-    lastName: "Doe",
-    firstName: "Jason",
-    avatar: "/asset/img/avatar.svg",
-    email: "jasondoe@gmail.com",
-    phone: "06 21 46 38 76",
-    address: "123 Alpha St, Alpha City",
-    role: "client",
-    enable: "true",
-    note: mockNotes
-  }
-];
 
 const columns = [
   {
@@ -97,20 +44,39 @@ const columns = [
 
 export default function Employee() {
   const router = useRouter();
+  const { employes, fetchEmployes, addEmploye } = useEmployeStore();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    fetchEmployes();
+  }, [fetchEmployes]);
 
   const handleAddEmployee = () => {
     setIsPopupOpen(true);
   };
+  const handleRowClick = (row: { id: number }) => {
+    router.push(`/employee/detail/${row.id}`);
+  };
 
-  const handleClosePopup = () => {
+  const handleSaveEmployee = (event: React.FormEvent) => {
+    event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+
+    const newEmploye = {
+      firstName: formData.get("firstName") as string,
+      lastName: formData.get("lastName") as string,
+      email: formData.get("email") as string,
+      phone: formData.get("phone") as string
+    };
+
+    addEmploye(newEmploye);
     setIsPopupOpen(false);
   };
 
-  const handleRowSelectionChange = (selectedRows: any) => {
-    router.push("/employee/detail");
-  };
+  const filteredEmployees = employes.filter((emp) =>
+    emp.firstName.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className="flex flex-row bg-white h-full">
@@ -154,17 +120,16 @@ export default function Employee() {
             />
           </div>
           <DataTable
-            data={employees.filter((emp) =>
-              emp.firstName.toLowerCase().includes(search.toLowerCase())
-            )}
+            data={filteredEmployees}
             columns={columns}
+            onRowClick={handleRowClick}
           />
         </div>
       </div>
 
       <Popup
         isOpen={isPopupOpen}
-        onClose={handleClosePopup}
+        onClose={() => {}}
         title="Ajouter un employer"
         desc="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum">
         <form className="flex flex-col gap-2">

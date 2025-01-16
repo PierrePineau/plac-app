@@ -7,8 +7,23 @@ interface Yard {
   address: string;
   archived: boolean;
   deleted: boolean;
-  client: string; //a terme sera relier avec l'interface client
-  medias: string[]; // relier à la table media
-  files: string; //relier à la table files
+  client: string;
+  medias: string[] | null;
+  files: string[] | null;
+  notes: Note[];
 }
 
+interface Media {
+  id: number;
+  type: number;
+  type_reference: string;
+  alt: number;
+  meta: any[] | null;
+}
+
+interface MediaType {
+  id: number;
+  reference: string;
+  name: string;
+  color: string;
+}

@@ -20,6 +20,7 @@ interface DataTableProps<T> {
     column: ColumnDef<T>,
     row: T
   ) => React.ReactNode;
+  onRowClick?: (row: T) => void;
   enableSorting?: boolean;
   enableRowSelection?: boolean;
 }
@@ -29,6 +30,7 @@ export default function DataTable<T extends object>({
   columns,
   onRowSelectionChange,
   renderCell,
+  onRowClick,
   enableSorting = true,
   enableRowSelection = true
 }: DataTableProps<T>) {
@@ -120,13 +122,17 @@ export default function DataTable<T extends object>({
               key={row.id}
               className={`border-b ${
                 index % 2 === 0 ? "bg-white" : "bg-gray-50"
-              } hover:bg-gray-100 `}>
+              } hover:bg-gray-100 cursor-pointer`}
+              onClick={() => onRowClick?.(row.original)}>
               {enableRowSelection && (
                 <td className="w-14 p-2 text-center">
                   <input
                     type="checkbox"
                     checked={selectedRows.has(row.index)}
-                    onChange={() => handleRowSelection(row.index)}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      handleRowSelection(row.index);
+                    }}
                   />
                 </td>
               )}
@@ -142,7 +148,9 @@ export default function DataTable<T extends object>({
                       )
                     : flexRender(cell.column.columnDef.cell, cell.getContext())}
                   {index === row.getVisibleCells().length - 1 && (
-                    <button className="">
+                    <button
+                      className="ml-2"
+                      onClick={(e) => e.stopPropagation()}>
                       <EllipsisVertical />
                     </button>
                   )}
