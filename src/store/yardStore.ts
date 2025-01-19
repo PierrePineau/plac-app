@@ -1,13 +1,9 @@
 import { create } from "zustand";
-import { mockYards, mockMedias, mockMediaTypes } from "@/core/mock/yards";
+import { mockYards } from "@/core/mock/yards";
 
 interface YardStore {
   yards: Yard[];
-  medias: Media[];
-  mediaTypes: MediaType[];
   fetchYards: () => Promise<void>;
-  fetchMedias: () => Promise<void>;
-  fetchMediaTypes: () => Promise<void>;
   getYardById: (id: number) => Yard | undefined;
   addYard: (yard: Omit<Yard, "id">) => Promise<void>;
   updateYard: (id: number, updatedYard: Partial<Yard>) => Promise<void>;
@@ -16,8 +12,6 @@ interface YardStore {
 
 export const useYardStore = create<YardStore>((set, get) => ({
   yards: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockYards : [],
-  medias: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockMedias : [],
-  mediaTypes: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockMediaTypes : [],
   fetchYards: async () => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set(() => ({ yards: mockYards }));
@@ -27,34 +21,6 @@ export const useYardStore = create<YardStore>((set, get) => ({
         if (!response.ok) throw new Error("Failed to fetch yards");
         const data: Yard[] = await response.json();
         set(() => ({ yards: data }));
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  },
-  fetchMedias: async () => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
-      set(() => ({ medias: mockMedias }));
-    } else {
-      try {
-        const response = await fetch("/api/medias");
-        if (!response.ok) throw new Error("Failed to fetch medias");
-        const data: Media[] = await response.json();
-        set(() => ({ medias: data }));
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  },
-  fetchMediaTypes: async () => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
-      set(() => ({ mediaTypes: mockMediaTypes }));
-    } else {
-      try {
-        const response = await fetch("/api/media-types");
-        if (!response.ok) throw new Error("Failed to fetch media types");
-        const data: MediaType[] = await response.json();
-        set(() => ({ mediaTypes: data }));
       } catch (error) {
         console.error(error);
       }

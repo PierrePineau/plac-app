@@ -1,7 +1,12 @@
 import BubbleText from "@/app/components/bubbleText";
-import { Users } from "lucide-react";
+import { ArrowUpRight, Users } from "lucide-react";
 
-export default function Stats({ title, value }: StatsProps): JSX.Element {
+export default function Stats({
+  title,
+  value,
+  redirectText,
+  onClick
+}: StatsProps): JSX.Element {
   return (
     <div className="flex flex-col gap-6 border rounded-lg p-6">
       <BubbleText
@@ -18,6 +23,14 @@ export default function Stats({ title, value }: StatsProps): JSX.Element {
         <p className="text-neutral-950 font-bold font-satoshi text-stat">
           {value}
         </p>
+        <button onClick={onClick}>
+          <div className="flex flex-row gap-2">
+            <ArrowUpRight className="text-brand-500" />
+            <p className="text-brand-500 font-satoshi text-paragraphMedium">
+              {redirectText}
+            </p>
+          </div>
+        </button>
       </div>
     </div>
   );

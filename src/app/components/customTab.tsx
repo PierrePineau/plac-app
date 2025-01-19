@@ -23,6 +23,7 @@ interface DataTableProps<T> {
   onRowClick?: (row: T) => void;
   enableSorting?: boolean;
   enableRowSelection?: boolean;
+  ellipsisEnabled?: boolean;
 }
 
 export default function DataTable<T extends object>({
@@ -32,7 +33,8 @@ export default function DataTable<T extends object>({
   renderCell,
   onRowClick,
   enableSorting = true,
-  enableRowSelection = true
+  enableRowSelection = true,
+  ellipsisEnabled = true
 }: DataTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
@@ -147,13 +149,14 @@ export default function DataTable<T extends object>({
                         row.original
                       )
                     : flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  {index === row.getVisibleCells().length - 1 && (
-                    <button
-                      className="ml-2"
-                      onClick={(e) => e.stopPropagation()}>
-                      <EllipsisVertical />
-                    </button>
-                  )}
+                  {index === row.getVisibleCells().length - 1 &&
+                    ellipsisEnabled && (
+                      <button
+                        className="ml-2"
+                        onClick={(e) => e.stopPropagation()}>
+                        <EllipsisVertical />
+                      </button>
+                    )}
                 </td>
               ))}
             </tr>

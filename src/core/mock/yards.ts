@@ -1,54 +1,4 @@
-export const mockMediaTypes = [
-  {
-    id: 1,
-    reference: "IMAGE",
-    name: "Image",
-    color: "#FF5733"
-  },
-  {
-    id: 2,
-    reference: "VIDEO",
-    name: "Video",
-    color: "#33C4FF"
-  },
-  {
-    id: 3,
-    reference: "DOCUMENT",
-    name: "Document",
-    color: "#28A745"
-  }
-];
-
-export const mockMedias = [
-  {
-    id: 1,
-    type: 1,
-    type_reference: "IMAGE",
-    alt: 1,
-    meta: []
-  },
-  {
-    id: 2,
-    type: 2,
-    type_reference: "VIDEO",
-    alt: 2,
-    meta: []
-  },
-  {
-    id: 3,
-    type: 3,
-    type_reference: "DOCUMENT",
-    alt: 3,
-    meta: []
-  },
-  {
-    id: 4,
-    type: 1,
-    type_reference: "IMAGE",
-    alt: 4,
-    meta: []
-  }
-];
+import { mockNotes } from "./note";
 
 export const mockYards = [
   {
@@ -63,23 +13,7 @@ export const mockYards = [
     client: "Client A",
     medias: ["image1.jpg", "image2.jpg"],
     files: ["document1.pdf"],
-    notes: [
-      {
-        id: 1,
-        title: "Réunion de chantier",
-        description:
-          "Planification des étapes pour la prochaine phase du projet.",
-        date: "2025-01-15",
-        time: "10:00"
-      },
-      {
-        id: 2,
-        title: "Inspection de sécurité",
-        description: "Vérification des mesures de sécurité sur le site.",
-        date: "2025-01-16",
-        time: "14:00"
-      }
-    ]
+    notes: [mockNotes[0], mockNotes[1]]
   },
   {
     id: 2,
@@ -93,16 +27,7 @@ export const mockYards = [
     client: "Client B",
     medias: ["image3.jpg", "image4.jpg"],
     files: ["document2.pdf"],
-    notes: [
-      {
-        id: 3,
-        title: "Livraison des matériaux",
-        description:
-          "Réception et stockage des matériaux pour la construction.",
-        date: "2025-01-17",
-        time: "08:30"
-      }
-    ]
+    notes: [mockNotes[2], mockNotes[1]]
   },
   {
     id: 3,

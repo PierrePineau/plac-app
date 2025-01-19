@@ -1,42 +1,54 @@
-export const mockEmployes = [
+import { mockOrganisations } from "./organisation";
+
+export const mockEmployes: Employe[] = [
   {
     id: 1,
-    lastName: "Doe",
-    firstName: "John",
-    avatar: "/asset/img/avatar.svg",
-    email: "john.doe@example.com",
-    phone: "+123456789",
-    address: "123 Main St, City, Country",
-    role: "Manager",
-    enable: "true",
-    note: [
-      {
-        id: 1,
-        title: "Excellent performance",
-        description: "John completed the project ahead of schedule.",
-        date: "2025-01-01",
-        time: "10:00"
-      }
-    ]
+    uuid: "123e4567-e89b-12d3-a456-426614174001",
+    email: "employe1@example.com",
+    username: "employe1",
+    firstname: "John",
+    lastname: "Doe",
+    roles: ["ROLE_EMPLOYE", "ROLE_USER"],
+    organisations: [mockOrganisations[0], mockOrganisations[1]]
   },
   {
     id: 2,
-    lastName: "Smith",
-    firstName: "Jane",
-    avatar: "/asset/img/avatar.svg",
-    email: "jane.smith@example.com",
-    phone: "+987654321",
-    address: "456 Another Rd, City, Country",
-    role: "Engineer",
-    enable: "true",
-    note: [
-      {
-        id: 2,
-        title: "Needs Improvement",
-        description: "Missed deadlines on several tasks.",
-        date: "2025-01-02",
-        time: "14:00"
-      }
-    ]
+    uuid: "123e4567-e89b-12d3-a456-426614174002",
+    email: "employe2@example.com",
+    username: "employe2",
+    firstname: "Jane",
+    lastname: "Smith",
+    roles: ["ROLE_MANAGER"],
+    organisations: [mockOrganisations[2]]
+  },
+  {
+    id: 3,
+    uuid: "123e4567-e89b-12d3-a456-426614174003",
+    email: "employe3@example.com",
+    username: "employe3",
+    firstname: "Alice",
+    lastname: "Johnson",
+    roles: ["ROLE_EMPLOYE"],
+    organisations: []
+  },
+  {
+    id: 4,
+    uuid: "123e4567-e89b-12d3-a456-426614174004",
+    email: "employe4@example.com",
+    username: "employe4",
+    firstname: "Bob",
+    lastname: "Williams",
+    roles: ["ROLE_ADMIN"],
+    organisations: [mockOrganisations[1]]
+  },
+  {
+    id: 5,
+    uuid: "123e4567-e89b-12d3-a456-426614174005",
+    email: "employe5@example.com",
+    username: "employe5",
+    firstname: "Charlie",
+    lastname: "Brown",
+    roles: ["ROLE_USER"],
+    organisations: []
   }
 ];

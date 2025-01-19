@@ -1,12 +1,10 @@
 interface Employe {
   id: number;
-  lastName: string;
-  firstName: string;
-  avatar: string;
-  email: string;
-  phone: string;
-  address: string;
-  role: string;
-  enable: string;
-  note: Note[];
+  uuid: string;
+  email?: string;
+  username: string;
+  firstname?: string;
+  lastname?: string;
+  roles: string[];
+  organisations: Organisation[];
 }

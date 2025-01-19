@@ -1,18 +1,13 @@
 interface User {
   id: number;
-  token: string;
-  device: number;
-  username: string;
-  firstname: string;
-  lastname: string;
+  uuid: string;
   email: string;
-  roles: string;
+  roles: string[];
+  password?: string;
+  deleted: boolean;
+  deletedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
   enable: boolean;
-  disabled: boolean;
-}
-
-interface Device {
-  id: number;
-  data: string;
-  enable: boolean;
+  userOrganisations: Organisation[];
 }

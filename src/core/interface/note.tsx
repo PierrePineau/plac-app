@@ -1,7 +1,9 @@
 interface Note {
   id: number;
-  title: string;
-  description: string;
-  date: string;
-  time: string;
+  uuid: string;
+  name?: string;
+  content?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  projects: Project[];
 }

@@ -1,0 +1,3 @@
+interface Status {
+  id: number;
+}
