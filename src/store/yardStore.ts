@@ -1,5 +1,5 @@
+import { mockYards } from "@/core/mock/data";
 import { create } from "zustand";
-import { mockYards } from "@/core/mock/yards";
 
 interface YardStore {
   yards: Yard[];

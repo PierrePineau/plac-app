@@ -1,4 +1,4 @@
-import { mockNotes } from "@/core/mock/note";
+import { mockNotes } from "@/core/mock/data";
 import { create } from "zustand";
 interface NoteState {
   notes: Note[];

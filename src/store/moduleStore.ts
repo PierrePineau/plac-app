@@ -1,4 +1,5 @@
-import { mockModules } from '@/core/mock/module';
+
+import { mockModules } from '@/core/mock/data';
 import { create } from 'zustand';
 
 interface ModuleState {

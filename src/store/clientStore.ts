@@ -1,4 +1,4 @@
-import { mockClients } from "@/core/mock/client";
+import { mockClients } from "@/core/mock/data";
 import { create } from "zustand";
 
 interface ClientState {

@@ -1,4 +1,4 @@
-import { mockUsers } from '@/core/mock/user';
+import { mockUsers } from '@/core/mock/data';
 import { create } from 'zustand';
 
 interface UserState {

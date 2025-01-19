@@ -2,7 +2,6 @@ import { create } from "zustand";
 
 interface AuthState {
   user: User | null;
-  device: Device | null;
   isLoading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
@@ -40,5 +39,5 @@ export const useAuthStore = create<AuthState>((set) => ({
       console.error("Erreur réseau :", error);
     }
   },
-  logout: () => set({ user: null, device: null })
+  logout: () => set({ user: null })
 }));

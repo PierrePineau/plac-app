@@ -1,4 +1,4 @@
-import { mockOrganisations } from "@/core/mock/organisation";
+import { mockOrganisations } from "@/core/mock/data";
 import { create } from "zustand";
 
 interface OrganisationState {

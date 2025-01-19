@@ -1,4 +1,4 @@
-import { mockStatuses } from "@/core/mock/status";
+import { mockStatuses } from "@/core/mock/data";
 import { create } from "zustand";
 
 interface StatusState {

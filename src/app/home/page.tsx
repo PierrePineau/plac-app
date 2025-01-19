@@ -4,11 +4,8 @@ import Dropdown from "../components/customDropdown";
 import DataTable from "../components/customTab";
 import Header from "../components/header";
 import NavBar from "../components/navBar";
-import SearchBar from "../components/searchBar";
 import Stats from "./components/stats";
-import Yard from "../components/yard";
 import "../globals.css";
-import CustomButton from "../components/custombutton";
 import { useState, useEffect } from "react";
 import { useYardStore } from "@/store/yardStore";
 import { useEmployeStore } from "@/store/employeeStore";
@@ -56,7 +53,7 @@ export default function Home() {
 
   const ongoingYards = yards.filter((yard) => !yard.archived && !yard.deleted);
   const filteredEmployees = employes.filter((emp) =>
-    emp.firstName.toLowerCase().includes(search.toLowerCase())
+    emp.firstname?.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleEmployeeClick = (employeeId: number) => {

@@ -1,4 +1,4 @@
-import { mockPlans } from "@/core/mock/plan";
+import { mockPlans } from "@/core/mock/data";
 import { create } from "zustand";
 
 interface PlanState {
