@@ -10,10 +10,9 @@ interface ProjectState {
 }
 
 export const useProjectStore = create<ProjectState>((set) => ({
-  projects:
-    process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" ? mockProjects : [],
+  projects: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockProjects : [],
   fetchProjects: async () => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") return;
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
       const response = await fetch("/api/projects");
       const data: Project[] = await response.json();
@@ -23,7 +22,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
     }
   },
   createProject: async (project) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       const newMockProject: Project = {
         id: mockProjects.length + 1,
         uuid: (Math.random() * 100000).toString(),
@@ -48,7 +47,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
     }
   },
   updateProject: async (id, project) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         projects: state.projects.map((p) =>
           p.id === id ? { ...p, ...project } : p
@@ -71,7 +70,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
     }
   },
   deleteProject: async (id) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         projects: state.projects.filter((p) => p.id !== id)
       }));

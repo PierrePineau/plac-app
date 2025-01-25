@@ -10,9 +10,9 @@ interface FileState {
 }
 
 export const useFileStore = create<FileState>((set) => ({
-  files: process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" ? mockFiles : [],
+  files: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockFiles : [],
   fetchFiles: async () => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") return;
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
       const response = await fetch("/api/files");
       const data: ProjectFile[] = await response.json();
@@ -22,7 +22,7 @@ export const useFileStore = create<FileState>((set) => ({
     }
   },
   createFile: async (file) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       const newMockFile: ProjectFile = {
         id: mockFiles.length + 1,
         createdAt: new Date(),
@@ -47,7 +47,7 @@ export const useFileStore = create<FileState>((set) => ({
     }
   },
   updateFile: async (id, file) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         files: state.files.map((f) => (f.id === id ? { ...f, ...file } : f))
       }));
@@ -68,7 +68,7 @@ export const useFileStore = create<FileState>((set) => ({
     }
   },
   deleteFile: async (id) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         files: state.files.filter((f) => f.id !== id)
       }));

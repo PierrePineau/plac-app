@@ -14,9 +14,9 @@ interface OrganisationState {
 
 export const useOrganisationStore = create<OrganisationState>((set) => ({
   organisations:
-    process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" ? mockOrganisations : [],
+    process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockOrganisations : [],
   fetchOrganisations: async () => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") return;
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
       const response = await fetch("/api/organisations");
       const data: Organisation[] = await response.json();
@@ -26,7 +26,7 @@ export const useOrganisationStore = create<OrganisationState>((set) => ({
     }
   },
   createOrganisation: async (organisation) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       const newMockOrganisation: Organisation = {
         id: mockOrganisations.length + 1,
         uuid: (Math.random() * 100000).toString(),
@@ -56,7 +56,7 @@ export const useOrganisationStore = create<OrganisationState>((set) => ({
     }
   },
   updateOrganisation: async (id, organisation) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         organisations: state.organisations.map((o) =>
           o.id === id ? { ...o, ...organisation } : o
@@ -81,7 +81,7 @@ export const useOrganisationStore = create<OrganisationState>((set) => ({
     }
   },
   deleteOrganisation: async (id) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         organisations: state.organisations.filter((o) => o.id !== id)
       }));

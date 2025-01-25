@@ -9,9 +9,9 @@ interface NoteState {
 }
 
 export const useNoteStore = create<NoteState>((set) => ({
-  notes: process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" ? mockNotes : [],
+  notes: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockNotes : [],
   fetchNotes: async () => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") return;
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
       const response = await fetch("/api/notes");
       const data: Note[] = await response.json();
@@ -21,7 +21,7 @@ export const useNoteStore = create<NoteState>((set) => ({
     }
   },
   createNote: async (note) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       const newMockNote: Note = {
         id: mockNotes.length + 1,
         uuid: (Math.random() * 100000).toString(),
@@ -46,7 +46,7 @@ export const useNoteStore = create<NoteState>((set) => ({
     }
   },
   updateNote: async (id, note) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         notes: state.notes.map((n) => (n.id === id ? { ...n, ...note } : n))
       }));
@@ -67,7 +67,7 @@ export const useNoteStore = create<NoteState>((set) => ({
     }
   },
   deleteNote: async (id) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         notes: state.notes.filter((n) => n.id !== id)
       }));

@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { useYardStore } from "@/store/yardStore";
 import { useEmployeStore } from "@/store/employeeStore";
 import { useRouter } from "next/navigation";
+import ProgressBar from "../components/progressBar";
 
 type TableData = {
   user: string;
@@ -24,15 +25,19 @@ const columns = [
     accessorKey: "name",
     header: "Utilisateurs",
     cell: (info: any) => {
-      const { avatar, firstName, lastName, email } = info.row.original;
+      const { firstname, lastname, email, username } = info.row.original;
       return (
         <div className="flex items-center space-x-2">
-          <img className="w-auto h-8 rounded-full" src={avatar} alt="Avatar" />
+          <img
+            className="w-auto h-8 rounded-full"
+            src="/asset/img/avatar.svg"
+            alt="Avatar"
+          />
           <div className="flex flex-col">
-            <p className="text-sm font-semibold">
-              {firstName} {lastName}
+            <p className="font-satoshi text-paragraphBold text-neutral-950">
+              {firstname} {lastname}
             </p>
-            <p className="text-sm text-gray-500">{email}</p>
+            <p className="font-satoshi text-gray-500">{email}</p>
           </div>
         </div>
       );
@@ -122,17 +127,9 @@ export default function Home() {
               <p className=" font-satoshi text-h2Desktop text-neutral-950">
                 Progression des chantiers en cours
               </p>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 border border-neutral-200 p-6 rounded-lg">
                 {ongoingYards.map((yard) => (
-                  <div
-                    key={yard.id}
-                    className="p-4 border rounded-md shadow hover:shadow-lg cursor-pointer"
-                    onClick={() => handleYardClick(yard.id)}>
-                    <p className="font-satoshi text-neutral-950">{yard.name}</p>
-                    <p className="text-sm text-neutral-600">
-                      {yard.description}
-                    </p>
-                  </div>
+                  <ProgressBar label={yard.name} progress={60} />
                 ))}
               </div>
             </div>

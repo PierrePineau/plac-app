@@ -394,7 +394,39 @@ export const mockUsers: User[] = [
   }
 ];
 
-//yard mock
+// notification mock
+export const mockNotifications: Notif[] = [
+  {
+    id: 1,
+    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    createdAt: new Date("2024-04-23T18:15:00"),
+    read: false,
+    sender: mockEmployes[0]
+  },
+  {
+    id: 2,
+    message: "Vestibulum at semper nibh. Vestibulum sagittis mi at enim.",
+    createdAt: new Date("2025-01-23T18:15:00"),
+    read: true,
+    sender: mockEmployes[1]
+  },
+  {
+    id: 3,
+    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    createdAt: new Date("2024-04-23T18:15:00"),
+    read: false,
+    sender: mockEmployes[0]
+  },
+  {
+    id: 4,
+    message: "Vestibulum at semper nibh. Vestibulum sagittis mi at enim.",
+    createdAt: new Date("2025-01-23T18:15:00"),
+    read: true,
+    sender: mockEmployes[1]
+  }
+];
+
+// yard mock
 export const mockYards = [
   {
     id: 1,

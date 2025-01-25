@@ -14,9 +14,9 @@ interface SubscriptionState {
 
 export const useSubscriptionStore = create<SubscriptionState>((set) => ({
   subscriptions:
-    process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" ? mockSubscriptions : [],
+    process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockSubscriptions : [],
   fetchSubscriptions: async () => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") return;
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
       const response = await fetch("/api/subscriptions");
       const data: Subscription[] = await response.json();
@@ -26,7 +26,7 @@ export const useSubscriptionStore = create<SubscriptionState>((set) => ({
     }
   },
   createSubscription: async (subscription) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       const newMockSubscription: Subscription = {
         id: mockSubscriptions.length + 1,
         organisationSubscriptions: subscription.organisationSubscriptions ?? []
@@ -51,7 +51,7 @@ export const useSubscriptionStore = create<SubscriptionState>((set) => ({
     }
   },
   updateSubscription: async (id, subscription) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         subscriptions: state.subscriptions.map((s) =>
           s.id === id ? { ...s, ...subscription } : s
@@ -76,7 +76,7 @@ export const useSubscriptionStore = create<SubscriptionState>((set) => ({
     }
   },
   deleteSubscription: async (id) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         subscriptions: state.subscriptions.filter((s) => s.id !== id)
       }));

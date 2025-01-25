@@ -10,9 +10,9 @@ interface PlanState {
 }
 
 export const usePlanStore = create<PlanState>((set) => ({
-  plans: process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" ? mockPlans : [],
+  plans: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockPlans : [],
   fetchPlans: async () => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") return;
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
       const response = await fetch("/api/plans");
       const data: Plan[] = await response.json();
@@ -22,7 +22,7 @@ export const usePlanStore = create<PlanState>((set) => ({
     }
   },
   createPlan: async (plan) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       const newMockPlan: Plan = {
         id: mockPlans.length + 1,
         reference: `PLAN${mockPlans.length + 1}`,
@@ -47,7 +47,7 @@ export const usePlanStore = create<PlanState>((set) => ({
     }
   },
   updatePlan: async (id, plan) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         plans: state.plans.map((p) => (p.id === id ? { ...p, ...plan } : p))
       }));
@@ -68,7 +68,7 @@ export const usePlanStore = create<PlanState>((set) => ({
     }
   },
   deletePlan: async (id) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         plans: state.plans.filter((p) => p.id !== id)
       }));

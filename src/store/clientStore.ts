@@ -10,9 +10,9 @@ interface ClientState {
 }
 
 export const useClientStore = create<ClientState>((set) => ({
-  clients: process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" ? mockClients : [],
+  clients: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockClients : [],
   fetchClients: async () => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") return;
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
       const response = await fetch("/api/clients");
       const data: Client[] = await response.json();
@@ -22,7 +22,7 @@ export const useClientStore = create<ClientState>((set) => ({
     }
   },
   createClient: async (client) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       const newMockClient: Client = {
         id: (Math.random() * 100000).toString(),
         createdAt: new Date(),
@@ -48,7 +48,7 @@ export const useClientStore = create<ClientState>((set) => ({
     }
   },
   updateClient: async (id, client) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         clients: state.clients.map((c) =>
           c.id === id ? { ...c, ...client } : c
@@ -71,7 +71,7 @@ export const useClientStore = create<ClientState>((set) => ({
     }
   },
   deleteClient: async (id) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         clients: state.clients.filter((c) => c.id !== id)
       }));

@@ -10,10 +10,9 @@ interface StatusState {
 }
 
 export const useStatusStore = create<StatusState>((set) => ({
-  statuses:
-    process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" ? mockStatuses : [],
+  statuses: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockStatuses : [],
   fetchStatuses: async () => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") return;
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
       const response = await fetch("/api/statuses");
       const data: Status[] = await response.json();
@@ -23,7 +22,7 @@ export const useStatusStore = create<StatusState>((set) => ({
     }
   },
   createStatus: async (status) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       const newMockStatus: Status = {
         id: mockStatuses.length + 1,
         ...status
@@ -44,7 +43,7 @@ export const useStatusStore = create<StatusState>((set) => ({
     }
   },
   updateStatus: async (id, status) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         statuses: state.statuses.map((s) =>
           s.id === id ? { ...s, ...status } : s
@@ -67,7 +66,7 @@ export const useStatusStore = create<StatusState>((set) => ({
     }
   },
   deleteStatus: async (id) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set((state) => ({
         statuses: state.statuses.filter((s) => s.id !== id)
       }));
