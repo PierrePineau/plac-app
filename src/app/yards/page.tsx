@@ -8,6 +8,7 @@ import { Filter, PlusIcon } from "lucide-react";
 import Yard from "../components/yard";
 import Popup from "../components/popup";
 import Dropdown from "../components/customDropdown";
+import DragDrop from "./components/drag_file_component";
 
 export default function Chantiers() {
   const { yards, fetchYards, addYard } = useYardStore();
@@ -167,6 +168,66 @@ export default function Chantiers() {
                 maxWidth="min-w-56"
               />
             </div>
+          </div>
+          <div>
+            <label
+              htmlFor="adress"
+              className="font-satoshi text-paragraphMedium text-neutral-950">
+              Adresse
+            </label>
+            <input
+              type="text"
+              id="adress"
+              name="adress"
+              className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
+              placeholder="Adresse"
+              required
+            />
+          </div>
+          <div className="flex flex-row gap-4 justify-between">
+            <div>
+              <label
+                htmlFor="postal_code"
+                className="font-satoshi text-paragraphMedium text-neutral-950">
+                Code Postal
+              </label>
+              <input
+                type="text"
+                id="postal_code"
+                name="postal_code"
+                className="flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="city"
+                className="font-satoshi text-paragraphMedium text-neutral-950">
+                Ville
+              </label>
+              <input
+                type="text"
+                id="city"
+                name="city"
+                className="flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <Dropdown
+              label="Choisir un client"
+              options={["test", "test2", "test3"]}
+              maxWidth="flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded min-w-56"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="image"
+              className="font-satoshi text-paragraphMedium text-neutral-950">
+              Ajouter une image de couverture
+            </label>
+            <DragDrop width="w-full" height="h-full" onDrop={() => {}} />
           </div>
           <button
             type="submit"
