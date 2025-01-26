@@ -30,13 +30,20 @@ export default function Chantiers() {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
 
-    const newYard = {
+    const newYard: Omit<Yard, "id"> = {
+      reference: `YRD-${Math.floor(1000 + Math.random() * 9000)}`,
+      code: Math.floor(1000 + Math.random() * 9000),
       name: formData.get("name") as string,
       description: formData.get("description") as string,
-      startDate: formData.get("startDate") as string,
-      endDate: formData.get("endDate") as string,
-      manager: formData.get("manager") as string,
-      status: formData.get("status") as string
+      address: `${formData.get("adress") as string}, ${
+        formData.get("city") as string
+      }, ${formData.get("postal_code") as string}`,
+      archived: false,
+      deleted: false,
+      client: formData.get("client") as string,
+      medias: null,
+      files: null,
+      notes: []
     };
 
     addYard(newYard);
