@@ -7,10 +7,10 @@ import NavBar from "../components/navBar";
 import Stats from "./components/stats";
 import "../globals.css";
 import { useState, useEffect } from "react";
-import { useYardStore } from "@/store/yardStore";
 import { useEmployeStore } from "@/store/employeeStore";
 import { useRouter } from "next/navigation";
 import ProgressBar from "../components/progressBar";
+import { useProjectStore } from "@/store/projectStore";
 
 type TableData = {
   user: string;
@@ -47,16 +47,18 @@ const columns = [
 
 export default function Home() {
   const router = useRouter();
-  const { yards, fetchYards } = useYardStore();
+  const { projects, fetchProjects } = useProjectStore();
   const { employes, fetchEmployes } = useEmployeStore();
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetchYards();
+    fetchProjects();
     fetchEmployes();
-  }, [fetchYards, fetchEmployes]);
+  }, [fetchProjects, fetchEmployes]);
 
-  const ongoingYards = yards.filter((yard) => !yard.archived && !yard.deleted);
+  const ongoingYards = projects.filter(
+    (project) => project.status.label === "En cours"
+  );
   const filteredEmployees = employes.filter((emp) =>
     emp.firstname?.toLowerCase().includes(search.toLowerCase())
   );
@@ -105,7 +107,9 @@ export default function Home() {
             <Stats
               title="Nombre de chantiers à venir"
               value={
-                yards.filter((yard) => yard.archived && !yard.deleted).length
+                projects.filter(
+                  (project) => project.status.label === "En cours"
+                ).length
               }
               redirectText="Voir mes chantiers à venir"
               onClick={() => router.push("/yards/upcoming")}

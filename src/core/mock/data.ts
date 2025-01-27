@@ -248,31 +248,152 @@ export const mockNotes: Note[] = [
   }
 ];
 
-// project mock
+//status mock
+export const mockStatuses: Status[] = [
+  { id: 1, label: "En pause", color: "#6C757D" },
+  { id: 2, label: "Terminé", color: "#28A745" },
+  { id: 3, label: "En cours", color: "#007BFF" },
+  { id: 4, label: "Annulé", color: "#DC3545" }
+];
+
+//project mock
 export const mockProjects: Project[] = [
   {
     id: 1,
     uuid: "123e4567-e89b-12d3-a456-426614174001",
     reference: "PRJ-001",
-    name: "Project One",
+    name: "Développement Plateforme Web",
+    description: "Création d'une plateforme web robuste et évolutive.",
     notes: [mockNotes[0], mockNotes[1]],
-    files: []
+    organisaton: mockOrganisations[0],
+    files: [],
+    status: { id: 1, label: "En cours", color: "#007BFF" },
+    createAt: new Date("2025-01-01T10:00:00Z"),
+    updateAt: new Date("2025-01-02T15:30:00Z")
   },
   {
     id: 2,
     uuid: "123e4567-e89b-12d3-a456-426614174002",
     reference: "PRJ-002",
-    name: "Project Two",
+    name: "Migration Infrastructure",
+    description: "Migration complète vers une nouvelle infrastructure cloud.",
     notes: [mockNotes[2]],
-    files: []
+    organisaton: mockOrganisations[1],
+    files: [],
+    status: mockStatuses[0],
+    createAt: new Date("2025-02-01T10:00:00Z"),
+    updateAt: new Date("2025-02-02T15:30:00Z")
   },
   {
     id: 3,
     uuid: "123e4567-e89b-12d3-a456-426614174003",
     reference: "PRJ-003",
-    name: "Project Three",
+    name: "Rénovation Infrastructure",
+    description:
+      "Amélioration de l'infrastructure existante pour plus de performance.",
     notes: [],
-    files: []
+    organisaton: mockOrganisations[2],
+    files: [],
+    status: mockStatuses[0],
+    createAt: new Date("2025-03-01T10:00:00Z"),
+    updateAt: new Date("2025-03-02T15:30:00Z")
+  },
+  {
+    id: 4,
+    uuid: "123e4567-e89b-12d3-a456-426614174004",
+    reference: "PRJ-004",
+    name: "Développement Application Mobile",
+    description:
+      "Conception d'une application mobile native pour Android et iOS.",
+    notes: [],
+    organisaton: mockOrganisations[0],
+    files: [],
+    status: mockStatuses[0],
+    createAt: new Date("2025-01-05T12:00:00Z"),
+    updateAt: new Date("2025-01-10T15:30:00Z")
+  },
+  {
+    id: 5,
+    uuid: "123e4567-e89b-12d3-a456-426614174005",
+    reference: "PRJ-005",
+    name: "Recherche & Développement IA",
+    description:
+      "Exploration et prototypage de solutions basées sur l'intelligence artificielle.",
+    notes: [],
+    organisaton: mockOrganisations[1],
+    files: [],
+    status: mockStatuses[2],
+    createAt: new Date("2025-01-15T10:00:00Z"),
+    updateAt: new Date("2025-01-20T10:00:00Z")
+  },
+  {
+    id: 6,
+    uuid: "123e4567-e89b-12d3-a456-426614174006",
+    reference: "PRJ-006",
+    name: "Analyse des Données",
+    description:
+      "Analyse approfondie des données pour améliorer les prises de décision.",
+    notes: [mockNotes[0]],
+    organisaton: mockOrganisations[2],
+    files: [],
+    status: mockStatuses[0],
+    createAt: new Date("2025-01-25T10:00:00Z"),
+    updateAt: new Date("2025-01-30T10:00:00Z")
+  },
+  {
+    id: 7,
+    uuid: "123e4567-e89b-12d3-a456-426614174007",
+    reference: "PRJ-007",
+    name: "Déploiement Cloud",
+    description:
+      "Déploiement d'une infrastructure entièrement cloud pour un client.",
+    notes: [],
+    organisaton: mockOrganisations[0],
+    files: [],
+    status: mockStatuses[0],
+    createAt: new Date("2025-02-05T10:00:00Z"),
+    updateAt: new Date("2025-02-10T10:00:00Z")
+  },
+  {
+    id: 8,
+    uuid: "123e4567-e89b-12d3-a456-426614174008",
+    reference: "PRJ-008",
+    name: "Refonte Site E-commerce",
+    description:
+      "Amélioration du design et des performances d'un site e-commerce.",
+    notes: [],
+    organisaton: mockOrganisations[1],
+    files: [],
+    status: mockStatuses[2],
+    createAt: new Date("2025-02-15T10:00:00Z"),
+    updateAt: new Date("2025-02-20T10:00:00Z")
+  },
+  {
+    id: 9,
+    uuid: "123e4567-e89b-12d3-a456-426614174009",
+    reference: "PRJ-009",
+    name: "Formation Interne",
+    description:
+      "Organisation de sessions de formation interne pour les employés.",
+    notes: [],
+    organisaton: mockOrganisations[2],
+    files: [],
+    status: mockStatuses[1],
+    createAt: new Date("2025-02-25T10:00:00Z"),
+    updateAt: new Date("2025-03-01T10:00:00Z")
+  },
+  {
+    id: 10,
+    uuid: "123e4567-e89b-12d3-a456-426614174010",
+    reference: "PRJ-010",
+    name: "Audit Sécurité",
+    description: "Audit complet de la sécurité des systèmes informatiques.",
+    notes: [],
+    organisaton: mockOrganisations[0],
+    files: [],
+    status: mockStatuses[3],
+    createAt: new Date("2025-03-05T10:00:00Z"),
+    updateAt: new Date("2025-03-10T10:00:00Z")
   }
 ];
 
@@ -330,15 +451,6 @@ mockNotes[2].projects = [mockProjects[1]];
 mockProjects[0].files = [mockFiles[0]];
 mockProjects[1].files = [mockFiles[1]];
 mockProjects[2].files = [mockFiles[2]];
-
-//status mock
-export const mockStatuses: Status[] = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 }
-];
 
 //subscription mock
 export const mockSubscriptions: Subscription[] = [
@@ -423,149 +535,5 @@ export const mockNotifications: Notif[] = [
     createdAt: new Date("2025-01-23T18:15:00"),
     read: true,
     sender: mockEmployes[1]
-  }
-];
-
-// yard mock
-export const mockYards = [
-  {
-    id: 1,
-    reference: "YRD-001",
-    code: 1001,
-    name: "Construction Maison A",
-    description: "Construction d’une maison moderne avec piscine.",
-    address: "123 Rue de la Paix, Paris, France",
-    archived: false,
-    deleted: false,
-    client: "Client A",
-    medias: ["image1.jpg", "image2.jpg"],
-    files: ["document1.pdf"],
-    notes: [mockNotes[0], mockNotes[1]]
-  },
-  {
-    id: 2,
-    reference: "YRD-002",
-    code: 1002,
-    name: "Rénovation Appartement B",
-    description: "Rénovation complète d’un appartement.",
-    address: "456 Boulevard Haussmann, Paris, France",
-    archived: false,
-    deleted: false,
-    client: "Client B",
-    medias: ["image3.jpg", "image4.jpg"],
-    files: ["document2.pdf"],
-    notes: [mockNotes[2], mockNotes[1]]
-  },
-  {
-    id: 3,
-    reference: "YRD-003",
-    code: 1003,
-    name: "Aménagement Jardin C",
-    description: "Création d’un jardin paysager.",
-    address: "789 Avenue Victor Hugo, Paris, France",
-    archived: true,
-    deleted: false,
-    client: "Client C",
-    medias: ["image5.jpg"],
-    files: ["document3.pdf"],
-    notes: []
-  },
-  {
-    id: 4,
-    reference: "YRD-004",
-    code: 1004,
-    name: "Extension Maison D",
-    description: "Ajout d’une extension à une maison existante.",
-    address: "321 Rue Lafayette, Lyon, France",
-    archived: false,
-    deleted: false,
-    client: "Client D",
-    medias: [],
-    files: ["document4.pdf"],
-    notes: []
-  },
-  {
-    id: 5,
-    reference: "YRD-005",
-    code: 1005,
-    name: "Construction Immeuble E",
-    description: "Construction d’un immeuble résidentiel.",
-    address: "654 Rue Saint-Denis, Lille, France",
-    archived: false,
-    deleted: false,
-    client: "Client E",
-    medias: ["image6.jpg", "image7.jpg"],
-    files: ["document5.pdf"],
-    notes: []
-  },
-  {
-    id: 6,
-    reference: "YRD-006",
-    code: 1006,
-    name: "Réparation Toiture F",
-    description: "Réparation et isolation de la toiture.",
-    address: "987 Rue République, Marseille, France",
-    archived: false,
-    deleted: true,
-    client: "Client F",
-    medias: ["image8.jpg"],
-    files: ["document6.pdf"],
-    notes: []
-  },
-  {
-    id: 7,
-    reference: "YRD-007",
-    code: 1007,
-    name: "Rénovation Bureau G",
-    description: "Modernisation des bureaux.",
-    address: "123 Rue Gambetta, Bordeaux, France",
-    archived: true,
-    deleted: false,
-    client: "Client G",
-    medias: [],
-    files: ["document7.pdf"],
-    notes: []
-  },
-  {
-    id: 8,
-    reference: "YRD-008",
-    code: 1008,
-    name: "Aménagement Intérieur H",
-    description: "Décoration intérieure d’une villa.",
-    address: "456 Rue Voltaire, Nantes, France",
-    archived: false,
-    deleted: false,
-    client: "Client H",
-    medias: ["image9.jpg", "image10.jpg"],
-    files: ["document8.pdf"],
-    notes: []
-  },
-  {
-    id: 9,
-    reference: "YRD-009",
-    code: 1009,
-    name: "Construction Garage I",
-    description: "Construction d’un garage pour deux voitures.",
-    address: "789 Rue Molière, Toulouse, France",
-    archived: false,
-    deleted: false,
-    client: "Client I",
-    medias: [],
-    files: ["document9.pdf"],
-    notes: []
-  },
-  {
-    id: 10,
-    reference: "YRD-010",
-    code: 1010,
-    name: "Aménagement Combles J",
-    description: "Transformation des combles en pièce habitable.",
-    address: "321 Rue Zola, Strasbourg, France",
-    archived: false,
-    deleted: true,
-    client: "Client J",
-    medias: ["image11.jpg"],
-    files: ["document10.pdf"],
-    notes: []
   }
 ];

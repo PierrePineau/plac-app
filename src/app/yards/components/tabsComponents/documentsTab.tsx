@@ -5,8 +5,8 @@ import FileCard from "../file_component";
 import DragDrop from "../drag_file_component";
 import ImagesComponent from "../images_component";
 
-interface YardProps {
-  yard: Yard;
+interface ProjectProps {
+  project: Project;
 }
 
 const files = [
@@ -20,27 +20,27 @@ const files = [
 const imageList = [
   {
     id: "1",
-    fileName: "yard.jpeg",
-    filePath: "/asset/img/yard.jpeg"
+    fileName: "project.jpeg",
+    filePath: "/asset/img/project.jpeg"
   },
   {
     id: "2",
     fileName: "garden.jpeg",
-    filePath: "/asset/img/yard.jpeg"
+    filePath: "/asset/img/project.jpeg"
   },
   {
     id: "3",
     fileName: "house.jpeg",
-    filePath: "/asset/img/yard.jpeg"
+    filePath: "/asset/img/project.jpeg"
   },
   {
     id: "4",
     fileName: "house.jpeg",
-    filePath: "/asset/img/yard.jpeg"
+    filePath: "/asset/img/project.jpeg"
   }
 ];
 
-const DocumentsTab: React.FC<YardProps> = ({ yard }) => {
+const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
   return (
     <div className="mt-6">
       <div className="flex flex-row justify-between items-center">
@@ -50,9 +50,10 @@ const DocumentsTab: React.FC<YardProps> = ({ yard }) => {
         <CustomButton
           text="Tout Télécharger"
           icon={<Download className="text-brand-500" />}
-          color="bg-white"
+          color="bg-neutral-50"
           textColor="text-brand-500"
           onClick={() => {}}
+          hover={"bg-neutral-100"}
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -77,6 +78,7 @@ const DocumentsTab: React.FC<YardProps> = ({ yard }) => {
           color="bg-white"
           textColor="text-brand-500"
           onClick={() => {}}
+          hover={""}
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

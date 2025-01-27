@@ -2,7 +2,7 @@ import { Building } from "lucide-react";
 import React from "react";
 
 type ProgressBarProps = {
-  label: string;
+  label: string | null;
   progress: number;
 };
 
@@ -10,12 +10,14 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ label, progress }) => {
   return (
     <div className="flex flex-col items-start justify-between">
       <div className="flex flex-row items-center justify-between">
-        <div className="flex flex-row gap-2">
-          <div className="rounded">
-            <Building className="text-neutral-400" />
+        {label && (
+          <div className="flex flex-row gap-2">
+            <div className="rounded">
+              <Building className="text-neutral-400" />
+            </div>
+            <p className="text-gray-400">{label}</p>
           </div>
-          <span className="text-gray-400">{label}</span>
-        </div>
+        )}
         <p className="text-gray-950">{progress}%</p>
       </div>
       <div className="flex items-center space-x-3 w-full">

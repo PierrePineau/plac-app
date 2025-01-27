@@ -4,44 +4,48 @@ import NavBar from "@/app/components/navBar";
 import "../../../globals.css";
 import Header from "@/app/components/header";
 import CustomButton from "@/app/components/custombutton";
-import { FileEdit } from "lucide-react";
+import { FileEdit, Printer } from "lucide-react";
 import Tabs from "../../components/tabs";
 import GeneralTab from "../../components/tabsComponents/generalTab";
 import DocumentsTab from "../../components/tabsComponents/documentsTab";
 import NotesGrid from "../../components/tabsComponents/notesTab";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useYardStore } from "@/store/yardStore";
+import { useProjectStore } from "@/store/projectStore";
 
-export default function YardDetail() {
+export default function projectDetail() {
   const router = useRouter();
   const { id } = useParams();
-  const getYardById = useYardStore((state) => state.getYardById);
-  const fetchYards = useYardStore((state) => state.fetchYards);
-  const [yard, setYard] = useState<Yard | null>(null);
+  const getProjectById = useProjectStore((state) => state.getProjectById);
+  const fetchProjects = useProjectStore((state) => state.fetchProjects);
+  const [project, setProject] = useState<Project | null>(null);
 
   useEffect(() => {
     if (id) {
-      const yardData = getYardById(Number(id));
-      if (yardData) {
-        setYard(yardData);
+      const projectData = getProjectById(Number(id));
+      if (projectData) {
+        setProject(projectData);
       } else {
-        fetchYards().then(() => {
-          const fetchedYard = getYardById(Number(id));
-          setYard(fetchedYard || null);
+        fetchProjects().then(() => {
+          const fetchedproject = getProjectById(Number(id));
+          setProject(fetchedproject || null);
         });
       }
     }
-  }, [id, getYardById, fetchYards]);
+  }, [id, getProjectById, fetchProjects]);
 
-  if (!yard) {
+  if (!project) {
     return <div>Chargement des détails du chantier...</div>;
   }
 
   const tabs = [
-    { label: "Général", content: <GeneralTab yard={yard} /> },
-    { label: "Documents & Médias", content: <DocumentsTab yard={yard} /> },
-    { label: "Bloc notes", content: <NotesGrid notes={yard.notes || []} /> }
+    { label: "Général", content: <GeneralTab project={project} /> },
+    {
+      label: "Documents & Médias",
+      content: <DocumentsTab project={project} />
+    },
+    { label: "Bloc notes", content: <NotesGrid notes={project.notes || []} /> },
+    { label: "Tâches", content: <NotesGrid notes={project.notes || []} /> }
   ];
 
   return (
@@ -57,7 +61,7 @@ export default function YardDetail() {
         <img
           className="w-full max-h-72 object-cover"
           src={"/asset/img/yard.jpeg"}
-          alt={yard.name}
+          alt={project.name}
         />
         <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
           <div className="flex flex-col gap-2">
@@ -66,21 +70,32 @@ export default function YardDetail() {
                 Mes chantiers /
               </p>
               <p className=" text-neutral-950 text-paragraphMedium font-satoshi">
-                {yard.name}
+                {project.name}
               </p>
             </div>
             <div className="flex flex-row justify-between">
               <h1 className=" font-satoshi text-h1Desktop text-neutral-900">
-                {yard.name}
+                {project.name}
               </h1>
-              <CustomButton
-                text="Modifier les informations"
-                icon={<FileEdit />}
-                color="bg-brand-950"
-                textColor="text-white"
-                onClick={() => router.push(`/yard/edit/${yard.id}`)}
-                hover={""}
-              />
+              <div className="flex flex-row gap-4">
+                <CustomButton
+                  text="Imprimer"
+                  icon={<Printer />}
+                  color="bg-white"
+                  textColor="text-neutral-950"
+                  onClick={() => router.push(`/project/edit/${project.id}`)}
+                  hover={"bg-neutral-100"}
+                  border="border border-neutral-200"
+                />
+                <CustomButton
+                  text="Modifier les informations"
+                  icon={<FileEdit />}
+                  color="bg-brand-950"
+                  textColor="text-white"
+                  onClick={() => router.push(`/project/edit/${project.id}`)}
+                  hover={"bg-brand-1000"}
+                />
+              </div>
             </div>
           </div>
           <Tabs tabs={tabs} />

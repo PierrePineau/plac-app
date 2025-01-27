@@ -2,7 +2,12 @@ interface Project {
   id: number;
   uuid: string;
   reference: string;
-  name?: string;
+  name: string;
+  description: string;
   notes: Note[];
+  organisaton: Organisation;
   files: ProjectFile[];
+  status: Status;
+  createAt: Date;
+  updateAt: Date;
 }

@@ -23,7 +23,7 @@ export default function CustomButton({
 }: ButtonProps) {
   return (
     <button
-      className={`${color} ${textColor} flex justify-center items-center ${hover} ${
+      className={`${color} ${textColor} flex justify-center items-center hover:${hover} ${
         padding ?? "py-2 px-4"
       } ${border ?? "border-none"} rounded-lg cursor-pointer`}
       onClick={onClick}>

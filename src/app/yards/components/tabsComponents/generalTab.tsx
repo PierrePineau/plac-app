@@ -1,4 +1,5 @@
 import BubbleText from "@/app/components/bubbleText";
+import ProgressBar from "@/app/components/progressBar";
 import {
   CalendarMinus,
   CalendarPlus,
@@ -11,19 +12,38 @@ import {
 } from "lucide-react";
 import React from "react";
 
-interface YardProps {
-  yard: Yard;
+interface ProjectProps {
+  project: Project;
 }
 
-const GeneralTab: React.FC<YardProps> = ({ yard }) => {
+const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
   return (
     <div className="mt-6">
       <h2 className="font-satoshi text-paragraphBold text-neutral-950">
         Description
       </h2>
-      <p className="font-satoshi text-paragraphMedium text-neutral-500 mt-2">
-        {yard.description}
-      </p>
+      <div className="flex flex-row justify-between items-start">
+        <p className="font-satoshi text-paragraphMedium text-neutral-500 mt-2">
+          {project.description}
+        </p>
+        <div className="flex flex-col gap-2">
+          <p className="font-satoshi text-paragraphBold text-neutral-950">
+            Statut
+          </p>
+          <p
+            className={`font-satoshi text-tag text-neutral-50 rounded-lg py-1 px-3 ${
+              "En cours" === "En cours" ? "bg-accent-500" : "bg-green-500"
+            }`}>
+            En cours
+          </p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <p className="font-satoshi text-paragraphBold text-neutral-950">
+            Progression du chantier
+          </p>
+          <ProgressBar label={null} progress={60} />
+        </div>
+      </div>
       <h2 className="font-satoshi text-h2Desktop text-neutral-900 mt-6">
         Informations générales
       </h2>
@@ -93,7 +113,7 @@ const GeneralTab: React.FC<YardProps> = ({ yard }) => {
               Localisation
             </p>
             <p className="font-satoshi text-paragraphBold text-neutral-950">
-              {yard.address}
+              {project.reference}
             </p>
           </div>
         </div>
@@ -130,7 +150,7 @@ const GeneralTab: React.FC<YardProps> = ({ yard }) => {
               Nom & Prénom
             </p>
             <p className="font-satoshi text-paragraphBold text-neutral-950">
-              Lorem Ipsum
+              {project.organisaton.name}
             </p>
           </div>
         </div>

@@ -4,12 +4,13 @@ import { create } from "zustand";
 interface ProjectState {
   projects: Project[];
   fetchProjects: () => Promise<void>;
+  getProjectById: (id: number) => Project | undefined;
   createProject: (project: Partial<Project>) => Promise<void>;
   updateProject: (id: number, project: Partial<Project>) => Promise<void>;
   deleteProject: (id: number) => Promise<void>;
 }
 
-export const useProjectStore = create<ProjectState>((set) => ({
+export const useProjectStore = create<ProjectState>((set, get) => ({
   projects: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockProjects : [],
   fetchProjects: async () => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
@@ -20,6 +21,10 @@ export const useProjectStore = create<ProjectState>((set) => ({
     } catch (error) {
       console.error("Error fetching projects:", error);
     }
+  },
+  getProjectById: (id) => {
+    const { projects } = get();
+    return projects.find((project) => project.id === id);
   },
   createProject: async (project) => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {

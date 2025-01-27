@@ -1,5 +1,4 @@
 "use client";
-import { useYardStore } from "@/store/yardStore";
 import { useEffect, useState } from "react";
 import NavBar from "../components/navBar";
 import Header from "../components/header";
@@ -9,16 +8,17 @@ import Yard from "../components/yard";
 import Popup from "../components/popup";
 import Dropdown from "../components/customDropdown";
 import DragDrop from "./components/drag_file_component";
+import { useProjectStore } from "@/store/projectStore";
 
 export default function Chantiers() {
-  const { yards, fetchYards, addYard } = useYardStore();
+  const { projects, fetchProjects, createProject } = useProjectStore();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
-    fetchYards();
-  }, [fetchYards]);
+    fetchProjects();
+  }, [fetchProjects]);
 
-  const handleAddYard = () => {
+  const handleAddProject = () => {
     setIsPopupOpen(true);
   };
 
@@ -26,27 +26,32 @@ export default function Chantiers() {
     setIsPopupOpen(false);
   };
 
-  const handleSaveYard = (event: React.FormEvent) => {
+  const handleSaveProject = (event: React.FormEvent) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
 
-    const newYard: Omit<Yard, "id"> = {
-      reference: `YRD-${Math.floor(1000 + Math.random() * 9000)}`,
-      code: Math.floor(1000 + Math.random() * 9000),
+    const newProject: Omit<Project, "id"> = {
+      uuid: crypto.randomUUID(),
+      reference: `PRJ-${Math.floor(1000 + Math.random() * 9000)}`,
       name: formData.get("name") as string,
       description: formData.get("description") as string,
-      address: `${formData.get("adress") as string}, ${
-        formData.get("city") as string
-      }, ${formData.get("postal_code") as string}`,
-      archived: false,
-      deleted: false,
-      client: formData.get("client") as string,
-      medias: null,
-      files: null,
-      notes: []
+      notes: [],
+      organisaton: {
+        id: 0,
+        uuid: "",
+        name: "",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        employes: [],
+        organisationModules: []
+      },
+      files: [],
+      status: { id: 1, label: "En cours", color: "#007BFF" },
+      createAt: new Date(),
+      updateAt: new Date()
     };
 
-    addYard(newYard);
+    createProject(newProject);
     setIsPopupOpen(false);
   };
 
@@ -79,12 +84,12 @@ export default function Chantiers() {
                 text="Ajouter un chantier"
                 color="bg-brand-950"
                 textColor="text-white"
-                onClick={handleAddYard}
+                onClick={handleAddProject}
                 hover={""}
               />
             </div>
           </div>
-          <Yard yards={yards} />
+          <Yard yards={projects} />
         </div>
       </div>
 
@@ -92,8 +97,8 @@ export default function Chantiers() {
         isOpen={isPopupOpen}
         onClose={handleClosePopup}
         title="Ajouter un chantier"
-        desc="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum">
-        <form className="flex flex-col gap-2" onSubmit={handleSaveYard}>
+        desc="Veuillez compléter les informations suivantes pour créer un projet.">
+        <form className="flex flex-col gap-2" onSubmit={handleSaveProject}>
           <div>
             <label
               htmlFor="name"
@@ -123,59 +128,6 @@ export default function Chantiers() {
               required
             />
           </div>
-          <div className="flex flex-row gap-4 justify-between">
-            <div>
-              <label
-                htmlFor="startDate"
-                className="font-satoshi text-paragraphMedium text-neutral-950">
-                Date de début
-              </label>
-              <input
-                type="date"
-                id="startDate"
-                name="startDate"
-                className="flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
-                required
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="endDate"
-                className="font-satoshi text-paragraphMedium text-neutral-950">
-                Date de fin
-              </label>
-              <input
-                type="date"
-                id="endDate"
-                name="endDate"
-                className="flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
-                required
-              />
-            </div>
-          </div>
-          <div className="flex flex-row gap-4 justify-between">
-            <div>
-              <label
-                htmlFor="manager"
-                className="font-satoshi text-paragraphMedium text-neutral-950">
-                Chef de chantier
-              </label>
-              <input
-                type="text"
-                id="manager"
-                name="manager"
-                className="flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
-                required
-              />
-            </div>
-            <div>
-              <Dropdown
-                label="Status"
-                options={["test", "test2", "test3"]}
-                maxWidth="min-w-56"
-              />
-            </div>
-          </div>
           <div>
             <label
               htmlFor="adress"
@@ -191,50 +143,33 @@ export default function Chantiers() {
               required
             />
           </div>
-          <div className="flex flex-row gap-4 justify-between">
-            <div>
-              <label
-                htmlFor="postal_code"
-                className="font-satoshi text-paragraphMedium text-neutral-950">
-                Code Postal
-              </label>
-              <input
-                type="text"
-                id="postal_code"
-                name="postal_code"
-                className="flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
-                required
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="city"
-                className="font-satoshi text-paragraphMedium text-neutral-950">
-                Ville
-              </label>
-              <input
-                type="text"
-                id="city"
-                name="city"
-                className="flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
-                required
-              />
-            </div>
-          </div>
           <div>
-            <Dropdown
-              label="Choisir un client"
-              options={["test", "test2", "test3"]}
-              maxWidth="flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded min-w-56"
+            <label
+              htmlFor="postal_code"
+              className="font-satoshi text-paragraphMedium text-neutral-950">
+              Code Postal
+            </label>
+            <input
+              type="text"
+              id="postal_code"
+              name="postal_code"
+              className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
+              required
             />
           </div>
           <div>
             <label
-              htmlFor="image"
+              htmlFor="city"
               className="font-satoshi text-paragraphMedium text-neutral-950">
-              Ajouter une image de couverture
+              Ville
             </label>
-            <DragDrop width="w-full" height="h-full" onDrop={() => {}} />
+            <input
+              type="text"
+              id="city"
+              name="city"
+              className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
+              required
+            />
           </div>
           <button
             type="submit"
