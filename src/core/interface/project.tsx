@@ -10,4 +10,5 @@ interface Project {
   status: Status;
   createAt: Date;
   updateAt: Date;
+  localisation: string;
 }

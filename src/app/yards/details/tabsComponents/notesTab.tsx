@@ -2,7 +2,7 @@ import BubbleText from "@/app/components/bubbleText";
 import CustomButton from "@/app/components/custombutton";
 import { File, PlusIcon } from "lucide-react";
 import React, { useState } from "react";
-import NoteCard from "../note_component";
+import NoteCard from "../../components/note_component";
 import SearchBar from "@/app/components/searchBar";
 
 // Composant principal NotesGrid
@@ -10,14 +10,15 @@ const NotesGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
   const [search, setSearch] = useState("");
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-row justify-between">
-        <div className="flex flex-col justify-start items-start">
+      <div className="flex flex-row justify-between items-end">
+        <div className="">
           <SearchBar
             label="Rechercher un utilisateur"
             placeholder="Rechercher"
             onChange={(e: string) => setSearch(e)}
           />
         </div>
+
         <CustomButton
           text="Ajouter une note"
           icon={<PlusIcon />}

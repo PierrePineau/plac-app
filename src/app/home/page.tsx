@@ -112,31 +112,20 @@ export default function Home() {
                 ).length
               }
               redirectText="Voir mes chantiers à venir"
-              onClick={() => router.push("/yards/upcoming")}
+              onClick={() => router.push("/yards")}
             />
           </div>
-          <div className="flex flex-row gap-8">
-            <div className="flex flex-col gap-4 w-1/2">
-              <p className=" font-satoshi text-h2Desktop text-neutral-950">
-                Mon équipe actuelle
-              </p>
-              <DataTable
-                data={filteredEmployees}
-                columns={columns}
-                onRowClick={(row) => handleEmployeeClick(row.id)}
-                ellipsisEnabled={false}
-              />
-            </div>
-            <div className="flex flex-col gap-4 w-1/2">
-              <p className=" font-satoshi text-h2Desktop text-neutral-950">
-                Progression des chantiers en cours
-              </p>
-              <div className="flex flex-col gap-4 border border-neutral-200 p-6 rounded-lg">
-                {ongoingYards.map((yard) => (
-                  <ProgressBar label={yard.name} progress={60} />
-                ))}
-              </div>
-            </div>
+
+          <div className="flex flex-col gap-4">
+            <p className=" font-satoshi text-h2Desktop text-neutral-950">
+              Mon équipe actuelle
+            </p>
+            <DataTable
+              data={filteredEmployees}
+              columns={columns}
+              onRowClick={(row) => handleEmployeeClick(row.id)}
+              ellipsisEnabled={false}
+            />
           </div>
         </div>
       </div>

@@ -1,9 +1,9 @@
 import CustomButton from "@/app/components/custombutton";
 import { Download } from "lucide-react";
 import React from "react";
-import FileCard from "../file_component";
-import DragDrop from "../drag_file_component";
-import ImagesComponent from "../images_component";
+import FileCard from "../../components/file_component";
+import DragDrop from "../../components/drag_file_component";
+import ImagesComponent from "../../components/images_component";
 
 interface ProjectProps {
   project: Project;

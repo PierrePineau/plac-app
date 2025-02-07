@@ -9,6 +9,9 @@ import Popup from "../components/popup";
 import Dropdown from "../components/customDropdown";
 import DragDrop from "./components/drag_file_component";
 import { useProjectStore } from "@/store/projectStore";
+import FormModal from "../components/formModal";
+import CreateOrModifyYard from "./components/createOrModifyYard";
+import Tabs from "./components/tabs";
 
 export default function Chantiers() {
   const { projects, fetchProjects, createProject } = useProjectStore();
@@ -48,12 +51,58 @@ export default function Chantiers() {
       files: [],
       status: { id: 1, label: "En cours", color: "#007BFF" },
       createAt: new Date(),
-      updateAt: new Date()
+      updateAt: new Date(),
+      localisation: "10 Avenue des Champs-Élysées, Paris"
     };
 
     createProject(newProject);
     setIsPopupOpen(false);
   };
+
+  useEffect(() => {
+    if (isPopupOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isPopupOpen]);
+
+  const tabs = [
+    {
+      label: "Chantiers en cours",
+      content: (
+        <Yard
+          yards={projects.filter(
+            (project) => project.status.label === "En cours"
+          )}
+        />
+      )
+    },
+    {
+      label: "Chantiers à venir",
+      content: (
+        <Yard
+          yards={projects.filter(
+            (project) => project.status.label === "En pause"
+          )}
+        />
+      )
+    },
+    {
+      label: "Chantiers archivés",
+      content: (
+        <Yard
+          yards={projects.filter(
+            (project) => project.status.label === "Terminé"
+          )}
+        />
+      )
+    }
+  ];
 
   return (
     <div className="flex flex-row bg-white h-full">
@@ -89,7 +138,7 @@ export default function Chantiers() {
               />
             </div>
           </div>
-          <Yard yards={projects} />
+          <Tabs tabs={tabs} />
         </div>
       </div>
 
@@ -98,85 +147,7 @@ export default function Chantiers() {
         onClose={handleClosePopup}
         title="Ajouter un chantier"
         desc="Veuillez compléter les informations suivantes pour créer un projet.">
-        <form className="flex flex-col gap-2" onSubmit={handleSaveProject}>
-          <div>
-            <label
-              htmlFor="name"
-              className="font-satoshi text-paragraphMedium text-neutral-950">
-              Nom du chantier
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
-              placeholder="Nom du chantier"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="description"
-              className="font-satoshi text-paragraphMedium text-neutral-950">
-              Description
-            </label>
-            <textarea
-              id="description"
-              name="description"
-              className="flex min-h-40 p-3 justify-center items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
-              placeholder="Description"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="adress"
-              className="font-satoshi text-paragraphMedium text-neutral-950">
-              Adresse
-            </label>
-            <input
-              type="text"
-              id="adress"
-              name="adress"
-              className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
-              placeholder="Adresse"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="postal_code"
-              className="font-satoshi text-paragraphMedium text-neutral-950">
-              Code Postal
-            </label>
-            <input
-              type="text"
-              id="postal_code"
-              name="postal_code"
-              className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="city"
-              className="font-satoshi text-paragraphMedium text-neutral-950">
-              Ville
-            </label>
-            <input
-              type="text"
-              id="city"
-              name="city"
-              className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-brand-950 text-white px-4 py-2 rounded-md hover:bg-brand-700">
-            Enregistrer
-          </button>
-        </form>
+        <CreateOrModifyYard onSubmit={() => {}} submitLabel={"Ajouter"} />
       </Popup>
     </div>
   );

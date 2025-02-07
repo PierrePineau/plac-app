@@ -264,10 +264,11 @@ export const mockProjects: Project[] = [
     reference: "PRJ-001",
     name: "Développement Plateforme Web",
     description: "Création d'une plateforme web robuste et évolutive.",
+    localisation: "7 Rue Marie-Amélie Cambell, Angers",
     notes: [mockNotes[0], mockNotes[1]],
     organisaton: mockOrganisations[0],
     files: [],
-    status: { id: 1, label: "En cours", color: "#007BFF" },
+    status: mockStatuses[0],
     createAt: new Date("2025-01-01T10:00:00Z"),
     updateAt: new Date("2025-01-02T15:30:00Z")
   },
@@ -277,6 +278,7 @@ export const mockProjects: Project[] = [
     reference: "PRJ-002",
     name: "Migration Infrastructure",
     description: "Migration complète vers une nouvelle infrastructure cloud.",
+    localisation: "1600 Amphitheatre Parkway, Mountain View, CA",
     notes: [mockNotes[2]],
     organisaton: mockOrganisations[1],
     files: [],
@@ -289,6 +291,7 @@ export const mockProjects: Project[] = [
     uuid: "123e4567-e89b-12d3-a456-426614174003",
     reference: "PRJ-003",
     name: "Rénovation Infrastructure",
+    localisation: "10 Avenue des Champs-Élysées, Paris",
     description:
       "Amélioration de l'infrastructure existante pour plus de performance.",
     notes: [],
@@ -310,7 +313,8 @@ export const mockProjects: Project[] = [
     files: [],
     status: mockStatuses[0],
     createAt: new Date("2025-01-05T12:00:00Z"),
-    updateAt: new Date("2025-01-10T15:30:00Z")
+    updateAt: new Date("2025-01-10T15:30:00Z"),
+    localisation: "10 Avenue des Champs-Élysées, Paris"
   },
   {
     id: 5,
@@ -324,7 +328,8 @@ export const mockProjects: Project[] = [
     files: [],
     status: mockStatuses[2],
     createAt: new Date("2025-01-15T10:00:00Z"),
-    updateAt: new Date("2025-01-20T10:00:00Z")
+    updateAt: new Date("2025-01-20T10:00:00Z"),
+    localisation: "10 Avenue des Champs-Élysées, Paris"
   },
   {
     id: 6,
@@ -338,7 +343,8 @@ export const mockProjects: Project[] = [
     files: [],
     status: mockStatuses[0],
     createAt: new Date("2025-01-25T10:00:00Z"),
-    updateAt: new Date("2025-01-30T10:00:00Z")
+    updateAt: new Date("2025-01-30T10:00:00Z"),
+    localisation: "10 Avenue des Champs-Élysées, Paris"
   },
   {
     id: 7,
@@ -352,7 +358,8 @@ export const mockProjects: Project[] = [
     files: [],
     status: mockStatuses[0],
     createAt: new Date("2025-02-05T10:00:00Z"),
-    updateAt: new Date("2025-02-10T10:00:00Z")
+    updateAt: new Date("2025-02-10T10:00:00Z"),
+    localisation: "10 Avenue des Champs-Élysées, Paris"
   },
   {
     id: 8,
@@ -366,7 +373,8 @@ export const mockProjects: Project[] = [
     files: [],
     status: mockStatuses[2],
     createAt: new Date("2025-02-15T10:00:00Z"),
-    updateAt: new Date("2025-02-20T10:00:00Z")
+    updateAt: new Date("2025-02-20T10:00:00Z"),
+    localisation: "10 Avenue des Champs-Élysées, Paris"
   },
   {
     id: 9,
@@ -380,7 +388,8 @@ export const mockProjects: Project[] = [
     files: [],
     status: mockStatuses[1],
     createAt: new Date("2025-02-25T10:00:00Z"),
-    updateAt: new Date("2025-03-01T10:00:00Z")
+    updateAt: new Date("2025-03-01T10:00:00Z"),
+    localisation: "10 Avenue des Champs-Élysées, Paris"
   },
   {
     id: 10,
@@ -393,7 +402,8 @@ export const mockProjects: Project[] = [
     files: [],
     status: mockStatuses[3],
     createAt: new Date("2025-03-05T10:00:00Z"),
-    updateAt: new Date("2025-03-10T10:00:00Z")
+    updateAt: new Date("2025-03-10T10:00:00Z"),
+    localisation: "10 Avenue des Champs-Élysées, Paris"
   }
 ];
 

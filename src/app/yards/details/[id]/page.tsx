@@ -6,9 +6,9 @@ import Header from "@/app/components/header";
 import CustomButton from "@/app/components/custombutton";
 import { FileEdit, Printer } from "lucide-react";
 import Tabs from "../../components/tabs";
-import GeneralTab from "../../components/tabsComponents/generalTab";
-import DocumentsTab from "../../components/tabsComponents/documentsTab";
-import NotesGrid from "../../components/tabsComponents/notesTab";
+import GeneralTab from "../tabsComponents/generalTab";
+import DocumentsTab from "../tabsComponents/documentsTab";
+import NotesGrid from "../tabsComponents/notesTab";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useProjectStore } from "@/store/projectStore";
@@ -44,8 +44,7 @@ export default function projectDetail() {
       label: "Documents & Médias",
       content: <DocumentsTab project={project} />
     },
-    { label: "Bloc notes", content: <NotesGrid notes={project.notes || []} /> },
-    { label: "Tâches", content: <NotesGrid notes={project.notes || []} /> }
+    { label: "Bloc notes", content: <NotesGrid notes={project.notes || []} /> }
   ];
 
   return (
@@ -92,7 +91,7 @@ export default function projectDetail() {
                   icon={<FileEdit />}
                   color="bg-brand-950"
                   textColor="text-white"
-                  onClick={() => router.push(`/project/edit/${project.id}`)}
+                  onClick={() => {}}
                   hover={"bg-brand-1000"}
                 />
               </div>

@@ -1,3 +1,4 @@
+"use client";
 import BubbleText from "@/app/components/bubbleText";
 import ProgressBar from "@/app/components/progressBar";
 import {
@@ -10,23 +11,65 @@ import {
   Phone,
   User
 } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+
+import MyMap from "../../components/map";
+import MapComponent from "../../components/map";
 
 interface ProjectProps {
   project: Project;
 }
 
 const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
+  const [coordinates, setCoordinates] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
+
+  useEffect(() => {
+    const fetchCoordinates = async () => {
+      if (!project.localisation) return;
+
+      const address = encodeURIComponent(project.localisation);
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${address}`;
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.length > 0) {
+          setCoordinates({
+            lat: parseFloat(data[0].lat),
+            lng: parseFloat(data[0].lon)
+          });
+        } else {
+          console.error("Adresse introuvable");
+        }
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des coordonnées :",
+          error
+        );
+      }
+    };
+
+    fetchCoordinates();
+  }, [project.localisation]);
+
   return (
-    <div className="mt-6">
-      <h2 className="font-satoshi text-paragraphBold text-neutral-950">
-        Description
-      </h2>
-      <div className="flex flex-row justify-between items-start">
-        <p className="font-satoshi text-paragraphMedium text-neutral-500 mt-2">
-          {project.description}
-        </p>
-        <div className="flex flex-col gap-2">
+    <div>
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-col items-start gap-2">
+          <p className="font-satoshi text-paragraphBold text-neutral-950">
+            Description
+          </p>
+          <p className="font-satoshi text-paragraphMedium text-neutral-500 max-w-[75%]">
+            {project.description}
+          </p>
+        </div>
+        <div className="flex flex-col items-start gap-2">
           <p className="font-satoshi text-paragraphBold text-neutral-950">
             Statut
           </p>
@@ -37,13 +80,8 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             En cours
           </p>
         </div>
-        <div className="flex flex-col gap-2">
-          <p className="font-satoshi text-paragraphBold text-neutral-950">
-            Progression du chantier
-          </p>
-          <ProgressBar label={null} progress={60} />
-        </div>
       </div>
+
       <h2 className="font-satoshi text-h2Desktop text-neutral-900 mt-6">
         Informations générales
       </h2>
@@ -113,7 +151,7 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
               Localisation
             </p>
             <p className="font-satoshi text-paragraphBold text-neutral-950">
-              {project.reference}
+              {project.localisation}
             </p>
           </div>
         </div>
@@ -122,16 +160,24 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
         <div className="flex flex-row gap-1 justify-end">
           <ExternalLink className="text-brand-500" />
           <a
-            href="#"
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+              project.localisation
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="font-satoshi text-paragraphMedium text-brand-500">
             Ouvrir dans Maps
           </a>
         </div>
-        <img
-          src="/images/map-placeholder.jpg" // Remplace par une vraie carte
-          alt="Map"
-          className="w-full h-64 bg-gray-200 rounded-lg"
-        />
+        {coordinates ? (
+          <MapComponent
+            key={`${coordinates.lat}-${coordinates.lng}`}
+            latitude={coordinates.lat}
+            longitude={coordinates.lng}
+          />
+        ) : (
+          <p>Chargement de la carte...</p>
+        )}
       </div>
       <h2 className="font-satoshi text-h2Desktop text-neutral-900 mt-6">
         Informations clients
