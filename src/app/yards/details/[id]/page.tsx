@@ -12,6 +12,8 @@ import NotesGrid from "../tabsComponents/notesTab";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useProjectStore } from "@/store/projectStore";
+import Popup from "@/app/components/popup";
+import CreateOrModifyYard from "../../components/createOrModifyYard";
 
 export default function projectDetail() {
   const router = useRouter();
@@ -19,6 +21,17 @@ export default function projectDetail() {
   const getProjectById = useProjectStore((state) => state.getProjectById);
   const fetchProjects = useProjectStore((state) => state.fetchProjects);
   const [project, setProject] = useState<Project | null>(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const handleModifyProject = () => {
+    setIsPopupOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    document.body.style.overflow = "";
+  };
 
   useEffect(() => {
     if (id) {
@@ -91,7 +104,7 @@ export default function projectDetail() {
                   icon={<FileEdit />}
                   color="bg-brand-950"
                   textColor="text-white"
-                  onClick={() => {}}
+                  onClick={handleModifyProject}
                   hover={"bg-brand-1000"}
                 />
               </div>
@@ -100,6 +113,26 @@ export default function projectDetail() {
           <Tabs tabs={tabs} />
         </div>
       </div>
+      <Popup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        title="Modifier les informations">
+        <CreateOrModifyYard
+          onSubmit={() => {}}
+          submitLabel={"Modifier"}
+          defaultValues={{
+            name: project.name,
+            description: project.description,
+            startDate: undefined,
+            endDate: undefined,
+            chief: project.organisaton.name,
+            status: project.status.label,
+            adress: project.localisation,
+            postal_code: project.uuid,
+            city: project.description
+          }}
+        />
+      </Popup>
     </div>
   );
 }

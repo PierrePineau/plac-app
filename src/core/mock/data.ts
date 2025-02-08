@@ -256,6 +256,10 @@ export const mockStatuses: Status[] = [
   { id: 4, label: "Annulé", color: "#DC3545" }
 ];
 
+export const mockMedia: Media[] = [
+  { id: 1, label: "travaux fini", image: "/asset/img/yard.jpeg" }
+];
+
 //project mock
 export const mockProjects: Project[] = [
   {
@@ -267,6 +271,7 @@ export const mockProjects: Project[] = [
     localisation: "7 Rue Marie-Amélie Cambell, Angers",
     notes: [mockNotes[0], mockNotes[1]],
     organisaton: mockOrganisations[0],
+    medias: [mockMedia[0]],
     files: [],
     status: mockStatuses[0],
     createAt: new Date("2025-01-01T10:00:00Z"),
@@ -280,6 +285,7 @@ export const mockProjects: Project[] = [
     description: "Migration complète vers une nouvelle infrastructure cloud.",
     localisation: "1600 Amphitheatre Parkway, Mountain View, CA",
     notes: [mockNotes[2]],
+    medias: [mockMedia[0]],
     organisaton: mockOrganisations[1],
     files: [],
     status: mockStatuses[0],
@@ -295,6 +301,7 @@ export const mockProjects: Project[] = [
     description:
       "Amélioration de l'infrastructure existante pour plus de performance.",
     notes: [],
+    medias: [mockMedia[0]],
     organisaton: mockOrganisations[2],
     files: [],
     status: mockStatuses[0],
@@ -309,6 +316,7 @@ export const mockProjects: Project[] = [
     description:
       "Conception d'une application mobile native pour Android et iOS.",
     notes: [],
+    medias: [mockMedia[0]],
     organisaton: mockOrganisations[0],
     files: [],
     status: mockStatuses[0],
@@ -323,7 +331,14 @@ export const mockProjects: Project[] = [
     name: "Recherche & Développement IA",
     description:
       "Exploration et prototypage de solutions basées sur l'intelligence artificielle.",
-    notes: [],
+    notes: [mockNotes[0], mockNotes[0], mockNotes[0], mockNotes[0]],
+    medias: [
+      mockMedia[0],
+      mockMedia[0],
+      mockMedia[0],
+      mockMedia[0],
+      mockMedia[0]
+    ],
     organisaton: mockOrganisations[1],
     files: [],
     status: mockStatuses[2],
@@ -339,6 +354,7 @@ export const mockProjects: Project[] = [
     description:
       "Analyse approfondie des données pour améliorer les prises de décision.",
     notes: [mockNotes[0]],
+    medias: [mockMedia[0]],
     organisaton: mockOrganisations[2],
     files: [],
     status: mockStatuses[0],
@@ -354,6 +370,7 @@ export const mockProjects: Project[] = [
     description:
       "Déploiement d'une infrastructure entièrement cloud pour un client.",
     notes: [],
+    medias: [mockMedia[0]],
     organisaton: mockOrganisations[0],
     files: [],
     status: mockStatuses[0],
@@ -369,6 +386,7 @@ export const mockProjects: Project[] = [
     description:
       "Amélioration du design et des performances d'un site e-commerce.",
     notes: [],
+    medias: [mockMedia[0]],
     organisaton: mockOrganisations[1],
     files: [],
     status: mockStatuses[2],
@@ -384,6 +402,7 @@ export const mockProjects: Project[] = [
     description:
       "Organisation de sessions de formation interne pour les employés.",
     notes: [],
+    medias: [mockMedia[0]],
     organisaton: mockOrganisations[2],
     files: [],
     status: mockStatuses[1],
@@ -398,6 +417,7 @@ export const mockProjects: Project[] = [
     name: "Audit Sécurité",
     description: "Audit complet de la sécurité des systèmes informatiques.",
     notes: [],
+    medias: [mockMedia[0]],
     organisaton: mockOrganisations[0],
     files: [],
     status: mockStatuses[3],

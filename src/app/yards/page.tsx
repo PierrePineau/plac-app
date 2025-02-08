@@ -39,6 +39,7 @@ export default function Chantiers() {
       name: formData.get("name") as string,
       description: formData.get("description") as string,
       notes: [],
+      medias: [],
       organisaton: {
         id: 0,
         uuid: "",
@@ -134,7 +135,7 @@ export default function Chantiers() {
                 color="bg-brand-950"
                 textColor="text-white"
                 onClick={handleAddProject}
-                hover={""}
+                hover={"bg-brand-1000"}
               />
             </div>
           </div>

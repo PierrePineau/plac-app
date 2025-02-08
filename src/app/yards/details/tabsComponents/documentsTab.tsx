@@ -9,37 +9,6 @@ interface ProjectProps {
   project: Project;
 }
 
-const files = [
-  { fileName: "Plan-Maison.pdf", fileSize: "780,76 KB" },
-  { fileName: "Rapport-Financier.pdf", fileSize: "1,2 MB" },
-  { fileName: "Presentation.pptx", fileSize: "3,4 MB" },
-  { fileName: "Code-Source.zip", fileSize: "25 MB" },
-  { fileName: "Photo-Vacances.jpg", fileSize: "2,1 MB" }
-];
-
-const imageList = [
-  {
-    id: "1",
-    fileName: "project.jpeg",
-    filePath: "/asset/img/project.jpeg"
-  },
-  {
-    id: "2",
-    fileName: "garden.jpeg",
-    filePath: "/asset/img/project.jpeg"
-  },
-  {
-    id: "3",
-    fileName: "house.jpeg",
-    filePath: "/asset/img/project.jpeg"
-  },
-  {
-    id: "4",
-    fileName: "house.jpeg",
-    filePath: "/asset/img/project.jpeg"
-  }
-];
-
 const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
   return (
     <div className="mt-6">
@@ -57,13 +26,13 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {files.map((file, index) => (
+        {project.files.map((file, index) => (
           <FileCard
             key={index}
-            fileName={file.fileName}
-            fileSize={file.fileSize}
-            onMoreClick={() => console.log(`More options for ${file.fileName}`)}
-            onLinkClick={() => console.log(`Link clicked for ${file.fileName}`)}
+            fileName={file.name ?? ""}
+            fileSize={file.size ? file.size.toString() : ""}
+            onMoreClick={() => console.log(`More options for ${file.name}`)}
+            onLinkClick={() => console.log(`Link clicked for ${file.name}`)}
           />
         ))}
         <DragDrop onDrop={() => {}} height="h-20" width="w-full" />
@@ -82,11 +51,11 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {imageList.map((image, index) => (
+        {project.medias.map((image, index) => (
           <ImagesComponent
             key={index}
-            fileName={image.fileName}
-            filePath={image.filePath}
+            fileName={image.label}
+            filePath={image.image}
           />
         ))}
         <DragDrop onDrop={() => {}} height="h-56" width="w-full" />

@@ -4,10 +4,24 @@ import { File, PlusIcon } from "lucide-react";
 import React, { useState } from "react";
 import NoteCard from "../../components/note_component";
 import SearchBar from "@/app/components/searchBar";
+import Popup from "@/app/components/popup";
+import CreateOrModifyNotes from "../../components/createOrModifyNotes";
 
 // Composant principal NotesGrid
 const NotesGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
   const [search, setSearch] = useState("");
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const handleCreateNotes = () => {
+    setIsPopupOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    document.body.style.overflow = "";
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row justify-between items-end">
@@ -24,20 +38,21 @@ const NotesGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
           icon={<PlusIcon />}
           color="bg-brand-950"
           textColor="text-white"
-          onClick={() => {}}
+          onClick={handleCreateNotes}
           hover={"bg-brand-1000"}
         />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {notes.map((note) => (
-          <NoteCard
-            key={note.id}
-            id={note.id}
-            name={note.name}
-            content={note.content}
-            createdAt={note.createdAt}
-          />
-        ))}
+        {notes.length != 0 &&
+          notes.map((note) => (
+            <NoteCard
+              key={note.id}
+              id={note.id}
+              name={note.name!}
+              content={note.content!}
+              createdAt={note.createdAt}
+            />
+          ))}
       </div>
       <div className="flex justify-center item-center">
         <CustomButton
@@ -49,6 +64,15 @@ const NotesGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
           hover={"bg-neutral-100"}
         />
       </div>
+      <Popup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        title="Ajouter une note">
+        <CreateOrModifyNotes
+          onSubmit={() => {}}
+          submitLabel={"Ajouter la note"}
+        />
+      </Popup>
     </div>
   );
 };

@@ -7,6 +7,7 @@ interface Project {
   notes: Note[];
   organisaton: Organisation;
   files: ProjectFile[];
+  medias: Media[];
   status: Status;
   createAt: Date;
   updateAt: Date;
