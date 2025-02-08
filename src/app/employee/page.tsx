@@ -14,6 +14,7 @@ import DataTable from "../components/customTab";
 import SearchBar from "../components/searchBar";
 import { useEmployeStore } from "@/store/employeeStore";
 import { useRouter } from "next/navigation";
+import CreateOrModifyEmployee from "./components/createOrModifyEmployee";
 
 const columns = [
   {
@@ -23,7 +24,11 @@ const columns = [
       const { avatar, firstName, lastName, email } = info.row.original;
       return (
         <div className="flex items-center space-x-2">
-          <img className="w-auto h-8" src={avatar} alt="Logo Plac" />
+          <img
+            className="w-auto h-8"
+            src="/asset/img/avatar.svg"
+            alt="Logo Plac"
+          />
 
           <p className="text-sm font-semibold">
             {firstName} {lastName}
@@ -37,24 +42,31 @@ const columns = [
     header: "Email"
   },
   {
-    accessorKey: "phone",
+    accessorKey: "telephone",
     header: "Numéro de téléphone"
   }
 ];
 
 export default function Employee() {
   const router = useRouter();
-  const { employes, fetchEmployes, addEmploye } = useEmployeStore();
+  const { employes, fetchEmployes, createEmploye } = useEmployeStore();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [search, setSearch] = useState("");
+
+  const handleAddEmployee = () => {
+    setIsPopupOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    document.body.style.overflow = "";
+  };
 
   useEffect(() => {
     fetchEmployes();
   }, [fetchEmployes]);
 
-  const handleAddEmployee = () => {
-    setIsPopupOpen(true);
-  };
   const handleRowClick = (row: { id: number }) => {
     router.push(`/employee/detail/${row.id}`);
   };
@@ -67,15 +79,15 @@ export default function Employee() {
       firstName: formData.get("firstName") as string,
       lastName: formData.get("lastName") as string,
       email: formData.get("email") as string,
-      phone: formData.get("phone") as string
+      phone: formData.get("telephone") as string
     };
 
-    addEmploye(newEmploye);
+    createEmploye(newEmploye);
     setIsPopupOpen(false);
   };
 
   const filteredEmployees = employes.filter((emp) =>
-    emp.firstName.toLowerCase().includes(search.toLowerCase())
+    emp.firstname?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -104,7 +116,7 @@ export default function Employee() {
               />
               <CustomButton
                 icon={<PlusIcon className="text-white" />}
-                text="Ajouter un chantier"
+                text="Ajouter un employee"
                 color="bg-brand-950"
                 textColor="text-white"
                 onClick={handleAddEmployee}
@@ -112,7 +124,7 @@ export default function Employee() {
               />
             </div>
           </div>
-          <div className="flex flex-col justify-start items-start">
+          <div className="flex justify-start">
             <SearchBar
               label="Rechercher un utilisateur"
               placeholder="Rechercher"
@@ -129,91 +141,13 @@ export default function Employee() {
 
       <Popup
         isOpen={isPopupOpen}
-        onClose={() => {}}
+        onClose={handleClosePopup}
         title="Ajouter un employer"
-        desc="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum">
-        <form className="flex flex-col gap-2">
-          <div>
-            <label
-              htmlFor="name"
-              className=" font-satoshi text-paragraphMedium text-neutral-950">
-              Nom du chantier
-            </label>
-            <input
-              type="text"
-              id="name"
-              className=" flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
-              placeholder="Nom du chantier"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="name"
-              className=" font-satoshi text-paragraphMedium text-neutral-950">
-              Description
-            </label>
-            <textarea
-              id="description"
-              className="flex min-h-40 p-3 justify-center items-center gap-2 self-stretch w-full border border-neutral-200 rounded"
-              placeholder="Description"
-            />
-          </div>
-          <div className="flex flex-row gap-4 justify-between">
-            <div>
-              <label
-                htmlFor="name"
-                className=" font-satoshi text-paragraphMedium text-neutral-950">
-                Date de début
-              </label>
-              <input
-                type="date"
-                id="name"
-                className=" flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
-                placeholder="Date de début"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="name"
-                className=" font-satoshi text-paragraphMedium text-neutral-950">
-                Date de fin
-              </label>
-              <input
-                type="date"
-                id="name"
-                className=" flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
-                placeholder="Date de fin"
-              />
-            </div>
-          </div>
-          <div className="flex flex-row gap-4 justify-between">
-            <div>
-              <label
-                htmlFor="name"
-                className=" font-satoshi text-paragraphMedium text-neutral-950">
-                Chef de chantier
-              </label>
-              <input
-                type="text"
-                id="name"
-                className=" flex h-11 p-3 items-center gap-2 self-stretch w-full min-w-56 border border-neutral-200 rounded"
-                placeholder="Chef de chantier"
-              />
-            </div>
-            <div>
-              <Dropdown
-                label="Status"
-                options={["test", "test2", "test3"]}
-                maxWidth="min-w-56"
-              />
-            </div>
-          </div>
-          <button
-            type="submit"
-            className="bg-brand-950 text-white px-4 py-2 rounded-md hover:bg-brand-700">
-            Enregistrer
-          </button>
-        </form>
+        desc="Vous pouvez ajouter un nouvel employé sur l’application.">
+        <CreateOrModifyEmployee
+          onSubmit={handleSaveEmployee}
+          submitLabel={"Ajouter l'employé"}
+        />
       </Popup>
     </div>
   );

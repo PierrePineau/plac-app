@@ -12,7 +12,7 @@ export default function SearchBar({
   onChange
 }: SearchBarProps) {
   return (
-    <form className="max-w-md min-w-80 mx-auto h-full rounded-lg">
+    <form className="max-w-md min-w-80 mx-auto h-full rounded-lg ml-0">
       {label && (
         <label className="text-paragraphMedium font-satoshi text-neutral-950">
           {label}

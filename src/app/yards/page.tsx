@@ -11,7 +11,7 @@ import DragDrop from "./components/drag_file_component";
 import { useProjectStore } from "@/store/projectStore";
 import FormModal from "../components/formModal";
 import CreateOrModifyYard from "./components/createOrModifyYard";
-import Tabs from "./components/tabs";
+import Tabs from "../components/tabs";
 
 export default function Chantiers() {
   const { projects, fetchProjects, createProject } = useProjectStore();

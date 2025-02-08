@@ -4,35 +4,51 @@ import NavBar from "@/app/components/navBar";
 import "../../../globals.css";
 import Header from "@/app/components/header";
 import CustomButton from "@/app/components/custombutton";
-import { FileEdit } from "lucide-react";
+import { FileEdit, Home, Mail, Phone, Trash, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useEmployeStore } from "@/store/employeeStore";
+import BubbleText from "@/app/components/bubbleText";
+import Tabs from "@/app/components/tabs";
+import EndOfSheetsTabComponentGrid from "../tabsComponents/endOfdaySheetsTab";
 
 export default function EmployeeDetail() {
   const router = useRouter();
   const { id } = useParams();
-  const getEmployeById = useEmployeStore((state: any) => state.getEmployeById);
+  const getEmployeeById = useEmployeStore(
+    (state: any) => state.getEmployeeById
+  );
   const fetchEmployes = useEmployeStore((state: any) => state.fetchEmployes);
   const [employee, setEmployee] = useState<Employe | null>(null);
 
   useEffect(() => {
     if (id) {
-      const employe = getEmployeById(Number(id));
+      const employe = getEmployeeById(Number(id));
       if (employe) {
         setEmployee(employe);
       } else {
         fetchEmployes().then(() => {
-          const fetchedEmploye = getEmployeById(Number(id));
+          const fetchedEmploye = getEmployeeById(Number(id));
           setEmployee(fetchedEmploye || null);
         });
       }
     }
-  }, [id, getEmployeById, fetchEmployes]);
+  }, [id, getEmployeeById, fetchEmployes]);
 
   if (!employee) {
     return <div>Chargement des détails de l'employé...</div>;
   }
+
+  const tabs = [
+    {
+      label: "Fiches de fin de journée",
+      content: <EndOfSheetsTabComponentGrid endOfSheets={employee.endOfSheets} />
+    },
+    {
+      label: "Pointages",
+      content: <></>
+    }
+  ];
 
   return (
     <div className="flex flex-row bg-white h-full">
@@ -44,11 +60,6 @@ export default function EmployeeDetail() {
         <div className="top-0 bg-white z-10 border-b border-neutral-200">
           <Header />
         </div>
-        <img
-          className="w-full max-h-72 object-cover"
-          src={employee.avatar || "/asset/img/default-avatar.jpeg"}
-          alt={employee.firstName}
-        />
         <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
           <div className="flex flex-col gap-2">
             <div className="flex flex-row gap-1">
@@ -56,40 +67,98 @@ export default function EmployeeDetail() {
                 Mes employés /
               </p>
               <p className="text-neutral-950 text-paragraphMedium font-satoshi">
-                {employee.firstName} {employee.lastName}
+                {employee.firstname} {employee.lastname}
               </p>
             </div>
-            <div className="flex flex-row justify-between">
-              <h1 className="font-satoshi text-h1Desktop text-neutral-900">
-                {employee.firstName} {employee.lastName}
-              </h1>
-              <CustomButton
-                text="Modifier les informations"
-                icon={<FileEdit />}
-                color="bg-brand-950"
-                textColor="text-white"
-                onClick={() => router.push(`/employees/edit/${employee.id}`)}
-                hover={""}
-              />
+            <div className="flex flex-row justify-between pt-8">
+              <div className="flex flex-row gap-2 w-full justify-start items-center">
+                <img
+                  className="w-24 h-24 rounded-lg object-cover"
+                  src={employee.avatar || "/asset/img/yard.jpeg"}
+                  alt={employee.firstname}
+                />
+
+                <h1 className="font-satoshi text-h1Desktop text-neutral-900">
+                  {employee.firstname} {employee.lastname}
+                </h1>
+              </div>
+              <div className="flex flex-row gap-4 max-h-12 w-full">
+                <CustomButton
+                  text="Supprimer"
+                  icon={<Trash2 />}
+                  color="bg-red-500"
+                  textColor="text-white"
+                  onClick={() => router.push(`/employees/edit/${employee.id}`)}
+                  hover={"bg-red-600"}
+                />
+                <CustomButton
+                  text="Modifier les informations"
+                  icon={<FileEdit />}
+                  color="bg-brand-950"
+                  textColor="text-white"
+                  onClick={() => router.push(`/employees/edit/${employee.id}`)}
+                  hover={"bg-brand-1000"}
+                />
+              </div>
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            <p className="text-neutral-700 text-paragraphMedium">
-              Email : {employee.email}
-            </p>
-            <p className="text-neutral-700 text-paragraphMedium">
-              Téléphone : {employee.phone}
-            </p>
-            <p className="text-neutral-700 text-paragraphMedium">
-              Adresse : {employee.address}
-            </p>
-            <p className="text-neutral-700 text-paragraphMedium">
-              Rôle : {employee.role}
-            </p>
-            <p className="text-neutral-700 text-paragraphMedium">
-              Statut : {employee.enable}
-            </p>
+            <h1 className="text-paragraphBold font-satoshi text-neutral-950">
+              À Propos
+            </h1>
+            <div className="flex flex-row gap-10">
+              <div className="flex items-center space-x-3">
+                <BubbleText
+                  icon={<Mail className="text-brand-500" />}
+                  widthBubble="w-12"
+                  heightBubble="h-12"
+                  widthSubBubble="w-10"
+                  heightSubBubble="h-10"
+                />
+                <div>
+                  <p className="text-sm font-satoshi text-neutral-500">Email</p>
+                  <p className="font-satoshi text-paragraphBold text-neutral-950">
+                    {employee.email}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <BubbleText
+                  icon={<Phone className="text-brand-500" />}
+                  widthBubble="w-12"
+                  heightBubble="h-12"
+                  widthSubBubble="w-10"
+                  heightSubBubble="h-10"
+                />
+                <div>
+                  <p className="text-sm font-satoshi text-neutral-500">
+                    Numéro de téléphone
+                  </p>
+                  <p className="font-satoshi text-paragraphBold text-neutral-950">
+                    {employee.telephone}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <BubbleText
+                  icon={<Home className="text-brand-500" />}
+                  widthBubble="w-12"
+                  heightBubble="h-12"
+                  widthSubBubble="w-10"
+                  heightSubBubble="h-10"
+                />
+                <div>
+                  <p className="text-sm font-satoshi text-neutral-500">
+                    Adresse
+                  </p>
+                  <p className="font-satoshi text-paragraphBold text-neutral-950">
+                    {employee.firstname}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+          <Tabs tabs={tabs} />
         </div>
       </div>
     </div>

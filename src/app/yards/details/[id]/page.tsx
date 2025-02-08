@@ -5,7 +5,6 @@ import "../../../globals.css";
 import Header from "@/app/components/header";
 import CustomButton from "@/app/components/custombutton";
 import { FileEdit, Printer } from "lucide-react";
-import Tabs from "../../components/tabs";
 import GeneralTab from "../tabsComponents/generalTab";
 import DocumentsTab from "../tabsComponents/documentsTab";
 import NotesGrid from "../tabsComponents/notesTab";
@@ -14,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useProjectStore } from "@/store/projectStore";
 import Popup from "@/app/components/popup";
 import CreateOrModifyYard from "../../components/createOrModifyYard";
+import Tabs from "@/app/components/tabs";
 
 export default function projectDetail() {
   const router = useRouter();

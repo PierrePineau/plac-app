@@ -94,37 +94,93 @@ export const mockOrganisations: Organisation[] = [
   }
 ];
 
+const mockEndOfSheets: EndOfSheet[] = [
+  {
+    id: 1,
+    title: "Rapport de fin de mois",
+    content:
+      "Résumé des performances et des objectifs atteints. ésumé des performances et des objectifs atteints. ésumé des performances et des objectifs atteints. ésumé des performances et des objectifs atteints. ésumé des performances et des objectifs atteints. ésumé des performances et des objectifs atteints.",
+    createdAt: new Date("2024-01-31T18:30:00")
+  },
+  {
+    id: 2,
+    title: "Synthèse hebdomadaire",
+    content: "Analyse des tendances et points clés de la semaine.",
+    createdAt: new Date("2024-02-05T14:15:00")
+  },
+  {
+    id: 3,
+    title: "Bilan projet Alpha",
+    content:
+      "Détails sur l'évolution et les prochaines étapes du projet Alpha.",
+    createdAt: new Date("2024-02-08T09:45:00")
+  },
+  {
+    id: 4,
+    title: "Compte-rendu réunion",
+    content: "Notes et décisions prises lors de la réunion du comité.",
+    createdAt: new Date("2024-02-06T16:00:00")
+  },
+  {
+    id: 5,
+    title: "Rapport annuel",
+    content: "Vue d'ensemble des résultats de l'année écoulée.",
+    createdAt: new Date("2023-12-31T23:59:00")
+  }
+];
+
+export default mockEndOfSheets;
+
 // Employee mock (without circular dependencies initially)
 export const mockEmployes: Employe[] = [
   {
     id: 1,
     uuid: "123e4567-e89b-12d3-a456-426614174001",
+    avatar: "/asset/img/yard.jpeg",
     email: "employe1@example.com",
     username: "employe1",
+    telephone: "0987654321",
     firstname: "John",
     lastname: "Doe",
     roles: ["ROLE_EMPLOYE", "ROLE_USER"],
-    organisations: []
+    organisations: [],
+    endOfSheets: [
+      mockEndOfSheets[0],
+      mockEndOfSheets[1],
+      mockEndOfSheets[2],
+      mockEndOfSheets[0],
+      mockEndOfSheets[1],
+      mockEndOfSheets[2],
+      mockEndOfSheets[0],
+      mockEndOfSheets[1],
+      mockEndOfSheets[2]
+    ]
   },
   {
     id: 2,
     uuid: "123e4567-e89b-12d3-a456-426614174002",
+    avatar: "/asset/img/yard.jpeg",
     email: "employe2@example.com",
     username: "employe2",
+    telephone: "0987654321",
     firstname: "Jane",
     lastname: "Smith",
     roles: ["ROLE_MANAGER"],
-    organisations: []
+    organisations: [],
+    endOfSheets: [mockEndOfSheets[0], mockEndOfSheets[2], mockEndOfSheets[3]]
   },
   {
     id: 3,
     uuid: "123e4567-e89b-12d3-a456-426614174003",
+    avatar: "/asset/img/yard.jpeg",
     email: "employe3@example.com",
     username: "employe3",
+    telephone: "0987654321",
     firstname: "Alice",
     lastname: "Johnson",
     roles: ["ROLE_EMPLOYE"],
-    organisations: []
+    organisations: [],
+    endOfSheets: [mockEndOfSheets[0], mockEndOfSheets[1], mockEndOfSheets[2]]
   }
 ];
 

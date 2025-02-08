@@ -141,7 +141,7 @@ export default function DataTable<T extends object>({
               {row.getVisibleCells().map((cell, index) => (
                 <td
                   key={cell.id}
-                  className="px-4 py-3 text-sm text-neutral-800 flex-row">
+                  className="px-4 py-3 text-sm text-neutral-800 flex-row justify-between">
                   {renderCell
                     ? renderCell(
                         cell.getValue(),

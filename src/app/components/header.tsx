@@ -3,7 +3,8 @@ import SearchBar from "./searchBar";
 import Popup from "./popup";
 import { useEffect, useState } from "react";
 import { useNotificationStore } from "@/store/notificationStore";
-import Tabs from "../yards/components/tabs";
+import Tabs from "./tabs";
+
 
 export default function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);

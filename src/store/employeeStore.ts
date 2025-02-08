@@ -4,12 +4,13 @@ import { create } from "zustand";
 interface EmployeState {
   employes: Employe[];
   fetchEmployes: () => Promise<void>;
+  getEmployeeById: (id: number) => Employe | undefined;
   createEmploye: (employe: Partial<Employe>) => Promise<void>;
   updateEmploye: (id: number, employe: Partial<Employe>) => Promise<void>;
   deleteEmploye: (id: number) => Promise<void>;
 }
 
-export const useEmployeStore = create<EmployeState>((set) => ({
+export const useEmployeStore = create<EmployeState>((set, get) => ({
   employes: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockEmployes : [],
   fetchEmployes: async () => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
@@ -23,6 +24,10 @@ export const useEmployeStore = create<EmployeState>((set) => ({
     } catch (error) {
       console.error("Error fetching employes:", error);
     }
+  },
+  getEmployeeById: (id: number) => {
+    const { employes } = get();
+    return employes.find((employe: Employe) => employe.id === id);
   },
   createEmploye: async (employe) => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
