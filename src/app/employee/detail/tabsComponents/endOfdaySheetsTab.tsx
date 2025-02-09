@@ -10,6 +10,7 @@ const EndOfSheetsTabComponentGrid: React.FC<{ endOfSheets: EndOfSheet[] }> = ({
   endOfSheets
 }) => {
   const [search, setSearch] = useState("");
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleCreateNotes = () => {
@@ -22,12 +23,16 @@ const EndOfSheetsTabComponentGrid: React.FC<{ endOfSheets: EndOfSheet[] }> = ({
     document.body.style.overflow = "";
   };
 
+  const filteredEndOfSheets = endOfSheets.filter((endOfSheet) =>
+    endOfSheet.title?.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row justify-between items-end">
         <div className="">
           <SearchBar
-            label="Rechercher un utilisateur"
+            label="Rechercher une fiche de fin de journée"
             placeholder="Rechercher"
             onChange={(e: string) => setSearch(e)}
           />
@@ -44,8 +49,8 @@ const EndOfSheetsTabComponentGrid: React.FC<{ endOfSheets: EndOfSheet[] }> = ({
         />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {endOfSheets.length != 0 &&
-          endOfSheets.map((endOfSheet) => (
+        {filteredEndOfSheets.length != 0 &&
+          filteredEndOfSheets.map((endOfSheet) => (
             <EndOfSheetCard
               key={endOfSheet.id}
               id={endOfSheet.id}

@@ -3,8 +3,8 @@ import { useState } from "react";
 import CustomButton from "../components/custombutton";
 import Header from "../components/header";
 import NavBar from "../components/navBar";
-import Tabs from "../yards/components/tabs";
 import DayPlanning from "./components/dayPlanning";
+import Tabs from "../components/tabs";
 
 export default function PlanningPage() {
   const tabs = [

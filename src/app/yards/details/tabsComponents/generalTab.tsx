@@ -190,6 +190,8 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightBubble="h-12"
             widthSubBubble="w-10"
             heightSubBubble="h-10"
+            firstBackground="bg-accent-100"
+            secondBackground="bg-accent-200"
           />
           <div>
             <p className="text-sm font-satoshi text-neutral-500">
@@ -208,6 +210,8 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightBubble="h-12"
             widthSubBubble="w-10"
             heightSubBubble="h-10"
+            firstBackground="bg-accent-100"
+            secondBackground="bg-accent-200"
           />
           <div>
             <p className="text-sm font-satoshi text-neutral-500">Email</p>
@@ -224,6 +228,8 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightBubble="h-12"
             widthSubBubble="w-10"
             heightSubBubble="h-10"
+            firstBackground="bg-accent-100"
+            secondBackground="bg-accent-200"
           />
           <div>
             <p className="text-sm font-satoshi text-neutral-500">

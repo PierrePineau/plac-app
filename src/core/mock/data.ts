@@ -188,17 +188,7 @@ export const mockEmployes: Employe[] = [
     lastname: "Doe",
     roles: ["ROLE_EMPLOYE", "ROLE_USER"],
     organisations: [],
-    endOfSheets: [
-      mockEndOfSheets[0],
-      mockEndOfSheets[1],
-      mockEndOfSheets[2],
-      mockEndOfSheets[0],
-      mockEndOfSheets[1],
-      mockEndOfSheets[2],
-      mockEndOfSheets[0],
-      mockEndOfSheets[1],
-      mockEndOfSheets[2]
-    ],
+    endOfSheets: [mockEndOfSheets[0], mockEndOfSheets[1], mockEndOfSheets[2]],
     pointage: [
       mockPointage[0],
       mockPointage[1],
@@ -393,7 +383,7 @@ export const mockProjects: Project[] = [
     name: "Recherche & Développement IA",
     description:
       "Exploration et prototypage de solutions basées sur l'intelligence artificielle.",
-    notes: [mockNotes[0], mockNotes[0], mockNotes[0], mockNotes[0]],
+    notes: [mockNotes[0], mockNotes[1], mockNotes[2], mockNotes[0]],
     medias: [
       mockMedia[0],
       mockMedia[0],

@@ -37,7 +37,18 @@ const columns = [
 const PointagesTabComponentGrid: React.FC<{ pointages: Pointage[] }> = ({
   pointages
 }) => {
-  const [search, setSearch] = useState("");
+  const [searchDate, setSearchDate] = useState("");
+  const [searchStatus, setSearchStatus] = useState("");
+
+  const filteredPointages = pointages.filter((pointage) => {
+    const pointageDate = new Date(pointage.date).toISOString().split("T")[0];
+    const dateMatch = searchDate ? pointageDate === searchDate : true;
+    const statusMatch =
+      searchStatus !== ""
+        ? pointage.status === (searchStatus === "true")
+        : true;
+    return dateMatch && statusMatch;
+  });
 
   return (
     <div className="flex flex-col gap-4">
@@ -55,6 +66,8 @@ const PointagesTabComponentGrid: React.FC<{ pointages: Pointage[] }> = ({
               name="startDate"
               className="w-full bg-transparent outline-none"
               required
+              value={searchDate}
+              onChange={(e) => setSearchDate(e.target.value)}
             />
           </div>
         </div>
@@ -69,14 +82,16 @@ const PointagesTabComponentGrid: React.FC<{ pointages: Pointage[] }> = ({
               id="status"
               name="status"
               className="w-full bg-transparent outline-none appearance-none"
-              required>
+              value={searchStatus}
+              onChange={(e) => setSearchStatus(e.target.value)}>
+              <option value="">Tous</option>
               <option value="true">Entrée</option>
               <option value="false">Sortie</option>
             </select>
           </div>
         </div>
       </div>
-      <DataTable data={pointages} columns={columns} />
+      <DataTable data={filteredPointages} columns={columns} />
     </div>
   );
 };
