@@ -1,6 +1,7 @@
 interface Client {
-  id: string;
+  id: number;
   email?: string;
+  avatar: string;
   firstname?: string;
   lastname?: string;
   phone?: string;
@@ -8,5 +9,7 @@ interface Client {
   updatedAt: Date;
   archived: boolean;
   deleted: boolean;
+  notes: Note[];
+  yards: Project[];
   organisationClients: Organisation[];
 }

@@ -107,6 +107,37 @@ const mockPointage: Pointage[] = [
   { id: 10, date: new Date("2024-02-05T18:15:00"), status: false }
 ];
 
+// note mock
+export const mockNotes: Note[] = [
+  {
+    id: 1,
+    uuid: "123e4567-e89b-12d3-a456-426614174001",
+    name: "Note One",
+    content: "This is the content of Note One.",
+    createdAt: new Date("2025-01-01T10:00:00Z"),
+    updatedAt: new Date("2025-01-02T15:30:00Z"),
+    projects: []
+  },
+  {
+    id: 2,
+    uuid: "123e4567-e89b-12d3-a456-426614174002",
+    name: "Note Two",
+    content: "This is the content of Note Two.",
+    createdAt: new Date("2025-02-01T10:00:00Z"),
+    updatedAt: new Date("2025-02-02T15:30:00Z"),
+    projects: []
+  },
+  {
+    id: 3,
+    uuid: "123e4567-e89b-12d3-a456-426614174003",
+    name: "Note Three",
+    content: "This is the content of Note Three.",
+    createdAt: new Date("2025-03-01T10:00:00Z"),
+    updatedAt: new Date("2025-03-02T15:30:00Z"),
+    projects: []
+  }
+];
+
 const mockEndOfSheets: EndOfSheet[] = [
   {
     id: 1,
@@ -236,46 +267,6 @@ mockOrganisations[1].employes = [mockEmployes[1]];
 mockEmployes[0].organisations = [mockOrganisations[0]];
 mockEmployes[1].organisations = [mockOrganisations[1]];
 
-//client mock
-export const mockClients: Client[] = [
-  {
-    id: "123e4567-e89b-12d3-a456-426614174001",
-    email: "client1@example.com",
-    firstname: "John",
-    lastname: "Doe",
-    phone: "123-456-7890",
-    createdAt: new Date("2025-01-01T10:00:00Z"),
-    updatedAt: new Date("2025-01-02T15:30:00Z"),
-    archived: false,
-    deleted: false,
-    organisationClients: [mockOrganisations[0], mockOrganisations[1]]
-  },
-  {
-    id: "123e4567-e89b-12d3-a456-426614174002",
-    email: "client2@example.com",
-    firstname: "Jane",
-    lastname: "Smith",
-    phone: "987-654-3210",
-    createdAt: new Date("2025-02-01T10:00:00Z"),
-    updatedAt: new Date("2025-02-02T15:30:00Z"),
-    archived: false,
-    deleted: false,
-    organisationClients: [mockOrganisations[2]]
-  },
-  {
-    id: "123e4567-e89b-12d3-a456-426614174003",
-    email: "client3@example.com",
-    firstname: "Alice",
-    lastname: "Johnson",
-    phone: "555-555-5555",
-    createdAt: new Date("2025-03-01T10:00:00Z"),
-    updatedAt: new Date("2025-03-02T15:30:00Z"),
-    archived: true,
-    deleted: false,
-    organisationClients: []
-  }
-];
-
 // module mock
 export const mockModules: Module[] = [
   { id: 1, reference: "MOD001", name: "Module One", enable: true },
@@ -316,37 +307,6 @@ export const mockPlans: Plan[] = [
     renewalFrequency: "Yearly",
     modules: [mockModules[4]],
     enable: false
-  }
-];
-
-// note mock
-export const mockNotes: Note[] = [
-  {
-    id: 1,
-    uuid: "123e4567-e89b-12d3-a456-426614174001",
-    name: "Note One",
-    content: "This is the content of Note One.",
-    createdAt: new Date("2025-01-01T10:00:00Z"),
-    updatedAt: new Date("2025-01-02T15:30:00Z"),
-    projects: []
-  },
-  {
-    id: 2,
-    uuid: "123e4567-e89b-12d3-a456-426614174002",
-    name: "Note Two",
-    content: "This is the content of Note Two.",
-    createdAt: new Date("2025-02-01T10:00:00Z"),
-    updatedAt: new Date("2025-02-02T15:30:00Z"),
-    projects: []
-  },
-  {
-    id: 3,
-    uuid: "123e4567-e89b-12d3-a456-426614174003",
-    name: "Note Three",
-    content: "This is the content of Note Three.",
-    createdAt: new Date("2025-03-01T10:00:00Z"),
-    updatedAt: new Date("2025-03-02T15:30:00Z"),
-    projects: []
   }
 ];
 
@@ -667,5 +627,60 @@ export const mockNotifications: Notif[] = [
     createdAt: new Date("2025-01-23T18:15:00"),
     read: true,
     sender: mockEmployes[1]
+  }
+];
+
+//client mock
+export const mockClients: Client[] = [
+  {
+    id: 1,
+    email: "client1@example.com",
+    firstname: "John",
+    lastname: "Doe",
+    avatar: "/asset/img/yard.jpeg",
+    phone: "123-456-7890",
+    createdAt: new Date("2025-01-01T10:00:00Z"),
+    updatedAt: new Date("2025-01-02T15:30:00Z"),
+    archived: false,
+    deleted: false,
+    organisationClients: [mockOrganisations[0], mockOrganisations[1]],
+    notes: [mockNotes[0], mockNotes[1], mockNotes[2]],
+    yards: [
+      mockProjects[5],
+      mockProjects[6],
+      mockProjects[7],
+      mockProjects[8],
+      mockProjects[9]
+    ]
+  },
+  {
+    id: 2,
+    email: "client2@example.com",
+    firstname: "Jane",
+    lastname: "Smith",
+    avatar: "/asset/img/yard.jpeg",
+    phone: "987-654-3210",
+    createdAt: new Date("2025-02-01T10:00:00Z"),
+    updatedAt: new Date("2025-02-02T15:30:00Z"),
+    archived: false,
+    deleted: false,
+    organisationClients: [mockOrganisations[2]],
+    notes: [mockNotes[0], mockNotes[1], mockNotes[2]],
+    yards: [mockProjects[0], mockProjects[1], mockProjects[2]]
+  },
+  {
+    id: 3,
+    email: "client3@example.com",
+    firstname: "Alice",
+    lastname: "Johnson",
+    avatar: "/asset/img/yard.jpeg",
+    phone: "555-555-5555",
+    createdAt: new Date("2025-03-01T10:00:00Z"),
+    updatedAt: new Date("2025-03-02T15:30:00Z"),
+    archived: true,
+    deleted: false,
+    organisationClients: [],
+    notes: [mockNotes[0], mockNotes[1], mockNotes[2]],
+    yards: [mockProjects[0], mockProjects[1], mockProjects[2]]
   }
 ];

@@ -77,12 +77,6 @@ export default function NavBar() {
                   <Calendar className=" text-black w-6 h-6" />
                   Planning
                 </Link>
-                <Link
-                  href="/end_of_day_sheet"
-                  className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
-                  <Newspaper className=" text-black w-6 h-6" />
-                  Fiche de fin de journée
-                </Link>
               </nav>
 
               <div className=" font-satoshi font-bold text-sidebar_title text-neutral-300 ">

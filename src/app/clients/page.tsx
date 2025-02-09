@@ -5,16 +5,14 @@ import React, { useEffect, useState } from "react";
 import CustomButton from "../components/custombutton";
 import Header from "../components/header";
 import NavBar from "../components/navBar";
-import Yard from "../components/yard";
 import "../globals.css";
-import { Filter, PlusIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import Popup from "../components/popup";
-import Dropdown from "../components/customDropdown";
-import DataTable from "../components/customTab";
 import SearchBar from "../components/searchBar";
-import { useEmployeStore } from "@/store/employeeStore";
 import { useRouter } from "next/navigation";
-import CreateOrModifyEmployee from "./components/createOrModifyEmployee";
+import { useClientStore } from "@/store/clientStore";
+import DataTable from "../components/customTab";
+import CreateOrModifyClient from "./components/createOrModifyClient";
 
 const columns = [
   {
@@ -42,18 +40,18 @@ const columns = [
     header: "Email"
   },
   {
-    accessorKey: "telephone",
+    accessorKey: "phone",
     header: "Numéro de téléphone"
   }
 ];
 
 export default function Employee() {
   const router = useRouter();
-  const { employes, fetchEmployes, createEmploye } = useEmployeStore();
+  const { clients, fetchClients, createClient } = useClientStore();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [search, setSearch] = useState("");
 
-  const handleAddEmployee = () => {
+  const handleAddClient = () => {
     setIsPopupOpen(true);
     document.body.style.overflow = "hidden";
   };
@@ -64,11 +62,11 @@ export default function Employee() {
   };
 
   useEffect(() => {
-    fetchEmployes();
-  }, [fetchEmployes]);
+    fetchClients();
+  }, [fetchClients]);
 
   const handleRowClick = (row: { id: number }) => {
-    router.push(`/employee/detail/${row.id}`);
+    router.push(`/clients/detail/${row.id}`);
   };
 
   const handleSaveEmployee = (event: React.FormEvent) => {
@@ -82,12 +80,12 @@ export default function Employee() {
       phone: formData.get("telephone") as string
     };
 
-    createEmploye(newEmploye);
+    createClient(newEmploye);
     setIsPopupOpen(false);
   };
 
-  const filteredEmployees = employes.filter((emp) =>
-    emp.firstname?.toLowerCase().includes(search.toLowerCase())
+  const filteredClient = clients.filter((client) =>
+    client.firstname?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -107,22 +105,22 @@ export default function Employee() {
             </p>
             <CustomButton
               icon={<PlusIcon className="text-white" />}
-              text="Ajouter un employee"
+              text="Ajouter un client"
               color="bg-brand-950"
               textColor="text-white"
-              onClick={handleAddEmployee}
+              onClick={handleAddClient}
               hover={""}
             />
           </div>
           <div className="flex justify-start">
             <SearchBar
-              label="Rechercher un employée"
+              label="Rechercher un client"
               placeholder="Rechercher"
               onChange={(e: string) => setSearch(e)}
             />
           </div>
           <DataTable
-            data={filteredEmployees}
+            data={filteredClient}
             columns={columns}
             onRowClick={handleRowClick}
           />
@@ -132,11 +130,11 @@ export default function Employee() {
       <Popup
         isOpen={isPopupOpen}
         onClose={handleClosePopup}
-        title="Ajouter un employer"
-        desc="Vous pouvez ajouter un nouvel employé sur l’application.">
-        <CreateOrModifyEmployee
+        title="Ajouter un client"
+        desc="Vous pouvez ajouter un nouvel client sur l’application.">
+        <CreateOrModifyClient
           onSubmit={handleSaveEmployee}
-          submitLabel={"Ajouter l'employé"}
+          submitLabel={"Ajouter le client"}
         />
       </Popup>
     </div>

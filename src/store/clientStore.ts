@@ -4,12 +4,13 @@ import { create } from "zustand";
 interface ClientState {
   clients: Client[];
   fetchClients: () => Promise<void>;
+  getClientById: (id: number) => Client | undefined;
   createClient: (client: Partial<Client>) => Promise<void>;
-  updateClient: (id: string, client: Partial<Client>) => Promise<void>;
-  deleteClient: (id: string) => Promise<void>;
+  updateClient: (id: number, client: Partial<Client>) => Promise<void>;
+  deleteClient: (id: number) => Promise<void>;
 }
 
-export const useClientStore = create<ClientState>((set) => ({
+export const useClientStore = create<ClientState>((set, get) => ({
   clients: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockClients : [],
   fetchClients: async () => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
@@ -20,6 +21,10 @@ export const useClientStore = create<ClientState>((set) => ({
     } catch (error) {
       console.error("Error fetching clients:", error);
     }
+  },
+  getClientById: (id: number) => {
+    const { clients } = get();
+    return clients.find((client: Client) => client.id === id);
   },
   createClient: async (client) => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
