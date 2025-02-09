@@ -2,7 +2,7 @@ interface User {
   id: number;
   uuid: string;
   email: string;
-  roles: string[];
+  roles: string;
   password?: string;
   deleted: boolean;
   deletedAt?: Date;

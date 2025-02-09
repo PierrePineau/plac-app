@@ -12,6 +12,7 @@ const Login = () => {
   const router = useRouter();
   const [isSignUp, setIsSignUp] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  const { user, error, isLoading } = useAuthStore();
   const [signupData, setSignupData] = useState({
     phoneNumber: "",
     firstName: "",
@@ -22,16 +23,15 @@ const Login = () => {
   });
 
   const login = useAuthStore((state) => state.login);
-  const isLoading = useAuthStore((state) => state.isLoading);
-  const error = useAuthStore((state) => state.error);
 
   const handleSubmit = async (email: string, password: string) => {
     await login(email, password);
-    const user = useAuthStore.getState().user;
-    if (user) {
+    if (user?.roles != null && user.roles != "ROLE_ADMIN") {
       router.push("/home");
     }
-    router.push("/home");
+    else {
+      router.push("/admin")
+    }
   };
 
   const updateSignupData = (key: string, value: string) => {

@@ -4,6 +4,7 @@ import { create } from "zustand";
 interface EmployeState {
   employes: Employe[];
   fetchEmployes: () => Promise<void>;
+  fetchEmployesByOrganisation: (organisationId: number) => Promise<void>;
   getEmployeeById: (id: number) => Employe | undefined;
   createEmploye: (employe: Partial<Employe>) => Promise<void>;
   updateEmploye: (id: number, employe: Partial<Employe>) => Promise<void>;
@@ -23,6 +24,24 @@ export const useEmployeStore = create<EmployeState>((set, get) => ({
       set({ employes: data });
     } catch (error) {
       console.error("Error fetching employes:", error);
+    }
+  },
+  fetchEmployesByOrganisation: async (organisationId) => {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
+      const filteredEmployes = mockEmployes.filter((employe) =>
+        employe.organisations.some((org) => org.id === organisationId)
+      );
+      set({ employes: filteredEmployes });
+      return;
+    }
+    try {
+      const response = await fetch(
+        `/api/organisations/${organisationId}/employes`
+      );
+      const data: Employe[] = await response.json();
+      set({ employes: data });
+    } catch (error) {
+      console.error("Error fetching employes by organisation:", error);
     }
   },
   getEmployeeById: (id: number) => {
