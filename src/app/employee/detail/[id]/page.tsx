@@ -11,15 +11,36 @@ import { useEmployeStore } from "@/store/employeeStore";
 import BubbleText from "@/app/components/bubbleText";
 import Tabs from "@/app/components/tabs";
 import EndOfSheetsTabComponentGrid from "../tabsComponents/endOfdaySheetsTab";
+import PointagesTabComponentGrid from "../tabsComponents/pointage";
+import Popup from "@/app/components/popup";
+import CreateOrModifyEmployee from "../../components/createOrModifyEmployee";
 
 export default function EmployeeDetail() {
   const router = useRouter();
   const { id } = useParams();
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupDeleteOpen, setIsPopupDeleteOpen] = useState(false);
   const getEmployeeById = useEmployeStore(
     (state: any) => state.getEmployeeById
   );
   const fetchEmployes = useEmployeStore((state: any) => state.fetchEmployes);
   const [employee, setEmployee] = useState<Employe | null>(null);
+
+  const handleModifyEmployee = () => {
+    setIsPopupOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    setIsPopupDeleteOpen(false);
+    document.body.style.overflow = "";
+  };
+
+  const handleDeleteEmployee = () => {
+    setIsPopupDeleteOpen(true);
+    document.body.style.overflow = "hidden";
+  };
 
   useEffect(() => {
     if (id) {
@@ -42,11 +63,13 @@ export default function EmployeeDetail() {
   const tabs = [
     {
       label: "Fiches de fin de journée",
-      content: <EndOfSheetsTabComponentGrid endOfSheets={employee.endOfSheets} />
+      content: (
+        <EndOfSheetsTabComponentGrid endOfSheets={employee.endOfSheets} />
+      )
     },
     {
       label: "Pointages",
-      content: <></>
+      content: <PointagesTabComponentGrid pointages={employee.pointage} />
     }
   ];
 
@@ -71,7 +94,7 @@ export default function EmployeeDetail() {
               </p>
             </div>
             <div className="flex flex-row justify-between pt-8">
-              <div className="flex flex-row gap-2 w-full justify-start items-center">
+              <div className="flex flex-row gap-2 w-full items-center">
                 <img
                   className="w-24 h-24 rounded-lg object-cover"
                   src={employee.avatar || "/asset/img/yard.jpeg"}
@@ -88,17 +111,19 @@ export default function EmployeeDetail() {
                   icon={<Trash2 />}
                   color="bg-red-500"
                   textColor="text-white"
-                  onClick={() => router.push(`/employees/edit/${employee.id}`)}
+                  onClick={handleDeleteEmployee}
                   hover={"bg-red-600"}
                 />
-                <CustomButton
-                  text="Modifier les informations"
-                  icon={<FileEdit />}
-                  color="bg-brand-950"
-                  textColor="text-white"
-                  onClick={() => router.push(`/employees/edit/${employee.id}`)}
-                  hover={"bg-brand-1000"}
-                />
+                <div className="flex w-full">
+                  <CustomButton
+                    text="Modifier les informations"
+                    icon={<FileEdit />}
+                    color="bg-brand-950"
+                    textColor="text-white"
+                    onClick={handleModifyEmployee}
+                    hover={"bg-brand-1000"}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -161,6 +186,34 @@ export default function EmployeeDetail() {
           <Tabs tabs={tabs} />
         </div>
       </div>
+      <Popup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        title="Modifier les informations">
+        <CreateOrModifyEmployee
+          onSubmit={() => {}}
+          submitLabel={"Enregistrer les modifications"}
+          defaultValues={employee}
+        />
+      </Popup>
+      <Popup
+        isOpen={isPopupDeleteOpen}
+        onClose={handleClosePopup}
+        title="Supprimer cet employé"
+        desc="Cette action est irréversible">
+        <div className="flex flex-row gap-2 items-end justify-end">
+          <button
+            type="submit"
+            className="bg-neutral-50 text-neutral-950 font-satoshi text-paragraphRegular px-4 py-2 rounded-md hover:bg-neutral-100">
+            Annuler
+          </button>
+          <button
+            type="submit"
+            className="bg-negative-500 text-white font-satoshi text-paragraphRegular px-4 py-2 rounded-md hover:bg-negative-600">
+            Supprimer
+          </button>
+        </div>
+      </Popup>
     </div>
   );
 }

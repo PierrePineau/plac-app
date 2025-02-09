@@ -105,24 +105,14 @@ export default function Employee() {
             <p className="text-h1Desktop text-neutral-950 font-satoshi">
               Mes chantiers
             </p>
-            <div className="flex flex-row">
-              <CustomButton
-                icon={<Filter className="text-neutral-950" />}
-                text="Filtrer"
-                color="bg-white"
-                textColor="text-neutral-950"
-                onClick={() => {}}
-                hover={""}
-              />
-              <CustomButton
-                icon={<PlusIcon className="text-white" />}
-                text="Ajouter un employee"
-                color="bg-brand-950"
-                textColor="text-white"
-                onClick={handleAddEmployee}
-                hover={""}
-              />
-            </div>
+            <CustomButton
+              icon={<PlusIcon className="text-white" />}
+              text="Ajouter un employee"
+              color="bg-brand-950"
+              textColor="text-white"
+              onClick={handleAddEmployee}
+              hover={""}
+            />
           </div>
           <div className="flex justify-start">
             <SearchBar

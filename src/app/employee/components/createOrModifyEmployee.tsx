@@ -3,25 +3,18 @@ import React from "react";
 interface FormModalProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   submitLabel: string;
-  defaultValues?: {
-    email?: string;
-    username?: string;
-    firstname?: string;
-    lastname?: string;
-    roles?: string;
-    organisations?: string;
-  };
+  defaultValues?: Employe;
 }
 
 const CreateOrModifyEmployee: React.FC<FormModalProps> = ({
   onSubmit,
   submitLabel,
-  defaultValues = {}
+  defaultValues
 }) => {
   return (
     <form className="flex flex-col gap-2" onSubmit={onSubmit}>
       <div className="flex flex-row gap-2 justify-between">
-        <div>
+        <div className="flex flex-col flex-1">
           <label
             htmlFor="name"
             className="font-satoshi text-paragraphMedium text-neutral-950">
@@ -33,11 +26,11 @@ const CreateOrModifyEmployee: React.FC<FormModalProps> = ({
             name="name"
             className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded font-satoshi text-paragraphMedium text-neutral-950"
             placeholder="Nom de famille"
-            defaultValue={defaultValues.lastname || ""}
+            defaultValue={defaultValues?.lastname || ""}
             required
           />
         </div>
-        <div>
+        <div className="flex flex-col flex-1">
           <label
             htmlFor="name"
             className="font-satoshi text-paragraphMedium text-neutral-950">
@@ -49,7 +42,7 @@ const CreateOrModifyEmployee: React.FC<FormModalProps> = ({
             name="name"
             className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded font-satoshi text-paragraphMedium text-neutral-950"
             placeholder="Prénom"
-            defaultValue={defaultValues.firstname || ""}
+            defaultValue={defaultValues?.firstname || ""}
             required
           />
         </div>
@@ -66,7 +59,7 @@ const CreateOrModifyEmployee: React.FC<FormModalProps> = ({
           name="name"
           className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded font-satoshi text-paragraphMedium text-neutral-950"
           placeholder="Adresse email"
-          defaultValue={defaultValues.email || ""}
+          defaultValue={defaultValues?.email || ""}
           required
         />
       </div>
@@ -82,7 +75,7 @@ const CreateOrModifyEmployee: React.FC<FormModalProps> = ({
           name="name"
           className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded font-satoshi text-paragraphMedium text-neutral-950"
           placeholder="Numéro de téléphone"
-          defaultValue={defaultValues.email || ""}
+          defaultValue={defaultValues?.email || ""}
           required
         />
       </div>
@@ -98,12 +91,12 @@ const CreateOrModifyEmployee: React.FC<FormModalProps> = ({
           name="name"
           className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded font-satoshi text-paragraphMedium text-neutral-950"
           placeholder="Adresse"
-          defaultValue={defaultValues.email || ""}
+          defaultValue={defaultValues?.email || ""}
           required
         />
       </div>
       <div className="flex flex-row gap-2 justify-between">
-        <div>
+        <div className="flex flex-col flex-1">
           <label
             htmlFor="name"
             className="font-satoshi text-paragraphMedium text-neutral-950">
@@ -115,11 +108,11 @@ const CreateOrModifyEmployee: React.FC<FormModalProps> = ({
             name="name"
             className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded font-satoshi text-paragraphMedium text-neutral-950"
             placeholder="Code postale"
-            defaultValue={defaultValues.lastname || ""}
+            defaultValue={defaultValues?.lastname || ""}
             required
           />
         </div>
-        <div>
+        <div className="flex flex-col flex-1">
           <label
             htmlFor="name"
             className="font-satoshi text-paragraphMedium text-neutral-950">
@@ -131,7 +124,7 @@ const CreateOrModifyEmployee: React.FC<FormModalProps> = ({
             name="name"
             className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded font-satoshi text-paragraphMedium text-neutral-950"
             placeholder="Ville"
-            defaultValue={defaultValues.firstname || ""}
+            defaultValue={defaultValues?.firstname || ""}
             required
           />
         </div>

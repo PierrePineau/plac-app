@@ -10,4 +10,5 @@ interface Employe {
   roles: string[];
   organisations: Organisation[];
   endOfSheets: EndOfSheet[];
+  pointage: Pointage[];
 }

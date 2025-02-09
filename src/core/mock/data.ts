@@ -94,6 +94,19 @@ export const mockOrganisations: Organisation[] = [
   }
 ];
 
+const mockPointage: Pointage[] = [
+  { id: 1, date: new Date("2024-02-01T08:30:00"), status: true },
+  { id: 2, date: new Date("2024-02-01T12:00:00"), status: false },
+  { id: 3, date: new Date("2024-02-02T09:00:00"), status: true },
+  { id: 4, date: new Date("2024-02-02T17:45:00"), status: false },
+  { id: 5, date: new Date("2024-02-03T07:45:00"), status: true },
+  { id: 6, date: new Date("2024-02-03T16:30:00"), status: false },
+  { id: 7, date: new Date("2024-02-04T10:15:00"), status: true },
+  { id: 8, date: new Date("2024-02-04T19:00:00"), status: false },
+  { id: 9, date: new Date("2024-02-05T08:00:00"), status: true },
+  { id: 10, date: new Date("2024-02-05T18:15:00"), status: false }
+];
+
 const mockEndOfSheets: EndOfSheet[] = [
   {
     id: 1,
@@ -154,6 +167,17 @@ export const mockEmployes: Employe[] = [
       mockEndOfSheets[0],
       mockEndOfSheets[1],
       mockEndOfSheets[2]
+    ],
+    pointage: [
+      mockPointage[0],
+      mockPointage[1],
+      mockPointage[2],
+      mockPointage[3],
+      mockPointage[4],
+      mockPointage[5],
+      mockPointage[6],
+      mockPointage[7],
+      mockPointage[8]
     ]
   },
   {
@@ -167,7 +191,18 @@ export const mockEmployes: Employe[] = [
     lastname: "Smith",
     roles: ["ROLE_MANAGER"],
     organisations: [],
-    endOfSheets: [mockEndOfSheets[0], mockEndOfSheets[2], mockEndOfSheets[3]]
+    endOfSheets: [mockEndOfSheets[0], mockEndOfSheets[2], mockEndOfSheets[3]],
+    pointage: [
+      mockPointage[0],
+      mockPointage[1],
+      mockPointage[2],
+      mockPointage[3],
+      mockPointage[4],
+      mockPointage[5],
+      mockPointage[6],
+      mockPointage[7],
+      mockPointage[8]
+    ]
   },
   {
     id: 3,
@@ -180,7 +215,18 @@ export const mockEmployes: Employe[] = [
     lastname: "Johnson",
     roles: ["ROLE_EMPLOYE"],
     organisations: [],
-    endOfSheets: [mockEndOfSheets[0], mockEndOfSheets[1], mockEndOfSheets[2]]
+    endOfSheets: [mockEndOfSheets[0], mockEndOfSheets[1], mockEndOfSheets[2]],
+    pointage: [
+      mockPointage[0],
+      mockPointage[1],
+      mockPointage[2],
+      mockPointage[3],
+      mockPointage[4],
+      mockPointage[5],
+      mockPointage[6],
+      mockPointage[7],
+      mockPointage[8]
+    ]
   }
 ];
 
