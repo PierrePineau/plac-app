@@ -10,7 +10,7 @@ import DocumentsTab from "../tabsComponents/documentsTab";
 import NotesGrid from "../tabsComponents/notesTab";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useProjectStore } from "@/store/projectStore";
+import { useProjectStore } from "@/store/user/projectStore";
 import Popup from "@/app/components/popup";
 import CreateOrModifyYard from "../../components/createOrModifyYard";
 import Tabs from "@/app/components/tabs";

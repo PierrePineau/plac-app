@@ -2,9 +2,8 @@ import { Bell, Settings } from "lucide-react";
 import SearchBar from "./searchBar";
 import Popup from "./popup";
 import { useEffect, useState } from "react";
-import { useNotificationStore } from "@/store/notificationStore";
+import { useNotificationStore } from "@/store/user/notificationStore";
 import Tabs from "./tabs";
-
 
 export default function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);

@@ -6,31 +6,32 @@ interface AuthState {
   isLoading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isLoading: false,
   error: null,
+
   login: async (email, password) => {
     set({ isLoading: true, error: null });
+
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
       set({ user: mockUsers[1], isLoading: false });
       return;
     }
+
     try {
-      const response = await fetch(
-        `https://dev-api.gestion-plac.fr/api/admin/login_check`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          mode: "cors",
-          body: JSON.stringify({ username: email, password })
-        }
-      );
+      const response = await fetch("/api/app/login_check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        mode: "cors",
+        body: JSON.stringify({ username: email, password })
+      });
+
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Erreur API :", errorData);
@@ -44,5 +45,13 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({ error: "Network error", isLoading: false });
     }
   },
-  logout: () => set({ user: null })
+
+  logout: async () => {
+    try {
+      await fetch("/api/logout", { method: "GET" });
+      set({ user: null });
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion :", error);
+    }
+  }
 }));

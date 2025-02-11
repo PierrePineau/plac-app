@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/store/user/useAuthStore";
 import CustomButton from "../components/custombutton";
-import { useOrganisationStore } from "@/store/organisationStore";
-import { useEmployeStore } from "@/store/employeeStore";
+import { useOrganisationStore } from "@/store/user/organisationStore";
+import { useEmployeStore } from "@/store/user/employeeStore";
 
 const Login = () => {
   const router = useRouter();

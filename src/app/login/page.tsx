@@ -6,7 +6,7 @@ import RegisterStepThree from "./components/register/registerStepThree";
 import RegisterStepFour from "./components/register/registerStepFour";
 import LoginForm from "./components/login/loginForm";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/store/user/useAuthStore";
 
 const Login = () => {
   const router = useRouter();
@@ -28,9 +28,8 @@ const Login = () => {
     await login(email, password);
     if (user?.roles != null && user.roles != "ROLE_ADMIN") {
       router.push("/home");
-    }
-    else {
-      router.push("/admin")
+    } else {
+      router.push("/admin");
     }
   };
 

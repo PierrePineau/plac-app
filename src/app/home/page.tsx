@@ -7,10 +7,10 @@ import NavBar from "../components/navBar";
 import Stats from "./components/stats";
 import "../globals.css";
 import { useState, useEffect } from "react";
-import { useEmployeStore } from "@/store/employeeStore";
+import { useEmployeStore } from "@/store/user/employeeStore";
 import { useRouter } from "next/navigation";
 import ProgressBar from "../components/progressBar";
-import { useProjectStore } from "@/store/projectStore";
+import { useProjectStore } from "@/store/user/projectStore";
 
 type TableData = {
   user: string;

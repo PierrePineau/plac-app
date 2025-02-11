@@ -12,7 +12,7 @@ import Popup from "../components/popup";
 import Dropdown from "../components/customDropdown";
 import DataTable from "../components/customTab";
 import SearchBar from "../components/searchBar";
-import { useEmployeStore } from "@/store/employeeStore";
+import { useEmployeStore } from "@/store/user/employeeStore";
 import { useRouter } from "next/navigation";
 import CreateOrModifyEmployee from "./components/createOrModifyEmployee";
 

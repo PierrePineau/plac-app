@@ -7,12 +7,12 @@ import CustomButton from "@/app/components/custombutton";
 import { FileEdit, Home, Mail, Phone, Trash, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useEmployeStore } from "@/store/employeeStore";
+import { useEmployeStore } from "@/store/user/employeeStore";
 import BubbleText from "@/app/components/bubbleText";
 import Tabs from "@/app/components/tabs";
 import Popup from "@/app/components/popup";
 import CreateOrModifyCLient from "../../components/createOrModifyClient";
-import { useClientStore } from "@/store/clientStore";
+import { useClientStore } from "@/store/user/clientStore";
 import AssociatedYards from "../tabsComponents/associatedYardsTab";
 import NotesTabComponentGrid from "../tabsComponents/notesTabComponents";
 

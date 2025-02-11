@@ -10,7 +10,7 @@ import { PlusIcon } from "lucide-react";
 import Popup from "../components/popup";
 import SearchBar from "../components/searchBar";
 import { useRouter } from "next/navigation";
-import { useClientStore } from "@/store/clientStore";
+import { useClientStore } from "@/store/user/clientStore";
 import DataTable from "../components/customTab";
 import CreateOrModifyClient from "./components/createOrModifyClient";
 

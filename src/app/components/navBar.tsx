@@ -12,7 +12,7 @@ import {
   LinkIcon
 } from "lucide-react";
 import Link from "next/link";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/store/user/useAuthStore";
 import { useRouter } from "next/navigation";
 
 export default function NavBar() {
