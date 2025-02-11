@@ -26,11 +26,7 @@ const Login = () => {
 
   const handleSubmit = async (email: string, password: string) => {
     await login(email, password);
-    if (user?.roles != null && user.roles != "ROLE_ADMIN") {
-      router.push("/home");
-    } else {
-      router.push("/admin");
-    }
+    router.push("/home");
   };
 
   const updateSignupData = (key: string, value: string) => {

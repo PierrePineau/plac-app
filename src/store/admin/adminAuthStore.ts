@@ -3,10 +3,7 @@ import { create } from "zustand";
 interface AdminAuthState {
   adminToken: string | null;
   isAuthenticated: boolean;
-  loginAdmin: (credentials: {
-    username: string;
-    password: string;
-  }) => Promise<boolean>;
+  loginAdmin: (username: string, password: string) => Promise<boolean>;
   logoutAdmin: () => Promise<void>;
 }
 
@@ -14,7 +11,7 @@ export const useAdminAuthStore = create<AdminAuthState>((set) => ({
   adminToken: null,
   isAuthenticated: false,
 
-  loginAdmin: async ({ username, password }) => {
+  loginAdmin: async (username, password) => {
     try {
       const response = await fetch("/api/admin/login_check", {
         method: "POST",
