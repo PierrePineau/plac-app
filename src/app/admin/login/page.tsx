@@ -1,23 +1,22 @@
 "use client";
 import { useState } from "react";
-import RegisterStepOne from "./components/register/registerStepOne";
-import RegisterStepTwo from "./components/register/registerStepTwo";
-import RegisterStepThree from "./components/register/registerStepThree";
-import RegisterStepFour from "./components/register/registerStepFour";
 import LoginForm from "./components/login/loginForm";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/store/user/useAuthStore";
 import { useAdminAuthStore } from "@/store/admin/adminAuthStore";
 
 const Login = () => {
   const router = useRouter();
   const { adminToken } = useAdminAuthStore();
-
   const login = useAdminAuthStore((state) => state.loginAdmin);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (email: string, password: string) => {
-    await login(email, password);
-    router.push("/admin/dashboard");
+    const result = await login(email, password);
+    if (result) {
+      router.push("/admin/dashboard");
+    } else {
+      setError("Identifiants invalides. Essayez à nouveau.");
+    }
   };
 
   return (
@@ -48,6 +47,9 @@ const Login = () => {
         </div>
         <div className="bg-white w-1/2 px-20 py-10 gap-8 flex flex-col justify-center">
           <LoginForm connectButton={handleSubmit} />
+          {error && (
+            <p className="text-negative-600 flex justify-center">{error}</p>
+          )}
         </div>
       </div>
     </div>

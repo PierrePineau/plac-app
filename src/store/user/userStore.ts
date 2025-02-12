@@ -1,5 +1,6 @@
 import { mockUsers } from "@/core/mock/data";
 import { create } from "zustand";
+import { get, post, remove } from "../../core/services/api.helper";
 
 interface UserState {
   users: User[];
@@ -20,8 +21,9 @@ export const useUserStore = create<UserState>((set) => ({
   fetchUser: async (id) => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
-      const response = await fetch(`/api/app/users/${id}`);
-      const data: User = await response.json();
+      const data = await get<User>(`/api/app/users/${id}`, {
+        authTarget: "user"
+      });
       set((state) => ({
         users: state.users.map((u) => (u.id === id ? data : u))
       }));
@@ -33,12 +35,9 @@ export const useUserStore = create<UserState>((set) => ({
   createUser: async (user) => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
-      const response = await fetch("/api/app/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user)
+      const newUser = await post<User>("/api/app/users", user, {
+        authTarget: "user"
       });
-      const newUser: User = await response.json();
       set((state) => ({ users: [...state.users, newUser] }));
     } catch (error) {
       console.error("Error creating user:", error);
@@ -48,12 +47,9 @@ export const useUserStore = create<UserState>((set) => ({
   updateUser: async (id, user) => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
-      const response = await fetch(`/api/app/users/${id}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user)
+      const updatedUser = await post<User>(`/api/app/users/${id}`, user, {
+        authTarget: "user"
       });
-      const updatedUser: User = await response.json();
       set((state) => ({
         users: state.users.map((u) => (u.id === id ? updatedUser : u))
       }));
@@ -65,12 +61,7 @@ export const useUserStore = create<UserState>((set) => ({
   deleteUser: async (id) => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
-      const response = await fetch(`/api/app/users/${id}`, {
-        method: "DELETE"
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete user");
-      }
+      await remove(`/api/app/users/${id}`, { authTarget: "user" });
       set((state) => ({
         users: state.users.filter((u) => u.id !== id)
       }));
@@ -80,9 +71,11 @@ export const useUserStore = create<UserState>((set) => ({
   },
 
   fetchUserOrganisations: async (idUser) => {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
-      const response = await fetch(`/api/app/users/${idUser}/organisations`);
-      const data = await response.json();
+      const data = await get(`/api/app/users/${idUser}/organisations`, {
+        authTarget: "user"
+      });
       console.log("Fetched user organisations:", data);
     } catch (error) {
       console.error("Error fetching user organisations:", error);
@@ -90,13 +83,13 @@ export const useUserStore = create<UserState>((set) => ({
   },
 
   addUserOrganisation: async (idUser, organisation) => {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
-      const response = await fetch(`/api/app/users/${idUser}/organisations`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(organisation)
-      });
-      const newOrganisation = await response.json();
+      const newOrganisation = await post(
+        `/api/app/users/${idUser}/organisations`,
+        organisation,
+        { authTarget: "user" }
+      );
       console.log("Added organisation to user:", newOrganisation);
     } catch (error) {
       console.error("Error adding organisation to user:", error);

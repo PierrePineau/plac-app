@@ -7,11 +7,11 @@ import Tabs from "./tabs";
 
 export default function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const { notifications, fetchNotifications } = useNotificationStore();
+  // const { notifications, fetchNotifications } = useNotificationStore();
 
-  useEffect(() => {
-    fetchNotifications();
-  }, [fetchNotifications]);
+  // useEffect(() => {
+  //   fetchNotifications();
+  // }, [fetchNotifications]);
 
   const handleOpenNotif = () => {
     setIsPopupOpen(true);
@@ -21,21 +21,21 @@ export default function Header() {
     setIsPopupOpen(false);
   };
 
-  const tabs = [
-    {
-      label: "Tout",
-      content: <NotificationBody notifications={notifications} />,
-      unreadCount: notifications.filter((notif) => !notif.read).length
-    },
-    {
-      label: "Archivé",
-      content: (
-        <NotificationBody
-          notifications={notifications.filter((notif) => notif.read)}
-        />
-      )
-    }
-  ];
+  // const tabs = [
+  //   {
+  //     label: "Tout",
+  //     content: <NotificationBody notifications={notifications} />,
+  //     unreadCount: notifications.filter((notif) => !notif.read).length
+  //   },
+  //   {
+  //     label: "Archivé",
+  //     content: (
+  //       <NotificationBody
+  //         notifications={notifications.filter((notif) => notif.read)}
+  //       />
+  //     )
+  //   }
+  // ];
 
   return (
     <div className="justify-start bg-white px-8 py-5">
@@ -64,7 +64,7 @@ export default function Header() {
         </div>
       </div>
 
-      <Popup
+      {/* <Popup
         isOpen={isPopupOpen}
         onClose={handleClosePopup}
         title="Notification">
@@ -77,7 +77,7 @@ export default function Header() {
             </button>
           </div>
         </div>
-      </Popup>
+      </Popup> */}
     </div>
   );
 }

@@ -1,5 +1,13 @@
 import { create } from "zustand";
-import { mockUsers } from "@/core/mock/data";
+import { post, get } from "../../core/services/api.helper";
+import { jwtDecode } from "jwt-decode";
+
+interface JwtPayload {
+  iat: number;
+  exp: number;
+  roles: string[];
+  username: string;
+}
 
 interface AuthState {
   user: User | null;
@@ -13,45 +21,29 @@ export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isLoading: false,
   error: null,
-
   login: async (email, password) => {
     set({ isLoading: true, error: null });
-
-    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
-      set({ user: mockUsers[1], isLoading: false });
-      return;
-    }
-
     try {
-      const response = await fetch("/api/app/login_check", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        mode: "cors",
-        body: JSON.stringify({ username: email, password })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Erreur API :", errorData);
-        set({ error: "Invalid credentials", isLoading: false });
-      } else {
-        const data = await response.json();
-        set({ user: data, isLoading: false });
+      const data = await post<User>(
+        "/api/app/login_check",
+        { username: email, password },
+        { skipAuth: true, authTarget: "user" }
+      );
+      if ("token" in data && typeof data.token === "string") {
+        const decoded = jwtDecode<JwtPayload>(data.token);
+        localStorage.setItem("userToken", data.token);
+        localStorage.setItem("userId", decoded.username);
       }
+      set({ user: data, isLoading: false });
     } catch (error) {
-      console.error("Erreur réseau :", error);
-      set({ error: "Network error", isLoading: false });
+      set({ error: "Invalid credentials or network error", isLoading: false });
     }
   },
-
   logout: async () => {
     try {
-      await fetch("/api/logout", { method: "GET" });
+      await get("/api/logout", { authTarget: "user" });
       set({ user: null });
-    } catch (error) {
-      console.error("Erreur lors de la déconnexion :", error);
-    }
+      localStorage.removeItem("userToken");
+    } catch (error) {}
   }
 }));

@@ -1,105 +1,71 @@
-import config from "../../configs/config";
+import { ApiError, UnauthorizedError, NotFoundError, ValidationError, NetworkError } from "./error"
 
-export default class ApiHelper {
-  api_token: string | null = null;
-  api_url: string | undefined = config.baseURL;
-  api_is_mocked: boolean | undefined;
-  headers: Headers = new Headers();
+interface ExtendedRequestInit extends RequestInit {
+  skipAuth?: boolean
+  authTarget?: "admin" | "user"
+}
 
-  constructor() {
-    this.api_is_mocked = config?.isMocked?.toLowerCase() == "true";
+function getAuthHeaders(authTarget: "admin" | "user" = "user"): Record<string, string> {
+  const tokenKey = authTarget === "admin" ? "adminToken" : "userToken"
+  const token = localStorage.getItem(tokenKey)
+  return token ? { Authorization: `Bearer ${token}` } : {}
+}
+
+export async function request<T>(url: string, options: ExtendedRequestInit = {}): Promise<T> {
+  const { skipAuth, authTarget, ...fetchOptions } = options
+  const authHeaders = !skipAuth ? getAuthHeaders(authTarget) : {}
+  const mergedHeaders: Record<string, string> = {}
+  if (fetchOptions.headers) {
+    if (fetchOptions.headers instanceof Headers) {
+      fetchOptions.headers.forEach((value, key) => {
+        mergedHeaders[key] = value
+      })
+    } else if (Array.isArray(fetchOptions.headers)) {
+      fetchOptions.headers.forEach(([key, value]) => {
+        mergedHeaders[key] = value
+      })
+    } else {
+      Object.assign(mergedHeaders, fetchOptions.headers)
+    }
   }
+  fetchOptions.headers = { ...mergedHeaders, ...authHeaders }
+  let response: Response
+  try {
+    response = await fetch(url, fetchOptions)
+  } catch {
+    throw new NetworkError()
+  }
+  if (!response.ok) {
+    if (response.status === 401) throw new UnauthorizedError()
+    if (response.status === 404) throw new NotFoundError()
+    if (response.status === 422) throw new ValidationError()
+    throw new ApiError(response.status, response.statusText)
+  }
+  return response.json()
+}
 
-  init = async () => {
-    this.headers.append("Accept", "application/json");
-    this.headers.append("Access-Control-Allow-Credentials", "true");
-    this.headers.append("Content-Type", "application/json");
-  };
+export function get<T>(url: string, options: ExtendedRequestInit = {}): Promise<T> {
+  return request<T>(url, { ...options, method: "GET" })
+}
 
-  addHeaderValue = (key: string, value?: string) => {
-    this.headers.append(key, value ? value : "");
-  };
+export function post<T>(url: string, body: unknown, options: ExtendedRequestInit = {}): Promise<T> {
+  return request<T>(url, {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...((options.headers as Record<string, string>) || {}) },
+    body: JSON.stringify(body)
+  })
+}
 
-  get = async (route: string, params?: any) => {
-    this.init();
-    const requestInit = {
-      method: "GET",
-      headers: this.headers
-    };
+export function put<T>(url: string, body: unknown, options: ExtendedRequestInit = {}): Promise<T> {
+  return request<T>(url, {
+    ...options,
+    method: "PUT",
+    headers: { "Content-Type": "application/json", ...((options.headers as Record<string, string>) || {}) },
+    body: JSON.stringify(body)
+  })
+}
 
-    const routeQueryParams = params
-      ? `${route}?${new URLSearchParams(params).toString()}`
-      : route;
-    return this.abortableFetch(this.api_url + routeQueryParams, requestInit)
-      .ready;
-  };
-
-  post = async (route: string, params: any) => {
-    this.init();
-
-    const requestInit = {
-      method: "POST",
-      headers: this.headers,
-      body: JSON.stringify(params)
-    };
-    return this.abortableFetch(this.api_url + route, requestInit).ready;
-  };
-
-  put = async (route: string, params?: any) => {
-    this.init();
-
-    const requestInit = {
-      method: "PUT",
-      headers: this.headers,
-      body: JSON.stringify(params)
-    };
-    return this.abortableFetch(this.api_url + route, requestInit).ready;
-  };
-
-  delete = async (route: string, params?: any) => {
-    this.init();
-
-    const requestInit = {
-      method: "DELETE",
-      headers: this.headers
-    };
-
-    const routeQueryParams = params ? `${route}/${params}` : route;
-    return this.abortableFetch(this.api_url + routeQueryParams, requestInit)
-      .ready;
-  };
-
-  createFakeResponse = (
-    data: any,
-    status: number = 200,
-    withDelay: boolean = true
-  ): Promise<Response> => {
-    const init = { status: status, statusText: "OK!" };
-    const blob =
-      status !== 204
-        ? new Blob([JSON.stringify(data, null, 2)], {
-            type: "application/json"
-          })
-        : null;
-    const response = new Response(blob, init);
-    return new Promise((resolve) => {
-      if (!withDelay) {
-        resolve(response);
-      } else {
-        setTimeout(() => {
-          resolve(response);
-        }, 2000);
-      }
-    });
-  };
-
-  private abortableFetch = (request: string, options: any) => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    return {
-      abort: () => controller.abort(),
-      ready: fetch(request, { ...options, signal, credentials: "include" })
-    };
-  };
+export function remove<T>(url: string, options: ExtendedRequestInit = {}): Promise<T> {
+  return request<T>(url, { ...options, method: "DELETE" })
 }
