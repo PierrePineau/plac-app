@@ -25,10 +25,16 @@ export const useAdminStore = create<AdminState>((set) => ({
   fetchOrganisations: async () => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
-      const data = await get<Organisation[]>("/api/admin/organisations", {
+      const resp = await get<ResponseApi>("/api/admin/organisations", {
         authTarget: "admin"
       });
-      set({ organisations: data });
+
+      if (resp.success) {
+        set({ organisations: resp.data.results });
+      }else{
+        set({ organisations: [] });
+        console.error("Error fetching data:", resp);
+      }
     } catch (error) {
       console.error("Error fetching admin organisations:", error);
     }
