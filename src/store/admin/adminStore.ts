@@ -3,8 +3,9 @@ import { create } from "zustand";
 import { get, post, remove } from "../../core/services/api.helper";
 
 interface AdminState {
-  organisations: Organisation[];
+  organisations: Organisation[] | [];
   users: User[];
+  isFetchingOrganisations?: boolean;
   fetchOrganisations: () => Promise<void>;
   createOrganisation: (organisation: Partial<Organisation>) => Promise<void>;
   updateOrganisation: (
@@ -22,7 +23,10 @@ export const useAdminStore = create<AdminState>((set) => ({
   organisations:
     process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockOrganisations : [],
   users: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockUsers : [],
+  isFetchingOrganisations: false,
   fetchOrganisations: async () => {
+    set({ organisations: [] });
+    set({ isFetchingOrganisations: true });
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
       const resp = await get<ResponseApi>("/api/admin/organisations", {
@@ -38,6 +42,7 @@ export const useAdminStore = create<AdminState>((set) => ({
     } catch (error) {
       console.error("Error fetching admin organisations:", error);
     }
+    set({ isFetchingOrganisations: false });
   },
   createOrganisation: async (organisation) => {
     try {
@@ -47,7 +52,7 @@ export const useAdminStore = create<AdminState>((set) => ({
         { authTarget: "admin" }
       );
       set((state) => ({
-        organisations: [...state.organisations, newOrganisation]
+        organisations: [...(state.organisations || []), newOrganisation]
       }));
     } catch (error) {
       console.error("Error creating admin organisation:", error);
@@ -62,7 +67,7 @@ export const useAdminStore = create<AdminState>((set) => ({
         { authTarget: "admin" }
       );
       set((state) => ({
-        organisations: state.organisations.map((o) =>
+        organisations: (state.organisations || []).map((o) =>
           o.id === id ? updatedOrganisation : o
         )
       }));
@@ -75,7 +80,7 @@ export const useAdminStore = create<AdminState>((set) => ({
     try {
       await remove(`/api/admin/organisations/${id}`, { authTarget: "admin" });
       set((state) => ({
-        organisations: state.organisations.filter((o) => o.id !== id)
+        organisations: (state.organisations || []).filter((o) => o.id !== id)
       }));
     } catch (error) {
       console.error("Error deleting admin organisation:", error);

@@ -8,11 +8,12 @@ import {
   SortingState,
   flexRender
 } from "@tanstack/react-table";
-import { EllipsisVertical } from "lucide-react";
+import { EllipsisVertical, LoaderCircle} from "lucide-react";
 import { useState } from "react";
 
 interface DataTableProps<T> {
   data: T[];
+  isLoading?: boolean;
   columns: ColumnDef<T>[];
   onRowSelectionChange?: (selectedRows: T[]) => void;
   renderCell?: (
@@ -28,6 +29,7 @@ interface DataTableProps<T> {
 
 export default function DataTable<T extends object>({
   data,
+  isLoading = false,
   columns,
   onRowSelectionChange,
   renderCell,
@@ -70,7 +72,7 @@ export default function DataTable<T extends object>({
   };
 
   const table = useReactTable({
-    data,
+    data: data || [],
     columns,
     state: { sorting },
     onSortingChange: enableSorting ? setSorting : undefined,
@@ -118,51 +120,68 @@ export default function DataTable<T extends object>({
             </tr>
           ))}
         </thead>
-
         {/* Body */}
+        
         <tbody>
-          {table.getRowModel().rows.map((row, index) => (
-            <tr
-              key={row.id}
-              className={``}
-              onClick={() => onRowClick?.(row.original)}>
-              {enableRowSelection && (
-                <td className="w-14 text-center">
-                  <label className="w-full h-12 m-auto cursor-pointer flex justify-center items-center">
-                  <input
-                      type="checkbox"
-                      checked={selectedRows.has(row.index)}
-                      onChange={(e) => {
-                        e.stopPropagation();
-                        handleRowSelection(row.index);
-                      }}
-                    />
-                  </label>
+          { 
+            !isLoading && ( 
+              table.getRowModel().rows.map((row, index) => (
+                <tr
+                  key={row.id}
+                  className={``}
+                  onClick={() => onRowClick?.(row.original)}>
+                  {enableRowSelection && (
+                    <td className="w-14 text-center">
+                      <label className="w-full h-12 m-auto cursor-pointer flex justify-center items-center">
+                      <input
+                          type="checkbox"
+                          checked={selectedRows.has(row.index)}
+                          onChange={(e) => {
+                            e.stopPropagation();
+                            handleRowSelection(row.index);
+                          }}
+                        />
+                      </label>
+                    </td>
+                  )}
+                  {row.getVisibleCells().map((cell, index) => (
+                    <td
+                      key={cell.id}
+                      className="text-sm text-neutral-600 flex-row justify-between">
+                      {renderCell
+                        ? renderCell(
+                            cell.getValue(),
+                            cell.column.columnDef,
+                            row.original
+                          )
+                        : flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {index === row.getVisibleCells().length - 1 &&
+                        ellipsisEnabled && (
+                          <button
+                            className="ml-2"
+                            onClick={(e) => e.stopPropagation()}>
+                            <EllipsisVertical />
+                          </button>
+                        )}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )
+          }
+          {
+            isLoading && (
+              <tr className="text-sm text-neutral-600 flex-row justify-between isLoading">
+                <td colSpan={columns.length + 1} className="p-0 ">
+                  <div className="flex justify-center items-center min-h-14">
+                    <div className="animate-spin text-neutral-400">
+                      <LoaderCircle width={32} height={32}/>
+                    </div>
+                  </div>
                 </td>
-              )}
-              {row.getVisibleCells().map((cell, index) => (
-                <td
-                  key={cell.id}
-                  className="text-sm text-neutral-800 flex-row justify-between">
-                  {renderCell
-                    ? renderCell(
-                        cell.getValue(),
-                        cell.column.columnDef,
-                        row.original
-                      )
-                    : flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  {index === row.getVisibleCells().length - 1 &&
-                    ellipsisEnabled && (
-                      <button
-                        className="ml-2"
-                        onClick={(e) => e.stopPropagation()}>
-                        <EllipsisVertical />
-                      </button>
-                    )}
-                </td>
-              ))}
-            </tr>
-          ))}
+              </tr>
+            )
+          }
         </tbody>
       </table>
     </div>

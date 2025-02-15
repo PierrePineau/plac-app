@@ -98,6 +98,13 @@ table {
     tr:hover{
       background: #F1F1F1;
     }
+
+    tr.isLoading {
+      background-color: transparent;
+      &:hover {
+        background-color: transparent;
+      }
+    }
   }
 
   td:has(> label) {

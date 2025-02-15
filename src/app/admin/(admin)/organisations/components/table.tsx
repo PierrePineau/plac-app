@@ -34,7 +34,7 @@ const columns = [
 ];
 
 export default function Table() {
-    const { organisations, fetchOrganisations } = useAdminStore();
+    const { organisations, isFetchingOrganisations, fetchOrganisations } = useAdminStore();
     const results = organisations;
 
     useEffect(() => {
@@ -50,6 +50,7 @@ export default function Table() {
                 value=""
             />
             <DataTable
+                isLoading={isFetchingOrganisations}
                 data={results}
                 columns={columns}
                 ellipsisEnabled={false}
