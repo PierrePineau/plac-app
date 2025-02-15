@@ -11,7 +11,7 @@ export default function Yard({ yards }: YardProps) {
       <div className="grid grid-cols-3 gap-8">
         {yards?.length ? (
           yards.map((yard) => (
-            <Link href="/yards/details">
+            <Link href={`/yards/details/${yard.id}`}>
               <div key={yard.id} className="flex flex-col gap-6 rounded-lg">
                 <div className="w-full h-56 rounded-lg overflow-hidden">
                   <img

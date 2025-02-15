@@ -12,8 +12,18 @@ import {
   LinkIcon
 } from "lucide-react";
 import Link from "next/link";
+import { useAuthStore } from "@/store/user/useAuthStore";
+import { useRouter } from "next/navigation";
 
 export default function NavBar() {
+  const logout = useAuthStore((state) => state.logout);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+    router.push("/login");
+  };
+
   return (
     <div>
       <div className="hidden md:flex w-sideBarWidth md:flex-col">
@@ -24,7 +34,10 @@ export default function NavBar() {
               src="/asset/img/logo.svg"
               alt="Logo Plac"
             />
-            <ArrowLeftFromLine className=" text-black w-6 h-6" />
+            <ArrowLeftFromLine
+              className=" text-black w-6 h-6"
+              onClick={handleLogout}
+            />
           </div>
 
           <div className=" font-satoshi font-bold text-sidebar_title text-neutral-300 ">
@@ -47,10 +60,10 @@ export default function NavBar() {
                   Mes chantiers
                 </Link>
                 <Link
-                  href="/company"
+                  href="/employee"
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <LinkIcon className=" text-black w-6 h-6" />
-                  Mon entreprise
+                  Mes employés
                 </Link>
                 <Link
                   href="/clients"
@@ -63,12 +76,6 @@ export default function NavBar() {
                   className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
                   <Calendar className=" text-black w-6 h-6" />
                   Planning
-                </Link>
-                <Link
-                  href="/end_of_day_sheet"
-                  className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
-                  <Newspaper className=" text-black w-6 h-6" />
-                  Fiche de fin de journée
                 </Link>
               </nav>
 
