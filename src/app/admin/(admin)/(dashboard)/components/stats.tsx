@@ -17,16 +17,16 @@ export default function Stats({
         heightSubBubble="h-16"
       />
       <div>
-        <p className="text-paragraphMedium text-neutral-400 font-satoshi">
+        <p className="text-paragraphMedium text-neutral-400  ">
           {title}
         </p>
-        <p className="text-neutral-950 font-bold font-satoshi text-stat">
+        <p className="text-neutral-950 font-bold   text-stat">
           {value}
         </p>
         <button onClick={onClick}>
           <div className="flex flex-row gap-2">
             <ArrowUpRight className="text-brand-500" />
-            <p className="text-brand-500 font-satoshi text-paragraphMedium">
+            <p className="text-brand-500   text-paragraphMedium">
               {redirectText}
             </p>
           </div>

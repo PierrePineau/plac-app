@@ -24,11 +24,11 @@ const Popup: React.FC<PopupProps> = ({
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
         <div className="flex justify-between items-start pb-4">
           <div className="flex flex-col">
-            <h2 className="font-satoshi text-h2Desktop text-neutral-950">
+            <h2 className="  text-h2Desktop text-neutral-950">
               {title}
             </h2>
             {desc && (
-              <p className="font-satoshi text-paragraphMedium text-neutral-400">
+              <p className="  text-paragraphMedium text-neutral-400">
                 {desc}
               </p>
             )}

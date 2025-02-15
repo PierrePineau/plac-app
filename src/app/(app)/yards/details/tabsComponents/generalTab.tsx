@@ -62,19 +62,19 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
     <div>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col items-start gap-2">
-          <p className="font-satoshi text-paragraphBold text-neutral-950">
+          <p className="  text-paragraphBold text-neutral-950">
             Description
           </p>
-          <p className="font-satoshi text-paragraphMedium text-neutral-500 max-w-[75%]">
+          <p className="  text-paragraphMedium text-neutral-500 max-w-[75%]">
             {project.description}
           </p>
         </div>
         <div className="flex flex-col items-start gap-2">
-          <p className="font-satoshi text-paragraphBold text-neutral-950">
+          <p className="  text-paragraphBold text-neutral-950">
             Statut
           </p>
           <p
-            className={`font-satoshi text-tag text-neutral-50 rounded-lg py-1 px-3 ${
+            className={`  text-tag text-neutral-50 rounded-lg py-1 px-3 ${
               "En cours" === "En cours" ? "bg-accent-500" : "bg-green-500"
             }`}>
             En cours
@@ -82,7 +82,7 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
         </div>
       </div>
 
-      <h2 className="font-satoshi text-h2Desktop text-neutral-900 mt-6">
+      <h2 className="  text-h2Desktop text-neutral-900 mt-6">
         Informations générales
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
@@ -95,10 +95,10 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightSubBubble="h-10"
           />
           <div>
-            <p className="text-sm font-satoshi text-neutral-500">
+            <p className="text-sm   text-neutral-500">
               Chef de chantier
             </p>
-            <p className="font-satoshi text-paragraphBold text-neutral-950">
+            <p className="  text-paragraphBold text-neutral-950">
               Lorem Ipsum
             </p>
           </div>
@@ -113,10 +113,10 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightSubBubble="h-10"
           />
           <div>
-            <p className="text-sm font-satoshi text-neutral-500">
+            <p className="text-sm   text-neutral-500">
               Date de début
             </p>
-            <p className="font-satoshi text-paragraphBold text-neutral-950">
+            <p className="  text-paragraphBold text-neutral-950">
               5 décembre 2024
             </p>
           </div>
@@ -131,8 +131,8 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightSubBubble="h-10"
           />
           <div>
-            <p className="text-sm font-satoshi text-neutral-500">Date de fin</p>
-            <p className="font-satoshi text-paragraphBold text-neutral-950">
+            <p className="text-sm   text-neutral-500">Date de fin</p>
+            <p className="  text-paragraphBold text-neutral-950">
               20 février 2025
             </p>
           </div>
@@ -147,10 +147,10 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightSubBubble="h-10"
           />
           <div>
-            <p className="text-sm font-satoshi text-neutral-500">
+            <p className="text-sm   text-neutral-500">
               Localisation
             </p>
-            <p className="font-satoshi text-paragraphBold text-neutral-950">
+            <p className="  text-paragraphBold text-neutral-950">
               {project.localisation}
             </p>
           </div>
@@ -165,7 +165,7 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-satoshi text-paragraphMedium text-brand-500">
+            className="  text-paragraphMedium text-brand-500">
             Ouvrir dans Maps
           </a>
         </div>
@@ -179,7 +179,7 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
           <p>Chargement de la carte...</p>
         )}
       </div>
-      <h2 className="font-satoshi text-h2Desktop text-neutral-900 mt-6">
+      <h2 className="  text-h2Desktop text-neutral-900 mt-6">
         Informations clients
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
@@ -194,10 +194,10 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             secondBackground="bg-accent-200"
           />
           <div>
-            <p className="text-sm font-satoshi text-neutral-500">
+            <p className="text-sm   text-neutral-500">
               Nom & Prénom
             </p>
-            <p className="font-satoshi text-paragraphBold text-neutral-950">
+            <p className="  text-paragraphBold text-neutral-950">
               {project.organisaton.name}
             </p>
           </div>
@@ -214,8 +214,8 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             secondBackground="bg-accent-200"
           />
           <div>
-            <p className="text-sm font-satoshi text-neutral-500">Email</p>
-            <p className="font-satoshi text-paragraphBold text-neutral-950">
+            <p className="text-sm   text-neutral-500">Email</p>
+            <p className="  text-paragraphBold text-neutral-950">
               contact@loremipsum.fr
             </p>
           </div>
@@ -232,10 +232,10 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             secondBackground="bg-accent-200"
           />
           <div>
-            <p className="text-sm font-satoshi text-neutral-500">
+            <p className="text-sm   text-neutral-500">
               N° de téléphone
             </p>
-            <p className="font-satoshi text-paragraphBold text-neutral-950">
+            <p className="  text-paragraphBold text-neutral-950">
               +33 7 98 24 58 74
             </p>
           </div>

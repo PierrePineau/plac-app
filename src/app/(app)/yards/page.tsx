@@ -117,7 +117,7 @@ export default function Chantiers() {
         </div>
         <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
           <div className="flex flex-row justify-between">
-            <p className="text-h1Desktop text-neutral-950 font-satoshi">
+            <p className="text-h1Desktop text-neutral-950  ">
               Mes chantiers
             </p>
             <div className="flex flex-row">

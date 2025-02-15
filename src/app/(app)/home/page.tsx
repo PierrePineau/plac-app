@@ -33,10 +33,10 @@ const columns = [
             alt="Avatar"
           />
           <div className="flex flex-col">
-            <p className="font-satoshi text-paragraphBold text-neutral-950">
+            <p className="  text-paragraphBold text-neutral-950">
               {firstname} {lastname}
             </p>
-            <p className="font-satoshi text-gray-500">{email}</p>
+            <p className="  text-gray-500">{email}</p>
           </div>
         </div>
       );
@@ -74,10 +74,10 @@ export default function Home() {
       
         <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
           <div className="flex flex-col">
-            <p className="text-h1Desktop text-neutral-950 font-satoshi">
+            <p className="text-h1Desktop text-neutral-950  ">
               Bonjour Jean Martin,
             </p>
-            <p className="text-paragraphMedium font-satoshi text-neutral-400">
+            <p className="text-paragraphMedium   text-neutral-400">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
               imperdiet congue lectus.
             </p>
@@ -108,7 +108,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <p className=" font-satoshi text-h2Desktop text-neutral-950">
+            <p className="   text-h2Desktop text-neutral-950">
               Mon équipe actuelle
             </p>
             <DataTable

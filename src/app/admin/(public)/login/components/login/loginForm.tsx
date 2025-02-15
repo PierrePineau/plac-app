@@ -19,12 +19,12 @@ const LoginForm = ({ connectButton }: LoginFormProps) => {
   return (
     <div>
       <div className="items-start gap-8 flex flex-col">
-        <h1 className="text-neutral-950 font-satoshi text-4xl">Connexion</h1>
+        <h1 className="text-neutral-950   text-4xl">Connexion</h1>
         <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="mail"
-              className="font-satoshi text-paragraphMedium text-neutral-950">
+              className="  text-paragraphMedium text-neutral-950">
               Email *
             </label>
             <input
@@ -39,7 +39,7 @@ const LoginForm = ({ connectButton }: LoginFormProps) => {
           <div>
             <label
               htmlFor="password"
-              className="font-satoshi text-paragraphMedium text-neutral-950">
+              className="  text-paragraphMedium text-neutral-950">
               Mot de passe *
             </label>
             <input
@@ -59,7 +59,7 @@ const LoginForm = ({ connectButton }: LoginFormProps) => {
         </form>
       </div>
       <div className="flex flex-col justify-center items-center pt-4 gap-4">
-        <p className="font-satoshi text-neutral-400 text-paragraphMedium">
+        <p className="  text-neutral-400 text-paragraphMedium">
           Mot de passe oublié
         </p>
       </div>

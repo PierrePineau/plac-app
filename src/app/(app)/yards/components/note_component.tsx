@@ -58,7 +58,7 @@ const NoteCard: React.FC<NoteProps> = ({ id, name, content, createdAt }) => {
             widthSubBubble="w-10"
             heightSubBubble="h-10"
           />
-          <h3 className="font-satoshi text-h3Desktop text-neutral-950">
+          <h3 className="  text-h3Desktop text-neutral-950">
             {name}
           </h3>
         </div>
@@ -91,11 +91,11 @@ const NoteCard: React.FC<NoteProps> = ({ id, name, content, createdAt }) => {
         </DropdownMenu.Root>
       </div>
 
-      <p className="font-satoshi text-neutral-400 text-paragraphMedium">
+      <p className="  text-neutral-400 text-paragraphMedium">
         {content}
       </p>
 
-      <div className="flex justify-between items-center font-satoshi text-tag text-neutral-400">
+      <div className="flex justify-between items-center   text-tag text-neutral-400">
         <span>{`${formattedDate} - ${formattedTime}`}</span>
         <CustomButton
           text={"Voir plus"}
@@ -113,7 +113,7 @@ const NoteCard: React.FC<NoteProps> = ({ id, name, content, createdAt }) => {
             type="text"
             id="name"
             name="name"
-            className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded font-satoshi text-paragraphMedium text-neutral-950"
+            className="flex h-11 p-3 items-center gap-2 self-stretch w-full border border-neutral-200 rounded   text-paragraphMedium text-neutral-950"
             defaultValue={content}
             required
             disabled

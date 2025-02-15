@@ -15,7 +15,7 @@ interface DataTableProps<T> {
 
 const StatusBadge = ({ status }: { status: true | false }) => (
   <span
-    className={`px-3 py-1 text-neutral-50 text-tag font-satoshi rounded-lg inline-block ${
+    className={`px-3 py-1 text-neutral-50 text-tag   rounded-lg inline-block ${
       status ? "bg-green-500" : "bg-red-500"
     }`}>
     {status ? "Entrée" : "Sortie"}
@@ -51,7 +51,7 @@ export default function DataTable<T extends object>({
   return (
     <div className="overflow-x-auto">
       <table className="w-full border border-neutral-300 rounded-lg">
-        <thead className="bg-neutral-50 text-neutral-400 font-satoshi text-tag">
+        <thead className="bg-neutral-50 text-neutral-400   text-tag">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -78,7 +78,7 @@ export default function DataTable<T extends object>({
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
-                  className="px-4 py-3 border border-neutral-300 text-neutral-500 font-satoshi text-tag">
+                  className="px-4 py-3 border border-neutral-300 text-neutral-500   text-tag">
                   {cell.column.id === "status" ? (
                     <StatusBadge status={cell.getValue() as true | false} />
                   ) : (

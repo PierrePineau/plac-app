@@ -10,8 +10,8 @@ const RegisterStepTwo = ({ onNext, onPrevious }: StepVerificationCodeProps) => {
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="flex flex-col gap-4">
-        <h1 className="text-neutral-950 font-satoshi text-4xl">Inscription</h1>
-        <p className="font-satoshi text-neutral-400 text-paragraphMedium">
+        <h1 className="text-neutral-950   text-4xl">Inscription</h1>
+        <p className="  text-neutral-400 text-paragraphMedium">
           Vous avez reçu un code de validation par SMS, veuillez le saisir
           ci-dessous.
         </p>

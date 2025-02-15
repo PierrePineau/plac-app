@@ -19,7 +19,7 @@ const ImagesComponent: React.FC<ImageItemProps> = (image) => {
         </div>
         <div className="flex flex-row justify-between">
           <div className="flex flex-col">
-            <p className="text-paragraphBold text-neutral-950 font-satoshi">
+            <p className="text-paragraphBold text-neutral-950  ">
               {image.fileName}
             </p>
           </div>

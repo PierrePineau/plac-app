@@ -41,7 +41,7 @@ export default function NavBar() {
             />
           </div>
 
-          <div className=" font-satoshi font-bold text-sidebar_title text-neutral-300 ">
+          <div className="   font-bold text-sidebar_title text-neutral-300 ">
             Général
           </div>
 
@@ -80,7 +80,7 @@ export default function NavBar() {
                 </Link>
               </nav>
 
-              <div className=" font-satoshi font-bold text-sidebar_title text-neutral-300 ">
+              <div className="   font-bold text-sidebar_title text-neutral-300 ">
                 Personnel
               </div>
 

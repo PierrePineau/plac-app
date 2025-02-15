@@ -56,10 +56,10 @@ const PointagesTabComponentGrid: React.FC<{ pointages: Pointage[] }> = ({
         <div className="max-w-md min-w-80 h-full rounded-lg">
           <label
             htmlFor="startDate"
-            className="font-satoshi text-paragraphMedium text-neutral-950">
+            className="  text-paragraphMedium text-neutral-950">
             Rechercher une date
           </label>
-          <div className="flex items-center h-11 p-3 border border-neutral-200 rounded w-full bg-white font-satoshi text-paragraphMedium text-neutral-950">
+          <div className="flex items-center h-11 p-3 border border-neutral-200 rounded w-full bg-white   text-paragraphMedium text-neutral-950">
             <input
               type="date"
               id="startDate"
@@ -74,10 +74,10 @@ const PointagesTabComponentGrid: React.FC<{ pointages: Pointage[] }> = ({
         <div className="max-w-md min-w-80 h-full rounded-lg">
           <label
             htmlFor="status"
-            className="font-satoshi text-paragraphMedium text-neutral-950">
+            className="  text-paragraphMedium text-neutral-950">
             Statut
           </label>
-          <div className="flex items-center h-11 p-3 border border-neutral-200 rounded w-full bg-white font-satoshi text-paragraphMedium text-neutral-950">
+          <div className="flex items-center h-11 p-3 border border-neutral-200 rounded w-full bg-white   text-paragraphMedium text-neutral-950">
             <select
               id="status"
               name="status"

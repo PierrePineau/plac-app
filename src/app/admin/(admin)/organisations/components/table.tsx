@@ -2,6 +2,7 @@ import DataTable from "@/components/customTab";
 import { useAdminStore } from "@/store/admin/adminStore";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import Field from "@/components/field";
 
 const columns = [
     {
@@ -30,10 +31,18 @@ export default function Table() {
     }, []);
 
     return (
-        <DataTable
-            data={results}
-            columns={columns}
-            ellipsisEnabled={false}
+        <>
+            <Field 
+                type="search"
+                name="search"
+                label="Rechercher"
+                value=""
             />
+            <DataTable
+                data={results}
+                columns={columns}
+                ellipsisEnabled={false}
+                />
+        </>
     );
 }

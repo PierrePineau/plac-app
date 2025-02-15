@@ -11,7 +11,7 @@ export default function Dropdown({ label, options, maxWidth }: DropdownProps) {
   return (
     <div className="h-full mx-auto">
       {label && (
-        <label className="text-paragraphMedium font-satoshi text-neutral-950">
+        <label className="text-paragraphMedium   text-neutral-950">
           {label}
         </label>
       )}

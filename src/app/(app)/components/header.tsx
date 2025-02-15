@@ -72,7 +72,7 @@ export default function Header() {
           <Tabs tabs={tabs} />
           <div className="text-start flex flex-row gap-2">
             <Settings className="text-neutral-400" />
-            <button className="text-brand-500 font-satoshi text-paragraphRegular">
+            <button className="text-brand-500   text-paragraphRegular">
               Tout marquer comme lu
             </button>
           </div>
@@ -109,19 +109,19 @@ const NotificationItem: React.FC<{ notification: Notif }> = ({
       <div className="flex flex-col gap-3">
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-row gap-1">
-            <p className="font-satoshi text-paragraphBold text-neutral-950">
+            <p className="  text-paragraphBold text-neutral-950">
               {sender.firstname} {sender.lastname}
             </p>
-            <p className="text-neutral-400 font-satoshi text-paragraphRegular">
+            <p className="text-neutral-400   text-paragraphRegular">
               a écrit
             </p>
           </div>
           {!read && <div className="w-3 h-3 bg-red-500 rounded-full"></div>}
         </div>
-        <div className=" font-satoshi text-paragraphRegular text-neutral-500 border border-neutral-200 p-2 rounded-lg">
+        <div className="   text-paragraphRegular text-neutral-500 border border-neutral-200 p-2 rounded-lg">
           {message}
         </div>
-        <div className=" font-satoshi text-sm text-neutral-400">
+        <div className="   text-sm text-neutral-400">
           {createdAt.toLocaleString()}
         </div>
       </div>

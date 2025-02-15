@@ -22,10 +22,10 @@ export default function Yard({ yards }: YardProps) {
                 </div>
                 <div className="flex flex-row justify-between">
                   <div className="flex flex-col">
-                    <p className="text-h3Desktop text-neutral-950 font-satoshi">
+                    <p className="text-h3Desktop text-neutral-950  ">
                       {yard.name}
                     </p>
-                    <p className="text-tag font-satoshi text-neutral-400">
+                    <p className="text-tag   text-neutral-400">
                       {yard.description}
                     </p>
                   </div>

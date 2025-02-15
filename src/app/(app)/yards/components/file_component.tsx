@@ -22,10 +22,10 @@ const FileCard: React.FC<FileCardProps> = ({
           onClick={onLinkClick}
         />
         <div>
-          <p className="text-paragraphBold font-satoshi text-neutral-950 truncate">
+          <p className="text-paragraphBold   text-neutral-950 truncate">
             {fileName}
           </p>
-          <p className="text-tag font-satoshi text-gray-500">{fileSize}</p>
+          <p className="text-tag   text-gray-500">{fileSize}</p>
         </div>
       </div>
       <MoreHorizontal

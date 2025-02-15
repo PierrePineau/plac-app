@@ -72,10 +72,10 @@ export default function ClientDetail() {
         <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
           <div className="flex flex-col gap-2">
             <div className="flex flex-row gap-1">
-              <p className="text-neutral-400 font-satoshi text-paragraphMedium">
+              <p className="text-neutral-400   text-paragraphMedium">
                 Mes clients /
               </p>
-              <p className="text-neutral-950 text-paragraphMedium font-satoshi">
+              <p className="text-neutral-950 text-paragraphMedium  ">
                 {client.firstname} {client.lastname}
               </p>
             </div>
@@ -87,7 +87,7 @@ export default function ClientDetail() {
                   alt={client.firstname}
                 />
 
-                <h1 className="font-satoshi text-h1Desktop text-neutral-900">
+                <h1 className="  text-h1Desktop text-neutral-900">
                   {client.firstname} {client.lastname}
                 </h1>
               </div>
@@ -114,7 +114,7 @@ export default function ClientDetail() {
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            <h1 className="text-paragraphBold font-satoshi text-neutral-950">
+            <h1 className="text-paragraphBold   text-neutral-950">
               À Propos
             </h1>
             <div className="flex flex-row gap-10">
@@ -129,8 +129,8 @@ export default function ClientDetail() {
                   secondBackground="bg-accent-200"
                 />
                 <div>
-                  <p className="text-sm font-satoshi text-neutral-500">Email</p>
-                  <p className="font-satoshi text-paragraphBold text-neutral-950">
+                  <p className="text-sm   text-neutral-500">Email</p>
+                  <p className="  text-paragraphBold text-neutral-950">
                     {client.email}
                   </p>
                 </div>
@@ -146,10 +146,10 @@ export default function ClientDetail() {
                   secondBackground="bg-accent-200"
                 />
                 <div>
-                  <p className="text-sm font-satoshi text-neutral-500">
+                  <p className="text-sm   text-neutral-500">
                     Numéro de téléphone
                   </p>
-                  <p className="font-satoshi text-paragraphBold text-neutral-950">
+                  <p className="  text-paragraphBold text-neutral-950">
                     {client.phone}
                   </p>
                 </div>
@@ -165,10 +165,10 @@ export default function ClientDetail() {
                   secondBackground="bg-accent-200"
                 />
                 <div>
-                  <p className="text-sm font-satoshi text-neutral-500">
+                  <p className="text-sm   text-neutral-500">
                     Adresse
                   </p>
-                  <p className="font-satoshi text-paragraphBold text-neutral-950">
+                  <p className="  text-paragraphBold text-neutral-950">
                     {client.firstname}
                   </p>
                 </div>
@@ -196,12 +196,12 @@ export default function ClientDetail() {
         <div className="flex flex-row gap-2 items-end justify-end">
           <button
             type="submit"
-            className="bg-neutral-50 text-neutral-950 font-satoshi text-paragraphRegular px-4 py-2 rounded-md hover:bg-neutral-100">
+            className="bg-neutral-50 text-neutral-950   text-paragraphRegular px-4 py-2 rounded-md hover:bg-neutral-100">
             Annuler
           </button>
           <button
             type="submit"
-            className="bg-negative-500 text-white font-satoshi text-paragraphRegular px-4 py-2 rounded-md hover:bg-negative-600">
+            className="bg-negative-500 text-white   text-paragraphRegular px-4 py-2 rounded-md hover:bg-negative-600">
             Supprimer
           </button>
         </div>

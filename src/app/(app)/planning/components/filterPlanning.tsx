@@ -15,7 +15,7 @@ export default function FilterPlanning() {
       <div className="flex flex-row gap-4">
         <div className="flex flex-row gap-2 items-center">
           <ChevronLeft className="text-neutral-950" onClick={() => {}} />
-          <p className="font-satoshi text-h2Desktop text-neutral-950">
+          <p className="  text-h2Desktop text-neutral-950">
             9 - 15 Décembre
           </p>
           <ChevronRight className="text-neutral-950" onClick={() => {}} />

@@ -18,7 +18,7 @@ const RegisterStepThree = ({
   const [isChecked, setIsChecked] = useState(false);
   return (
     <div className="flex flex-col gap-8 w-full">
-      <h1 className="text-neutral-950 font-satoshi text-4xl">Inscription</h1>
+      <h1 className="text-neutral-950   text-4xl">Inscription</h1>
       <div className="flex flex-row gap-4">
         <div className="w-full">
           <label htmlFor="name" className="text-neutral-950">
@@ -29,7 +29,7 @@ const RegisterStepThree = ({
             id="lastName"
             value={data.lastName}
             onChange={(e) => updateData("lastName", e.target.value)}
-            className="border rounded w-full px-4 py-2 font-satoshi text-paragraphMedium text-neutral-950"
+            className="border rounded w-full px-4 py-2   text-paragraphMedium text-neutral-950"
             placeholder="Ex: Doe"
           />
         </div>
@@ -42,7 +42,7 @@ const RegisterStepThree = ({
             id="firstName"
             value={data.firstName}
             onChange={(e) => updateData("firstName", e.target.value)}
-            className="border rounded w-full px-4 py-2 font-satoshi text-paragraphMedium text-neutral-950"
+            className="border rounded w-full px-4 py-2   text-paragraphMedium text-neutral-950"
             placeholder="Ex: John"
           />
         </div>
@@ -56,7 +56,7 @@ const RegisterStepThree = ({
           id="email"
           value={data.email}
           onChange={(e) => updateData("email", e.target.value)}
-          className="border rounded w-full px-4 py-2 font-satoshi text-paragraphMedium text-neutral-950"
+          className="border rounded w-full px-4 py-2   text-paragraphMedium text-neutral-950"
           placeholder="Ex: john.doe@example.com"
         />
       </div>

@@ -53,14 +53,14 @@ const EndOfSheetCard: React.FC<EndOfSheetProps> = ({
             widthSubBubble="w-10"
             heightSubBubble="h-10"
           />
-          <h3 className="font-satoshi text-h3Desktop text-neutral-950">
+          <h3 className="  text-h3Desktop text-neutral-950">
             {name}
           </h3>
         </div>
       </div>
 
       <p
-        className="font-satoshi text-neutral-400 text-paragraphMedium overflow-hidden text-ellipsis"
+        className="  text-neutral-400 text-paragraphMedium overflow-hidden text-ellipsis"
         style={{
           display: "-webkit-box",
           WebkitLineClamp: 2,
@@ -69,7 +69,7 @@ const EndOfSheetCard: React.FC<EndOfSheetProps> = ({
         {content}
       </p>
 
-      <div className="flex justify-between items-center font-satoshi text-tag text-neutral-400">
+      <div className="flex justify-between items-center   text-tag text-neutral-400">
         <span>{`${formattedDate} - ${formattedTime}`}</span>
         <CustomButton
           text={"Voir plus"}
@@ -84,7 +84,7 @@ const EndOfSheetCard: React.FC<EndOfSheetProps> = ({
       <Popup isOpen={isPopupOpen} onClose={handleClosePopup} title={name}>
         <div className="p-4 flex flex-col justify-start">
           <div className="border border-neutral-200 rounded bg-neutral-50 p-4">
-            <p className="text-neutral-950 text-paragraphMedium font-satoshi leading-relaxed whitespace-normal">
+            <p className="text-neutral-950 text-paragraphMedium   leading-relaxed whitespace-normal">
               {content}
             </p>
           </div>

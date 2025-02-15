@@ -14,7 +14,7 @@ export default function SearchBar({
   return (
     <form className="max-w-md min-w-80 mx-auto h-full rounded-lg ml-0">
       {label && (
-        <label className="text-paragraphMedium font-satoshi text-neutral-950">
+        <label className="text-paragraphMedium   text-neutral-950">
           {label}
         </label>
       )}
@@ -25,7 +25,7 @@ export default function SearchBar({
         <input
           type="search"
           id="default-search"
-          className="block w-full p-3 ps-10 text-paragraphMedium text-neutral-950 border border-gray-300 rounded-lg bg-white placeholder:text-neutral-200 placeholder:text-paragraphMedium placeholder:font-satoshi"
+          className="block w-full p-3 ps-10 text-paragraphMedium text-neutral-950 border border-gray-300 rounded-lg bg-white placeholder:text-neutral-200 placeholder:text-paragraphMedium placeholder: "
           placeholder={placeholder}
           onChange={(e) => onChange(e.target.value)}
           required

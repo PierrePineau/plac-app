@@ -16,7 +16,7 @@ const columns = [
             alt="Avatar"
           />
           <div className="flex flex-col">
-            <p className="font-satoshi text-paragraphBold text-neutral-950">
+            <p className="  text-paragraphBold text-neutral-950">
               {name}
             </p>
           </div>

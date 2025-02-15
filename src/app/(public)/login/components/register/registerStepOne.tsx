@@ -17,10 +17,10 @@ const RegisterStepOne = ({
     <div>
       <div className="items-start gap-8 flex flex-col">
         <div className="flex flex-col gap-4">
-          <h1 className="text-neutral-950 font-satoshi text-4xl">
+          <h1 className="text-neutral-950   text-4xl">
             Inscription
           </h1>
-          <p className="font-satoshi text-neutral-400 text-paragraphMedium">
+          <p className="  text-neutral-400 text-paragraphMedium">
             Vous n'avez pas besoin de renseignez votre carte bancaire.
           </p>
         </div>
@@ -28,7 +28,7 @@ const RegisterStepOne = ({
           <div>
             <label
               htmlFor="name"
-              className=" font-satoshi text-paragraphMedium text-neutral-950">
+              className="   text-paragraphMedium text-neutral-950">
               Numéro de téléphone *
             </label>
             <input
@@ -36,7 +36,7 @@ const RegisterStepOne = ({
               id="phone"
               value={data}
               onChange={(e) => updateData(e.target.value)}
-              className="border rounded w-full px-4 py-2 font-satoshi text-paragraphMedium text-neutral-950"
+              className="border rounded w-full px-4 py-2   text-paragraphMedium text-neutral-950"
               placeholder="Ex: 06 78 09 56 43"
             />
           </div>
@@ -49,7 +49,7 @@ const RegisterStepOne = ({
         </form>
       </div>
       <div className="flex flex-row gap-2 justify-center pt-8">
-        <p className="font-satoshi text-neutral-400 text-paragraphMedium">
+        <p className="  text-neutral-400 text-paragraphMedium">
           Déjà un compte ?
         </p>
         <CustomButton

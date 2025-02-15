@@ -35,9 +35,9 @@ const DragDrop: React.FC<DragDropProps> = ({
       <input {...getInputProps()} />
       <div className="flex items-center space-x-2 text-gray-300">
         <FileDown className="text-neutral-400" />
-        <p className="text-tag font-satoshi text-neutral-400">
+        <p className="text-tag   text-neutral-400">
           Glissez vos fichiers ici ou{" "}
-          <span className="text-neutral-500 font-satoshi text-tag underline">
+          <span className="text-neutral-500   text-tag underline">
             choisir
           </span>
         </p>

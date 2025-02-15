@@ -13,7 +13,7 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
   return (
     <div className="mt-6">
       <div className="flex flex-row justify-between items-center">
-        <h2 className="font-satoshi text-paragraphBold text-neutral-950">
+        <h2 className="  text-paragraphBold text-neutral-950">
           Documents
         </h2>
         <CustomButton
@@ -38,7 +38,7 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
         <DragDrop onDrop={() => {}} height="h-20" width="w-full" />
       </div>
       <div className="flex flex-row justify-between items-center mt-6">
-        <h2 className="font-satoshi text-paragraphBold text-neutral-950 ">
+        <h2 className="  text-paragraphBold text-neutral-950 ">
           Médias
         </h2>
         <CustomButton

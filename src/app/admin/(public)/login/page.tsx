@@ -30,10 +30,10 @@ const Login = () => {
               alt="Logo Plac"
             />
             <div className="flex flex-col gap-4">
-              <h1 className="text-neutral-50 font-satoshi text-5xl">
+              <h1 className="text-neutral-50   text-5xl">
                 Gérer vos chantiers plus facilement
               </h1>
-              <p className="text-brand-850 font-satoshi text-paragraphMedium">
+              <p className="text-brand-850   text-paragraphMedium">
                 Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
                 Lorem ipsum Lorem ipsum Lorem ipsum
               </p>

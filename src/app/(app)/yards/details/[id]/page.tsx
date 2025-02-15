@@ -77,15 +77,15 @@ export default function ProjectDetail() {
         <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
           <div className="flex flex-col gap-2">
             <div className="flex flex-row gap-1">
-              <p className="text-neutral-400 font-satoshi text-paragraphMedium">
+              <p className="text-neutral-400   text-paragraphMedium">
                 Mes chantiers /
               </p>
-              <p className=" text-neutral-950 text-paragraphMedium font-satoshi">
+              <p className=" text-neutral-950 text-paragraphMedium  ">
                 {project.name}
               </p>
             </div>
             <div className="flex flex-row justify-between">
-              <h1 className=" font-satoshi text-h1Desktop text-neutral-900">
+              <h1 className="   text-h1Desktop text-neutral-900">
                 {project.name}
               </h1>
               <div className="flex flex-row gap-4">

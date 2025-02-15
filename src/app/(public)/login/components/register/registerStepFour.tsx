@@ -9,14 +9,14 @@ interface StepFourProps {
 const RegisterStepFour = ({ onPrevious, data, updateData }: StepFourProps) => {
   return (
     <div className="flex flex-col gap-4 w-full">
-      <h1 className="text-neutral-950 font-satoshi text-4xl">Inscription</h1>
+      <h1 className="text-neutral-950   text-4xl">Inscription</h1>
       <label htmlFor="password" className="text-neutral-950">
         Créez un mot de passe :
       </label>
       <input
         type="password"
         id="password"
-        className="border rounded w-full px-4 py-2 font-satoshi text-paragraphMedium text-neutral-950"
+        className="border rounded w-full px-4 py-2   text-paragraphMedium text-neutral-950"
         placeholder="********"
         value={data.password}
         onChange={(e) => updateData("password", e.target.value)}
@@ -27,7 +27,7 @@ const RegisterStepFour = ({ onPrevious, data, updateData }: StepFourProps) => {
       <input
         type="password"
         id="confirmPassword"
-        className="border rounded w-full px-4 py-2 font-satoshi text-paragraphMedium text-neutral-950"
+        className="border rounded w-full px-4 py-2   text-paragraphMedium text-neutral-950"
         placeholder="********"
         value={data.confirmPassword}
         onChange={(e) => updateData("confirmPassword", e.target.value)}

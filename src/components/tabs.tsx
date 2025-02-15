@@ -15,7 +15,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs }) => {
 
   return (
     <div>
-      <div className="flex border-b border-neutral-400 text-neutral-400 text-paragraphMedium font-satoshi">
+      <div className="flex border-b border-neutral-400 text-neutral-400 text-paragraphMedium  ">
         {tabs.map((tab, index) => (
           <button
             key={index}
@@ -27,7 +27,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs }) => {
             onClick={() => setActiveTab(index)}>
             {tab.label}
             {tab.unreadCount !== undefined && tab.unreadCount > 0 && (
-              <span className=" bg-red-500 text-white font-satoshi text-sm font-bold rounded-lg px-1 py-0.5">
+              <span className=" bg-red-500 text-white   text-sm font-bold rounded-lg px-1 py-0.5">
                 {tab.unreadCount}
               </span>
             )}
