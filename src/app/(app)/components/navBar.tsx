@@ -28,7 +28,7 @@ export default function NavBar() {
   return (
     <div>
       <div className="hidden md:flex w-sideBarWidth md:flex-col">
-        <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white p-8">
+        <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white p-8 gap-2">
           <div className="flex flex-row justify-between items-center flex-shrink-0 pb-10">
             <img
               className="w-auto h-8"
@@ -41,9 +41,9 @@ export default function NavBar() {
             />
           </div>
 
-          <div className="   font-bold text-sidebar_title text-neutral-300 ">
+          <span className="font-bold text-sidebar_title text-neutral-300 uppercase">
             Général
-          </div>
+          </span>
 
           <div className="flex flex-col">
             <div className="space-y-4 pb-12">
@@ -80,9 +80,9 @@ export default function NavBar() {
                 </Link>
               </nav>
 
-              <div className="   font-bold text-sidebar_title text-neutral-300 ">
+              <span className="font-bold text-sidebar_title text-neutral-300 uppercase">
                 Personnel
-              </div>
+              </span>
 
               <nav className="flex-1 space-y-2">
                 <Link

@@ -28,7 +28,7 @@ export default function NavBar() {
   return (
     <div>
       <div className="hidden md:flex w-sideBarWidth md:flex-col">
-        <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white p-8">
+        <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white p-8 gap-4">
           <div className="flex flex-row justify-between items-center flex-shrink-0 pb-10">
             <img
               className="w-auto h-8"
@@ -41,53 +41,50 @@ export default function NavBar() {
             />
           </div>
 
-          <div className="   font-bold text-sidebar_title text-neutral-300 ">
-            Général
-          </div>
+          <div className="flex flex-col gap-4">
+            <span className="text-xs text-sidebar_title text-neutral-400 uppercase">
+              Général
+            </span>
+            <nav className="flex-1 space-y-2">
+              <Link
+                href="/admin"
+                className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
+                <House className=" text-black w-6 h-6" />
+                Accueil
+              </Link>
+              <Link
+                href="/admin/organisations"
+                className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
+                <Building className=" text-black w-6 h-6" />
+                Organisations
+              </Link>
+              <Link
+                href="/admin/users"
+                className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
+                <Users className=" text-black w-6 h-6" />
+                Utilisateurs
+              </Link>
+            </nav>
 
-          <div className="flex flex-col">
-            <div className="space-y-4 pb-12">
-              <nav className="flex-1 space-y-2">
-                <Link
-                  href="/admin"
-                  className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
-                  <House className=" text-black w-6 h-6" />
-                  Accueil
-                </Link>
-                <Link
-                  href="/admin/organisations"
-                  className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
-                  <Building className=" text-black w-6 h-6" />
-                  Organisations
-                </Link>
-                <Link
-                  href="/admin/users"
-                  className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
-                  <Users className=" text-black w-6 h-6" />
-                  Utilisateurs
-                </Link>
-              </nav>
+            <span className="text-xs text-sidebar_title text-neutral-400 uppercase">
+              Personnel
+            </span>
 
-              <div className="   font-bold text-sidebar_title text-neutral-300 ">
-                Personnel
-              </div>
-
-              <nav className="flex-1 space-y-2">
-                <Link
-                  href="/settings"
-                  className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
-                  <Settings className=" text-black w-6 h-6" />
-                  Paramètres
-                </Link>
-                <Link
-                  href="#"
-                  onClick={handleLogout}
-                  className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
-                  <LogOut className=" text-black w-6 h-6" />
-                  Déconnexion
-                </Link>
-              </nav>
-            </div>
+            <nav className="flex-1 space-y-2">
+              <Link
+                href="/settings"
+                className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
+                <Settings className=" text-black w-6 h-6" />
+                Paramètres
+              </Link>
+              <Link
+                href="#"
+                onClick={handleLogout}
+                className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
+                <LogOut className=" text-black w-6 h-6" />
+                Déconnexion
+              </Link>
+            </nav>
           </div>
         </div>
       </div>

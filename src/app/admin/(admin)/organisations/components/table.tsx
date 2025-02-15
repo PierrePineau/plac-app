@@ -42,6 +42,7 @@ export default function Table() {
                 data={results}
                 columns={columns}
                 ellipsisEnabled={false}
+                enableSorting={false}
                 />
         </>
     );

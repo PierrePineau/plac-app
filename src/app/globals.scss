@@ -4,7 +4,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0a0a0a;
 }
 
 // @media (prefers-color-scheme: dark) {
@@ -44,4 +44,64 @@ body {
     border-style: solid;
     border-width: 1px;
     // block w-full p-3 ps-10 text-paragraphMedium text-neutral-950 border border-gray-300 rounded-lg bg-white placeholder:text-neutral-200
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  -o-appearance:none;
+  -ms-appearance:none;
+  display: inline-flex;
+  border: 1px solid #c8c7c7;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+
+  &:checked {
+    background-color: #295BFF;
+    border-color: #295BFF;
+    content: url('data:image/svg+xml;utf8,<svg fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" /></svg>');
+  }
+}
+
+table {
+  // border-collapse: ;
+  border-collapse: unset;
+  border-spacing: 0;
+  // min-width: 350px;
+  border: 1px solid #E5E5E5;
+  td {
+    padding: 1rem .8rem;
+  }
+  thead {
+    tr {
+      th {
+        border-bottom: 1px solid #E5E5E5;
+        font-weight: normal;
+        color: #A0A0A0;
+      }
+      th:not(:first-child) {
+        border-left: 1px solid #E5E5E5;
+      }
+    }
+  }
+
+
+  tbody {
+    tr:nth-child(odd) {
+      background: #F9FAFC;
+    }
+
+    tr:hover{
+      background: #F1F1F1;
+    }
+  }
+
+  td:has(> label) {
+    padding: 0;
+  }
 }

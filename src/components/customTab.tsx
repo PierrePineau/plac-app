@@ -80,24 +80,26 @@ export default function DataTable<T extends object>({
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full border border-neutral-300 rounded-lg">
+      <table className="w-full rounded-lg">
         {/* Header */}
-        <thead className="bg-neutral-50 text-neutral-400 text-sm font-medium">
+        <thead className=" text-neutral-400 text-sm">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {enableRowSelection && (
-                <th className="w-14 p-2 text-center border border-neutral-300">
-                  <input
-                    type="checkbox"
-                    checked={selectedRows.size === data.length}
-                    onChange={handleSelectAll}
-                  />
+                <th className="w-14">
+                    <label className="w-full h-12 m-auto cursor-pointer flex justify-center items-center">
+                      <input
+                        type="checkbox"
+                        checked={selectedRows.size === data.length}
+                        onChange={handleSelectAll}
+                      />
+                    </label>
                 </th>
               )}
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className={`px-4 py-2 text-left font-semibold border border-neutral-300 ${
+                  className={`p-3 text-left ${
                     header.column.getCanSort() ? "cursor-pointer" : ""
                   }`}
                   onClick={header.column.getToggleSortingHandler()}>
@@ -122,26 +124,26 @@ export default function DataTable<T extends object>({
           {table.getRowModel().rows.map((row, index) => (
             <tr
               key={row.id}
-              className={`border-b ${
-                index % 2 === 0 ? "bg-white" : "bg-gray-50"
-              } hover:bg-gray-100 cursor-pointer`}
+              className={`cursor-pointer `}
               onClick={() => onRowClick?.(row.original)}>
               {enableRowSelection && (
-                <td className="w-14 p-2 text-center">
+                <td className="w-14 text-center">
+                  <label className="w-full h-12 m-auto cursor-pointer flex justify-center items-center">
                   <input
-                    type="checkbox"
-                    checked={selectedRows.has(row.index)}
-                    onChange={(e) => {
-                      e.stopPropagation();
-                      handleRowSelection(row.index);
-                    }}
-                  />
+                      type="checkbox"
+                      checked={selectedRows.has(row.index)}
+                      onChange={(e) => {
+                        e.stopPropagation();
+                        handleRowSelection(row.index);
+                      }}
+                    />
+                  </label>
                 </td>
               )}
               {row.getVisibleCells().map((cell, index) => (
                 <td
                   key={cell.id}
-                  className="px-4 py-3 text-sm text-neutral-800 flex-row justify-between">
+                  className="text-sm text-neutral-800 flex-row justify-between">
                   {renderCell
                     ? renderCell(
                         cell.getValue(),
