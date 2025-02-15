@@ -80,7 +80,7 @@ export default function DataTable<T extends object>({
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full rounded-lg">
+      <table className="w-full rounded-md">
         {/* Header */}
         <thead className=" text-neutral-400 text-sm">
           {table.getHeaderGroups().map((headerGroup) => (
