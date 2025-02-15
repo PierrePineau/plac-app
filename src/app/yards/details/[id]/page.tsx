@@ -15,7 +15,7 @@ import Popup from "@/app/components/popup";
 import CreateOrModifyYard from "../../components/createOrModifyYard";
 import Tabs from "@/app/components/tabs";
 
-export default function projectDetail() {
+export default function ProjectDetail() {
   const router = useRouter();
   const { id } = useParams();
   const getProjectById = useProjectStore((state) => state.getProjectById);
