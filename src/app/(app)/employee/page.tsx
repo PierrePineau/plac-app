@@ -9,7 +9,7 @@ import Yard from "../../../components/yard";
 import { Filter, PlusIcon } from "lucide-react";
 import Popup from "../../../components/popup";
 import Dropdown from "../../../components/customDropdown";
-import DataTable from "../../../components/customTab";
+import DataTable from "../../../components/DataTable";
 import SearchBar from "../../../components/searchBar";
 import { useEmployeStore } from "@/store/user/employeeStore";
 import { useRouter } from "next/navigation";

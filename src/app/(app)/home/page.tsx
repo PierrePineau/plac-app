@@ -1,7 +1,7 @@
 "use client";
 
 import Dropdown from "../../../components/customDropdown";
-import DataTable from "../../../components/customTab";
+import DataTable from "../../../components/DataTable";
 import Header from "../../../components/header";
 import NavBar from "../../../components/navBar";
 import Stats from "./components/stats";

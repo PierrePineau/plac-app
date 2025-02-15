@@ -1,13 +1,24 @@
-import DataTable from "@/components/customTab";
+import DataTable from "@/components/DataTable";
 import { useAdminStore } from "@/store/admin/adminStore";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import Field from "@/components/field";
+import Link from "next/link";
 
 const columns = [
     {
         accessorKey: "name",
         header: "Nom",
+        cell: (info: any) => {
+            const { uuid, name } = info.row.original;
+            return (
+                <Link
+                  href={`/admin/organisations/${uuid}`}
+                  className="link text-neutral-950">
+                    {name}
+                </Link>
+            );
+        },
     },
     {
         accessorKey: "createdAt",

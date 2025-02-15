@@ -124,7 +124,7 @@ export default function DataTable<T extends object>({
           {table.getRowModel().rows.map((row, index) => (
             <tr
               key={row.id}
-              className={`cursor-pointer `}
+              className={``}
               onClick={() => onRowClick?.(row.original)}>
               {enableRowSelection && (
                 <td className="w-14 text-center">

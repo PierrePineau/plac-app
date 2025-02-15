@@ -1,7 +1,7 @@
 "use client";
 
 import Dropdown from "../../../../components/customDropdown";
-import DataTable from "../../../../components/customTab";
+import DataTable from "../../../../components/DataTable";
 import Stats from "./components/stats";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";

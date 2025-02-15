@@ -110,3 +110,19 @@ table {
     }
   }
 }
+
+a.link {
+  // color: #295BFF;
+  // text-decoration: none;
+  &:hover {
+    color: #598CFF;
+    text-decoration: underline;
+  }
+}
+// .link {
+//   color: #295BFF;
+//   text-decoration: none;
+//   &:hover {
+//     text-decoration: underline;
+//   }
+// }
