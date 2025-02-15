@@ -1,7 +1,4 @@
-import Image from "next/image";
-import Home from "./home/page";
-import "./globals.css";
-import Login from "./login/page";
+import Login from "./(public)/login/page";
 
 export default function App() {
   return <Login />;

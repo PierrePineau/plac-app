@@ -1,6 +1,8 @@
+import "./globals.css";
+
 export const metadata = {
   title: 'Plac',
-  description: 'Site internet créé avec Next.js',
+  description: 'Application de gestion de chantiers',
 };
 
 export default function RootLayout({
@@ -16,7 +18,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body className="min-h-screen flex flex-col">
         {children}
       </body>
     </html>
