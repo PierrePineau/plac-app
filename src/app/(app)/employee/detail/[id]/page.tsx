@@ -1,7 +1,7 @@
 "use client";
 
 import NavBar from "@/components/navBar";
-import Header from "@/components/header";
+import Header from "@/components/headerpage";
 import CustomButton from "@/components/custombutton";
 import { FileEdit, Home, Mail, Phone, Trash, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import CustomButton from "../../../components/custombutton";
-import Header from "../../../components/header";
+import Header from "../../../components/headerpage";
 import NavBar from "../../../components/navBar";
 import DayPlanning from "./components/dayPlanning";
 import Tabs from "../../../components/tabs";

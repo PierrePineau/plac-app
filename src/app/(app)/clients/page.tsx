@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import CustomButton from "../../../components/custombutton";
-import Header from "../../../components/header";
+import Header from "../../../components/headerpage";
 import NavBar from "../../../components/navBar";
 import { PlusIcon } from "lucide-react";
 import Popup from "../../../components/popup";

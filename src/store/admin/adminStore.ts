@@ -6,6 +6,7 @@ interface AdminState {
   organisations: Organisation[] | [];
   users: User[];
   isFetchingOrganisations?: boolean;
+  isFetchingUsers?: boolean;
   fetchOrganisations: () => Promise<void>;
   createOrganisation: (organisation: Partial<Organisation>) => Promise<void>;
   updateOrganisation: (
@@ -24,6 +25,7 @@ export const useAdminStore = create<AdminState>((set) => ({
     process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockOrganisations : [],
   users: process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockUsers : [],
   isFetchingOrganisations: false,
+  isFetchingUsers: false,
   fetchOrganisations: async () => {
     set({ organisations: [] });
     set({ isFetchingOrganisations: true });
@@ -87,6 +89,7 @@ export const useAdminStore = create<AdminState>((set) => ({
     }
   },
   fetchUsers: async () => {
+    set({ isFetchingOrganisations: true });
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
     try {
       const data = await get<User[]>("/api/admin/users", {
@@ -96,6 +99,7 @@ export const useAdminStore = create<AdminState>((set) => ({
     } catch (error) {
       console.error("Error fetching admin users:", error);
     }
+    set({ isFetchingOrganisations: false });
   },
   fetchUser: async (id) => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;

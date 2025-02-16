@@ -6,6 +6,10 @@ import { NextConfig } from "next";
 import withPWA from "@ducanh2912/next-pwa";
 
 const isDevelopment = process.env.NODE_ENV === "development";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+console.log("isDevelopment", isDevelopment);
+console.log("API_URL", API_URL);
 
 if (isDevelopment) {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -18,7 +22,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*", // Intercepte les requêtes locales
-        destination: "https://dev-api.gestion-plac.fr/api/:path*" // Proxy vers l'API
+        destination: API_URL + "/:path*", // Proxy vers l'API
       }
     ];
   },

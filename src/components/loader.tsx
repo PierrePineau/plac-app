@@ -1,13 +1,13 @@
 "use client";
 import { useLoaderContext } from "@/core/context/LoaderContext";
 import {Spinner} from "@heroui/spinner";
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const loader: React.FC = () => {
-    const { isLoading } = useLoaderContext();
+    const { isLoading, canSee } = useLoaderContext();
 
     return (
-        <div className={`appLoader bg-neutral-600 bg-opacity-50 ${isLoading ? "isLoading" : "isLoaded"}`}>
+        <div className={`appLoader ${canSee ? "bg-neutral-600 bg-opacity-50" : "bg-white"}  ${isLoading ? "isLoading" : "isLoaded"}`}>
             <Spinner />
         </div>
     );

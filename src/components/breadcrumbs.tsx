@@ -1,10 +1,17 @@
 import {Breadcrumbs, BreadcrumbItem} from "@heroui/breadcrumbs";
+import React from "react";
 
-const AppBreadcrumbs = (name: string) => {
+interface BreadcrumbsProps {
+    name: string;
+}
+
+const AppBreadcrumbs: React.FC<BreadcrumbsProps> = ({
+    name
+}) => {
     const generateBreadcrumbs = () => {
         const pathnames = window.location.pathname.split('/').filter(x => x);
         return (
-            <Breadcrumbs>
+            <Breadcrumbs separator="/">
                 {/* <BreadcrumbItem href="/">Home</BreadcrumbItem> */}
                 {pathnames.map((value, index) => {
                     const to = `/${pathnames.slice(0, index + 1).join('/')}`;

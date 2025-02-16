@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import NavBar from "../../../components/navBar";
-import Header from "../../../components/header";
+import Header from "../../../components/headerpage";
 import CustomButton from "../../../components/custombutton";
 import { Filter, PlusIcon } from "lucide-react";
 import Yard from "../../../components/yard";

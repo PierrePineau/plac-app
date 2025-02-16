@@ -1,44 +1,69 @@
 import DataTable from "@/components/DataTable";
 import { useAdminStore } from "@/store/admin/adminStore";
 import { useEffect, useState } from "react";
+import { format } from "date-fns";
+import Field from "@/components/field";
+import Link from "next/link";
+import { Search } from "lucide-react";
 
 const columns = [
-  {
-    accessorKey: "name",
-    header: "Utilisateurs",
-    cell: (info: any) => {
-      const { name } = info.row.original;
-      return (
-        <div className="flex items-center space-x-2">
-          <img
-            className="w-auto h-8 rounded-full"
-            src="/asset/img/avatar.svg"
-            alt="Avatar"
-          />
-          <div className="flex flex-col">
-            <p className="  text-paragraphBold text-neutral-950">
-              {name}
-            </p>
-          </div>
-        </div>
-      );
+    {
+        accessorKey: "email",
+        header: "Nom",
+        cell: (info: any) => {
+            const { uuid, email } = info.row.original;
+            return (
+                <Link
+                  href={`/admin/users/${uuid}`}
+                  className="link text-neutral-950">
+                    {email}
+                </Link>
+            );
+        },
+    },
+    {
+        accessorKey: "createdAt",
+        header: "Date de création",
+        cell: (info: any) => {
+            const { createdAt } = info.row.original;
+            const formattedDate = format(new Date(createdAt), "dd/MM/yyyy HH:mm");
+            return (
+                formattedDate
+            );
+        },
     }
-  }
 ];
 
 export default function Table() {
-    const { users, fetchUsers } = useAdminStore();
+    const { users, isFetchingUsers, fetchUsers } = useAdminStore();
     const results = users;
 
     useEffect(() => {
         fetchUsers();
-    }, [fetchUsers]);
+        console.log("Fetching users");
+        console.log(users);
+    }, []);
+
+    useEffect(() => {
+        console.log(users);
+    }, [users]);
 
     return (
-        <DataTable
-            data={results}
-            columns={columns}
-            ellipsisEnabled={false}
+        <>
+            <Field
+                type="search"
+                name="search"
+                placeholder="Rechercher un utilisateur"
+                icon={<Search />}
+                value=""
             />
+            <DataTable
+                isLoading={isFetchingUsers}
+                data={results}
+                columns={columns}
+                ellipsisEnabled={false}
+                enableSorting={false}
+                />
+        </>
     );
 }
