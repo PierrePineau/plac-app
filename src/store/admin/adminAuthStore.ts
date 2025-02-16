@@ -4,14 +4,14 @@ import { post, get } from "../../core/services/api.helper";
 
 interface AdminAuthState {
   adminToken: string | null;
-  isAuthenticated: boolean;
+  isAdminAuthenticated: boolean;
   loginAdmin: (username: string, password: string) => Promise<boolean>;
   logoutAdmin: () => Promise<void>;
 }
 
 export const useAdminAuthStore = create<AdminAuthState>((set) => ({
   adminToken: null,
-  isAuthenticated: false,
+  isAdminAuthenticated: false,
   loginAdmin: async (username, password) => {
     try {
       const data = await post<{ token: string }>(
@@ -19,7 +19,7 @@ export const useAdminAuthStore = create<AdminAuthState>((set) => ({
         { username, password },
         { skipAuth: true, authTarget: "admin" }
       );
-      set({ adminToken: data.token, isAuthenticated: true });
+      set({ adminToken: data.token, isAdminAuthenticated: true });
       localStorage.setItem("adminToken", data.token);
       localStorage.removeItem("userToken");
       return true;
@@ -31,7 +31,7 @@ export const useAdminAuthStore = create<AdminAuthState>((set) => ({
   logoutAdmin: async () => {
     try {
       await get("/api/logout", { authTarget: "admin" });
-      set({ adminToken: null, isAuthenticated: false });
+      set({ adminToken: null, isAdminAuthenticated: false });
       localStorage.removeItem("adminToken");
     } catch (error) {
       console.error("Error logging out:", error);

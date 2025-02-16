@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import Field from "@/components/field";
 import Link from "next/link";
+import { Search } from "lucide-react";
 
 const columns = [
     {
@@ -43,10 +44,11 @@ export default function Table() {
 
     return (
         <>
-            <Field 
+            <Field
                 type="search"
                 name="search"
-                label="Rechercher"
+                placeholder="Rechercher une organisation"
+                icon={<Search />}
                 value=""
             />
             <DataTable

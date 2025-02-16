@@ -1,9 +1,8 @@
 "use client";
-import { AuthGuard } from "../../(app)/guard/authGuard";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { AuthGuard } from "@/core/context/AuthContext";
 import Header from "./components/header";
 import NavBar from "./components/navBar";
+import { Providers } from "./providers";
 
 // export const metadata = {
 //   title: 'Plac',
@@ -15,29 +14,21 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-  useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    if (!token) {
-      router.push("/admin/login");
-    }
-  }, [router]);
-  
   return (
-    <AuthGuard authTarget="admin">
-        <div className="flex flex-row bg-white h-full grow">
-            <div className="sticky bg-white hidden md:block border-r border-neutral-200">
-              <NavBar />
-            </div>
-            <div className="flex flex-col w-full">
-              <div className="top-0 bg-white z-10 border-b border-neutral-200">
-                <Header />
-              </div>
-              <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
-                {children}
-              </div>
-            </div>
+    <Providers>
+      <AuthGuard role="ROLE_ADMIN">
+        <div className="sticky bg-white hidden md:block border-r border-neutral-200">
+          <NavBar />
         </div>
-    </AuthGuard>
+        <div className="flex flex-col w-full">
+          <div className="top-0 bg-white z-10 border-b border-neutral-200">
+            <Header />
+          </div>
+          <main className="flex flex-col bg-white overflow-auto p-8 gap-8">
+            {children}
+          </main>
+        </div>
+      </AuthGuard>
+    </Providers>
   );
 }

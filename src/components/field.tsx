@@ -1,3 +1,4 @@
+import { icon } from 'leaflet';
 import React from 'react';
 
 interface FieldProps {
@@ -12,6 +13,7 @@ interface FieldProps {
   options?: { value: string; label: string; selected?: boolean; disabled?: boolean }[];
   selectAll?: boolean;
   value?: string;
+  icon?: React.ReactNode;
   [key: string]: any; // Pour les attributs supplémentaires
 }
 
@@ -22,11 +24,12 @@ const Field: React.FC<FieldProps> = ({
   label = null,
   required = true,
   className = '',
-  containerClassName = 'col',
+  containerClassName = '',
   unit = null,
   options = [],
   selectAll = false,
   value = '',
+  icon = null,
   ...attributes
 }) => {
   const uniqueId = id || `${name}-${Math.random().toString(36).substr(2, 9)}`;
@@ -116,15 +119,20 @@ const Field: React.FC<FieldProps> = ({
 
   return (
     <div className={`field__container ${containerClassName}`}>
-      {(type !== 'hidden' && (label != null || label != '')) && (
+      {(type !== 'hidden' && (label != null && label != '')) && (
         <label htmlFor={uniqueId} className={`field__label`}>
           {label}
         </label>
       )}
       {unit ? (
-        <div className="field__group mb-3">
+        <div className="field__wrapper field--icons">
           {renderInput()}
-          <span className="field--unit">{unit}</span>
+          <span className="field__icon field__unit right-0">{unit}</span>
+        </div>
+      ) : icon ? (
+        <div className="field__wrapper field--icons">
+          {renderInput()}
+          <span className="field__icon left-0">{icon}</span>
         </div>
       ) : (
         renderInput()

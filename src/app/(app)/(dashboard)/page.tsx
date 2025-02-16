@@ -2,8 +2,6 @@
 
 import Dropdown from "../../../components/customDropdown";
 import DataTable from "../../../components/DataTable";
-import Header from "../../../components/header";
-import NavBar from "../../../components/navBar";
 import Stats from "./components/stats";
 import { useState, useEffect } from "react";
 import { useEmployeStore } from "@/store/user/employeeStore";
@@ -71,53 +69,52 @@ export default function Home() {
   };
 
   return (
-      
-        <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
-          <div className="flex flex-col">
-            <p className="text-h1Desktop text-neutral-950  ">
-              Bonjour Jean Martin,
-            </p>
-            <p className="text-paragraphMedium   text-neutral-400">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              imperdiet congue lectus.
-            </p>
-          </div>
-          <div className="grid grid-cols-3 gap-6">
-            <Stats
-              title="Total d'utilisateur"
-              value={employes.length}
-              redirectText="???"
-              onClick={() => {}}
-            />
-            <Stats
-              title="Nombre de chantiers en cours"
-              value={ongoingYards.length}
-              redirectText="Voir mes chantiers en cours"
-              onClick={() => router.push("/yards")}
-            />
-            <Stats
-              title="Nombre de chantiers à venir"
-              value={
-                projects.filter(
-                  (project) => project.status.label === "En cours"
-                ).length
-              }
-              redirectText="Voir mes chantiers à venir"
-              onClick={() => router.push("/yards")}
-            />
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <p className="   text-h2Desktop text-neutral-950">
-              Mon équipe actuelle
-            </p>
-            <DataTable
-              data={filteredEmployees}
-              columns={columns}
-              onRowClick={(row) => handleEmployeeClick(row.id)}
-              ellipsisEnabled={false}
-            />
-          </div>
+      <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
+        <div className="flex flex-col">
+          <p className="text-h1Desktop text-neutral-950  ">
+            Bonjour Jean Martin,
+          </p>
+          <p className="text-paragraphMedium   text-neutral-400">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+            imperdiet congue lectus.
+          </p>
         </div>
+        <div className="grid grid-cols-3 gap-6">
+          <Stats
+            title="Total d'utilisateur"
+            value={employes.length}
+            redirectText="???"
+            onClick={() => {}}
+          />
+          <Stats
+            title="Nombre de chantiers en cours"
+            value={ongoingYards.length}
+            redirectText="Voir mes chantiers en cours"
+            onClick={() => router.push("/yards")}
+          />
+          <Stats
+            title="Nombre de chantiers à venir"
+            value={
+              projects.filter(
+                (project) => project.status.label === "En cours"
+              ).length
+            }
+            redirectText="Voir mes chantiers à venir"
+            onClick={() => router.push("/yards")}
+          />
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <p className="   text-h2Desktop text-neutral-950">
+            Mon équipe actuelle
+          </p>
+          <DataTable
+            data={filteredEmployees}
+            columns={columns}
+            onRowClick={(row) => handleEmployeeClick(row.id)}
+            ellipsisEnabled={false}
+          />
+        </div>
+      </div>
   );
 }

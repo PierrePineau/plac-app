@@ -1,4 +1,6 @@
+import SplashScreen from "@/components/splashscreen";
 import "./globals.scss";
+import { Providers } from "./providers";
 
 export const metadata = {
   title: 'Plac',
@@ -10,6 +12,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html lang="fr">
       <head>
@@ -19,7 +22,10 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        {children}
+          <Providers>
+            <SplashScreen />
+            {children}
+          </Providers>
       </body>
     </html>
   );
