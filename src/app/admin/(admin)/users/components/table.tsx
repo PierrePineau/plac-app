@@ -1,3 +1,4 @@
+"use client";
 import DataTable from "@/components/DataTable";
 import { useAdminStore } from "@/store/admin/adminStore";
 import { useEffect, useState } from "react";

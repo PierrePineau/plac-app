@@ -37,8 +37,8 @@ export function AuthGuard({
 	const router = useRouter();
 	const [render, setRender] = useState(false);
 	useEffect(() => {
-    	const tokenKey = role === "ROLE_ADMIN" ? "adminToken" : "userToken";
-		const token = localStorage.getItem(tokenKey);
+    	// const tokenKey = role === "ROLE_ADMIN" ? "adminToken" : "userToken";
+		const token = localStorage.getItem("jwtToken");
 		if (!token) {
 			router.push("/admin/login");
 		}

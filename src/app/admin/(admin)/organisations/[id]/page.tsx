@@ -1,44 +1,32 @@
 "use client";
 import HeaderPage from "@/components/headerpage";
+import { useLoaderContext } from "@/core/context/LoaderContext";
+import { useApiService } from "@/core/services/api.service";
 import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Page() {
-  const { id } = useParams();
-  // const 
-  // useEffect(() => {
-  //   if (id) {
-  //     const client = getClientById(Number(id));
-  //     if (client) {
-  //       setClient(client);
-  //     } else {
-  //       fetchClients().then(() => {
-  //         const fetchedClient = getClientById(Number(id));
-  //         setClient(fetchedClient || null);
-  //       });
-  //     }
-  //   }
-  // }, [id, getClientById, fetchClients]);
+	const { id } = useParams();
+	const [organisation, setOrganisation] = useState<Organisation | null>(null);
+	const { fetch } = useApiService();
 
-  // if (!client) {
-  //   return <div>Chargement des détails du client...</div>;
-  // }
+	const { setIsLoading } = useLoaderContext();
+	// const
+	useEffect(() => {
+		setIsLoading(true);
+		if (id) {
+			fetch(`/admin/organisations/${id}`).then((org) => {
+				setOrganisation(org);
+				setIsLoading(false);
+			});
+		}
+	}, [id]);
 
-  // const tabs = [
-  //   {
-  //     label: "Chantiers associées",
-  //     content: <AssociatedYards yards={client.yards} />
-  //   },
-  //   {
-  //     label: "Notes",
-  //     content: <NotesTabComponentGrid notes={client.notes} />
-  //   }
-  // ];
-
-  return (
-    <>
-      <HeaderPage title="Lorem ipsum" showBreadcrumb={true}>
-        {/* // Les actions disponibles */}
-      </HeaderPage>
-    </>
-  );
+	return (
+		<>
+            <HeaderPage title={organisation ? organisation.name : ''} showBreadcrumb={true}>
+				{/* // Les actions disponibles */}
+			</HeaderPage>
+		</>
+	);
 }

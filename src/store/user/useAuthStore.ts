@@ -33,7 +33,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       );
       if ("token" in data && typeof data.token === "string") {
         const decoded = jwtDecode<JwtPayload>(data.token);
-        localStorage.setItem("userToken", data.token);
+        localStorage.setItem("jwtToken", data.token);
         localStorage.setItem("userId", decoded.username);
       }
       set({ user: data, isLoading: false, isAuthenticated: true });
@@ -46,8 +46,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       // await get("/api/logout", { authTarget: "user" }); // Balek de se logout sur l'api
       set({ user: null, isAuthenticated: false });
-      localStorage.removeItem("userToken"); // 
-      localStorage.removeItem("adminToken"); // On retir aussi le token admin
+      localStorage.removeItem("jwtToken"); // On retir aussi le token admin
     } catch (error) {}
   }
 }));

@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useRef } from 'react';
 import Btn from "@/components/btn";
 import Field from "@/components/field";

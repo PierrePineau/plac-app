@@ -1,6 +1,5 @@
+"use client";
 import DataTable from "@/components/DataTable";
-import { useAdminStore } from "@/store/admin/adminStore";
-import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import Field from "@/components/field";
 import Link from "next/link";
@@ -35,29 +34,23 @@ const columns = [
 ];
 
 export default function Table() {
-    const { organisations, isFetchingOrganisations, fetchOrganisations } = useAdminStore();
-    const results = organisations;
-
-    useEffect(() => {
-        fetchOrganisations();
-    }, []);
-
     return (
         <>
-            <Field
-                type="search"
-                name="search"
-                placeholder="Rechercher une organisation"
-                icon={<Search />}
-                value=""
-            />
             <DataTable
-                isLoading={isFetchingOrganisations}
-                data={results}
+                basePath="/admin/organisations"
+                data={[]}
                 columns={columns}
                 ellipsisEnabled={false}
                 enableSorting={false}
+            >
+                <Field
+                    type="search"
+                    name="search"
+                    placeholder="Rechercher une organisation"
+                    icon={<Search />}
+                    value=""
                 />
+            </DataTable>
         </>
     );
 }

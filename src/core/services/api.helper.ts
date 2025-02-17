@@ -6,7 +6,8 @@ interface ExtendedRequestInit extends RequestInit {
 }
 
 function getAuthHeaders(authTarget: "admin" | "user" = "user"): Record<string, string> {
-  const tokenKey = authTarget === "admin" ? "adminToken" : "userToken"
+  // const tokenKey = authTarget === "admin" ? "adminToken" : "userToken"
+  const tokenKey = "jwtToken"
   const token = localStorage.getItem(tokenKey)
   return token ? { Authorization: `Bearer ${token}` } : {}
 }

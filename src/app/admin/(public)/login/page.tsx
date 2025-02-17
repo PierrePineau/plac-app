@@ -6,7 +6,6 @@ import { useAdminAuthStore } from "@/store/admin/adminAuthStore";
 
 const Login = () => {
   const router = useRouter();
-  const { adminToken } = useAdminAuthStore();
   const login = useAdminAuthStore((state) => state.loginAdmin);
   const [error, setError] = useState("");
 

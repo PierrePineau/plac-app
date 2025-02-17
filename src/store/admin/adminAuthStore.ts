@@ -6,7 +6,6 @@ interface AdminAuthState {
   adminToken: string | null;
   isAdminAuthenticated: boolean;
   loginAdmin: (username: string, password: string) => Promise<boolean>;
-  logoutAdmin: () => Promise<void>;
 }
 
 export const useAdminAuthStore = create<AdminAuthState>((set) => ({
@@ -17,24 +16,14 @@ export const useAdminAuthStore = create<AdminAuthState>((set) => ({
       const data = await post<{ token: string }>(
         "/api/admin/login_check",
         { username, password },
-        { skipAuth: true, authTarget: "admin" }
+        { skipAuth: true }
       );
       set({ adminToken: data.token, isAdminAuthenticated: true });
-      localStorage.setItem("adminToken", data.token);
-      localStorage.removeItem("userToken");
+      localStorage.setItem("jwtToken", data.token);
       return true;
     } catch (error) {
       console.error("Error logging in:", error);
       return false;
     }
   },
-  logoutAdmin: async () => {
-    try {
-      await get("/api/logout", { authTarget: "admin" });
-      set({ adminToken: null, isAdminAuthenticated: false });
-      localStorage.removeItem("adminToken");
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
-  }
 }));

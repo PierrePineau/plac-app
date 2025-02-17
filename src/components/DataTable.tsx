@@ -1,5 +1,6 @@
 "use client";
 
+import { useApiService } from "@/core/services/api.service";
 import {
   useReactTable,
   getCoreRowModel,
@@ -9,10 +10,12 @@ import {
   flexRender
 } from "@tanstack/react-table";
 import { EllipsisVertical, LoaderCircle} from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface DataTableProps<T> {
+  children?: React.ReactNode;
   data: T[];
+  basePath: string,
   isLoading?: boolean;
   columns: ColumnDef<T>[];
   onRowSelectionChange?: (selectedRows: T[]) => void;
@@ -25,10 +28,13 @@ interface DataTableProps<T> {
   enableSorting?: boolean;
   enableRowSelection?: boolean;
   ellipsisEnabled?: boolean;
+  enableSearch?: boolean;
 }
 
 export default function DataTable<T extends object>({
-  data,
+  children,
+  data = [],
+  basePath = "",
   isLoading = false,
   columns,
   onRowSelectionChange,
@@ -36,10 +42,15 @@ export default function DataTable<T extends object>({
   onRowClick,
   enableSorting = true,
   enableRowSelection = true,
-  ellipsisEnabled = true
+  ellipsisEnabled = true,
+  enableSearch = true
 }: DataTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
+  const [rows, setRows] = useState<T[]>(data);
+  const [loading, setIsLoading] = useState(isLoading);
+
+  const { fetch } = useApiService();
 
   const handleRowSelection = (rowId: number) => {
     if (!enableRowSelection) return;
@@ -72,7 +83,7 @@ export default function DataTable<T extends object>({
   };
 
   const table = useReactTable({
-    data: data || [],
+    data: rows,
     columns,
     state: { sorting },
     onSortingChange: enableSorting ? setSorting : undefined,
@@ -80,110 +91,142 @@ export default function DataTable<T extends object>({
     getSortedRowModel: enableSorting ? getSortedRowModel() : undefined
   });
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const filters: any = {};
+    formData.forEach((value, key) => {
+      filters[key] = value;
+    });
+    getData(filters);
+  };
+
+  const getData = (filters = {}) => {
+    if (!basePath) return;
+
+    setIsLoading(true);
+    fetch(basePath, filters).then((respData) => {
+      setRows(respData.results ?? []); // Check the response
+      setIsLoading(false);
+    });
+  }
+
+  useEffect(() => {
+    setRows(data);
+    getData();
+  }, []);
+
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full rounded-md">
-        {/* Header */}
-        <thead className=" text-neutral-400 text-sm">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {enableRowSelection && (
-                <th className="w-14">
-                    <label className="w-full h-12 m-auto cursor-pointer flex justify-center items-center">
-                      <input
-                        type="checkbox"
-                        checked={selectedRows.size === data.length}
-                        onChange={handleSelectAll}
-                      />
-                    </label>
-                </th>
-              )}
-              {headerGroup.headers.map((header) => (
-                <th
-                  key={header.id}
-                  className={`p-3 text-left ${
-                    header.column.getCanSort() ? "cursor-pointer" : ""
-                  }`}
-                  onClick={header.column.getToggleSortingHandler()}>
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-                  {header.column.getCanSort() && (
-                    <span className="ml-2 text-gray-400">
-                      {header.column.getIsSorted() === "asc" ? "↑" : ""}
-                      {header.column.getIsSorted() === "desc" ? "↓" : ""}
-                    </span>
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        {/* Body */}
-        
-        <tbody>
-          { 
-            !isLoading && ( 
-              table.getRowModel().rows.map((row, index) => (
-                <tr
-                  key={row.id}
-                  className={``}
-                  onClick={() => onRowClick?.(row.original)}>
-                  {enableRowSelection && (
-                    <td className="w-14 text-center">
+    <div className="flex flex-col w-full gap-4">
+      {enableSearch && (
+        <form onSubmit={handleSubmit} className="flex w-full">
+          {children}
+        </form>
+      )}
+      <div className="overflow-x-auto">
+        <table className="w-full rounded-md">
+          {/* Header */}
+          <thead className=" text-neutral-400 text-sm">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {enableRowSelection && (
+                  <th className="w-14">
                       <label className="w-full h-12 m-auto cursor-pointer flex justify-center items-center">
-                      <input
+                        <input
                           type="checkbox"
-                          checked={selectedRows.has(row.index)}
-                          onChange={(e) => {
-                            e.stopPropagation();
-                            handleRowSelection(row.index);
-                          }}
+                          checked={selectedRows.size === data.length}
+                          onChange={handleSelectAll}
                         />
                       </label>
-                    </td>
-                  )}
-                  {row.getVisibleCells().map((cell, index) => (
-                    <td
-                      key={cell.id}
-                      className="text-sm text-neutral-600 flex-row justify-between">
-                      {renderCell
-                        ? renderCell(
-                            cell.getValue(),
-                            cell.column.columnDef,
-                            row.original
-                          )
-                        : flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      {index === row.getVisibleCells().length - 1 &&
-                        ellipsisEnabled && (
-                          <button
-                            className="ml-2"
-                            onClick={(e) => e.stopPropagation()}>
-                            <EllipsisVertical />
-                          </button>
-                        )}
-                    </td>
-                  ))}
-                </tr>
-              ))
-            )
-          }
-          {
-            isLoading && (
-              <tr className="text-sm text-neutral-600 flex-row justify-between isLoading">
-                <td colSpan={columns.length + 1} className="p-0 ">
-                  <div className="flex justify-center items-center min-h-14">
-                    <div className="animate-spin text-neutral-400">
-                      <LoaderCircle width={32} height={32}/>
-                    </div>
-                  </div>
-                </td>
+                  </th>
+                )}
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    className={`p-3 text-left ${
+                      header.column.getCanSort() ? "cursor-pointer" : ""
+                    }`}
+                    onClick={header.column.getToggleSortingHandler()}>
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    {header.column.getCanSort() && (
+                      <span className="ml-2 text-gray-400">
+                        {header.column.getIsSorted() === "asc" ? "↑" : ""}
+                        {header.column.getIsSorted() === "desc" ? "↓" : ""}
+                      </span>
+                    )}
+                  </th>
+                ))}
               </tr>
-            )
-          }
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          {/* Body */}
+          
+          <tbody>
+            { 
+              !loading && ( 
+                table.getRowModel().rows.map((row, index) => (
+                  <tr
+                    key={row.id}
+                    className={``}
+                    onClick={() => onRowClick?.(row.original)}>
+                    {enableRowSelection && (
+                      <td className="w-14 text-center">
+                        <label className="w-full h-12 m-auto cursor-pointer flex justify-center items-center">
+                        <input
+                            type="checkbox"
+                            checked={selectedRows.has(row.index)}
+                            onChange={(e) => {
+                              e.stopPropagation();
+                              handleRowSelection(row.index);
+                            }}
+                          />
+                        </label>
+                      </td>
+                    )}
+                    {row.getVisibleCells().map((cell, index) => (
+                      <td
+                        key={cell.id}
+                        className="text-sm text-neutral-600 flex-row justify-between">
+                        {renderCell
+                          ? renderCell(
+                              cell.getValue(),
+                              cell.column.columnDef,
+                              row.original
+                            )
+                          : flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        {index === row.getVisibleCells().length - 1 &&
+                          ellipsisEnabled && (
+                            <button
+                              className="ml-2"
+                              onClick={(e) => e.stopPropagation()}>
+                              <EllipsisVertical />
+                            </button>
+                          )}
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              )
+            }
+            {
+              loading && (
+                <tr className="text-sm text-neutral-600 flex-row justify-between isLoading">
+                  <td colSpan={columns.length + 1} className="p-0 ">
+                    <div className="flex justify-center items-center min-h-14">
+                      <div className="animate-spin text-neutral-400">
+                        <LoaderCircle width={32} height={32}/>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
