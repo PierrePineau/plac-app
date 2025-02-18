@@ -8,10 +8,9 @@ import withPWA from "@ducanh2912/next-pwa";
 const isDevelopment = process.env.NODE_ENV === "development";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-console.log("isDevelopment", isDevelopment);
-console.log("API_URL", API_URL);
-
 if (isDevelopment) {
+  console.log("isDevelopment", isDevelopment);
+  console.log("API_URL", API_URL);
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 }
 

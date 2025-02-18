@@ -1,5 +1,6 @@
 import SplashScreen from "@/components/splashscreen";
 import "./globals.scss";
+import localFont from 'next/font/local';
 import { Providers } from "./providers";
 import { Metadata, Viewport } from "next";
 import Head from "next/head";
@@ -49,6 +50,50 @@ export const viewport: Viewport = {
   themeColor: "#FFFFFF",
 };
 
+const Satoshi = localFont({
+  src: [
+    {
+      path: './fonts/Satoshi-Light.woff2',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Satoshi-LightItalic.woff2',
+      weight: '300',
+      style: 'italic',
+    },
+    {
+      path: './fonts/Satoshi-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Satoshi-Italic.woff2',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: './fonts/Satoshi-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Satoshi-MediumItalic.woff2',
+      weight: '500',
+      style: 'italic',
+    },
+    {
+      path: './fonts/Satoshi-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Satoshi-BoldItalic.woff2',
+      weight: '700',
+      style: 'italic',
+    },
+  ],
+})
 // const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -59,12 +104,8 @@ export default function RootLayout({
 
   return (
     <html lang="fr">
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Satoshi:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
+      {/* <Head>
+      </Head> */}
       <body className="min-h-screen flex flex-col">
           <Providers>
             <SplashScreen />
