@@ -30,6 +30,12 @@ export default function NavBar() {
               Organisations
             </Link>
             <Link
+              href="/"
+              className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
+              <Users className=" text-black w-6 h-6" />
+              Dashboard
+            </Link>
+            <Link
               href="/admin/users"
               className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
               <Users className=" text-black w-6 h-6" />

@@ -2,15 +2,15 @@
 import { useState } from "react";
 import LoginForm from "./components/login/loginForm";
 import { useRouter } from "next/navigation";
-import { useAdminAuthStore } from "@/store/admin/adminAuthStore";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const Login = () => {
   const router = useRouter();
-  const login = useAdminAuthStore((state) => state.loginAdmin);
+  const login = useAuthStore((state) => state.login);
   const [error, setError] = useState("");
 
   const handleSubmit = async (email: string, password: string) => {
-    const result = await login(email, password);
+    const result = await login(email, password, "admin");
     if (result) {
       router.push("/admin");
     } else {

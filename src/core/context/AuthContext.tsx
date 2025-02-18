@@ -1,29 +1,20 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAdminAuthStore } from "@/store/admin/adminAuthStore";
-import { useAuthStore } from "@/store/user/useAuthStore";
+import { useAuthStore } from "@/store/useAuthStore";
 
 interface AuthContextProps {
-	user: any;
+	user: AuthenticateUser | null;
 }
 
-const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+const AuthContext = createContext<AuthContextProps>({
+	user: null,
+});
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-	const [user, setUser] = useState({});
-	const { isAdminAuthenticated } = useAdminAuthStore();
-	const { isAuthenticated } = useAuthStore();
-
-	// const router = useRouter();
-	// useEffect(() => {
-	// 	const token = localStorage.getItem("adminToken");
-	// 	if (!token) {
-	// 		router.push("/admin/login");
-	// 	}
-	// }, [router]);
+	const { user } = useAuthStore();
 	return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
 };
 
@@ -35,18 +26,37 @@ export function AuthGuard({
 	role: "ROLE_ADMIN" | "ROLE_USER";
 }) {
 	const router = useRouter();
+	const { checkAuth } = useAuthStore();
 	const [render, setRender] = useState(false);
+	
 	useEffect(() => {
-    	// const tokenKey = role === "ROLE_ADMIN" ? "adminToken" : "userToken";
-		const token = localStorage.getItem("jwtToken");
-		if (!token) {
-			router.push("/admin/login");
-		}
+		setRender(false);
+		
+		checkAuth(role).then((bool) => {
+			if (!bool) {
+				router.push("/login");
+				setRender(false);
+				return;
+			}
 
-		if (token) {
+			// if (!user) {
+			// 	console.log("No user");
+			// 	router.push("/login");
+			// 	setRender(false);
+			// 	return;
+			// }
+
+			// // En fonction du role demandé, je voudrais vérifié si l'utilisateur a le bon role. (Si l'utilisateur à le role ROLE_SUPER_ADMIN, il a aussi ROLE_ADMIN et ROLE_USER)
+			// if (!user.roles.includes(role) && !user.roles.includes("ROLE_SUPER_ADMIN")) {
+			// 	router.push("/login");
+			// 	setRender(false);
+			// 	return;
+			// }
+
 			setRender(true);
-		}
-	}, [router]);
+		});
+
+	}, []);
     
 	if (!render) {
 		return <></>;

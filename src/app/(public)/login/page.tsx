@@ -6,13 +6,12 @@ import RegisterStepThree from "./components/register/registerStepThree";
 import RegisterStepFour from "./components/register/registerStepFour";
 import LoginForm from "./components/login/loginForm";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/store/user/useAuthStore";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const Login = () => {
   const router = useRouter();
   const [isSignUp, setIsSignUp] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-  const { user, error, isLoading } = useAuthStore();
   const [signupData, setSignupData] = useState({
     phoneNumber: "",
     firstName: "",
@@ -25,8 +24,12 @@ const Login = () => {
   const login = useAuthStore((state) => state.login);
 
   const handleSubmit = async (email: string, password: string) => {
-    await login(email, password);
-    router.push("/home");
+    const result = await login(email, password);
+    if (result) {
+      router.push("/admin");
+    } else {
+      // setError("Identifiants invalides. Essayez à nouveau.");
+    }
   };
 
   const updateSignupData = (key: string, value: string) => {
