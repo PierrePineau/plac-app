@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/store/user/useAuthStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import SplashScreen from "@/components/splashscreen";
 
 const Logout = () => {

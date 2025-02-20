@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { post, get } from "../core/services/api.helper";
 import { jwtDecode } from "jwt-decode";
+import { useOrganisationStore } from "./user/organisationStore";
 
 interface JwtPayload {
 	iat: number;
@@ -56,14 +57,13 @@ export const useAuthStore = create<AuthState>((set) => ({
 				},
 				isAuthenticated: true,
 			});
-			// console.log({
-			// 	user: {
-			// 		email: decoded.username,
-			// 		roles: decoded.roles,
-			// 	},
-			// 	isAuthenticated: true,
-			// });
-			
+
+			const stringData = localStorage.getItem("organisation");
+			const org = stringData ? JSON.parse(stringData) : null;
+			if (!org) {
+				// On va récupérer l'organisation de l'utilisateur
+				// Deja fait via authentification ?
+			}
 			return true;
 		} catch (error) {
 			set({ isAuthenticated: false });
@@ -87,11 +87,14 @@ export const useAuthStore = create<AuthState>((set) => ({
                     roles: decoded.roles
                 }, isLoading: false, isAuthenticated: true });
 
-				console.log(data);
-				// const { setUser } = 
+				const org = data.organisation;
+				console.log("Organisation", org);
+				if (org) {
+					const { setOrganisation } = useOrganisationStore.getState();
+					setOrganisation(org);
+				}
 				return true;
 			}
-			console.log(data);
 
 			return false;
 		} catch (error) {

@@ -1,0 +1,18 @@
+"use client";
+import React, { useState, useRef } from 'react';
+import Field from "@/components/field";
+import ModalNew from '@/components/modalNew';
+import { useProjectStore } from '@/store/user/projectStore';
+
+export default function New() {
+	return (
+		<ModalNew 
+			title="Nouveau chantier"
+			text='Ajouter un chantier'
+			basePath='/projects'
+			store={useProjectStore()}
+		>
+			<Field label="Nom" name="name" required />
+		</ModalNew>
+	);
+}

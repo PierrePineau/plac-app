@@ -8,7 +8,7 @@ import Yard from "../../../components/yard";
 import { Filter, PlusIcon } from "lucide-react";
 import Popup from "../../../components/popup";
 import Dropdown from "../../../components/customDropdown";
-import DataTable from "../../../components/DataTable";
+import DataTable from "../../../components/CustomDataTable";
 import { useRouter } from "next/navigation";
 import CreateOrModifyEmployee from "./components/createOrModifyEmployee";
 

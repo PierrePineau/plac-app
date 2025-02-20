@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import NavBar from "../../../components/navBar";
 import Header from "../../../components/headerpage";
 import CustomButton from "../../../components/custombutton";
 import { Filter, PlusIcon } from "lucide-react";
@@ -29,92 +28,85 @@ export default function Chantiers() {
     setIsPopupOpen(false);
   };
 
-  const handleSaveProject = (event: React.FormEvent) => {
-    event.preventDefault();
-    const formData = new FormData(event.target as HTMLFormElement);
+  // const handleSaveProject = (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.target as HTMLFormElement);
 
-    const newProject: Omit<Project, "id"> = {
-      uuid: crypto.randomUUID(),
-      reference: `PRJ-${Math.floor(1000 + Math.random() * 9000)}`,
-      name: formData.get("name") as string,
-      description: formData.get("description") as string,
-      notes: [],
-      medias: [],
-      organisaton: {
-        id: 0,
-        uuid: "",
-        name: "",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        employes: [],
-        organisationModules: []
-      },
-      files: [],
-      status: { id: 1, label: "En cours", color: "#007BFF" },
-      createAt: new Date(),
-      updateAt: new Date(),
-      localisation: "10 Avenue des Champs-Élysées, Paris"
-    };
+  //   const newProject: Omit<Project, "id"> = {
+  //     uuid: crypto.randomUUID(),
+  //     reference: `PRJ-${Math.floor(1000 + Math.random() * 9000)}`,
+  //     name: formData.get("name") as string,
+  //     description: formData.get("description") as string,
+  //     notes: [],
+  //     medias: [],
+  //     organisaton: {
+  //       id: 0,
+  //       uuid: "",
+  //       name: "",
+  //       createdAt: new Date(),
+  //       updatedAt: new Date(),
+  //       employes: [],
+  //       organisationModules: []
+  //     },
+  //     files: [],
+  //     status: { id: 1, label: "En cours", color: "#007BFF" },
+  //     createAt: new Date(),
+  //     updateAt: new Date(),
+  //     localisation: "10 Avenue des Champs-Élysées, Paris"
+  //   };
 
-    createProject(newProject);
-    setIsPopupOpen(false);
-  };
+  //   createProject(newProject);
+  //   setIsPopupOpen(false);
+  // };
 
-  useEffect(() => {
-    if (isPopupOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+  // useEffect(() => {
+  //   if (isPopupOpen) {
+  //     document.body.style.overflow = "hidden";
+  //   } else {
+  //     document.body.style.overflow = "";
+  //   }
 
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isPopupOpen]);
+  //   return () => {
+  //     document.body.style.overflow = "";
+  //   };
+  // }, [isPopupOpen]);
 
-  const tabs = [
-    {
-      label: "Chantiers en cours",
-      content: (
-        <Yard
-          yards={projects.filter(
-            (project) => project.status.label === "En cours"
-          )}
-        />
-      )
-    },
-    {
-      label: "Chantiers à venir",
-      content: (
-        <Yard
-          yards={projects.filter(
-            (project) => project.status.label === "En pause"
-          )}
-        />
-      )
-    },
-    {
-      label: "Chantiers archivés",
-      content: (
-        <Yard
-          yards={projects.filter(
-            (project) => project.status.label === "Terminé"
-          )}
-        />
-      )
-    }
-  ];
+  // const tabs = [
+  //   {
+  //     label: "Chantiers en cours",
+  //     content: (
+  //       <Yard
+  //         yards={projects.filter(
+  //           (project) => project.status.label === "En cours"
+  //         )}
+  //       />
+  //     )
+  //   },
+  //   {
+  //     label: "Chantiers à venir",
+  //     content: (
+  //       <Yard
+  //         yards={projects.filter(
+  //           (project) => project.status.label === "En pause"
+  //         )}
+  //       />
+  //     )
+  //   },
+  //   {
+  //     label: "Chantiers archivés",
+  //     content: (
+  //       <Yard
+  //         yards={projects.filter(
+  //           (project) => project.status.label === "Terminé"
+  //         )}
+  //       />
+  //     )
+  //   }
+  // ];
 
   return (
     <div className="flex flex-row bg-white h-full">
-      <div className="sticky bg-white hidden md:block border-r border-neutral-200">
-        <NavBar />
-      </div>
-
       <div className="flex flex-col w-full">
-        <div className="top-0 bg-white z-10 border-b border-neutral-200">
-          <Header />
-        </div>
         <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
           <div className="flex flex-row justify-between">
             <p className="text-h1Desktop text-neutral-950  ">
@@ -139,7 +131,7 @@ export default function Chantiers() {
               />
             </div>
           </div>
-          <Tabs tabs={tabs} />
+          {/* <Tabs tabs={tabs} /> */}
         </div>
       </div>
 

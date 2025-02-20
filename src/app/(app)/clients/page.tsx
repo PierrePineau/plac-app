@@ -10,7 +10,7 @@ import Popup from "../../../components/popup";
 import SearchBar from "../../../components/searchBar";
 import { useRouter } from "next/navigation";
 import { useClientStore } from "@/store/user/clientStore";
-import DataTable from "../../../components/DataTable";
+import DataTable from "../../../components/CustomDataTable";
 import CreateOrModifyClient from "./components/createOrModifyClient";
 
 const columns = [

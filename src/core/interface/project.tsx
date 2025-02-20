@@ -8,7 +8,7 @@ interface Project {
   deleted?: boolean;
   clients?: Client[]
   files?: ProjectFile[];
-  status?: Status;
+  status: Status;
   createAt?: Date;
   updateAt?: Date;
   tasks?: Task[];

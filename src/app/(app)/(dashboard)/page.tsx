@@ -1,10 +1,10 @@
 "use client";
 
 import Dropdown from "../../../components/customDropdown";
-import DataTable from "../../../components/DataTable";
+import DataTable from "../../../components/CustomDataTable";
 import Stats from "./components/stats";
 import { useState, useEffect } from "react";
-import { useEmployeStore } from "@/store/user/employeeStore";
+// import { useEmployeStore } from "@/store/user/employeeStore";
 import { useRouter } from "next/navigation";
 import ProgressBar from "../../../components/progressBar";
 import { useProjectStore } from "@/store/user/projectStore";
@@ -45,20 +45,20 @@ const columns = [
 export default function Home() {
   const router = useRouter();
   const { projects, fetchProjects } = useProjectStore();
-  const { employes, fetchEmployes } = useEmployeStore();
+  // const { employes, fetchEmployes } = useEmployeStore();
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetchProjects();
-    fetchEmployes();
-  }, [fetchProjects, fetchEmployes]);
+    // fetchEmployes();
+  }, [fetchProjects]);
 
   const ongoingYards = projects.filter(
-    (project) => project.status.label === "En cours"
+    (project) => project.status.name === "En cours"
   );
-  const filteredEmployees = employes.filter((emp) =>
-    emp.firstname?.toLowerCase().includes(search.toLowerCase())
-  );
+  // const filteredEmployees = employes.filter((emp) =>
+  //   emp.firstname?.toLowerCase().includes(search.toLowerCase())
+  // );
 
   const handleEmployeeClick = (employeeId: number) => {
     router.push(`/employee/detail/${employeeId}`);
@@ -82,7 +82,7 @@ export default function Home() {
         <div className="grid grid-cols-3 gap-6">
           <Stats
             title="Total d'utilisateur"
-            value={employes.length}
+            value={10}
             redirectText="???"
             onClick={() => {}}
           />
@@ -96,7 +96,7 @@ export default function Home() {
             title="Nombre de chantiers à venir"
             value={
               projects.filter(
-                (project) => project.status.label === "En cours"
+                (project) => project.status.name === "En cours"
               ).length
             }
             redirectText="Voir mes chantiers à venir"
@@ -104,7 +104,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="flex flex-col gap-4">
+        {/* <div className="flex flex-col gap-4">
           <p className="   text-h2Desktop text-neutral-950">
             Mon équipe actuelle
           </p>
@@ -114,7 +114,7 @@ export default function Home() {
             onRowClick={(row) => handleEmployeeClick(row.id)}
             ellipsisEnabled={false}
           />
-        </div>
+        </div> */}
       </div>
   );
 }

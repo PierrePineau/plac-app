@@ -41,9 +41,10 @@ export async function request<T>(
   fetchOptions.headers = { ...mergedHeaders, ...authHeaders };
   let response: Response;
   try {
+    console.log("URL:", url);
+    console.log("OPTIONS:", fetchOptions);
+    
     response = await fetch(url, fetchOptions);
-    console.log("reponse zebfhzejf");
-    console.log(response);
   } catch {
     throw new NetworkError();
   }
@@ -51,9 +52,22 @@ export async function request<T>(
     if (response.status === 401) throw new UnauthorizedError();
     if (response.status === 404) throw new NotFoundError();
     if (response.status === 422) throw new ValidationError();
+
+    // Pour voir le message d'erreur
+    try {
+      const data = await response.json();
+      console.log("Error Message:", data.message);
+      console.log("Error content:", data);
+    } catch (error) {
+      
+    }
     throw new ApiError(response.status, response.statusText);
   }
-  return response.json();
+
+  const data  = await response.json();
+  // const data = decoded as unknown as ResponseApi;
+  console.log("DATA:", data);
+  return data;
 }
 
 export function get<T>(
@@ -68,6 +82,9 @@ export function post<T>(
   body: unknown,
   options: ExtendedRequestInit = {}
 ): Promise<T> {
+
+  const data = body instanceof FormData ? body : JSON.stringify(body);
+  
   return request<T>(url, {
     ...options,
     method: "POST",
@@ -75,7 +92,7 @@ export function post<T>(
       "Content-Type": "application/json",
       ...((options.headers as Record<string, string>) || {})
     },
-    body: JSON.stringify(body)
+    body: data
   });
 }
 
@@ -84,6 +101,8 @@ export function put<T>(
   body: unknown,
   options: ExtendedRequestInit = {}
 ): Promise<T> {
+
+  const data = body instanceof FormData ? body : JSON.stringify(body);
   return request<T>(url, {
     ...options,
     method: "PUT",
@@ -91,7 +110,7 @@ export function put<T>(
       "Content-Type": "application/json",
       ...((options.headers as Record<string, string>) || {})
     },
-    body: JSON.stringify(body)
+    body: data
   });
 }
 

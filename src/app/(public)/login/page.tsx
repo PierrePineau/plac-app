@@ -26,7 +26,7 @@ const Login = () => {
   const handleSubmit = async (email: string, password: string) => {
     const result = await login(email, password);
     if (result) {
-      router.push("/admin");
+      router.push("/");
     } else {
       // setError("Identifiants invalides. Essayez à nouveau.");
     }

@@ -13,7 +13,7 @@ export default function NavBar() {
 						<House className=" text-black w-6 h-6" />
 						Accueil
 					</Link>
-					<Link href="/yards" className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
+					<Link href="/chantiers" className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
 						<Building className=" text-black w-6 h-6" />
 						Mes chantiers
 					</Link>

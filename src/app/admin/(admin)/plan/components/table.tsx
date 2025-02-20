@@ -1,6 +1,6 @@
 "use client";
 
-import DataTable from "@/components/DataTable";
+import DataTable from "@/components/CustomDataTable";
 import { format } from "date-fns";
 import Field from "@/components/field";
 import Link from "next/link";

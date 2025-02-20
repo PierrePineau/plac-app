@@ -1,5 +1,5 @@
 "use client";
-import DataTable from "@/components/DataTable";
+import DataTable from "@/components/CustomDataTable";
 import { useAdminStore } from "@/store/admin/adminStore";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";

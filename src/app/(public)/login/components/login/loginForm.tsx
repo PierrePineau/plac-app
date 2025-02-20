@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import CustomButton from "@/components/custombutton";
+import Btn from "@/components/btn";
 
 interface LoginFormProps {
   registerButton: () => void;
@@ -11,10 +12,13 @@ interface LoginFormProps {
 const LoginForm = ({ registerButton, connectButton }: LoginFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    connectButton(email, password);
+    setIsSubmitting(true);
+    await connectButton(email, password);
+    setIsSubmitting(false);
   };
 
   return (
@@ -52,11 +56,14 @@ const LoginForm = ({ registerButton, connectButton }: LoginFormProps) => {
               placeholder="********"
             />
           </div>
-          <button
+          <Btn
             type="submit"
-            className="w-full bg-brand-950 text-white px-4 py-2 rounded-md hover:bg-brand-1000">
+            className=""
+            isLoading={isSubmitting}
+            onClick={() => {}}
+          >
             Connexion
-          </button>
+          </Btn>
         </form>
       </div>
       <div className="flex flex-col justify-center items-center pt-4 gap-4">

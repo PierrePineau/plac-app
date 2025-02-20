@@ -1,6 +1,5 @@
 interface Organisation {
-  id: number;
-  uuid: string;
+  id: string;
   name: string;
   rcs?: string;
   type: string;
