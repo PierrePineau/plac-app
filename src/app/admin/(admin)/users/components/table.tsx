@@ -36,18 +36,7 @@ const columns = [
 ];
 
 export default function Table() {
-    const { users, isFetchingUsers, fetchUsers } = useAdminStore();
-    const results = users;
-
-    useEffect(() => {
-        fetchUsers();
-        console.log("Fetching users");
-        console.log(users);
-    }, []);
-
-    useEffect(() => {
-        console.log(users);
-    }, [users]);
+    const { users, fetchUsers } = useAdminStore();
 
     return (
         <>
@@ -59,8 +48,8 @@ export default function Table() {
                 value=""
             />
             <DataTable
-                isLoading={isFetchingUsers}
-                data={results}
+                fetchData={fetchUsers}
+                data={users}
                 columns={columns}
                 ellipsisEnabled={false}
                 enableSorting={false}

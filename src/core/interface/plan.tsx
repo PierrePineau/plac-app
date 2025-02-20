@@ -1,10 +1,14 @@
 interface Plan {
   id: number;
-  reference: string;
   name: string;
-  price: number;
+  reference: string;
   description?: string;
-  renewalFrequency?: string;
-  modules: Module[];
   enable: boolean;
+  custom: boolean;
+  price: number;
+  renewalFrequency?: string;
+  stripeId: string;
+  position: number;
+  maxDevice: number;
+  modules?: Module[];
 }

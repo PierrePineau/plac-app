@@ -4,7 +4,10 @@ import { get, post, remove } from "../../core/services/api.helper";
 
 interface OrganisationState {
   organisations: Organisation[];
-  fetchOrganisations: (idOrganisation: number) => Promise<void>;
+  fetchOrganisations: () => Promise<Organisation[]>;
+  fetchOrganisation: (
+    idOrganisation: number
+  ) => Promise<Organisation | undefined>;
   createOrganisation: (organisation: Partial<Organisation>) => Promise<void>;
   updateOrganisation: (
     idOrganisation: number,
@@ -19,8 +22,24 @@ interface OrganisationState {
 export const useOrganisationStore = create<OrganisationState>((set) => ({
   organisations:
     process.env.NEXT_PUBLIC_USE_MOCK === "true" ? mockOrganisations : [],
-  fetchOrganisations: async (idOrganisation) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
+  fetchOrganisations: async () => {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return mockOrganisations;
+    try {
+      const response = await get<ResponseApi>("/api/app/organisations/");
+      if (response.success) {
+        const organisations = (response.data as any).results as Organisation[];
+        set({ organisations });
+        return organisations;
+      }
+      return [];
+    } catch (error) {
+      console.error("Error fetching organisations:", error);
+      return [];
+    }
+  },
+  fetchOrganisation: async (idOrganisation: number) => {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true")
+      return mockOrganisations[0];
     try {
       const data = await get<Organisation>(
         `/api/app/organisations/${idOrganisation}`,
@@ -31,8 +50,10 @@ export const useOrganisationStore = create<OrganisationState>((set) => ({
           org.id === idOrganisation ? data : org
         )
       }));
+      return data;
     } catch (error) {
       console.error("Error fetching organisation:", error);
+      return undefined;
     }
   },
   createOrganisation: async (organisation) => {

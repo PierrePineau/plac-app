@@ -35,7 +35,6 @@ export const useAuthStore = create<AuthState>((set) => ({
 				return false;
 			}
 			const decoded = jwtDecode<JwtPayload>(token);
-			// console.log(token);
 			
 			// On vérifie si le token est encore valide
 			// TODO : Auto refresh token

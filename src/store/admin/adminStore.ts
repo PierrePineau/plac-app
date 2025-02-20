@@ -7,14 +7,14 @@ interface AdminState {
   users: User[];
   isFetchingOrganisations?: boolean;
   isFetchingUsers?: boolean;
-  fetchOrganisations: () => Promise<void>;
+  fetchOrganisations: () => Promise<Organisation[]>;
   createOrganisation: (organisation: Partial<Organisation>) => Promise<void>;
   updateOrganisation: (
     id: number,
     organisation: Partial<Organisation>
   ) => Promise<void>;
   deleteOrganisation: (id: number) => Promise<void>;
-  fetchUsers: () => Promise<void>;
+  fetchUsers: () => Promise<User[]>;
   fetchUser: (id: number) => Promise<void>;
   updateUser: (id: number, user: Partial<User>) => Promise<void>;
   deleteUser: (id: number) => Promise<void>;
@@ -27,24 +27,19 @@ export const useAdminStore = create<AdminState>((set) => ({
   isFetchingOrganisations: false,
   isFetchingUsers: false,
   fetchOrganisations: async () => {
-    set({ organisations: [] });
-    set({ isFetchingOrganisations: true });
-    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return mockOrganisations;
     try {
-      const resp = await get<ResponseApi>("/api/admin/organisations", {
-        authTarget: "admin"
-      });
-
-      if (resp.success) {
-        set({ organisations: resp.data.results });
-      }else{
-        set({ organisations: [] });
-        console.error("Error fetching data:", resp);
+      const response = await get<ResponseApi>("/api/admin/organisations/");
+      if (response.success) {
+        const organisations = (response.data as any).results as Organisation[];
+        set({ organisations });
+        return organisations;
       }
+      return [];
     } catch (error) {
-      console.error("Error fetching admin organisations:", error);
+      console.error("Error fetching organisations:", error);
+      return [];
     }
-    set({ isFetchingOrganisations: false });
   },
   createOrganisation: async (organisation) => {
     try {
@@ -89,17 +84,19 @@ export const useAdminStore = create<AdminState>((set) => ({
     }
   },
   fetchUsers: async () => {
-    set({ isFetchingOrganisations: true });
-    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return mockUsers;
     try {
-      const data = await get<User[]>("/api/admin/users", {
-        authTarget: "admin"
-      });
-      set({ users: data });
+      const response = await get<ResponseApi>("/api/admin/users/");
+      if (response.success) {
+        const users = (response.data as any).results as User[];
+        set({ users });
+        return users;
+      }
+      return [];
     } catch (error) {
-      console.error("Error fetching admin users:", error);
+      console.error("Error fetching organisations:", error);
+      return [];
     }
-    set({ isFetchingOrganisations: false });
   },
   fetchUser: async (id) => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;

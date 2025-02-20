@@ -1,5 +1,6 @@
 interface Media {
   id: number;
-  label: string;
-  image: string;
+  reference: string;
+  name: string;
+  color: string;
 }

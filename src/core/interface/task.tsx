@@ -1,12 +1,13 @@
-interface Note {
+interface Task {
   id: number;
   uuid: string;
   organisations?: Organisation[];
-  name?: string;
+  name: string;
   content?: string;
   createdAt?: Date;
   updatedAt?: Date;
   deleted?: boolean;
   deletedAt?: Date;
-  project: Project;
+  status?: Status[];
+  project?: Project;
 }

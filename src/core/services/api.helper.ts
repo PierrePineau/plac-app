@@ -1,72 +1,103 @@
-import { ApiError, UnauthorizedError, NotFoundError, ValidationError, NetworkError } from "./error"
+import {
+  ApiError,
+  UnauthorizedError,
+  NotFoundError,
+  ValidationError,
+  NetworkError
+} from "./error";
 
 interface ExtendedRequestInit extends RequestInit {
-  skipAuth?: boolean
-  authTarget?: "admin" | "user"
+  skipAuth?: boolean;
+  authTarget?: "admin" | "user";
 }
 
-function getAuthHeaders(authTarget: "admin" | "user" = "user"): Record<string, string> {
-  // const tokenKey = authTarget === "admin" ? "adminToken" : "userToken"
-  const tokenKey = "jwtToken"
-  const token = localStorage.getItem(tokenKey)
-  return token ? { Authorization: `Bearer ${token}` } : {}
+function getAuthHeaders(
+): Record<string, string> {
+  const tokenKey = "jwtToken";
+  const token = localStorage.getItem(tokenKey);
+  return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
-export async function request<T>(url: string, options: ExtendedRequestInit = {}): Promise<T> {
-  const { skipAuth, authTarget, ...fetchOptions } = options
-  const authHeaders = !skipAuth ? getAuthHeaders(authTarget) : {}
-  const mergedHeaders: Record<string, string> = {}
+export async function request<T>(
+  url: string,
+  options: ExtendedRequestInit = {}
+): Promise<T> {
+  const { skipAuth, authTarget, ...fetchOptions } = options;
+  const authHeaders = !skipAuth ? getAuthHeaders() : {};
+  const mergedHeaders: Record<string, string> = {};
   if (fetchOptions.headers) {
     if (fetchOptions.headers instanceof Headers) {
       fetchOptions.headers.forEach((value, key) => {
-        mergedHeaders[key] = value
-      })
+        mergedHeaders[key] = value;
+      });
     } else if (Array.isArray(fetchOptions.headers)) {
       fetchOptions.headers.forEach(([key, value]) => {
-        mergedHeaders[key] = value
-      })
+        mergedHeaders[key] = value;
+      });
     } else {
-      Object.assign(mergedHeaders, fetchOptions.headers)
+      Object.assign(mergedHeaders, fetchOptions.headers);
     }
   }
-  fetchOptions.headers = { ...mergedHeaders, ...authHeaders }
-  let response: Response
+  fetchOptions.headers = { ...mergedHeaders, ...authHeaders };
+  let response: Response;
   try {
-    response = await fetch(url, fetchOptions)
+    response = await fetch(url, fetchOptions);
+    console.log("reponse zebfhzejf");
+    console.log(response);
   } catch {
-    throw new NetworkError()
+    throw new NetworkError();
   }
   if (!response.ok) {
-    if (response.status === 401) throw new UnauthorizedError()
-    if (response.status === 404) throw new NotFoundError()
-    if (response.status === 422) throw new ValidationError()
-    throw new ApiError(response.status, response.statusText)
+    if (response.status === 401) throw new UnauthorizedError();
+    if (response.status === 404) throw new NotFoundError();
+    if (response.status === 422) throw new ValidationError();
+    throw new ApiError(response.status, response.statusText);
   }
-  return response.json()
+  return response.json();
 }
 
-export function get<T>(url: string, options: ExtendedRequestInit = {}): Promise<T> {
-  return request<T>(url, { ...options, method: "GET" })
+export function get<T>(
+  url: string,
+  options: ExtendedRequestInit = {}
+): Promise<T> {
+  return request<T>(url, { ...options, method: "GET" });
 }
 
-export function post<T>(url: string, body: unknown, options: ExtendedRequestInit = {}): Promise<T> {
+export function post<T>(
+  url: string,
+  body: unknown,
+  options: ExtendedRequestInit = {}
+): Promise<T> {
   return request<T>(url, {
     ...options,
     method: "POST",
-    headers: { "Content-Type": "application/json", ...((options.headers as Record<string, string>) || {}) },
+    headers: {
+      "Content-Type": "application/json",
+      ...((options.headers as Record<string, string>) || {})
+    },
     body: JSON.stringify(body)
-  })
+  });
 }
 
-export function put<T>(url: string, body: unknown, options: ExtendedRequestInit = {}): Promise<T> {
+export function put<T>(
+  url: string,
+  body: unknown,
+  options: ExtendedRequestInit = {}
+): Promise<T> {
   return request<T>(url, {
     ...options,
     method: "PUT",
-    headers: { "Content-Type": "application/json", ...((options.headers as Record<string, string>) || {}) },
+    headers: {
+      "Content-Type": "application/json",
+      ...((options.headers as Record<string, string>) || {})
+    },
     body: JSON.stringify(body)
-  })
+  });
 }
 
-export function remove<T>(url: string, options: ExtendedRequestInit = {}): Promise<T> {
-  return request<T>(url, { ...options, method: "DELETE" })
+export function remove<T>(
+  url: string,
+  options: ExtendedRequestInit = {}
+): Promise<T> {
+  return request<T>(url, { ...options, method: "DELETE" });
 }

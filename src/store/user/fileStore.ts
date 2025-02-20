@@ -22,18 +22,6 @@ export const useFileStore = create<FileState>((set) => ({
     }
   },
   createFile: async (file) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
-      const newMockFile: ProjectFile = {
-        id: mockFiles.length + 1,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        organisations: [],
-        projects: [],
-        ...file
-      } as ProjectFile;
-      set((state) => ({ files: [...state.files, newMockFile] }));
-      return;
-    }
     try {
       const response = await fetch("/api/files", {
         method: "POST",

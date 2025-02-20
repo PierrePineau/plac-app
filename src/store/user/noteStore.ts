@@ -21,18 +21,6 @@ export const useNoteStore = create<NoteState>((set) => ({
     }
   },
   createNote: async (note) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
-      const newMockNote: Note = {
-        id: mockNotes.length + 1,
-        uuid: (Math.random() * 100000).toString(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        projects: note.projects ?? [],
-        ...note
-      } as Note;
-      set((state) => ({ notes: [...state.notes, newMockNote] }));
-      return;
-    }
     try {
       const response = await fetch("/api/notes", {
         method: "POST",

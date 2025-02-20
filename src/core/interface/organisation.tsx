@@ -2,9 +2,16 @@ interface Organisation {
   id: number;
   uuid: string;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
+  rcs?: string;
+  type: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deleted?: boolean; 
   deletedAt?: Date;
-  employes: Employe[];
-  organisationModules: Module[];
+  subscriptions?: Subscription[];
+  currentSubscription?: Subscription;
+  stripeId?: string;
+  organisationModules?: Module[];
+  user?: User[];
+  owner?: User;
 }

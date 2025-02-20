@@ -26,16 +26,6 @@ export const useSubscriptionStore = create<SubscriptionState>((set) => ({
     }
   },
   createSubscription: async (subscription) => {
-    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") {
-      const newMockSubscription: Subscription = {
-        id: mockSubscriptions.length + 1,
-        organisationSubscriptions: subscription.organisationSubscriptions ?? []
-      } as Subscription;
-      set((state) => ({
-        subscriptions: [...state.subscriptions, newMockSubscription]
-      }));
-      return;
-    }
     try {
       const response = await fetch("/api/subscriptions", {
         method: "POST",

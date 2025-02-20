@@ -4,14 +4,11 @@
 import React, { useEffect, useState } from "react";
 import CustomButton from "../../../components/custombutton";
 import Header from "../../../components/headerpage";
-import NavBar from "../../../components/navBar";
 import Yard from "../../../components/yard";
 import { Filter, PlusIcon } from "lucide-react";
 import Popup from "../../../components/popup";
 import Dropdown from "../../../components/customDropdown";
 import DataTable from "../../../components/DataTable";
-import SearchBar from "../../../components/searchBar";
-import { useEmployeStore } from "@/store/user/employeeStore";
 import { useRouter } from "next/navigation";
 import CreateOrModifyEmployee from "./components/createOrModifyEmployee";
 

@@ -3,11 +3,21 @@ interface User {
   uuid: string;
   email: string;
   roles: string;
-  password?: string;
-  deleted: boolean;
+  deleted?: boolean;
   deletedAt?: Date;
-  createdAt: Date;
-  updatedAt: Date;
   enable: boolean;
-  userOrganisations: Organisation[];
+  userOrganisations?: Organisation[];
+  userPreferences?: Preference[];
+}
+
+interface Preference {
+  id: number;
+  value: string;
+  preferenceSettings?: Setting[];
+}
+
+interface Setting {
+  id: number;
+  reference: string;
+  name: string;
 }

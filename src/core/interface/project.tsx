@@ -3,13 +3,15 @@ interface Project {
   uuid: string;
   reference: string;
   name: string;
-  description: string;
-  notes: Note[];
-  organisaton: Organisation;
-  files: ProjectFile[];
-  medias: Media[];
-  status: Status;
-  createAt: Date;
-  updateAt: Date;
-  localisation: string;
+  description?: string;
+  addresses: string;
+  deleted?: boolean;
+  clients?: Client[]
+  files?: ProjectFile[];
+  status?: Status;
+  createAt?: Date;
+  updateAt?: Date;
+  tasks?: Task[];
+  notes?: Note[];
+  organisation?: Organisation;
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { useApiService } from "@/core/services/api.service";
 import {
   useReactTable,
   getCoreRowModel,
@@ -9,13 +8,13 @@ import {
   SortingState,
   flexRender
 } from "@tanstack/react-table";
-import { EllipsisVertical, LoaderCircle} from "lucide-react";
-import { useEffect, useState } from "react";
+import { EllipsisVertical, LoaderCircle } from "lucide-react";
+import { useState, useCallback, useEffect } from "react";
 
 interface DataTableProps<T> {
   children?: React.ReactNode;
   data: T[];
-  basePath: string,
+  fetchData?: (filters?: any) => Promise<T[]>;
   isLoading?: boolean;
   columns: ColumnDef<T>[];
   onRowSelectionChange?: (selectedRows: T[]) => void;
@@ -34,7 +33,7 @@ interface DataTableProps<T> {
 export default function DataTable<T extends object>({
   children,
   data = [],
-  basePath = "",
+  fetchData,
   isLoading = false,
   columns,
   onRowSelectionChange,
@@ -48,30 +47,28 @@ export default function DataTable<T extends object>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
   const [rows, setRows] = useState<T[]>(data);
-  const [loading, setIsLoading] = useState(isLoading);
+  const [loading, setLoading] = useState(isLoading);
 
-  const { fetch } = useApiService();
+  const handleRowSelection = useCallback(
+    (rowId: number) => {
+      if (!enableRowSelection) return;
+      const newSelection = new Set(selectedRows);
+      if (newSelection.has(rowId)) {
+        newSelection.delete(rowId);
+      } else {
+        newSelection.add(rowId);
+      }
+      setSelectedRows(newSelection);
+      if (onRowSelectionChange) {
+        const selectedData = data.filter((_, index) => newSelection.has(index));
+        onRowSelectionChange(selectedData);
+      }
+    },
+    [enableRowSelection, onRowSelectionChange, data, selectedRows]
+  );
 
-  const handleRowSelection = (rowId: number) => {
+  const handleSelectAll = useCallback(() => {
     if (!enableRowSelection) return;
-
-    const newSelection = new Set(selectedRows);
-    if (newSelection.has(rowId)) {
-      newSelection.delete(rowId);
-    } else {
-      newSelection.add(rowId);
-    }
-    setSelectedRows(newSelection);
-
-    if (onRowSelectionChange) {
-      const selectedData = data.filter((_, index) => newSelection.has(index));
-      onRowSelectionChange(selectedData);
-    }
-  };
-
-  const handleSelectAll = () => {
-    if (!enableRowSelection) return;
-
     if (selectedRows.size === data.length) {
       setSelectedRows(new Set());
       if (onRowSelectionChange) onRowSelectionChange([]);
@@ -80,7 +77,7 @@ export default function DataTable<T extends object>({
       setSelectedRows(allRows);
       if (onRowSelectionChange) onRowSelectionChange(data);
     }
-  };
+  }, [enableRowSelection, selectedRows, data, onRowSelectionChange]);
 
   const table = useReactTable({
     data: rows,
@@ -98,23 +95,31 @@ export default function DataTable<T extends object>({
     formData.forEach((value, key) => {
       filters[key] = value;
     });
-    getData(filters);
+    loadData(filters);
   };
 
-  const getData = (filters = {}) => {
-    if (!basePath) return;
-
-    setIsLoading(true);
-    fetch(basePath, filters).then((respData) => {
-      setRows(respData.results ?? []); // Check the response
-      setIsLoading(false);
+  const loadData = (filters = {}) => {
+    if (!fetchData) return;
+    setLoading(true);
+    fetchData(filters).then((newData) => {
+      setRows(newData);
+      setLoading(false);
     });
-  }
+  };
 
   useEffect(() => {
-    setRows(data);
-    getData();
-  }, []);
+    if (!fetchData) {
+      setRows(data);
+    }
+  }, [data, fetchData]);
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setRows(data);
+    } else if (fetchData) {
+      loadData();
+    }
+  }, [data, fetchData]);
 
   return (
     <div className="flex flex-col w-full gap-4">
@@ -125,19 +130,18 @@ export default function DataTable<T extends object>({
       )}
       <div className="overflow-x-auto">
         <table className="w-full rounded-md">
-          {/* Header */}
-          <thead className=" text-neutral-400 text-sm">
+          <thead className="text-neutral-400 text-sm">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {enableRowSelection && (
                   <th className="w-14">
-                      <label className="w-full h-12 m-auto cursor-pointer flex justify-center items-center">
-                        <input
-                          type="checkbox"
-                          checked={selectedRows.size === data.length}
-                          onChange={handleSelectAll}
-                        />
-                      </label>
+                    <label className="w-full h-12 m-auto cursor-pointer flex justify-center items-center">
+                      <input
+                        type="checkbox"
+                        checked={selectedRows.size === data.length}
+                        onChange={handleSelectAll}
+                      />
+                    </label>
                   </th>
                 )}
                 {headerGroup.headers.map((header) => (
@@ -162,68 +166,61 @@ export default function DataTable<T extends object>({
               </tr>
             ))}
           </thead>
-          {/* Body */}
-          
           <tbody>
-            { 
-              !loading && ( 
-                table.getRowModel().rows.map((row, index) => (
-                  <tr
-                    key={row.id}
-                    className={``}
-                    onClick={() => onRowClick?.(row.original)}>
-                    {enableRowSelection && (
-                      <td className="w-14 text-center">
-                        <label className="w-full h-12 m-auto cursor-pointer flex justify-center items-center">
+            {!loading &&
+              table.getRowModel().rows.map((row) => (
+                <tr key={row.id} onClick={() => onRowClick?.(row.original)}>
+                  {enableRowSelection && (
+                    <td className="w-14 text-center">
+                      <label className="w-full h-12 m-auto cursor-pointer flex justify-center items-center">
                         <input
-                            type="checkbox"
-                            checked={selectedRows.has(row.index)}
-                            onChange={(e) => {
-                              e.stopPropagation();
-                              handleRowSelection(row.index);
-                            }}
-                          />
-                        </label>
-                      </td>
-                    )}
-                    {row.getVisibleCells().map((cell, index) => (
-                      <td
-                        key={cell.id}
-                        className="text-sm text-neutral-600 flex-row justify-between">
-                        {renderCell
-                          ? renderCell(
-                              cell.getValue(),
-                              cell.column.columnDef,
-                              row.original
-                            )
-                          : flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        {index === row.getVisibleCells().length - 1 &&
-                          ellipsisEnabled && (
-                            <button
-                              className="ml-2"
-                              onClick={(e) => e.stopPropagation()}>
-                              <EllipsisVertical />
-                            </button>
+                          type="checkbox"
+                          checked={selectedRows.has(row.index)}
+                          onChange={(e) => {
+                            e.stopPropagation();
+                            handleRowSelection(row.index);
+                          }}
+                        />
+                      </label>
+                    </td>
+                  )}
+                  {row.getVisibleCells().map((cell, index) => (
+                    <td
+                      key={cell.id}
+                      className="text-sm text-neutral-600 flex-row justify-between">
+                      {renderCell
+                        ? renderCell(
+                            cell.getValue(),
+                            cell.column.columnDef,
+                            row.original
+                          )
+                        : flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
                           )}
-                      </td>
-                    ))}
-                  </tr>
-                ))
-              )
-            }
-            {
-              loading && (
-                <tr className="text-sm text-neutral-600 flex-row justify-between isLoading">
-                  <td colSpan={columns.length + 1} className="p-0 ">
-                    <div className="flex justify-center items-center min-h-14">
-                      <div className="animate-spin text-neutral-400">
-                        <LoaderCircle width={32} height={32}/>
-                      </div>
-                    </div>
-                  </td>
+                      {index === row.getVisibleCells().length - 1 &&
+                        ellipsisEnabled && (
+                          <button
+                            className="ml-2"
+                            onClick={(e) => e.stopPropagation()}>
+                            <EllipsisVertical />
+                          </button>
+                        )}
+                    </td>
+                  ))}
                 </tr>
-              )
-            }
+              ))}
+            {loading && (
+              <tr className="text-sm text-neutral-600 flex-row justify-between isLoading">
+                <td colSpan={columns.length + 1} className="p-0">
+                  <div className="flex justify-center items-center min-h-14">
+                    <div className="animate-spin text-neutral-400">
+                      <LoaderCircle width={32} height={32} />
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

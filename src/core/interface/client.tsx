@@ -1,15 +1,10 @@
 interface Client {
   id: number;
-  email?: string;
-  avatar: string;
+  uuid: string;
   firstname?: string;
   lastname?: string;
-  phone?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  archived: boolean;
-  deleted: boolean;
-  notes: Note[];
-  yards: Project[];
-  organisationClients: Organisation[];
+  email?: string;
+  adresses: string;
+  deleted?: boolean;
+  deletedAt?: Date;
 }
