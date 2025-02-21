@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef } from 'react';
 import Field from "@/components/field";
-import ModalNew from '@/components/modalNew';
+import ModalNew from '@/components/modal';
 import { useProjectStore } from '@/store/user/projectStore';
 
 export default function New() {

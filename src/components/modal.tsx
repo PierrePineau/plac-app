@@ -1,63 +1,45 @@
 "use client";
 import React, { useState, useRef } from 'react';
 import Btn from "@/components/btn";
-import Field from "@/components/field";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/react";
+import { Modal as HerouiModal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/react";
 import { Plus } from "lucide-react";
-import { useRouter } from "next/navigation";
 
-interface ModalNewProps {
+interface ModalProps {
 	basePath?: string;
 	store: any;
 	children?: React.ReactNode;
 	text?: string;
 	icon?: React.ReactNode;
 	title?: string;
+	onSubmit: (e: any) => Promise<ArrayBuffer | null>;
 }
 
 
-export default function ModalNew({
-	basePath = '/projects',
-	store = null,
+export default function Modal({
 	children,
 	text = 'Ajouter',
 	icon = <Plus />,
 	title = 'Ajouter',
-  }: ModalNewProps) {
-	const router = useRouter();
+	onSubmit,
+  }: ModalProps) {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 	const formRef = useRef(null);
-
-	const { create } = store;
-
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 		
 		try {
+			setIsSubmitting(true);
 			if (formRef.current) {
 				// formRef.current.reportValidity();
 				const formData = new FormData(formRef.current);
-				setIsSubmitting(true);
-				console.log('Form submitted:', formData);
-
-				const data = await create(formData);
-
-				if (!data) {
-					setIsSubmitting(false);
-					return;
-				}
-				router.push(basePath + '/' + data.id);
+				onSubmit(formData);
 				setIsSubmitting(false);
 			}
 		} catch (error) {
 			console.error('Error creating:', error);
 		}
-	};
-
-	const onSubmit = () => {
-		handleSubmit(new Event('submit'));
 	};
 
 	return (
@@ -66,7 +48,7 @@ export default function ModalNew({
 				{icon}
 				{text}
 			</Btn>
-			<Modal isOpen={isOpen} onOpenChange={onOpenChange} radius="sm">
+			<HerouiModal isOpen={isOpen} onOpenChange={onOpenChange} radius="sm">
 				<ModalContent>
 					{(onClose) => (
 						<>
@@ -80,14 +62,14 @@ export default function ModalNew({
 								<Btn onPress={onClose} variant="light">
 									Annuler
 								</Btn>
-								<Btn onPress={onSubmit} isLoading={isSubmitting}>
+								<Btn onPress={handleSubmit} isLoading={isSubmitting}>
 									Ajouter
 								</Btn>
 							</ModalFooter>
 						</>
 					)}
 				</ModalContent>
-			</Modal>
+			</HerouiModal>
 		</>
 	);
 }

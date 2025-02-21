@@ -2,7 +2,7 @@ interface Organisation {
   id: string;
   name: string;
   rcs?: string;
-  type: string;
+  type?: string;
   createdAt?: Date;
   updatedAt?: Date;
   deleted?: boolean; 
