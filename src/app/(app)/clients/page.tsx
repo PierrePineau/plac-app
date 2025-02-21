@@ -4,14 +4,13 @@
 import React, { useEffect, useState } from "react";
 import CustomButton from "../../../components/custombutton";
 import Header from "../../../components/headerpage";
-import NavBar from "../../../components/navBar";
 import { PlusIcon } from "lucide-react";
 import Popup from "../../../components/popup";
-import SearchBar from "../../../components/searchBar";
 import { useRouter } from "next/navigation";
 import { useClientStore } from "@/store/user/clientStore";
 import DataTable from "../../../components/CustomDataTable";
 import CreateOrModifyClient from "./components/createOrModifyClient";
+import SearchBar from "@/app/admin/(admin)/components/searchBar";
 
 const columns = [
   {
@@ -89,14 +88,7 @@ export default function Employee() {
 
   return (
     <div className="flex flex-row bg-white h-full">
-      <div className="sticky bg-white hidden md:block border-r border-neutral-200">
-        <NavBar />
-      </div>
-
       <div className="flex flex-col w-full">
-        <div className="top-0 bg-white z-10 border-b border-neutral-200">
-          <Header />
-        </div>
         <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
           <div className="flex flex-row justify-between">
             <p className="text-h1Desktop text-neutral-950  ">
