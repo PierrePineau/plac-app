@@ -43,12 +43,12 @@ const columns = [
 
 export default function Home() {
   const router = useRouter();
-  const { projects, fetchProjects } = useProjectStore();
+  const { data, fetchData } = useProjectStore();
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    fetchProjects();
-  }, [fetchProjects]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [data]);
 
   // const ongoingYards = projects.filter(
   //   (project) => project.status.label === "En cours"

@@ -11,13 +11,17 @@ import { useProjectStore } from "@/store/user/projectStore";
 import FormModal from "../../../components/formModal";
 import CreateOrModifyYard from "./components/createOrModifyYard";
 import Tabs from "../../../components/tabs";
+import { useOrganisationStore } from "@/store/user/organisationStore";
 
 export default function Chantiers() {
   const { data, fetchData, create } = useProjectStore();
+  const { organisation } = useOrganisationStore();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
-    fetchData("");
+    if (organisation) {
+      fetchData(organisation?.id);
+    }
   }, [fetchData]);
 
   const handleAddProject = () => {
@@ -71,38 +75,36 @@ export default function Chantiers() {
   //   };
   // }, [isPopupOpen]);
 
-  // const tabs = [
-  //   {
-  //     label: "Chantiers en cours",
-  //     content: (
-  //       <Yard
-  //         yards={projects.filter(
-  //           (project) => project.status.label === "En cours"
-  //         )}
-  //       />
-  //     )
-  //   },
-  //   {
-  //     label: "Chantiers à venir",
-  //     content: (
-  //       <Yard
-  //         yards={projects.filter(
-  //           (project) => project.status.label === "En pause"
-  //         )}
-  //       />
-  //     )
-  //   },
-  //   {
-  //     label: "Chantiers archivés",
-  //     content: (
-  //       <Yard
-  //         yards={projects.filter(
-  //           (project) => project.status.label === "Terminé"
-  //         )}
-  //       />
-  //     )
-  //   }
-  // ];
+  const tabs = [
+    {
+      label: "Chantiers en cours",
+      content: (
+        <Yard
+          projects={data.filter(
+            (project) => project.status.name === "En cours"
+          )}
+        />
+      )
+    },
+    {
+      label: "Chantiers à venir",
+      content: (
+        <Yard
+          projects={data.filter(
+            (project) => project.status.name === "En pause"
+          )}
+        />
+      )
+    },
+    {
+      label: "Chantiers archivés",
+      content: (
+        <Yard
+          projects={data.filter((project) => project.status.name === "Terminé")}
+        />
+      )
+    }
+  ];
 
   return (
     <div className="flex flex-row bg-white h-full">
@@ -129,7 +131,7 @@ export default function Chantiers() {
               />
             </div>
           </div>
-          {/* <Tabs tabs={tabs} /> */}
+          <Tabs tabs={tabs} />
         </div>
       </div>
 
