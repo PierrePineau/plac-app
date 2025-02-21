@@ -82,10 +82,13 @@ export const useAuthStore = create<AuthState>((set) => ({
 				const decoded = jwtDecode<JwtPayload>(data.token);
 				localStorage.setItem("jwtToken", data.token);
 				// localStorage.setItem("userId", decoded.username);
-			    set({ user: {
-                    email: decoded.username,
-                    roles: decoded.roles
-                }, isLoading: false, isAuthenticated: true });
+				const user = data.user;
+				if (user) {
+					set({ user: {
+						email: user.email as string,
+						roles: user.roles as string[],
+					}, isLoading: false, isAuthenticated: true });
+				}
 
 				const org = data.organisation;
 				if (org) {
