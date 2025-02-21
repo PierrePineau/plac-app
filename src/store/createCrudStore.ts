@@ -11,23 +11,28 @@ interface CrudInterface<T> {
     update: (id: string | number, item: Partial<T>) => Promise<T | null>;
     delete: (id: string | number) => Promise<void>;
 }
-    
+
 // Factory pour générer un store CRUD
 export const createCrudStore = <T, ExtraMethods extends Record<string, any> = {}>(
     endpoint: string,
     extend?: (set: any, get: any) => ExtraMethods
 ) => {
-    // Fonction pour récupérer le `uuidOrg` depuis le `localStorage`
-    const getOrgId = () => localStorage.getItem("idOrganisation") || "";
-
-    // Génération dynamique de l'endpoint
-    const getEndpoint = () => endpoint.replace("{idOrganisation}", getOrgId());
     return create<CrudInterface<T> & ExtraMethods>((set, get) => ({
         endpoint: endpoint,
+        getEndpoint: (params: any) => {
+            // Fonction pour récupérer le `idOrganisation` depuis le `localStorage`
+            const getOrgId = () => localStorage.getItem("idOrganisation") || "";
+
+            // Génération dynamique de l'endpoint
+            const newEndpoint = endpoint.replace("{idOrganisation}", getOrgId());
+
+            return newEndpoint;
+        },
         data: [],
         setEndpoint: (newEndpoint: string) => set({ endpoint: newEndpoint } as Partial<CrudInterface<T> & ExtraMethods>),
         fetchData: async (filters: any) => {
             try {
+                const { getEndpoint } = get();
                 const endpoint = getEndpoint();
                 const response = await apiGet<ResponseApi>(endpoint, filters);
                 if (response.success) {
@@ -44,6 +49,7 @@ export const createCrudStore = <T, ExtraMethods extends Record<string, any> = {}
         },
         create: async (item) => {
             try {
+                const { getEndpoint } = get();
                 const endpoint = getEndpoint();
                 const response = await post<ResponseApi>(endpoint, item);
                 if (response.success) {
@@ -58,6 +64,7 @@ export const createCrudStore = <T, ExtraMethods extends Record<string, any> = {}
         },
         update: async (id, item) => {
             try {
+                const { getEndpoint } = get();
                 const endpoint = getEndpoint();
                 const response = await post<ResponseApi>(`${endpoint}/${id}`, item);
                 if (response.success) {
@@ -74,6 +81,7 @@ export const createCrudStore = <T, ExtraMethods extends Record<string, any> = {}
         },
         delete: async (id) => {
             try {
+                const { getEndpoint } = get();
                 const endpoint = getEndpoint();
                 const response = await remove<ResponseApi>(`${endpoint}/${id}`);
                 if (response.success) {
