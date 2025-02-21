@@ -1,4 +1,5 @@
 interface CrudInterface<T> {
+    endpoint: string;
     data: T[] | [];
     fetchData: (filters: any) => Promise<void>;
     getOneById: (id: string | number) => T | undefined;
