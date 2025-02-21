@@ -8,6 +8,7 @@ interface UserState {
   createUser: (user: Partial<User>) => Promise<void>;
   updateUser: (id: number, user: Partial<User>) => Promise<void>;
   deleteUser: (id: number) => Promise<void>;
+  fetchUsersByOrganistionId: (id: number) => Promise<User[] | undefined>;
   fetchUserOrganisations: (idUser: number) => Promise<void>;
   addUserOrganisation: (
     idUser: number,
@@ -20,6 +21,19 @@ export const useUserStore = create<UserState>((set) => ({
 
   fetchUser: async (id) => {
     if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return;
+    try {
+      const data = await get<User>(`/api/app/users/${id}`, {
+        authTarget: "user"
+      });
+      set((state) => ({
+        users: state.users.map((u) => (u.id === id ? data : u))
+      }));
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  },
+  fetchUsersByOrganistionId: async (id: number) => {
+    if (process.env.NEXT_PUBLIC_USE_MOCK === "true") return mockUsers;
     try {
       const data = await get<User>(`/api/app/users/${id}`, {
         authTarget: "user"

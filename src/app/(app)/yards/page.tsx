@@ -13,12 +13,12 @@ import CreateOrModifyYard from "./components/createOrModifyYard";
 import Tabs from "../../../components/tabs";
 
 export default function Chantiers() {
-  const { projects, fetchProjects, createProject } = useProjectStore();
+  const { data, fetchData, create } = useProjectStore();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
-    fetchProjects();
-  }, [fetchProjects]);
+    fetchData("");
+  }, [fetchData]);
 
   const handleAddProject = () => {
     setIsPopupOpen(true);
@@ -109,9 +109,7 @@ export default function Chantiers() {
       <div className="flex flex-col w-full">
         <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
           <div className="flex flex-row justify-between">
-            <p className="text-h1Desktop text-neutral-950  ">
-              Mes chantiers
-            </p>
+            <p className="text-h1Desktop text-neutral-950  ">Mes chantiers</p>
             <div className="flex flex-row">
               <CustomButton
                 icon={<Filter className="text-neutral-950" />}

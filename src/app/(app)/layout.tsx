@@ -4,11 +4,6 @@ import Header from "./components/header";
 import { Providers } from "./providers";
 import { AuthGuard } from "@/core/context/AuthContext";
 
-// export const metadata = {
-//   title: 'Plac',
-//   description: 'Application de gestion de chantiers',
-// };
-
 export default function RootLayout({
   children,
 }: {

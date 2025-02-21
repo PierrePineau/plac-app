@@ -1,18 +1,18 @@
 import { MoreVertical } from "lucide-react";
 import Link from "next/link";
 
-interface YardProps {
-  yards: Yard[];
+interface ProjectProps {
+  projects: Project[];
 }
 
-export default function Yard({ yards }: YardProps) {
+export default function Yard({ projects }: ProjectProps) {
   return (
     <div className="flex flex-col gap-6">
       <div className="grid grid-cols-3 gap-8">
-        {yards?.length ? (
-          yards.map((yard) => (
-            <Link key={yard.id} href={`/yards/details/${yard.id}`}>
-              <div key={yard.id} className="flex flex-col gap-6 rounded-lg">
+        {projects?.length ? (
+          projects.map((project: Project) => (
+            <Link key={project.id} href={`/yards/details/${project.id}`}>
+              <div key={project.id} className="flex flex-col gap-6 rounded-lg">
                 <div className="w-full h-56 rounded-lg overflow-hidden">
                   <img
                     className="w-full h-full object-cover"
@@ -23,10 +23,10 @@ export default function Yard({ yards }: YardProps) {
                 <div className="flex flex-row justify-between">
                   <div className="flex flex-col">
                     <p className="text-h3Desktop text-neutral-950  ">
-                      {yard.name}
+                      {project.name}
                     </p>
                     <p className="text-tag   text-neutral-400">
-                      {yard.description}
+                      {project.description}
                     </p>
                   </div>
                   <MoreVertical className="text-neutral-950" />
