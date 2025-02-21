@@ -30,7 +30,7 @@ const columns = [
   // }
 ];
 
-export default function OrganisationTable() {
+export default function Table() {
   return (
     <DataTable
       store={useProjectStore()}

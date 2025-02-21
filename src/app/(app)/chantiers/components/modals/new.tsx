@@ -9,7 +9,7 @@ export default function New() {
 		<ModalNew 
 			title="Nouveau chantier"
 			text='Ajouter un chantier'
-			basePath='/projects'
+			basePath='/chantiers'
 			store={useProjectStore()}
 		>
 			<Field label="Nom" name="name" required />

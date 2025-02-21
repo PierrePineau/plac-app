@@ -1,6 +1,5 @@
 interface Project {
-  id: number;
-  uuid: string;
+  id: string | number;
   reference: string;
   name: string;
   description?: string;

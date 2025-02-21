@@ -6,7 +6,7 @@ import { useState, useCallback, useEffect } from "react";
 
 interface DataTableProps<T> {
 	children?: React.ReactNode;
-	store: any;
+	store: CrudInterface<T>;
 	isLoading?: boolean;
 	columns: ColumnDef<T>[];
 	onRowSelectionChange?: (selectedRows: T[]) => void;
