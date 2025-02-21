@@ -83,7 +83,7 @@ export function post<T>(
   options: ExtendedRequestInit = {}
 ): Promise<T> {
 
-  const data = body instanceof FormData ? body : JSON.stringify(body);
+  const data = body instanceof FormData ? Object.fromEntries(body.entries()) : body;
   
   return request<T>(url, {
     ...options,
@@ -92,7 +92,7 @@ export function post<T>(
       "Content-Type": "application/json",
       ...((options.headers as Record<string, string>) || {})
     },
-    body: data
+    body: JSON.stringify(data)
   });
 }
 
@@ -102,7 +102,7 @@ export function put<T>(
   options: ExtendedRequestInit = {}
 ): Promise<T> {
 
-  const data = body instanceof FormData ? body : JSON.stringify(body);
+  const data = body instanceof FormData ? Object.fromEntries(body.entries()) : body;
   return request<T>(url, {
     ...options,
     method: "PUT",
@@ -110,7 +110,7 @@ export function put<T>(
       "Content-Type": "application/json",
       ...((options.headers as Record<string, string>) || {})
     },
-    body: data
+    body: JSON.stringify(data)
   });
 }
 
