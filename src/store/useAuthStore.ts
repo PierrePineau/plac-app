@@ -88,7 +88,6 @@ export const useAuthStore = create<AuthState>((set) => ({
                 }, isLoading: false, isAuthenticated: true });
 
 				const org = data.organisation;
-				console.log("Organisation", org);
 				if (org) {
 					const { setOrganisation } = useOrganisationStore.getState();
 					setOrganisation(org);
