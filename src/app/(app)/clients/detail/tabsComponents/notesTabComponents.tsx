@@ -5,7 +5,7 @@ import CustomButton from "@/components/custombutton";
 import { PlusIcon } from "lucide-react";
 import NotesCard from "../../components/viewNotes";
 import Popup from "@/components/popup";
-import CreateOrModifyNotes from "@/app/(app)/yards/components/createOrModifyNotes";
+import CreateOrModifyNotes from "@/app/(app)/chantiers/components/createOrModifyNotes";
 
 const NotesTabComponentGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);

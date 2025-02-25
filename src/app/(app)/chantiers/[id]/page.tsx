@@ -1,32 +1,105 @@
 "use client";
-import HeaderPage from "@/components/headerpage";
-import { useLoaderContext } from "@/core/context/LoaderContext";
-import { useApiService } from "@/core/services/api.service";
+
+import CustomButton from "@/components/custombutton";
+import { FileEdit, Printer } from "lucide-react";
+import GeneralTab from "./tabsComponents/generalTab";
+import DocumentsTab from "./tabsComponents/documentsTab";
+import NotesGrid from "./tabsComponents/notesTab";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useProjectStore } from "@/store/user/projectStore";
+import Tabs from "@/components/tabs";
 
-export default function Page() {
-	const { id } = useParams();
-	const [organisation, setOrganisation] = useState<Organisation | null>(null);
-	const { get } = useApiService();
+export default function ProjectDetail() {
+  const router = useRouter();
+  const { id } = useParams();
+  const { data, getOneById, fetchData } = useProjectStore();
+  const [project, setProject] = useState<Project | null>(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-	const { setIsLoading } = useLoaderContext();
-	// const
-	useEffect(() => {
-		setIsLoading(true);
-		if (id) {
-			get(`/admin/organisations/${id}`).then((org) => {
-				setOrganisation(org);
-				setIsLoading(false);
-			});
-		}
-	}, [id]);
+  const handleModifyProject = () => {
+    setIsPopupOpen(true);
+    document.body.style.overflow = "hidden";
+  };
 
-	return (
-		<>
-            <HeaderPage title={organisation ? organisation.name : ''} showBreadcrumb={true}>
-				{/* // Les actions disponibles */}
-			</HeaderPage>
-		</>
-	);
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    document.body.style.overflow = "";
+  };
+
+  useEffect(() => {
+    if (id) {
+      const projectData = getOneById(id as string);
+      if (projectData) {
+        setProject(projectData);
+      } else {
+        fetchData(null).then(() => {
+          const fetchedproject = getOneById(id as string);
+          setProject(fetchedproject || null);
+        });
+      }
+    }
+  }, [id, getOneById, fetchData]);
+
+  if (!project) {
+    return <div>Chargement des détails du chantier...</div>;
+  }
+
+  const tabs = [
+    { label: "Général", content: <GeneralTab project={project} /> },
+    {
+      label: "Documents & Médias",
+      content: <DocumentsTab project={project} />
+    },
+    { label: "Bloc notes", content: <NotesGrid notes={project.notes || []} /> }
+  ];
+
+  return (
+    <div className="flex flex-row bg-white h-full">
+      <div className="flex flex-col w-full">
+        <img
+          className="w-full max-h-72 object-cover"
+          src={"/asset/img/yard.jpeg"}
+          alt={project.name}
+        />
+        <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-row gap-1">
+              <p className="text-neutral-400   text-paragraphMedium">
+                Mes chantiers /
+              </p>
+              <p className=" text-neutral-950 text-paragraphMedium  ">
+                {project.name}
+              </p>
+            </div>
+            <div className="flex flex-row justify-between">
+              <h1 className="   text-h1Desktop text-neutral-900">
+                {project.name}
+              </h1>
+              <div className="flex flex-row gap-4">
+                <CustomButton
+                  text="Imprimer"
+                  icon={<Printer />}
+                  color="bg-white"
+                  textColor="text-neutral-950"
+                  onClick={() => router.push(`/project/edit/${project.id}`)}
+                  hover={"bg-neutral-100"}
+                  border="border border-neutral-200"
+                />
+                <CustomButton
+                  text="Modifier les informations"
+                  icon={<FileEdit />}
+                  color="bg-brand-950"
+                  textColor="text-white"
+                  onClick={handleModifyProject}
+                  hover={"bg-brand-1000"}
+                />
+              </div>
+            </div>
+          </div>
+          <Tabs tabs={tabs} />
+        </div>
+      </div>
+    </div>
+  );
 }

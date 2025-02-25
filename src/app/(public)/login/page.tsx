@@ -26,9 +26,11 @@ const Login = () => {
   const handleSubmit = async (email: string, password: string) => {
     const result = await login(email, password);
     if (result) {
-      router.push("/");
+      console.log("lorem");
+      console.log(result);
+      router.push("/"); // Redirige vers la page du dashboard
     } else {
-      // setError("Identifiants invalides. Essayez à nouveau.");
+      // Gérer l'erreur ici
     }
   };
 

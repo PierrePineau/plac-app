@@ -3,9 +3,9 @@ import CustomButton from "@/components/custombutton";
 import { File, PlusIcon } from "lucide-react";
 import React, { useState } from "react";
 import NoteCard from "../../components/note_component";
-import SearchBar from "@/components/searchBar";
 import Popup from "@/components/popup";
 import CreateOrModifyNotes from "../../components/createOrModifyNotes";
+import SearchBar from "@/app/(app)/components/searchBar";
 
 // Composant principal NotesGrid
 const NotesGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
@@ -54,7 +54,7 @@ const NotesGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
               id={note.id}
               name={note.name!}
               content={note.content!}
-              createdAt={note.createdAt}
+              createdAt={note.createdAt!}
             />
           ))}
       </div>

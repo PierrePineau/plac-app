@@ -1,13 +1,14 @@
 interface Project {
-  id: string | number;
-  reference: string;
+  id?: string | number;
+  uuid?: string;
+  reference?: string;
   name: string;
-  description?: string;
-  addresses: string;
+  description: string;
+  addresses?: Address;
   deleted?: boolean;
-  clients?: Client[]
+  clients?: Client[];
   files?: ProjectFile[];
-  status: Status;
+  status?: Status;
   createAt?: Date;
   updateAt?: Date;
   tasks?: Task[];

@@ -11,7 +11,7 @@ export default function Yard({ projects }: ProjectProps) {
       <div className="grid grid-cols-3 gap-8">
         {projects?.length ? (
           projects.map((project: Project) => (
-            <Link key={project.id} href={`/yards/details/${project.id}`}>
+            <Link key={project.id} href={`../chantiers/${project.id}`}>
               <div key={project.id} className="flex flex-col gap-6 rounded-lg">
                 <div className="w-full h-56 rounded-lg overflow-hidden">
                   <img

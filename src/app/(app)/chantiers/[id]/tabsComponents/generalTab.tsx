@@ -30,9 +30,9 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
 
   useEffect(() => {
     const fetchCoordinates = async () => {
-      if (!project.localisation) return;
+      if (!project.addresses) return;
 
-      const address = encodeURIComponent(project.localisation);
+      const address = encodeURIComponent(project.addresses.city);
       const url = `https://nominatim.openstreetmap.org/search?format=json&q=${address}`;
 
       try {
@@ -56,23 +56,19 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
     };
 
     fetchCoordinates();
-  }, [project.localisation]);
+  }, [project.addresses]);
 
   return (
     <div>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col items-start gap-2">
-          <p className="  text-paragraphBold text-neutral-950">
-            Description
-          </p>
+          <p className="  text-paragraphBold text-neutral-950">Description</p>
           <p className="  text-paragraphMedium text-neutral-500 max-w-[75%]">
             {project.description}
           </p>
         </div>
         <div className="flex flex-col items-start gap-2">
-          <p className="  text-paragraphBold text-neutral-950">
-            Statut
-          </p>
+          <p className="  text-paragraphBold text-neutral-950">Statut</p>
           <p
             className={`  text-tag text-neutral-50 rounded-lg py-1 px-3 ${
               "En cours" === "En cours" ? "bg-accent-500" : "bg-green-500"
@@ -95,12 +91,8 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightSubBubble="h-10"
           />
           <div>
-            <p className="text-sm   text-neutral-500">
-              Chef de chantier
-            </p>
-            <p className="  text-paragraphBold text-neutral-950">
-              Lorem Ipsum
-            </p>
+            <p className="text-sm   text-neutral-500">Chef de chantier</p>
+            <p className="  text-paragraphBold text-neutral-950">Lorem Ipsum</p>
           </div>
         </div>
 
@@ -113,9 +105,7 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightSubBubble="h-10"
           />
           <div>
-            <p className="text-sm   text-neutral-500">
-              Date de début
-            </p>
+            <p className="text-sm   text-neutral-500">Date de début</p>
             <p className="  text-paragraphBold text-neutral-950">
               5 décembre 2024
             </p>
@@ -147,11 +137,9 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightSubBubble="h-10"
           />
           <div>
-            <p className="text-sm   text-neutral-500">
-              Localisation
-            </p>
+            <p className="text-sm   text-neutral-500">Localisation</p>
             <p className="  text-paragraphBold text-neutral-950">
-              {project.localisation}
+              {project.addresses?.city}
             </p>
           </div>
         </div>
@@ -161,7 +149,7 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
           <ExternalLink className="text-brand-500" />
           <a
             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-              project.localisation
+              project.addresses?.city as string
             )}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -194,11 +182,9 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             secondBackground="bg-accent-200"
           />
           <div>
-            <p className="text-sm   text-neutral-500">
-              Nom & Prénom
-            </p>
+            <p className="text-sm   text-neutral-500">Nom & Prénom</p>
             <p className="  text-paragraphBold text-neutral-950">
-              {project.organisaton.name}
+              {project.organisation?.name}
             </p>
           </div>
         </div>
@@ -232,9 +218,7 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             secondBackground="bg-accent-200"
           />
           <div>
-            <p className="text-sm   text-neutral-500">
-              N° de téléphone
-            </p>
+            <p className="text-sm   text-neutral-500">N° de téléphone</p>
             <p className="  text-paragraphBold text-neutral-950">
               +33 7 98 24 58 74
             </p>

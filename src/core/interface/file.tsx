@@ -1,6 +1,6 @@
 interface ProjectFile {
   id: number;
-  media?: Media;
+  media?: Files;
   project?: Project;
   position: number;
 }
