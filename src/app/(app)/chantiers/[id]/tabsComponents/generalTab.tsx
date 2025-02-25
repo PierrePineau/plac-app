@@ -12,11 +12,26 @@ import {
   User
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-
-import MyMap from "../../components/map";
 import MapComponent from "../../components/map";
+
+interface Address {
+  id: number;
+  uuid: string;
+  country: string;
+  state: string;
+  city: string;
+  postcode: string;
+  street: string;
+  compl: string;
+}
+
+interface Project {
+  addresses?: Address;
+  description: string;
+  organisation?: {
+    name: string;
+  };
+}
 
 interface ProjectProps {
   project: Project;
@@ -31,14 +46,18 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
   useEffect(() => {
     const fetchCoordinates = async () => {
       if (!project.addresses) return;
-
-      const address = encodeURIComponent(project.addresses.city);
-      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${address}`;
-
+      const addressQuery = `${project.addresses.street} ${project.addresses.compl} ${project.addresses.city} ${project.addresses.postcode} ${project.addresses.country}`;
+      const encodedAddress = encodeURIComponent(addressQuery);
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}`;
       try {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+          headers: {
+            "User-Agent": "VotreApp/1.0"
+          }
+        });
         const data = await response.json();
-
+        console.log("bvjhzbfhzebvfbehjzf");
+        console.log(data);
         if (data.length > 0) {
           setCoordinates({
             lat: parseFloat(data[0].lat),
@@ -56,29 +75,28 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
     };
 
     fetchCoordinates();
-  }, [project.addresses]);
+  }, [project]);
 
   return (
     <div>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col items-start gap-2">
-          <p className="  text-paragraphBold text-neutral-950">Description</p>
-          <p className="  text-paragraphMedium text-neutral-500 max-w-[75%]">
+          <p className="text-paragraphBold text-neutral-950">Description</p>
+          <p className="text-paragraphMedium text-neutral-500 max-w-[75%]">
             {project.description}
           </p>
         </div>
         <div className="flex flex-col items-start gap-2">
-          <p className="  text-paragraphBold text-neutral-950">Statut</p>
+          <p className="text-paragraphBold text-neutral-950">Statut</p>
           <p
-            className={`  text-tag text-neutral-50 rounded-lg py-1 px-3 ${
+            className={`text-tag text-neutral-50 rounded-lg py-1 px-3 ${
               "En cours" === "En cours" ? "bg-accent-500" : "bg-green-500"
             }`}>
             En cours
           </p>
         </div>
       </div>
-
-      <h2 className="  text-h2Desktop text-neutral-900 mt-6">
+      <h2 className="text-h2Desktop text-neutral-900 mt-6">
         Informations générales
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
@@ -91,11 +109,10 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightSubBubble="h-10"
           />
           <div>
-            <p className="text-sm   text-neutral-500">Chef de chantier</p>
-            <p className="  text-paragraphBold text-neutral-950">Lorem Ipsum</p>
+            <p className="text-sm text-neutral-500">Chef de chantier</p>
+            <p className="text-paragraphBold text-neutral-950">Lorem Ipsum</p>
           </div>
         </div>
-
         <div className="flex items-center space-x-3">
           <BubbleText
             icon={<CalendarPlus className="text-brand-500" />}
@@ -105,13 +122,12 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightSubBubble="h-10"
           />
           <div>
-            <p className="text-sm   text-neutral-500">Date de début</p>
-            <p className="  text-paragraphBold text-neutral-950">
+            <p className="text-sm text-neutral-500">Date de début</p>
+            <p className="text-paragraphBold text-neutral-950">
               5 décembre 2024
             </p>
           </div>
         </div>
-
         <div className="flex items-center space-x-3">
           <BubbleText
             icon={<CalendarMinus className="text-brand-500" />}
@@ -121,13 +137,12 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightSubBubble="h-10"
           />
           <div>
-            <p className="text-sm   text-neutral-500">Date de fin</p>
-            <p className="  text-paragraphBold text-neutral-950">
+            <p className="text-sm text-neutral-500">Date de fin</p>
+            <p className="text-paragraphBold text-neutral-950">
               20 février 2025
             </p>
           </div>
         </div>
-
         <div className="flex items-center space-x-3">
           <BubbleText
             icon={<MapPin className="text-brand-500" />}
@@ -137,8 +152,8 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             heightSubBubble="h-10"
           />
           <div>
-            <p className="text-sm   text-neutral-500">Localisation</p>
-            <p className="  text-paragraphBold text-neutral-950">
+            <p className="text-sm text-neutral-500">Localisation</p>
+            <p className="text-paragraphBold text-neutral-950">
               {project.addresses?.city}
             </p>
           </div>
@@ -153,7 +168,7 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="  text-paragraphMedium text-brand-500">
+            className="text-paragraphMedium text-brand-500">
             Ouvrir dans Maps
           </a>
         </div>
@@ -167,7 +182,7 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
           <p>Chargement de la carte...</p>
         )}
       </div>
-      <h2 className="  text-h2Desktop text-neutral-900 mt-6">
+      <h2 className="text-h2Desktop text-neutral-900 mt-6">
         Informations clients
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
@@ -182,13 +197,12 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             secondBackground="bg-accent-200"
           />
           <div>
-            <p className="text-sm   text-neutral-500">Nom & Prénom</p>
-            <p className="  text-paragraphBold text-neutral-950">
+            <p className="text-sm text-neutral-500">Nom & Prénom</p>
+            <p className="text-paragraphBold text-neutral-950">
               {project.organisation?.name}
             </p>
           </div>
         </div>
-
         <div className="flex items-center space-x-3">
           <BubbleText
             icon={<Mail className="text-accent-500" />}
@@ -200,13 +214,12 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             secondBackground="bg-accent-200"
           />
           <div>
-            <p className="text-sm   text-neutral-500">Email</p>
-            <p className="  text-paragraphBold text-neutral-950">
+            <p className="text-sm text-neutral-500">Email</p>
+            <p className="text-paragraphBold text-neutral-950">
               contact@loremipsum.fr
             </p>
           </div>
         </div>
-
         <div className="flex items-center space-x-3">
           <BubbleText
             icon={<Phone className="text-accent-500" />}
@@ -218,8 +231,8 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
             secondBackground="bg-accent-200"
           />
           <div>
-            <p className="text-sm   text-neutral-500">N° de téléphone</p>
-            <p className="  text-paragraphBold text-neutral-950">
+            <p className="text-sm text-neutral-500">N° de téléphone</p>
+            <p className="text-paragraphBold text-neutral-950">
               +33 7 98 24 58 74
             </p>
           </div>
