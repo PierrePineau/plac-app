@@ -24,7 +24,11 @@ export const createCrudStore = <
     endpoint,
     getEndpoint: (params?: any) => {
       const getOrgId = () => localStorage.getItem("idOrganisation") || "";
-      return endpoint.replace("{idOrganisation}", getOrgId());
+      const getProjectId = () => localStorage.getItem("projectId") || "";
+      endpoint = endpoint
+        .replace("{idOrganisation}", getOrgId())
+        .replace("{idProject}", getProjectId);
+      return endpoint;
     },
     setEndpoint: (newEndpoint: string) =>
       set((state) => ({ ...state, endpoint: newEndpoint })),

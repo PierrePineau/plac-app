@@ -6,6 +6,7 @@ import NoteCard from "../../components/note_component";
 import Popup from "@/components/popup";
 import CreateOrModifyNotes from "../../components/createOrModifyNotes";
 import SearchBar from "@/app/(app)/components/searchBar";
+import NewNote from "../../components/modals/newNotes";
 
 // Composant principal NotesGrid
 const NotesGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
@@ -37,14 +38,7 @@ const NotesGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
           />
         </div>
 
-        <CustomButton
-          text="Ajouter une note"
-          icon={<PlusIcon />}
-          color="bg-brand-950"
-          textColor="text-white"
-          onClick={handleCreateNotes}
-          hover={"bg-brand-1000"}
-        />
+        <NewNote />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredNotes.length != 0 &&

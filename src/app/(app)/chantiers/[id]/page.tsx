@@ -9,6 +9,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useProjectStore } from "@/store/user/projectStore";
 import Tabs from "@/components/tabs";
+import Modify from "../components/modals/modify";
 
 export default function ProjectDetail() {
   const router = useRouter();
@@ -29,6 +30,7 @@ export default function ProjectDetail() {
 
   useEffect(() => {
     if (id) {
+      localStorage.setItem('projectId', id as string);
       const projectData = getOneById(id as string);
       if (projectData) {
         setProject(projectData);
@@ -86,14 +88,7 @@ export default function ProjectDetail() {
                   hover={"bg-neutral-100"}
                   border="border border-neutral-200"
                 />
-                <CustomButton
-                  text="Modifier les informations"
-                  icon={<FileEdit />}
-                  color="bg-brand-950"
-                  textColor="text-white"
-                  onClick={handleModifyProject}
-                  hover={"bg-brand-1000"}
-                />
+                <Modify />
               </div>
             </div>
           </div>

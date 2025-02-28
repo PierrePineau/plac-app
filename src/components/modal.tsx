@@ -18,6 +18,7 @@ interface ModalProps {
   text?: string;
   icon?: React.ReactNode;
   title?: string;
+  buttonValidationTitle?: string;
   onSubmit: (formData: FormData) => Promise<void>;
 }
 
@@ -26,6 +27,7 @@ export default function Modal({
   text = "Ajouter",
   icon = <Plus />,
   title = "Ajouter",
+  buttonValidationTitle = "Ajouter",
   onSubmit
 }: ModalProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -71,7 +73,7 @@ export default function Modal({
                   Annuler
                 </Btn>
                 <Btn onPress={() => handleSubmit()} isLoading={isSubmitting}>
-                  Ajouter
+                  {buttonValidationTitle}
                 </Btn>
               </ModalFooter>
             </>

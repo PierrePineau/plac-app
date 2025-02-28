@@ -15,8 +15,6 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 
   const handleFilesAdded = (files: File[]) => {
     console.log("Fichiers ajoutés :", files);
-    // Vous pouvez ici ajouter la logique pour uploader ces fichiers
-    // via une instance Uppy ou un appel à votre API
   };
 
   return (

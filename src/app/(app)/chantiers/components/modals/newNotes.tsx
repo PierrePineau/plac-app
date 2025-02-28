@@ -4,26 +4,28 @@ import Field from "@/components/field";
 import Modal from "@/components/modal";
 import { useProjectStore } from "@/store/user/projectStore";
 import { Plus } from "lucide-react";
+import { useNoteStore } from "@/store/user/noteStore";
 
-export default function New() {
-  const { create } = useProjectStore();
+export default function NewNote() {
+  const { create } = useNoteStore();
 
   const handleSubmit = async (formData: FormData) => {
     const data = Object.fromEntries(formData.entries());
-    const project = {
+    const note = {
       name: data.name as string,
-      description: data.desc as string
+      description: data.desc as string,
+      organisation: [localStorage.getItem("idOrganisation")]
     };
-    await create(project);
+    await create(note);
   };
 
   return (
     <Modal
-      title="Nouveau chantier"
+      title="Nouvelle note"
       icon={<Plus />}
-      text="Ajouter un chantier"
+      text="Ajouter une note"
       onSubmit={handleSubmit}
-      store={useProjectStore}>
+      store={useNoteStore}>
       <Field label="Nom" name="name" required />
       <Field label="Description" name="desc" required />
     </Modal>
