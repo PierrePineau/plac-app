@@ -1,6 +1,4 @@
-// Chantiers.tsx
 "use client";
-
 import React, { useEffect, useState } from "react";
 import CustomButton from "../../../components/custombutton";
 import Header from "../../../components/headerpage";
@@ -9,8 +7,8 @@ import Popup from "../../../components/popup";
 import { useRouter } from "next/navigation";
 import { useClientStore } from "@/store/user/clientStore";
 import DataTable from "../../../components/CustomDataTable";
-import CreateOrModifyClient from "./components/createOrModifyClient";
 import SearchBar from "@/app/admin/(admin)/components/searchBar";
+import New from "./components/modals/new";
 
 const columns = [
   {
@@ -25,7 +23,6 @@ const columns = [
             src="/asset/img/avatar.svg"
             alt="Logo Plac"
           />
-
           <p className="text-sm font-semibold">
             {firstname} {lastname}
           </p>
@@ -45,7 +42,7 @@ const columns = [
 
 export default function Employee() {
   const router = useRouter();
-  const { clients, fetchClients, createClient } = useClientStore();
+  const { data: clients, fetchData } = useClientStore();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -60,26 +57,11 @@ export default function Employee() {
   };
 
   useEffect(() => {
-    fetchClients();
-  }, [fetchClients]);
+    fetchData("");
+  }, [fetchData]);
 
   const handleRowClick = (row: { id: number }) => {
-    router.push(`/clients/detail/${row.id}`);
-  };
-
-  const handleSaveEmployee = (event: React.FormEvent) => {
-    event.preventDefault();
-    const formData = new FormData(event.target as HTMLFormElement);
-
-    const newEmploye = {
-      firstName: formData.get("firstName") as string,
-      lastName: formData.get("lastName") as string,
-      email: formData.get("email") as string,
-      phone: formData.get("telephone") as string
-    };
-
-    createClient(newEmploye);
-    setIsPopupOpen(false);
+    router.push(`/clients/${row.id}`);
   };
 
   const filteredClient = clients.filter((client) =>
@@ -91,17 +73,8 @@ export default function Employee() {
       <div className="flex flex-col w-full">
         <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
           <div className="flex flex-row justify-between">
-            <p className="text-h1Desktop text-neutral-950  ">
-              Mes chantiers
-            </p>
-            <CustomButton
-              icon={<PlusIcon className="text-white" />}
-              text="Ajouter un client"
-              color="bg-brand-950"
-              textColor="text-white"
-              onClick={handleAddClient}
-              hover={""}
-            />
+            <p className="text-h1Desktop text-neutral-950">Mes chantiers</p>
+            <New />
           </div>
           <div className="flex justify-start">
             <SearchBar
@@ -117,17 +90,6 @@ export default function Employee() {
           />
         </div>
       </div>
-
-      <Popup
-        isOpen={isPopupOpen}
-        onClose={handleClosePopup}
-        title="Ajouter un client"
-        desc="Vous pouvez ajouter un nouvel client sur l’application.">
-        <CreateOrModifyClient
-          onSubmit={handleSaveEmployee}
-          submitLabel={"Ajouter le client"}
-        />
-      </Popup>
     </div>
   );
 }

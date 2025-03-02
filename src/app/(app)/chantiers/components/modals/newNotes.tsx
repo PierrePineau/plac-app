@@ -13,8 +13,8 @@ export default function NewNote() {
     const data = Object.fromEntries(formData.entries());
     const note = {
       name: data.name as string,
-      description: data.desc as string,
-      organisation: [localStorage.getItem("idOrganisation")]
+      desc: data.desc as string,
+      organisation: localStorage.getItem("idOrganisation")
     };
     await create(note);
   };

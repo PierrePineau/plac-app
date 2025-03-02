@@ -91,7 +91,7 @@ export default function ProjectDetail() {
                   hover={"bg-neutral-100"}
                   border="border border-neutral-200"
                 />
-                <Modify />
+                <Modify id={id as string} />
               </div>
             </div>
           </div>

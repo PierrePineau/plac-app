@@ -27,7 +27,7 @@ export const createCrudStore = <
       const getProjectId = () => localStorage.getItem("projectId") || "";
       endpoint = endpoint
         .replace("{idOrganisation}", getOrgId())
-        .replace("{idProject}", getProjectId);
+        .replace("{idProject}", getProjectId());
       return endpoint;
     },
     setEndpoint: (newEndpoint: string) =>
@@ -55,8 +55,6 @@ export const createCrudStore = <
       try {
         ep = get().getEndpoint();
         const response = await post<ResponseApi>(ep, item);
-        console.log("hvfjhvfhjezvfzejhf");
-        console.log(response.success);
         if (response.success) {
           const newData = response.data as T;
           console.log(newData);

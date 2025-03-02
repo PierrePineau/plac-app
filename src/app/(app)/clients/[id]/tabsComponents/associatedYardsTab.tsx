@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
-import SearchBar from "@/components/searchBar";
 import Yard from "@/components/yard";
+import SearchBar from "@/app/(app)/components/searchBar";
 
 const AssociatedYardTabComponentGrid: React.FC<{ yards: Project[] }> = ({
   yards
 }) => {
   const [search, setSearch] = useState("");
 
-  const filteredYard = yards.filter((yard) =>
-    yard.name?.toLowerCase().includes(search.toLowerCase())
-  );
   return (
     <div className="flex flex-col gap-6">
       <SearchBar
@@ -17,7 +14,7 @@ const AssociatedYardTabComponentGrid: React.FC<{ yards: Project[] }> = ({
         placeholder={"Rechercher un chantier"}
         onChange={(e: string) => setSearch(e)}
       />
-      <Yard yards={filteredYard} />
+      <Yard yards={yards} />
     </div>
   );
 };

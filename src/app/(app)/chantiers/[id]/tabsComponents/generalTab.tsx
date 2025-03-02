@@ -51,20 +51,14 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
       const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}`;
       try {
         const response = await fetch(url, {
-          headers: {
-            "User-Agent": "VotreApp/1.0"
-          }
+          headers: { "User-Agent": "VotreApp/1.0" }
         });
         const data = await response.json();
-        console.log("bvjhzbfhzebvfbehjzf");
-        console.log(data);
         if (data.length > 0) {
           setCoordinates({
             lat: parseFloat(data[0].lat),
             lng: parseFloat(data[0].lon)
           });
-        } else {
-          console.error("Adresse introuvable");
         }
       } catch (error) {
         console.error(
@@ -73,9 +67,14 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
         );
       }
     };
-
     fetchCoordinates();
-  }, [project]);
+  }, [project.addresses]);
+
+  const googleMapsUrl = project.addresses
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        `${project.addresses.street} ${project.addresses.compl} ${project.addresses.city} ${project.addresses.postcode} ${project.addresses.country}`
+      )}`
+    : "#";
 
   return (
     <div>
@@ -88,10 +87,7 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
         </div>
         <div className="flex flex-col items-start gap-2">
           <p className="text-paragraphBold text-neutral-950">Statut</p>
-          <p
-            className={`text-tag text-neutral-50 rounded-lg py-1 px-3 ${
-              "En cours" === "En cours" ? "bg-accent-500" : "bg-green-500"
-            }`}>
+          <p className="text-tag text-neutral-50 rounded-lg py-1 px-3 bg-accent-500">
             En cours
           </p>
         </div>
@@ -163,9 +159,7 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
         <div className="flex flex-row gap-1 justify-end">
           <ExternalLink className="text-brand-500" />
           <a
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-              project.addresses?.city as string
-            )}`}
+            href={googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-paragraphMedium text-brand-500">

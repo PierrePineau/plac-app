@@ -1,26 +1,23 @@
 "use client";
-
 import CustomButton from "@/components/custombutton";
-import { FileEdit, Home, Mail, Phone, Trash, Trash2 } from "lucide-react";
+import { FileEdit, Home, Mail, Phone, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BubbleText from "@/components/bubbleText";
 import Tabs from "@/components/tabs";
 import Popup from "@/components/popup";
-import CreateOrModifyCLient from "../../components/createOrModifyClient";
 import { useClientStore } from "@/store/user/clientStore";
-import AssociatedYards from "../tabsComponents/associatedYardsTab";
-import NotesTabComponentGrid from "../tabsComponents/notesTabComponents";
+import AssociatedYards from "./tabsComponents/associatedYardsTab";
+import NotesTabComponentGrid from "./tabsComponents/notesTabComponents";
 import Spinner from "@/components/spinner";
 
 export default function ClientDetail() {
   const router = useRouter();
   const { id } = useParams();
+  const [client, setClient] = useState<any>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isPopupDeleteOpen, setIsPopupDeleteOpen] = useState(false);
-  const getClientById = useClientStore((state: any) => state.getClientById);
-  const fetchClients = useClientStore((state: any) => state.fetchClients);
-  const [client, setClient] = useState<Client | null>(null);
+  const { data, getOneById, fetchData } = useClientStore();
 
   const handleModifyClient = () => {
     setIsPopupOpen(true);
@@ -40,22 +37,20 @@ export default function ClientDetail() {
 
   useEffect(() => {
     if (id) {
-      const client = getClientById(Number(id));
-      if (client) {
-        setClient(client);
+      const clientFromStore = getOneById(id as string);
+      if (clientFromStore) {
+        setClient(clientFromStore);
       } else {
-        fetchClients().then(() => {
-          const fetchedClient = getClientById(Number(id));
+        fetchData({}).then(() => {
+          const fetchedClient = getOneById(id as string);
           setClient(fetchedClient || null);
         });
       }
     }
-  }, [id, getClientById, fetchClients]);
+  }, [id, getOneById, fetchData]);
 
   if (!client) {
-    return <Spinner
-              message="Chargement des détails du client..."
-            />
+    return <Spinner message="Chargement des détails du client..." />;
   }
 
   const tabs = [
@@ -75,10 +70,10 @@ export default function ClientDetail() {
         <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
           <div className="flex flex-col gap-2">
             <div className="flex flex-row gap-1">
-              <p className="text-neutral-400   text-paragraphMedium">
+              <p className="text-neutral-400 text-paragraphMedium">
                 Mes clients /
               </p>
-              <p className="text-neutral-950 text-paragraphMedium  ">
+              <p className="text-neutral-950 text-paragraphMedium">
                 {client.firstname} {client.lastname}
               </p>
             </div>
@@ -89,8 +84,7 @@ export default function ClientDetail() {
                   src={client.avatar || "/asset/img/yard.jpeg"}
                   alt={client.firstname}
                 />
-
-                <h1 className="  text-h1Desktop text-neutral-900">
+                <h1 className="text-h1Desktop text-neutral-900">
                   {client.firstname} {client.lastname}
                 </h1>
               </div>
@@ -101,7 +95,7 @@ export default function ClientDetail() {
                   color="bg-red-500"
                   textColor="text-white"
                   onClick={handleDeleteClient}
-                  hover={"bg-red-600"}
+                  hover="bg-red-600"
                 />
                 <div className="flex w-full">
                   <CustomButton
@@ -110,16 +104,14 @@ export default function ClientDetail() {
                     color="bg-brand-950"
                     textColor="text-white"
                     onClick={handleModifyClient}
-                    hover={"bg-brand-1000"}
+                    hover="bg-brand-1000"
                   />
                 </div>
               </div>
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            <h1 className="text-paragraphBold   text-neutral-950">
-              À Propos
-            </h1>
+            <h1 className="text-paragraphBold text-neutral-950">À Propos</h1>
             <div className="flex flex-row gap-10">
               <div className="flex items-center space-x-3">
                 <BubbleText
@@ -132,8 +124,8 @@ export default function ClientDetail() {
                   secondBackground="bg-accent-200"
                 />
                 <div>
-                  <p className="text-sm   text-neutral-500">Email</p>
-                  <p className="  text-paragraphBold text-neutral-950">
+                  <p className="text-sm text-neutral-500">Email</p>
+                  <p className="text-paragraphBold text-neutral-950">
                     {client.email}
                   </p>
                 </div>
@@ -149,10 +141,10 @@ export default function ClientDetail() {
                   secondBackground="bg-accent-200"
                 />
                 <div>
-                  <p className="text-sm   text-neutral-500">
+                  <p className="text-sm text-neutral-500">
                     Numéro de téléphone
                   </p>
-                  <p className="  text-paragraphBold text-neutral-950">
+                  <p className="text-paragraphBold text-neutral-950">
                     {client.phone}
                   </p>
                 </div>
@@ -168,11 +160,9 @@ export default function ClientDetail() {
                   secondBackground="bg-accent-200"
                 />
                 <div>
-                  <p className="text-sm   text-neutral-500">
-                    Adresse
-                  </p>
-                  <p className="  text-paragraphBold text-neutral-950">
-                    {client.firstname}
+                  <p className="text-sm text-neutral-500">Adresse</p>
+                  <p className="text-paragraphBold text-neutral-950">
+                    {client.address}
                   </p>
                 </div>
               </div>
@@ -182,16 +172,6 @@ export default function ClientDetail() {
         </div>
       </div>
       <Popup
-        isOpen={isPopupOpen}
-        onClose={handleClosePopup}
-        title="Modifier les informations">
-        <CreateOrModifyCLient
-          onSubmit={() => {}}
-          submitLabel={"Enregistrer les modifications"}
-          defaultValues={client}
-        />
-      </Popup>
-      <Popup
         isOpen={isPopupDeleteOpen}
         onClose={handleClosePopup}
         title="Supprimer ce client"
@@ -199,12 +179,12 @@ export default function ClientDetail() {
         <div className="flex flex-row gap-2 items-end justify-end">
           <button
             type="submit"
-            className="bg-neutral-50 text-neutral-950   text-paragraphRegular px-4 py-2 rounded-md hover:bg-neutral-100">
+            className="bg-neutral-50 text-neutral-950 text-paragraphRegular px-4 py-2 rounded-md hover:bg-neutral-100">
             Annuler
           </button>
           <button
             type="submit"
-            className="bg-negative-500 text-white   text-paragraphRegular px-4 py-2 rounded-md hover:bg-negative-600">
+            className="bg-negative-500 text-white text-paragraphRegular px-4 py-2 rounded-md hover:bg-negative-600">
             Supprimer
           </button>
         </div>
