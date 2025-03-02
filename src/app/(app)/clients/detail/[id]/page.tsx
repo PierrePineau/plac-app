@@ -11,6 +11,7 @@ import CreateOrModifyCLient from "../../components/createOrModifyClient";
 import { useClientStore } from "@/store/user/clientStore";
 import AssociatedYards from "../tabsComponents/associatedYardsTab";
 import NotesTabComponentGrid from "../tabsComponents/notesTabComponents";
+import Spinner from "@/components/spinner";
 
 export default function ClientDetail() {
   const router = useRouter();
@@ -52,7 +53,9 @@ export default function ClientDetail() {
   }, [id, getClientById, fetchClients]);
 
   if (!client) {
-    return <div>Chargement des détails du client...</div>;
+    return <Spinner
+              message="Chargement des détails du client..."
+            />
   }
 
   const tabs = [

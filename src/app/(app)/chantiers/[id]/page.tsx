@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useProjectStore } from "@/store/user/projectStore";
 import Tabs from "@/components/tabs";
 import Modify from "../components/modals/modify";
+import Spinner from "@/components/spinner";
 
 export default function ProjectDetail() {
   const router = useRouter();
@@ -44,7 +45,9 @@ export default function ProjectDetail() {
   }, [id, getOneById, fetchData]);
 
   if (!project) {
-    return <div>Chargement des détails du chantier...</div>;
+    return <Spinner
+              message="Chargement des détails du chantier..."
+            />
   }
 
   const tabs = [

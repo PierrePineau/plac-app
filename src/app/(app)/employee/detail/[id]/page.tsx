@@ -13,6 +13,7 @@ import EndOfSheetsTabComponentGrid from "../tabsComponents/endOfdaySheetsTab";
 import PointagesTabComponentGrid from "../tabsComponents/pointage";
 import Popup from "@/components/popup";
 import CreateOrModifyEmployee from "../../components/createOrModifyEmployee";
+import Spinner from "@/components/spinner";
 
 export default function EmployeeDetail() {
   const router = useRouter();
@@ -56,7 +57,9 @@ export default function EmployeeDetail() {
   }, [id, getEmployeeById, fetchEmployes]);
 
   if (!employee) {
-    return <div>Chargement des détails de l'employé...</div>;
+    return <Spinner
+              message="Chargement des détails de l'employé..."
+            />
   }
 
   const tabs = [

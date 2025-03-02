@@ -4,6 +4,7 @@ import React from "react";
 import FileCard from "../../components/file_component";
 import ImagesComponent from "../../components/images_component";
 import CustomDragDrop from "@/components/dragAndDrop";
+import Uploader from "@/components/uploader";
 
 interface ProjectProps {
   project: Project;
@@ -44,7 +45,15 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
             }
           />
         ))}
-        <CustomDragDrop onFilesAdded={handleFilesAdded} />
+        <Uploader
+          autoProceed={true}
+          restrictions={{
+            maxNumberOfFiles: 1,
+            maxFileSize: 1000000,
+            allowedFileTypes: ["image/*"],
+          }}
+        />
+        {/* <CustomDragDrop onFilesAdded={handleFilesAdded} /> */}
       </div>
       <div className="flex flex-row justify-between items-center mt-6">
         <h2 className="text-paragraphBold text-neutral-950">Médias</h2>
