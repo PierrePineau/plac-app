@@ -38,7 +38,7 @@ export const createCrudStore = <
       try {
         ep = get().getEndpoint();
         // On transforme les filtres en query string
-        if (!filters) {
+        if (filters) {
           const params = new URLSearchParams(filters).toString();
           if (params) {
             console.log("params", params);
