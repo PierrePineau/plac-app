@@ -89,7 +89,7 @@ const CardFile: React.FC<CardFileProp> = ({
             <HeroUiCardBody className="overflow-visible p-0">
                 <div className="flex flex-row items-center justify-start gap-2">
                     <Link className="text-primary-500" />
-                    <h3 className="text-neutral-950 font-medium">{name}</h3>
+                    <h3 className="text-neutral-950 font-medium truncate">{name}</h3>
                     <MoreHorizontal className="text-neutral-950 ml-auto" />
                 </div>
                 <span className="pl-8 mt-1 text-neutral-400 text-xs font-light">
@@ -136,7 +136,7 @@ const CardMedia: React.FC<CardMediaProp> = ({
     useEffect(() => {
         if (media) {
             if (!title) {
-                setName(media.name || "");
+                setName(`${media.name}.${media.ext}`);
             }
             
             const idOrg = localStorage.getItem("idOrganisation");
@@ -161,8 +161,8 @@ const CardMedia: React.FC<CardMediaProp> = ({
                     )
                 }
             </HeroUiCardBody>
-			<HeroUiCardFooter className="text-small justify-between">
-                <h3 className="text-neutral-950 font-medium">{name}</h3>
+			<HeroUiCardFooter className="text-small justify-between px-0 pb-0">
+                <h3 className="text-neutral-950 font-medium truncate">{name}</h3>
                 <MoreHorizontal className="text-neutral-950" />
 			</HeroUiCardFooter>
         </HeroUiCard>

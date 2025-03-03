@@ -8,7 +8,7 @@ interface ProjectFile {
 interface Files {
   id: number;
   uuid: string;
-  name?: string;
+  name: string;
   url?: string;
   type: string;
   ext: string;

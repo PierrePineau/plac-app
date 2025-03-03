@@ -19,6 +19,7 @@ interface uppyProps {
 	};
 	height?: number | string;
 	width?: number | string;
+	metaFields?: { [key: string]: any };
 }
 
 const Uploader: React.FC<uppyProps> = ({
@@ -31,6 +32,7 @@ const Uploader: React.FC<uppyProps> = ({
 	},
 	height = 300,
 	width = "100%",
+	metaFields = [],
 }) => {
 	const dragDropRef = useRef(null);
 	const idOrg = localStorage.getItem("idOrganisation");
@@ -95,6 +97,15 @@ const Uploader: React.FC<uppyProps> = ({
 				}
 			}
 		}
+	});
+
+	// Quand on ajoute un fichier on va ajouter les metafieldsx
+	useUppyEvent(uppy, "file-added", (file) => {
+		console.log("file added lorem", file);
+		console.log("meta", metaFields);
+		uppy.setFileMeta(file.id, {
+			...metaFields,
+		});
 	});
 
 	useEffect(() => {
