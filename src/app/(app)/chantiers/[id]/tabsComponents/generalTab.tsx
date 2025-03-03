@@ -78,7 +78,7 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
   }, [project]);
 
   return (
-    <div>
+    <div className="min-h-[500px]">
       <div className="flex flex-row justify-between">
         <div className="flex flex-col items-start gap-2">
           <p className="text-paragraphBold text-neutral-950">Description</p>

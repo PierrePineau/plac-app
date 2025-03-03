@@ -28,7 +28,7 @@ const NotesGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
   );
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 min-h-[500px]">
       <div className="flex flex-row justify-between items-end">
         <div className="">
           <SearchBar
@@ -37,7 +37,6 @@ const NotesGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
             onChange={(e: string) => setSearch(e)}
           />
         </div>
-
         <NewNote />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

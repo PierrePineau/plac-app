@@ -10,7 +10,8 @@ interface Files {
   uuid: string;
   name?: string;
   url?: string;
-  type?: string;
-  ext?: string;
+  type: string;
+  ext: string;
+  size: number;
   meta?: Record<string, any>;
 }
