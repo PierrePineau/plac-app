@@ -79,7 +79,7 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 					}}
 					restrictions={{
 						maxNumberOfFiles: 5,
-						maxFileSize: 10000000, // 10 MB
+						maxFileSize: 1000000, // 1 MB
 						allowedFileTypes: [
 							"application/pdf",
 							"text/csv",
@@ -119,7 +119,7 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 					}}
 					restrictions={{
 						maxNumberOfFiles: 5,
-						maxFileSize: 10000000, // 10 MB
+						maxFileSize: 1000000, // 1 MB
 						allowedFileTypes: [
 							"application/pdf",
 							"text/csv",
