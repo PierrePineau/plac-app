@@ -5,23 +5,35 @@ import Modal from "@/components/modal";
 import { useProjectStore } from "@/store/user/projectStore";
 import { FileEdit, Plus } from "lucide-react";
 
-export default function Modify() {
-  const { create } = useProjectStore();
+interface ModifyProps {
+  id: string;
+  title: string
+}
+
+export default function Modify({ id, title }: ModifyProps) {
+  const { update } = useProjectStore();
 
   const handleSubmit = async (formData: FormData) => {
     const data = Object.fromEntries(formData.entries());
     const project = {
       name: data.name as string,
-      description: data.desc as string
+      description: data.description as string,
+      startDate: data.startDate as String,
+      endDate: data.endDate as String,
+      chief: data.chief as String,
+      status: data.status,
+      adress: data.adress as String,
+      postal_code: data.postal_code as String,
+      city: data.city as String
     };
-    // await create(project);
+    // await update(id, project);
   };
 
   return (
     <Modal
       title="Modifier les informations"
       icon={<FileEdit />}
-      text="Modifier un chantier"
+      text={title}
       onSubmit={handleSubmit}
       buttonValidationTitle="Modifier"
       store={useProjectStore}>

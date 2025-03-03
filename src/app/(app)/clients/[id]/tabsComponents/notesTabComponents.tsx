@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import SearchBar from "@/components/searchBar";
 import Yard from "@/components/yard";
 import CustomButton from "@/components/custombutton";
 import { PlusIcon } from "lucide-react";
 import NotesCard from "../../components/viewNotes";
 import Popup from "@/components/popup";
 import CreateOrModifyNotes from "@/app/(app)/chantiers/components/createOrModifyNotes";
+import SearchBar from "@/app/(app)/components/searchBar";
 
 const NotesTabComponentGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -20,9 +20,6 @@ const NotesTabComponentGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
   };
   const [search, setSearch] = useState("");
 
-  const filteredNotes = notes.filter((note) =>
-    note.name?.toLowerCase().includes(search.toLowerCase())
-  );
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-row justify-between items-end">
@@ -45,8 +42,9 @@ const NotesTabComponentGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
         />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredNotes.length != 0 &&
-          filteredNotes.map((note) => (
+        {notes &&
+          notes.length != 0 &&
+          notes.map((note) => (
             <NotesCard
               key={note.id}
               id={note.id}

@@ -4,7 +4,7 @@ interface Client {
   firstname?: string;
   lastname?: string;
   email?: string;
-  adresses: string;
+  // adresses: string;
   deleted?: boolean;
   deletedAt?: Date;
 }

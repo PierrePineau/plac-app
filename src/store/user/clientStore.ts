@@ -1,3 +1,3 @@
 import { createCrudStore } from "../createCrudStore";
 
-export const useClientStore = createCrudStore<Client>("/api/app/clients");
+export const useClientStore = createCrudStore<Client>("/api/app/organisations/{idOrganisation}/clients");

@@ -6,15 +6,19 @@ import { useProjectStore } from "@/store/user/projectStore";
 import { Plus } from "lucide-react";
 import { useNoteStore } from "@/store/user/noteStore";
 
-export default function NewNote() {
+interface NewProps {
+  title: string;
+}
+
+export default function New({ title }: NewProps) {
   const { create } = useNoteStore();
 
   const handleSubmit = async (formData: FormData) => {
     const data = Object.fromEntries(formData.entries());
     const note = {
       name: data.name as string,
-      description: data.desc as string,
-      organisation: [localStorage.getItem("idOrganisation")]
+      content: data.desc as string,
+      idProject: localStorage.getItem("projectId")
     };
     await create(note);
   };
@@ -23,7 +27,7 @@ export default function NewNote() {
     <Modal
       title="Nouvelle note"
       icon={<Plus />}
-      text="Ajouter une note"
+      text={title}
       onSubmit={handleSubmit}
       store={useNoteStore}>
       <Field label="Nom" name="name" required />

@@ -1,3 +1,4 @@
+"use client";
 import CustomButton from "@/components/custombutton";
 import { Download } from "lucide-react";
 import React, { useEffect, useState } from "react";
