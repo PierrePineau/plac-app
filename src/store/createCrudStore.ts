@@ -37,7 +37,15 @@ export const createCrudStore = <
       let ep = "";
       try {
         ep = get().getEndpoint();
-        const response = await apiGet<ResponseApi>(ep, filters);
+        // On transforme les filtres en query string
+        if (!filters) {
+          const params = new URLSearchParams(filters).toString();
+          if (params) {
+            console.log("params", params);
+            ep += "?" + params;
+          }
+        }
+        const response = await apiGet<ResponseApi>(ep);
         if (response.success) {
           const data = (response.data as any).results as T[];
           set((state) => ({ ...state, data }));
