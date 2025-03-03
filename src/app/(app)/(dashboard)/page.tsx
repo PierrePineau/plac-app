@@ -1,5 +1,4 @@
 "use client";
-
 import Dropdown from "../../../components/customDropdown";
 import DataTable from "../../../components/DataTable";
 import Stats from "./components/stats";
@@ -7,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ProgressBar from "../../../components/progressBar";
 import { useProjectStore } from "@/store/user/projectStore";
+import { useClientStore } from "@/store/user/clientStore";
 
 type TableData = {
   user: string;
@@ -30,10 +30,10 @@ const columns = [
             alt="Avatar"
           />
           <div className="flex flex-col">
-            <p className="  text-paragraphBold text-neutral-950">
+            <p className="text-paragraphBold text-neutral-950">
               {firstname} {lastname}
             </p>
-            <p className="  text-gray-500">{email}</p>
+            <p className="text-gray-500">{email}</p>
           </div>
         </div>
       );
@@ -43,19 +43,25 @@ const columns = [
 
 export default function Home() {
   const router = useRouter();
-  const { data, fetchData } = useProjectStore();
+  const { data: projectData, fetchData: fetchProjectData } = useProjectStore();
+  const { data: clientData, fetchData: fetchClientData } = useClientStore();
+
   const [search, setSearch] = useState("");
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, [data]);
+  useEffect(() => {
+    fetchProjectData("");
+  }, []);
 
-  // const ongoingYards = projects.filter(
-  //   (project) => project.status.label === "En cours"
-  // );
-  // const filteredEmployees = employes.filter((emp) =>
-  //   emp.firstname?.toLowerCase().includes(search.toLowerCase())
-  // );
+  useEffect(() => {
+    fetchClientData("");
+  }, []);
+
+  const ongoingYards = projectData.filter(
+    (project) => project.status?.name === "En cours"
+  );
+  const futureYards = projectData.filter(
+    (project) => project.status?.name === "En cours"
+  );
 
   const handleEmployeeClick = (employeeId: number) => {
     router.push(`/employee/detail/${employeeId}`);
@@ -66,52 +72,78 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
-      <div className="flex flex-col">
-        <p className="text-h1Desktop text-neutral-950  ">
-          Bonjour Jean Martin,
-        </p>
-        <p className="text-paragraphMedium   text-neutral-400">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-          imperdiet congue lectus.
-        </p>
-      </div>
-      <div className="grid grid-cols-3 gap-6">
-        {/* <Stats
+    <>
+      {/* Mobile Version */}
+      <div className="sm:hidden flex flex-col bg-white overflow-auto p-4 gap-4">
+        <div className="flex flex-col">
+          <p className="text-2xl text-neutral-950">Bonjour Jean Martin,</p>
+          <p className="text-base text-neutral-400">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+            imperdiet congue lectus.
+          </p>
+        </div>
+        <div className="flex flex-col gap-4">
+          <Stats
             title="Total d'utilisateur"
-            value={employes.length}
+            value={clientData.length}
             redirectText="???"
             onClick={() => {}}
-          /> */}
-        {/* <Stats
-          title="Nombre de chantiers en cours"
-          value={ongoingYards.length}
-          redirectText="Voir mes chantiers en cours"
-          onClick={() => router.push("/yards")}
-        /> */}
-        {/* <Stats
+          />
+          <Stats
+            title="Nombre de chantiers en cours"
+            value={ongoingYards.length}
+            redirectText="Voir mes chantiers en cours"
+            onClick={() => router.push("/yards")}
+          />
+          <Stats
             title="Nombre de chantiers à venir"
-            value={
-              projects.filter(
-                (project) => project.status.label === "En cours"
-              ).length
-            }
+            value={futureYards.length}
             redirectText="Voir mes chantiers à venir"
             onClick={() => router.push("/yards")}
-          /> */}
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <p className="text-xl text-neutral-950">Mon équipe actuelle</p>
+          {/* DataTable mobile – à intégrer si besoin */}
+        </div>
       </div>
 
-      <div className="flex flex-col gap-4">
-        <p className="   text-h2Desktop text-neutral-950">
-          Mon équipe actuelle
-        </p>
-        {/* <DataTable
-            data={filteredEmployees}
-            columns={columns}
-            onRowClick={(row) => handleEmployeeClick(row.id)}
-            ellipsisEnabled={false}
-          /> */}
+      {/* Web Version */}
+      <div className="hidden sm:flex flex-col bg-white overflow-auto p-8 gap-8">
+        <div className="flex flex-col">
+          <p className="text-h1Desktop text-neutral-950">
+            Bonjour Jean Martin,
+          </p>
+          <p className="text-paragraphMedium text-neutral-400">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+            imperdiet congue lectus.
+          </p>
+        </div>
+        <div className="grid grid-cols-3 gap-6">
+          <Stats
+            title="Total d'utilisateur"
+            value={clientData.length}
+            redirectText="???"
+            onClick={() => {}}
+          />
+          <Stats
+            title="Nombre de chantiers en cours"
+            value={ongoingYards.length}
+            redirectText="Voir mes chantiers en cours"
+            onClick={() => router.push("/yards")}
+          />
+          <Stats
+            title="Nombre de chantiers à venir"
+            value={futureYards.length}
+            redirectText="Voir mes chantiers à venir"
+            onClick={() => router.push("/yards")}
+          />
+        </div>
+        <div className="flex flex-col gap-4">
+          <p className="text-h2Desktop text-neutral-950">Mon équipe actuelle</p>
+          {/* DataTable web – à intégrer si besoin */}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -27,50 +27,24 @@ export default function Chantiers() {
     setIsPopupOpen(false);
   };
 
-  // const tabs = [
-  //   {
-  //     label: "Chantiers en cours",
-  //     content: (
-  //       <Yard
-  //         projects={projects.filter(
-  //           (project) => project.status?.name === "En cours"
-  //         )}
-  //       />
-  //     )
-  //   },
-  //   {
-  //     label: "Chantiers à venir",
-  //     content: (
-  //       <Yard
-  //         projects={projects.filter(
-  //           (project) => project.status?.name === "En pause"
-  //         )}
-  //       />
-  //     )
-  //   },
-  //   {
-  //     label: "Chantiers archivés",
-  //     content: (
-  //       <Yard
-  //         projects={projects.filter(
-  //           (project) => project.status?.name === "Terminé"
-  //         )}
-  //       />
-  //     )
-  //   }
-  // ];
-
   return (
-    <div className="flex flex-row bg-white h-full">
-      <div className="flex flex-col w-full">
-        <div className="flex flex-row justify-between">
-          <p className="text-h1Desktop text-neutral-950  ">Mes chantiers</p>
+    <>
+      <div className="sm:hidden flex flex-col bg-white h-full p-4">
+        <div className="flex flex-row justify-between items-center">
+          <p className="text-2xl text-neutral-950">Mes chantiers</p>
+          <New title={""} />
         </div>
-        //! à changer après
         <Yard projects={projects} />
-        {/* <Tabs tabs={tabs} /> */}
       </div>
-      <New />
-    </div>
+      <div className="hidden sm:flex flex-row bg-white h-full p-8">
+        <div className="flex flex-col w-full">
+          <div className="flex flex-row justify-between items-center">
+            <p className="text-h1Desktop text-neutral-950">Mes chantiers</p>
+            <New title={"Ajouter un chantier"} />
+          </div>
+          <Yard projects={projects} />
+        </div>
+      </div>
+    </>
   );
 }

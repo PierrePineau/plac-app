@@ -5,7 +5,11 @@ import Modal from "@/components/modal";
 import { useProjectStore } from "@/store/user/projectStore";
 import { Plus } from "lucide-react";
 
-export default function New() {
+interface NewProps {
+  title: string;
+}
+
+export default function New({ title }: NewProps) {
   const { create } = useProjectStore();
 
   const handleSubmit = async (formData: FormData) => {
@@ -19,9 +23,9 @@ export default function New() {
 
   return (
     <Modal
-      title="Nouveau chantier"
+      title="Ajouter un chantier" // Utilisation du titre passé en prop
       icon={<Plus />}
-      text="Ajouter un chantier"
+      text={title}
       onSubmit={handleSubmit}
       store={useProjectStore}>
       <Field label="Nom" name="name" required />

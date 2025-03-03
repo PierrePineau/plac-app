@@ -7,9 +7,10 @@ import { FileEdit, Plus } from "lucide-react";
 
 interface ModifyProps {
   id: string;
+  title: string
 }
 
-export default function Modify({ id }: ModifyProps) {
+export default function Modify({ id, title }: ModifyProps) {
   const { update } = useProjectStore();
 
   const handleSubmit = async (formData: FormData) => {
@@ -32,7 +33,7 @@ export default function Modify({ id }: ModifyProps) {
     <Modal
       title="Modifier les informations"
       icon={<FileEdit />}
-      text="Modifier un chantier"
+      text={title}
       onSubmit={handleSubmit}
       buttonValidationTitle="Modifier"
       store={useProjectStore}>
