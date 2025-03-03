@@ -10,23 +10,14 @@ import SearchBar from "@/app/(app)/components/searchBar";
 import NewNote from "../../components/modals/newNotes";
 import { useNoteStore } from "@/store/user/noteStore";
 
-interface Note {
-  id: number;
-  name?: string;
-  content?: string;
-  createdAt?: string;
-}
-
 const NotesGrid: React.FC = () => {
   const [search, setSearch] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { fetchData, data } = useNoteStore();
-  // const [noteList, setNotes] = useState<Note[]>([]);
 
   useEffect(() => {
     const getNotes = async () => {
       const data = await fetchData("");
-      // setNotes(data.data);
     };
     getNotes();
   }, [fetchData]);

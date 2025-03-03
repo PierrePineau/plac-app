@@ -31,7 +31,7 @@ export default function ProjectDetail() {
 
   useEffect(() => {
     if (id) {
-      localStorage.setItem('projectId', id as string);
+      localStorage.setItem("projectId", id as string);
       const projectData = getOneById(id as string);
       if (projectData) {
         setProject(projectData);
@@ -45,9 +45,7 @@ export default function ProjectDetail() {
   }, [id, getOneById, fetchData]);
 
   if (!project) {
-    return <Spinner
-              message="Chargement des détails du chantier..."
-            />
+    return <Spinner message="Chargement des détails du chantier..." />;
   }
 
   const tabs = [
@@ -56,7 +54,7 @@ export default function ProjectDetail() {
       label: "Documents & Médias",
       content: <DocumentsTab project={project} />
     },
-    { label: "Bloc notes", content: <NotesGrid notes={project.notes || []} /> }
+    { label: "Bloc notes", content: <NotesGrid /> }
   ];
 
   return (
