@@ -23,9 +23,7 @@ const Login = () => {
   const login = useAuthStore((state) => state.login);
   const handleSubmit = async (email: string, password: string) => {
     const result = await login(email, password);
-    if (result) {
-      router.push("/");
-    }
+    if (result) router.push("/");
   };
   const updateSignupData = (key: string, value: string) => {
     setSignupData((prevData) => ({ ...prevData, [key]: value }));
@@ -76,75 +74,34 @@ const Login = () => {
         return null;
     }
   };
-
   return (
-    <>
-      <div className="sm:hidden flex flex-col min-h-screen">
-        <div className="bg-brand-950 p-6 flex flex-col items-center">
-          <img src="/asset/img/whiteLogo.svg" alt="Logo Plac" className="h-8" />
-          <h1 className="text-neutral-50 text-3xl mt-4 text-center">
-            Gérer vos chantiers plus facilement
-          </h1>
-          <p className="text-brand-850 text-base mt-2 text-center">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            varius enim in eros elementum tristique.
-          </p>
-          <img
-            src="/asset/img/landingPage.png"
-            alt="Illustration"
-            className="w-full mt-4 object-cover"
+    <div className="min-h-screen flex flex-col sm:flex-row">
+      <div className="bg-brand-950 p-6 flex flex-col items-center sm:items-start sm:w-1/2">
+        <img src="/asset/img/whiteLogo.svg" alt="Logo Plac" className="h-8" />
+        <h1 className="text-neutral-50 text-3xl sm:text-5xl mt-4 text-center sm:text-left">
+          Gérer vos chantiers plus facilement
+        </h1>
+        <p className="text-brand-850 text-base sm:text-paragraphMedium mt-2 text-center sm:text-left">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique.
+        </p>
+        <img
+          src="/asset/img/landingPage.png"
+          alt="Illustration"
+          className="w-full mt-4 object-cover"
+        />
+      </div>
+      <div className="bg-white flex-1 p-6 sm:px-20 sm:py-10 flex flex-col justify-center">
+        {isSignUp ? (
+          renderStep()
+        ) : (
+          <LoginForm
+            registerButton={() => setIsSignUp(true)}
+            connectButton={handleSubmit}
           />
-        </div>
-        <div className="flex-1 bg-white p-6">
-          {isSignUp ? (
-            renderStep()
-          ) : (
-            <LoginForm
-              registerButton={() => setIsSignUp(true)}
-              connectButton={handleSubmit}
-            />
-          )}
-        </div>
+        )}
       </div>
-
-      <div className="hidden sm:flex h-full w-full grow">
-        <div className="flex flex-row w-full">
-          <div className="bg-brand-950 flex flex-col w-1/2">
-            <div className="flex flex-col px-20 py-10 justify-start items-start gap-20">
-              <img
-                className="w-auto h-8"
-                src="/asset/img/whiteLogo.svg"
-                alt="Logo Plac"
-              />
-              <div className="flex flex-col gap-4">
-                <h1 className="text-neutral-50 text-5xl">
-                  Gérer vos chantiers plus facilement
-                </h1>
-                <p className="text-brand-850 text-paragraphMedium">
-                  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
-                  Lorem ipsum Lorem ipsum Lorem ipsum
-                </p>
-              </div>
-            </div>
-            <img
-              className="flex w-full pl-20"
-              src="/asset/img/landingPage.png"
-              alt="Logo Plac"
-            />
-          </div>
-          <div className="bg-white w-1/2 px-20 py-10 gap-8 flex flex-col justify-center">
-            {isSignUp ? (
-              renderStep()
-            ) : (
-              <LoginForm
-                registerButton={() => setIsSignUp(true)}
-                connectButton={handleSubmit}
-              />
-            )}
-          </div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 };
 
