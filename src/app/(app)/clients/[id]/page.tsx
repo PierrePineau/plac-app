@@ -10,6 +10,7 @@ import { useClientStore } from "@/store/user/clientStore";
 import AssociatedYards from "./tabsComponents/associatedYardsTab";
 import NotesTabComponentGrid from "./tabsComponents/notesTabComponents";
 import Spinner from "@/components/spinner";
+import Modify from "../components/modals/modify";
 
 export default function ClientDetail() {
   const router = useRouter();
@@ -97,16 +98,7 @@ export default function ClientDetail() {
                   onClick={handleDeleteClient}
                   hover="bg-red-600"
                 />
-                <div className="flex w-full">
-                  <CustomButton
-                    text="Modifier les informations"
-                    icon={<FileEdit />}
-                    color="bg-brand-950"
-                    textColor="text-white"
-                    onClick={handleModifyClient}
-                    hover="bg-brand-1000"
-                  />
-                </div>
+                <Modify id={id as string} />
               </div>
             </div>
           </div>
@@ -160,9 +152,9 @@ export default function ClientDetail() {
                   secondBackground="bg-accent-200"
                 />
                 <div>
-                  <p className="text-sm text-neutral-500">Adresse</p>
+                  <p className="text-sm text-neutral-500">Addresse email</p>
                   <p className="text-paragraphBold text-neutral-950">
-                    {client.address}
+                    {client.email}
                   </p>
                 </div>
               </div>
@@ -171,6 +163,7 @@ export default function ClientDetail() {
           <Tabs tabs={tabs} />
         </div>
       </div>
+
       <Popup
         isOpen={isPopupDeleteOpen}
         onClose={handleClosePopup}

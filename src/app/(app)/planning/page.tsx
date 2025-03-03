@@ -2,9 +2,9 @@
 import { useState } from "react";
 import CustomButton from "../../../components/custombutton";
 import Header from "../../../components/headerpage";
-import NavBar from "../../../components/navBar";
 import DayPlanning from "./components/dayPlanning";
 import Tabs from "../../../components/tabs";
+import NavBar from "@/app/admin/(admin)/components/navBar";
 
 export default function PlanningPage() {
   const tabs = [
@@ -24,13 +24,11 @@ export default function PlanningPage() {
 
       <div className="flex flex-col w-full">
         <div className="top-0 bg-white z-10 border-b border-neutral-200">
-          <Header />
+          <Header title={""} />
         </div>
         <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
           <div className="flex flex-row justify-between">
-            <p className="text-h1Desktop text-neutral-950  ">
-              Planning
-            </p>
+            <p className="text-h1Desktop text-neutral-950  ">Planning</p>
             <CustomButton
               icon={
                 <img

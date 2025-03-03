@@ -4,61 +4,38 @@ import Field from "@/components/field";
 import Modal from "@/components/modal";
 import { useProjectStore } from "@/store/user/projectStore";
 import { FileEdit, Plus } from "lucide-react";
+import { useClientStore } from "@/store/user/clientStore";
 
 interface ModifyProps {
   id: string;
 }
 
 export default function Modify({ id }: ModifyProps) {
-  const { update } = useProjectStore();
+  const { update } = useClientStore();
 
   const handleSubmit = async (formData: FormData) => {
     const data = Object.fromEntries(formData.entries());
-    const project = {
-      name: data.name as string,
-      description: data.description as string,
-      startDate: data.startDate as String,
-      endDate: data.endDate as String,
-      chief: data.chief as String,
-      status: data.status,
-      adress: data.adress as String,
-      postal_code: data.postal_code as String,
-      city: data.city as String
+    const client = {
+      lastname: data.lastname as string,
+      firstname: data.firstname as string,
+      email: data.email as string,
+      phone: data.tel as string
     };
-    // await update(id, project);
+    await update(id, client);
   };
 
   return (
     <Modal
-      title="Modifier les informations"
+      title="Modifier les informations du client"
       icon={<FileEdit />}
-      text="Modifier un chantier"
+      text="Modifier le client"
       onSubmit={handleSubmit}
       buttonValidationTitle="Modifier"
       store={useProjectStore}>
-      <Field label="Nom du chantier" name="name" required />
-      <Field label="Description" name="description" type="textarea" required />
-      <div className="flex flex-row gap-4">
-        <Field label="Date de début" name="startDate" type="date" required />
-        <Field label="Date de fin" name="endDate" type="date" required />
-      </div>
-      <div className="flex flex-row gap-4">
-        <Field label="Chef de chantier" name="chief" required />
-        <Field
-          label="Statut"
-          name="status"
-          type="select"
-          options={[
-            { value: "en_cours", label: "En cours" },
-            { value: "termine", label: "Terminé" },
-            { value: "annule", label: "Annulé" }
-          ]}
-          required
-        />
-      </div>
-      <Field label="Adresse" name="adress" required />
-      <Field label="Code Postal" name="postal_code" required />
-      <Field label="Ville" name="city" required />
+      <Field label="Nom de famille" name="lastname" required />
+      <Field label="Prénom" name="firstname" required />
+      <Field label="Addresse email" name="email" required />
+      <Field label="Numéro de téléphone" name="tel" required />
     </Modal>
   );
 }

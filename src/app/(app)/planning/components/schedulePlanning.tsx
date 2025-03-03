@@ -3,7 +3,6 @@ import { Calendar, momentLocalizer, Views, View } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/fr";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "../../../core/css/schedule.css";
 
 moment.locale("fr");
 const localizer = momentLocalizer(moment);
