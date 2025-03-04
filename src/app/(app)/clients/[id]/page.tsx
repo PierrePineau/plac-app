@@ -1,6 +1,6 @@
 "use client";
 import CustomButton from "@/components/custombutton";
-import { FileEdit, Home, Mail, Phone, Trash2 } from "lucide-react";
+import { Home, Mail, Phone, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BubbleText from "@/components/bubbleText";
@@ -16,24 +16,17 @@ export default function ClientDetail() {
   const router = useRouter();
   const { id } = useParams();
   const [client, setClient] = useState<any>(null);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isPopupDeleteOpen, setIsPopupDeleteOpen] = useState(false);
   const { data, getOneById, fetchData } = useClientStore();
-
-  const handleModifyClient = () => {
-    setIsPopupOpen(true);
-    document.body.style.overflow = "hidden";
-  };
-
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
-    setIsPopupDeleteOpen(false);
-    document.body.style.overflow = "";
-  };
 
   const handleDeleteClient = () => {
     setIsPopupDeleteOpen(true);
     document.body.style.overflow = "hidden";
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupDeleteOpen(false);
+    document.body.style.overflow = "";
   };
 
   useEffect(() => {
@@ -67,99 +60,101 @@ export default function ClientDetail() {
 
   return (
     <>
-      <div className="flex flex-col w-full">
-        <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-row gap-1">
-              <p className="text-neutral-400 text-paragraphMedium">
-                Mes clients /
-              </p>
-              <p className="text-neutral-950 text-paragraphMedium">
-                {client.firstname} {client.lastname}
-              </p>
-            </div>
-            <div className="flex flex-row justify-between pt-8">
-              <div className="flex flex-row gap-2 w-full items-center">
-                <img
-                  className="w-24 h-24 rounded-lg object-cover"
-                  src={client.avatar || "/asset/img/yard.jpeg"}
-                  alt={client.firstname}
-                />
-                <h1 className="text-h1Desktop text-neutral-900">
-                  {client.firstname} {client.lastname}
-                </h1>
+      <div className="bg-white w-full p-4 sm:p-8">
+        {/* Breadcrumb */}
+        <div className="mb-4">
+          <p className="text-sm text-neutral-400">
+            Mes clients /{" "}
+            <span className="text-neutral-950">
+              {client.firstname} {client.lastname}
+            </span>
+          </p>
+        </div>
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
+            <img
+              className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg object-cover"
+              src={client.avatar || "/asset/img/yard.jpeg"}
+              alt={client.firstname}
+            />
+            <h1 className="text-xl sm:text-h1Desktop font-bold text-neutral-900">
+              {client.firstname} {client.lastname}
+            </h1>
+          </div>
+          <div className="flex flex-row gap-4">
+            <CustomButton
+              text="Supprimer"
+              icon={<Trash2 />}
+              color="bg-red-500"
+              textColor="text-white"
+              onClick={handleDeleteClient}
+              hover="bg-red-600"
+            />
+            <Modify id={id as string} />
+          </div>
+        </div>
+        {/* À Propos */}
+        <div className="mt-6">
+          <h2 className="text-base sm:text-paragraphBold text-neutral-950 mb-4">
+            À Propos
+          </h2>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex items-center space-x-3">
+              <BubbleText
+                icon={<Mail className="text-accent-500" />}
+                widthBubble="w-12"
+                heightBubble="h-12"
+                widthSubBubble="w-10"
+                heightSubBubble="h-10"
+                firstBackground="bg-accent-100"
+                secondBackground="bg-accent-200"
+              />
+              <div>
+                <p className="text-xs sm:text-sm text-neutral-500">Email</p>
+                <p className="text-sm sm:text-paragraphBold text-neutral-950">
+                  {client.email}
+                </p>
               </div>
-              <div className="flex flex-row gap-4 max-h-12 w-full">
-                <CustomButton
-                  text="Supprimer"
-                  icon={<Trash2 />}
-                  color="bg-red-500"
-                  textColor="text-white"
-                  onClick={handleDeleteClient}
-                  hover="bg-red-600"
-                />
-                <Modify id={id as string} />
+            </div>
+            <div className="flex items-center space-x-3">
+              <BubbleText
+                icon={<Phone className="text-accent-500" />}
+                widthBubble="w-12"
+                heightBubble="h-12"
+                widthSubBubble="w-10"
+                heightSubBubble="h-10"
+                firstBackground="bg-accent-100"
+                secondBackground="bg-accent-200"
+              />
+              <div>
+                <p className="text-xs sm:text-sm text-neutral-500">Téléphone</p>
+                <p className="text-sm sm:text-paragraphBold text-neutral-950">
+                  {client.phone}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3">
+              <BubbleText
+                icon={<Home className="text-accent-500" />}
+                widthBubble="w-12"
+                heightBubble="h-12"
+                widthSubBubble="w-10"
+                heightSubBubble="h-10"
+                firstBackground="bg-accent-100"
+                secondBackground="bg-accent-200"
+              />
+              <div>
+                <p className="text-xs sm:text-sm text-neutral-500">Adresse</p>
+                <p className="text-sm sm:text-paragraphBold text-neutral-950">
+                  {client.address}
+                </p>
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-4">
-            <h1 className="text-paragraphBold text-neutral-950">À Propos</h1>
-            <div className="flex flex-row gap-10">
-              <div className="flex items-center space-x-3">
-                <BubbleText
-                  icon={<Mail className="text-accent-500" />}
-                  widthBubble="w-12"
-                  heightBubble="h-12"
-                  widthSubBubble="w-10"
-                  heightSubBubble="h-10"
-                  firstBackground="bg-accent-100"
-                  secondBackground="bg-accent-200"
-                />
-                <div>
-                  <p className="text-sm text-neutral-500">Email</p>
-                  <p className="text-paragraphBold text-neutral-950">
-                    {client.email}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3">
-                <BubbleText
-                  icon={<Phone className="text-accent-500" />}
-                  widthBubble="w-12"
-                  heightBubble="h-12"
-                  widthSubBubble="w-10"
-                  heightSubBubble="h-10"
-                  firstBackground="bg-accent-100"
-                  secondBackground="bg-accent-200"
-                />
-                <div>
-                  <p className="text-sm text-neutral-500">
-                    Numéro de téléphone
-                  </p>
-                  <p className="text-paragraphBold text-neutral-950">
-                    {client.phone}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3">
-                <BubbleText
-                  icon={<Home className="text-accent-500" />}
-                  widthBubble="w-12"
-                  heightBubble="h-12"
-                  widthSubBubble="w-10"
-                  heightSubBubble="h-10"
-                  firstBackground="bg-accent-100"
-                  secondBackground="bg-accent-200"
-                />
-                <div>
-                  <p className="text-sm text-neutral-500">Addresse email</p>
-                  <p className="text-paragraphBold text-neutral-950">
-                    {client.email}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
+        {/* Tabs */}
+        <div className="mt-6">
           <Tabs tabs={tabs} />
         </div>
       </div>
@@ -171,13 +166,13 @@ export default function ClientDetail() {
         desc="Cette action est irréversible">
         <div className="flex flex-row gap-2 items-end justify-end">
           <button
-            type="submit"
-            className="bg-neutral-50 text-neutral-950 text-paragraphRegular px-4 py-2 rounded-md hover:bg-neutral-100">
+            type="button"
+            className="bg-neutral-50 text-neutral-950 text-sm px-4 py-2 rounded-md hover:bg-neutral-100">
             Annuler
           </button>
           <button
-            type="submit"
-            className="bg-negative-500 text-white text-paragraphRegular px-4 py-2 rounded-md hover:bg-negative-600">
+            type="button"
+            className="bg-negative-500 text-white text-sm px-4 py-2 rounded-md hover:bg-negative-600">
             Supprimer
           </button>
         </div>
