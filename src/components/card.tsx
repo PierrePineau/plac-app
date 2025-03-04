@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { Key, useEffect, useState } from "react";
 import { Card as HeroUiCard, CardBody as HeroUiCardBody, CardFooter as HeroUiCardFooter} from "@heroui/card";
 import { Image } from "@heroui/react";
 import { Link, MoreHorizontal, MoreVertical } from "lucide-react";
+import Actions from "./actions";
 
 interface CardProp {
 	title: string | React.ReactNode;
@@ -89,8 +90,15 @@ const CardFile: React.FC<CardFileProp> = ({
             <HeroUiCardBody className="overflow-visible p-0">
                 <div className="flex flex-row items-center justify-start gap-2">
                     <Link className="text-primary-500" />
-                    <h3 className="text-neutral-950 font-medium truncate">{name}</h3>
-                    <MoreHorizontal className="text-neutral-950 ml-auto" />
+                    <h3 className="text-neutral-950 font-medium truncate w-full">{name}</h3>
+                    {
+                        actions.length > 0 && (
+                            <Actions
+                                onAction={(key) => console.log(key)}
+                                items={actions}
+                            />
+                        )
+                    }
                 </div>
                 <span className="pl-8 mt-1 text-neutral-400 text-xs font-light">
                     {file.size < 1024
@@ -111,6 +119,7 @@ interface CardMediaProp {
     media?: Files;
     url?: string;
 	actions?: Array<any>;
+    handleAction?: (key: string, media: Files) => void;
     classname?: string;
 }
 
@@ -119,6 +128,7 @@ const CardMedia: React.FC<CardMediaProp> = ({
     media = null,
     url = "",
     actions = [], // les actions à effectuer sur le fichier
+    handleAction = null,
     classname = "",
 }) => {
     // const [activeTab, setActiveTab] = useState(0);
@@ -133,6 +143,7 @@ const CardMedia: React.FC<CardMediaProp> = ({
 
     const [path, setPath] = useState("");
     const [name, setName] = useState(title || "");
+    
     useEffect(() => {
         if (media) {
             if (!title) {
@@ -145,8 +156,15 @@ const CardMedia: React.FC<CardMediaProp> = ({
             setPath(url);
             setName(title || "");
         }
-    }, []);
+    }, [media]);
 
+    const onAction = (key: Key) => {
+        if (handleAction && media) {
+            handleAction(key as string, media);
+        }else{
+            console.log(key);
+        }
+    }
 
     return (
         <HeroUiCard
@@ -163,7 +181,14 @@ const CardMedia: React.FC<CardMediaProp> = ({
             </HeroUiCardBody>
 			<HeroUiCardFooter className="text-small justify-between px-0 pb-0">
                 <h3 className="text-neutral-950 font-medium truncate">{name}</h3>
-                <MoreHorizontal className="text-neutral-950" />
+                {
+                    actions.length > 0 && (
+                        <Actions
+                            onAction={onAction}
+                            items={actions}
+                        />
+                    )
+                }
 			</HeroUiCardFooter>
         </HeroUiCard>
     );

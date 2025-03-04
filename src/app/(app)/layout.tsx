@@ -29,7 +29,7 @@ export default function RootLayout({
             <div className="sticky top-0 bg-white z-10 border-b border-neutral-200">
               <Header onToggleNav={handleToggleNav} />
             </div>
-            <main className="flex flex-col bg-white overflow-auto p-8 gap-8">
+            <main className="@container flex flex-col bg-white overflow-auto p-8 gap-8">
               {children}
             </main>
           </div>

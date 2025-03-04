@@ -104,8 +104,9 @@ export default function RootLayout({
 
   return (
     <html lang="fr">
-      {/* <Head>
-      </Head> */}
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
       <body className="min-h-screen flex flex-col">
           <Providers>
             <SplashScreen />

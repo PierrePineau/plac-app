@@ -19,6 +19,29 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
   const { data: dataFiles, fetchData: fetchDataFiles, setEndpoint: setEndpointFiles } = useProjectFileStore();
   const { data: dataMedias, fetchData: fetchDataMedias,setEndpoint: setEndpointMedias  } = useProjectMediaStore();
 
+  const actions = [
+    { key: "download", label: "Télécharger" },
+    { key: "edit", label: "Modifier" },
+    { key: "delete", label: "Supprimer", classname: "text-danger", color: "danger" },
+  ];
+
+  const handleAction = (key: string, file: Files) => {
+    switch (key) {
+      case "download":
+        console.log("Télécharger");
+        break;
+      case "edit":
+        console.log("Modifier");
+        break;
+      case "delete":
+        console.log("Supprimer");
+        break;
+      default:
+        console.log("Action inconnue");
+        break;
+    }
+  }
+
 	const handleFilesAdded = (files: Files[]) => {
 		let newImage = files.filter((file) => file.type.includes("MEDIA"));
 		let newFile = files.filter((file) => !file.type.includes("MEDIA"));
@@ -50,7 +73,6 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 	}, []);
 
 	useEffect(() => {
-		
 		setIsLoadingMedias(true);
 		fetchDataMedias({
 			type: "MEDIA",
@@ -58,20 +80,20 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 	}, []);
 
   return (
-    <div className="min-h-[500px] p-4 sm:p-8">
+    <div className="min-h-[500px] p-4 sm:p-8 @container/">
       {/* Section Documents */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
         <h2 className="font-medium text-neutral-950 text-lg sm:text-xl">
           Documents
         </h2>
         <div className="mt-2 sm:mt-0">
           <Btn variant="" className="text-brand-500 bg-transparent">
             <Download />
-            <span className="ml-2">Tout Télécharger</span>
+            Tout Télécharger
           </Btn>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <Uploader
           autoProceed={true}
           height="100%"
@@ -99,24 +121,22 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
           onFilesAdded={handleFilesAdded}
         />
         {dataFiles?.map((file, index) => (
-          <CardFile key={index} file={file} />
+          <CardFile key={index} file={file} actions={actions} />
         ))}
         {isLoadingFiles && dataFiles.length === 0 && <Spinner />}
       </div>
-
       {/* Section Médias */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-6 mb-4">
-        <h2 className="font-medium text-neutral-950 text-lg sm:text-xl">
+      <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center mt-6 mb-4">
+        <h2 className="font-medium text-neutral-950 text-lg md:text-xl">
           Médias
         </h2>
-        <div className="mt-2 sm:mt-0">
+        <div className="">
           <Btn variant="" className="text-brand-500 bg-transparent">
-            <Download />
-            <span className="ml-2">Tout Télécharger</span>
+            <Download />Tout Télécharger
           </Btn>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <Uploader
           autoProceed={true}
           height="100%"
@@ -144,7 +164,7 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
           onFilesAdded={handleFilesAdded}
           />
         {dataMedias?.map((media, index) => (
-          <CardMedia key={index} media={media} />
+          <CardMedia key={index} media={media} actions={actions} handleAction={handleAction} />
         ))}
         
         {isLoadingMedias && dataMedias.length === 0 && <Spinner />}
