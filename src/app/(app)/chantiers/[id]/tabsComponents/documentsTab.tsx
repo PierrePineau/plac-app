@@ -4,7 +4,7 @@ import { Download } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import FileCard from "../../components/file_component";
 import Uploader from "@/components/uploader";
-import { useFileStore, useMediaStore } from "@/store/user/fileStore";
+import { useFileStore, useMediaStore, useProjectFileStore, useProjectMediaStore } from "@/store/user/fileStore";
 import Spinner from "@/components/spinner";
 import { CardFile, CardMedia } from "@/components/card";
 import Btn from "@/components/btn";
@@ -16,8 +16,8 @@ interface ProjectProps {
 const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
   const [isLoadingFiles, setIsLoadingFiles] = useState(false);
   const [isLoadingMedias, setIsLoadingMedias] = useState(false);
-  const { data: dataFiles, fetchData: fetchDataFiles } = useFileStore();
-  const { data: dataMedias, fetchData: fetchDataMedias } = useMediaStore();
+  const { data: dataFiles, fetchData: fetchDataFiles, setEndpoint: setEndpointFiles } = useProjectFileStore();
+  const { data: dataMedias, fetchData: fetchDataMedias,setEndpoint: setEndpointMedias  } = useProjectMediaStore();
 
 	const handleFilesAdded = (files: Files[]) => {
 		let newImage = files.filter((file) => file.type.includes("MEDIA"));
@@ -72,15 +72,15 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {dataFiles?.map((file, index) => (
-          <CardFile key={index} file={file} />
-        ))}
-        <Uploader
+      <Uploader
           autoProceed={true}
           height="100%"
+          metaFields={{
+						idProject: project.id,
+					}}
           restrictions={{
             maxNumberOfFiles: 5,
-            maxFileSize: 10000000,
+            maxFileSize: 1000000,
             allowedFileTypes: [
               "application/pdf",
               "text/csv",
@@ -92,11 +92,15 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
               "application/msword",
               "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
               "application/vnd.ms-powerpoint",
-              "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+              "image/*",
             ]
           }}
           onFilesAdded={handleFilesAdded}
         />
+        {dataFiles?.map((file, index) => (
+          <CardFile key={index} file={file} />
+        ))}
         {isLoadingFiles && dataFiles.length === 0 && <Spinner />}
       </div>
 
@@ -113,19 +117,36 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {dataMedias?.map((media, index) => (
-          <CardMedia key={index} media={media} />
-        ))}
         <Uploader
           autoProceed={true}
           height="100%"
+          metaFields={{
+            idProject: project.id,
+          }}
           restrictions={{
             maxNumberOfFiles: 5,
-            maxFileSize: 10000000,
-            allowedFileTypes: ["image/*"]
+            maxFileSize: 1000000, // 1MB
+            allowedFileTypes: [
+              "application/pdf",
+              "text/csv",
+              "text/plain",
+              "application/zip",
+              "application/x-rar-compressed",
+              "application/vnd.ms-excel",
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+              "application/msword",
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+              "application/vnd.ms-powerpoint",
+              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+              "image/*",
+            ]
           }}
           onFilesAdded={handleFilesAdded}
-        />
+          />
+        {dataMedias?.map((media, index) => (
+          <CardMedia key={index} media={media} />
+        ))}
+        
         {isLoadingMedias && dataMedias.length === 0 && <Spinner />}
       </div>
     </div>
