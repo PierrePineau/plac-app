@@ -19,7 +19,6 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 	const { data: dataMedias, fetchData: fetchDataMedias, setEndpoint: setEndpointMedias } = useProjectMediaStore();
 
 	const handleFilesAdded = (files: Files[]) => {
-		console.log("Fichiers ajoutés :", files);
 		let newImage = files.filter((file) => file.type.includes("MEDIA"));
 		let newFile = files.filter((file) => !file.type.includes("MEDIA"));
 
@@ -27,13 +26,11 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 		// TODO : Ajouter directement au store ?
 		if (newImage.length > 0) {
 			fetchDataMedias({
-				idProject: project.id,
 				type: "MEDIA",
 			});
 		}
 		if (newFile.length > 0) {
 			fetchDataFiles({
-				idProject: project.id,
 				type: "FILE",
 			});
 		}
@@ -47,7 +44,6 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 	useEffect(() => {
 		setIsLoadingFiles(true);
 		fetchDataFiles({
-			idProject: project.id,
 			type: "FILE",
 		}).then(() => setIsLoadingFiles(false));
 	}, []);
@@ -56,7 +52,6 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 		
 		setIsLoadingMedias(true);
 		fetchDataMedias({
-			idProject: project.id,
 			type: "MEDIA",
 		}).then(() => setIsLoadingMedias(false));
 	}, []);
@@ -101,7 +96,6 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 					<CardFile key={index} file={file} />
 				))}
 				{isloadingFiles && dataFiles.length == 0 && <Spinner />}
-				{/* <CustomDragDrop onFilesAdded={handleFilesAdded} /> */}
 			</div>
 			<div className="flex flex-row justify-between items-center mt-6  mb-4">
 				<h2 className="font-medium text-neutral-950">Médias</h2>
@@ -141,7 +135,6 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 					<CardMedia key={index} media={image} />
 				))}
 				{isloadingMedias && dataMedias.length == 0 && <Spinner />}
-				{/* <CustomDragDrop onFilesAdded={handleFilesAdded} /> */}
 			</div>
 		</div>
 	);
