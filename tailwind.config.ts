@@ -144,7 +144,43 @@ const config: Config = {
       }
     }
   },
-  plugins: [heroui()]
+  plugins: [heroui({
+    layout: {
+      radius: {
+        small: "4px", // rounded-small
+        medium: "6px", // rounded-medium
+        large: "8px", // rounded-large
+      },
+      borderWidth: {
+        small: "1px", // border-small
+        medium: "1px", // border-medium
+        large: "4px", // border-large
+      },
+    },
+    themes: {
+      light: {
+        colors: {
+          default: {
+            50: "#FFFFFF",
+            100: "#F5F5F5",
+            200: "#E5E5E5",
+            300: "#D4D4D4",
+            400: "#A3A3A3",
+            500: "#737373",
+            600: "#525252",
+            700: "#404040",
+            800: "#262626",
+            900: "#171717",
+          },
+        },
+      },
+      dark: {
+        // ...
+        colors: {},
+      },
+      // ... custom themes
+    },
+  })]
 };
 
 export default config;

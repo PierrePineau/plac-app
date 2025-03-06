@@ -2,6 +2,7 @@
 import { useState } from "react";
 import CustomButton from "@/components/custombutton";
 import Btn from "@/components/btn";
+import Link from "next/link";
 
 interface LoginFormProps {
   registerButton: () => void;
@@ -21,9 +22,6 @@ const LoginForm = ({ registerButton, connectButton }: LoginFormProps) => {
   return (
     <div className="p-4">
       <div className="flex flex-col gap-4 items-center sm:items-start">
-        <h1 className="text-neutral-950 font-bold text-2xl sm:text-4xl">
-          Connexion
-        </h1>
         <form
           onSubmit={handleSubmit}
           className="w-full flex flex-col gap-3 sm:gap-4">
@@ -57,23 +55,18 @@ const LoginForm = ({ registerButton, connectButton }: LoginFormProps) => {
               placeholder="********"
             />
           </div>
+          <Link
+            href="/forgot-password"
+            className="text-neutral-400 hover:underline ml-auto">
+            Mot de passe oublié ?
+          </Link>
           <Btn type="submit" isLoading={isSubmitting}>
             Connexion
           </Btn>
         </form>
       </div>
       <div className="flex flex-col justify-center gap-3 mt-4 items-center">
-        <p className="text-neutral-400 text-sm sm:text-base">
-          Mot de passe oublié
-        </p>
-        <div className="flex flex-col gap-2 items-center">
-          <p className="text-neutral-400 text-sm sm:text-base">
-            Vous n'avez pas de compte ?
-          </p>
-          <Btn onClick={registerButton} className="" variant="light">
-            S'inscrire
-          </Btn>
-        </div>
+        
       </div>
     </div>
   );

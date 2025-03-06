@@ -32,13 +32,34 @@ body {
 	}
 
 	& {
-		display: inline-flex;
-		width: 100%;
-		padding: 0.8rem;
-		background: white;
-		border-style: solid;
-		border-width: 1px;
-		line-height: 1rem;
+		// display: inline-flex;
+		// width: 100%;
+		// min-height: unset;
+		// height: unset;
+		// padding: 0.8rem;
+		// background: white;
+		// border-style: solid;
+		// border-width: 1px;
+		// line-height: 1rem;
+		// input {
+		// 	min-height: 2.5rem;
+		// }
+		
+
+	}
+	& [data-slot="input-wrapper"] {
+		padding: unset !important;
+		min-height: unset !important;
+		height: unset !important;
+
+		[data-focus="true"]:not([data-disabled="true"]){
+			input {
+				outline: auto;
+				// ring-blue-500
+				border-color: #295bff;
+				background-color: red;
+			}
+		}
 	}
 	
 	&__icon{
@@ -180,6 +201,10 @@ a.link {
 	cursor: pointer;
 	transition: all ease-in-out 0.2s;
 	gap: .5rem;
+
+	&.btn-icon{
+		padding: 0.5rem;
+	}
 }
 
 // UPPY
