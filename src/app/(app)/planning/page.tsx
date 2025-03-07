@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
 import CustomButton from "../../../components/custombutton";
-import Header from "../../../components/headerpage";
 import DayPlanning from "./components/dayPlanning";
 import Tabs from "../../../components/tabs";
-import NavBar from "@/app/admin/(admin)/components/navBar";
+import HeaderPage from "../../../components/headerpage";
+import InConstruction from "@/components/inConstruction";
 
 export default function PlanningPage() {
   const tabs = [
@@ -17,19 +17,11 @@ export default function PlanningPage() {
   ];
 
   return (
-    <div className="flex flex-row bg-white h-full">
-      <div className="sticky bg-white hidden md:block border-r border-neutral-200">
-        <NavBar />
-      </div>
-
-      <div className="flex flex-col w-full">
-        <div className="top-0 bg-white z-10 border-b border-neutral-200">
-          <Header title={""} />
-        </div>
-        <div className="flex flex-col bg-white overflow-auto p-8 gap-8">
-          <div className="flex flex-row justify-between">
-            <p className="text-h1Desktop text-neutral-950  ">Planning</p>
-            <CustomButton
+    <div className="flex flex-col gap-4">
+      <InConstruction />
+      <HeaderPage title="Planning">
+        {/* <New title={"Ajouter un chantier"} /> */}
+        <CustomButton
               icon={
                 <img
                   src="/asset/img/googleCalendar.svg"
@@ -44,10 +36,8 @@ export default function PlanningPage() {
               onClick={() => {}}
               hover={"bg-brand-1000"}
             />
-          </div>
-          <Tabs tabs={tabs} />
-        </div>
-      </div>
+      </HeaderPage>
+      <Tabs tabs={tabs} />
     </div>
   );
 }

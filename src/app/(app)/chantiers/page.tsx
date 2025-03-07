@@ -5,6 +5,7 @@ import Yard from "../../../components/yard";
 import { useProjectStore } from "@/store/user/projectStore";
 import { useOrganisationStore } from "@/store/user/organisationStore";
 import New from "./components/modals/new";
+import HeaderPage from "@/components/headerpage";
 
 export default function Chantiers() {
   const { data: projects, fetchData } = useProjectStore();
@@ -18,18 +19,10 @@ export default function Chantiers() {
   }, [organisation, fetchData]);
 
   return (
-    <div className="flex flex-col bg-white h-full p-4 sm:p-8">
-      <div className="flex flex-row justify-between items-center">
-        <p className="text-2xl sm:text-h1Desktop text-neutral-950">
-          Mes chantiers
-        </p>
-        <div className="block sm:hidden">
-          <New title={""} />
-        </div>
-        <div className="hidden sm:block">
-          <New title={"Ajouter un chantier"} />
-        </div>
-      </div>
+    <div className="flex flex-col gap-4">
+      <HeaderPage title="Mes chantiers">
+        <New title={"Ajouter un chantier"} />
+      </HeaderPage>
       <Yard projects={projects} />
     </div>
   );

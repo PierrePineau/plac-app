@@ -136,6 +136,9 @@ export const useAuthStore = create<AuthState>((set) => ({
         { username: email, password },
         { skipAuth: true }
       );
+
+      console.log("data", data);
+      
       if ("token" in data && typeof data.token === "string") {
         const decoded = jwtDecode<JwtPayload>(data.token);
         localStorage.setItem("jwtToken", data.token);
@@ -143,8 +146,6 @@ export const useAuthStore = create<AuthState>((set) => ({
         const user = data.user;
         const org = data.organisation;
 
-        console.log("user", user);
-        
         if (user && org) {
           localStorage.setItem("idUser", user.uuid);
           localStorage.setItem("idOrganisation", org.id);

@@ -47,13 +47,10 @@ export async function request<T>(
     );
     response = await fetch(url, fetchOptions);
     if (response.ok) {
-      try {
-        const data  = await response.json();
-        return data;
-      } catch (error) {
-        console.log("Error Message:", error);
-        throw new ApiError(response.status, response.statusText);
-      }
+      const data  = await response.json();
+      console.log("Data:", data);
+      
+      return data;
     }else{
       if (response.status === 401) throw new UnauthorizedError();
       if (response.status === 404) throw new NotFoundError();
@@ -64,12 +61,14 @@ export async function request<T>(
         const data = await response.json();
         console.log("Error Message:", data.message);
         console.log("Error content:", data);
+        return data;
       } catch (error) {
         
       }
       throw new ApiError(response.status, response.statusText);
     }
-  } catch {
+  } catch (error) {
+    console.log("Error:", error);
     throw new NetworkError();
   }
 }
