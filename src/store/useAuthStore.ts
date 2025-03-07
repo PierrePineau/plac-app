@@ -45,17 +45,17 @@ export const useAuthStore = create<AuthState>((set) => ({
       }
       // Utilisé lors de la request
       localStorage.setItem("jwtToken", token);
-
-      console.log("OKOK");
       // On récupère les informations de l'utilisateur
       const response = await get<ResponseApi>("/api/app/users/me");
-      console.log("the respo" , response);
       if (response.success) {
         const infosUser = response.data as {
           [key: string]: any;
         };
         const user = infosUser.user;
         const org = infosUser.organisation;
+
+        console.log("user", user);
+        
 
         if (user && org) {
           localStorage.setItem("idUser", user.uuid);
@@ -65,7 +65,8 @@ export const useAuthStore = create<AuthState>((set) => ({
               uuidUser: user.id,
               uuidOrganisation: org.uuid,
               email: user.email as string,
-              roles: user.roles as string[]
+              roles: user.roles as string[],
+              fullname: user.fullname as string,
             },
             isAuthenticated: true
           });
@@ -93,26 +94,21 @@ export const useAuthStore = create<AuthState>((set) => ({
       // On vérifie si le token est encore valide
       // TODO : Auto refresh token
       if (decoded.exp * 1000 < Date.now()) {
-        set({ isAuthenticated: false });
+        set({
+          isAuthenticated: false,
+          user: null
+        });
         return false;
       }
 
       // On vérifie si le role est bon
       if (!decoded.roles.includes(role)) {
-        set({ isAuthenticated: false });
+        set({
+          isAuthenticated: false,
+          user: null
+        });
         return false;
       }
-
-      set({
-        user: {
-          uuidUser: localStorage.getItem("idUser") ?? "",
-          uuidOrganisation: localStorage.getItem("idOrganisation") ?? "",
-          email: decoded.username,
-          roles: decoded.roles
-        },
-        isAuthenticated: true
-      });
-
       const stringData = localStorage.getItem("organisation");
       const org = stringData ? JSON.parse(stringData) : null;
       if (!org) {
@@ -147,6 +143,8 @@ export const useAuthStore = create<AuthState>((set) => ({
         const user = data.user;
         const org = data.organisation;
 
+        console.log("user", user);
+        
         if (user && org) {
           localStorage.setItem("idUser", user.uuid);
           localStorage.setItem("idOrganisation", org.id);
@@ -155,12 +153,16 @@ export const useAuthStore = create<AuthState>((set) => ({
               uuidUser: user.id,
               uuidOrganisation: org.uuid,
               email: user.email as string,
-              roles: user.roles as string[]
+              roles: user.roles as string[],
+              fullname: user.fullname as string,
             },
-            isLoading: false,
             isAuthenticated: true
           });
         }
+
+        set({
+          isLoading: false,
+        });
 
         if (org) {
         }

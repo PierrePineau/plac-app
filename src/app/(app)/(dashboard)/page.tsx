@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import ProgressBar from "../../../components/progressBar";
 import { useProjectStore } from "@/store/user/projectStore";
 import { useClientStore } from "@/store/user/clientStore";
+import { useAuthStore } from "@/store/useAuthStore";
 
 type TableData = {
   user: string;
@@ -46,6 +47,7 @@ export default function Home() {
   const { data: projectData, fetchData: fetchProjectData } = useProjectStore();
   const { data: clientData, fetchData: fetchClientData } = useClientStore();
   const [search, setSearch] = useState("");
+  const { user } = useAuthStore();
 
   useEffect(() => {
     fetchProjectData("");
@@ -74,7 +76,7 @@ export default function Home() {
     <div className="flex flex-col bg-white overflow-auto p-4 sm:p-8 gap-4 sm:gap-8">
       <div className="flex flex-col">
         <p className="text-2xl sm:text-h1Desktop text-neutral-950">
-          Bonjour Jean Martin,
+          Bonjour { user?.fullname },
         </p>
         <p className="text-base sm:text-paragraphMedium text-neutral-400">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc

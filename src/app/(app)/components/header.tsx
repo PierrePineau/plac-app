@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Menu, Search, Bell } from "lucide-react";
+import { useAuthStore } from "@/store/useAuthStore";
 
 // Remplace éventuellement cette SearchBar par ton vrai composant si tu en as un
 function SearchBarPlaceholder() {
@@ -21,6 +22,8 @@ interface HeaderProps {
 export default function Header({ onToggleNav }: HeaderProps) {
   const [showDesktop, setShowDesktop] = useState(true);
 
+  const { user } = useAuthStore();
+
   useEffect(() => {
     const handleScroll = () => {
       // Si l'utilisateur scrolle au-delà de 50px, on masque la version desktop
@@ -30,6 +33,9 @@ export default function Header({ onToggleNav }: HeaderProps) {
         setShowDesktop(true);
       }
     };
+
+    console.log("user", user);
+    
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -84,10 +90,10 @@ export default function Header({ onToggleNav }: HeaderProps) {
               />
               <div className="flex flex-col items-start">
                 <p className="text-paragraphBold text-neutral-900">
-                  Jean Martin
+                  {user?.fullname}
                 </p>
                 <p className="text-tag text-neutral-400">
-                  jeanmartin@gmail.com
+                  {user?.email}
                 </p>
               </div>
             </div>
