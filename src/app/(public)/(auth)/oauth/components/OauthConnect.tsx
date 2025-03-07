@@ -11,7 +11,7 @@ const OauthConnect = () => {
     const [providerLoading, setProviderLoading] = useState(false);
     const {isLoading, setIsLoading} = useLoaderContext();
     const [currentProvider, setCurrentProvider] = useState("");
-    const { authenticateUserByToken, isAuthenticated } = useAuthStore();
+    const { authenticateUserByToken } = useAuthStore();
     const providers = [
         {
             identifier: "google",
@@ -42,11 +42,10 @@ const OauthConnect = () => {
 
     const getOauthUser = async (token: string) => {
         setIsLoading(true);
-        await authenticateUserByToken(token);
-        console.log("done");
+        const isAuth = await authenticateUserByToken(token);
         setIsLoading(false);
 
-        if (isAuthenticated) {
+        if (isAuth) {
             router.push("/");
         }
     }
