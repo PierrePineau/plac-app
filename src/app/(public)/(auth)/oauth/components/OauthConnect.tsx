@@ -2,12 +2,16 @@
 import Btn from "@/components/btn";
 import { get } from "@/core/services/api.helper";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/useAuthStore";
 import { useEffect, useState } from "react";
+import { useLoaderContext } from "@/core/context/LoaderContext";
 
 const OauthConnect = () => {
     const router = useRouter();
-    const [loading, setIsLoading] = useState(false);
+    const [providerLoading, setProviderLoading] = useState(false);
+    const {isLoading, setIsLoading} = useLoaderContext();
     const [currentProvider, setCurrentProvider] = useState("");
+    const { authenticateUserByToken, isAuthenticated } = useAuthStore();
     const providers = [
         {
             identifier: "google",
@@ -23,33 +27,51 @@ const OauthConnect = () => {
 
     const getOauthUrl = async (provider: string) => {
         setCurrentProvider(provider);
-        setIsLoading(true);
-        console.log("provider:", provider);
+        setProviderLoading(true);
         
         const response = await get<ResponseApi>(`/api/oauth/connect/${provider}`);
-        console.log("resp:", response);
-        if (response.success && response.data) {
-            const redirectUrl = response.data.targetUrl ? response.data.targetUrl : response.data[0].targetUrl;
-            console.log("targetUrl:", redirectUrl);
-            router.push(redirectUrl);
+        if (response.success && response.data) { 
+            const data = response.data as {
+                targetUrl: string;
+                service: string;
+            };                             
+            router.push(data.targetUrl);
         }
-        setIsLoading(false);
+        setProviderLoading(false);
     };
+
+    const getOauthUser = async (token: string) => {
+        setIsLoading(true);
+        await authenticateUserByToken(token);
+        console.log("done");
+        setIsLoading(false);
+
+        if (isAuthenticated) {
+            router.push("/");
+        }
+    }
 
     // On check dans l'url si on a un code pour se connecter
     useEffect(() => {
         // Params
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get("oauth");
+        // On récupère le cookie "oauth_token" pour se connecter
+        const token = urlParams.get("token");
 
-        console.log("params:", Object.fromEntries(urlParams.entries()));
+        // Je voudrais retirer le code/token de l'url
+        if (token) {
+            window.history.replaceState({}, document.title, "/login");
+        }
 
-        // Headers
+        if (code && token) {
+            getOauthUser(token);
+        }
     }, []);
 
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
             <div className="flex items-center justify-center my-4 w-full">
                 <div className="flex-grow border-t border-gray-300"></div>
                 <span className="mx-2 text-gray-500 text-sm">OU</span>
@@ -58,14 +80,14 @@ const OauthConnect = () => {
             <ul>
                 {
                     providers.map((provider, index) => (
-                        <li>
+                        <li key={index}>
                             <Btn
                                 key={index}
                                 variant="light"
                                 className="w-full"
                                 onPress={() => getOauthUrl(provider.identifier)}
-                                isLoading={loading && currentProvider === provider.identifier}
-                                isDisabled={loading}
+                                isLoading={providerLoading && currentProvider === provider.identifier}
+                                isDisabled={providerLoading}
                             >
                                 <img
                                     src={provider.icon}

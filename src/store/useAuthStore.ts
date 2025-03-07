@@ -19,6 +19,7 @@ interface AuthState {
   user: AuthenticateUser | null;
   isAuthenticated: boolean;
   checkAuth: (role: string) => Promise<boolean>;
+  authenticateUserByToken: (token: string) => Promise<boolean>;
   isLoading: boolean;
   error: string | null;
   login: (
@@ -32,6 +33,54 @@ interface AuthState {
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
+  authenticateUserByToken: async (token: string) => {
+    try {
+      set({ 
+        user: null,
+        isLoading: true,
+        isAuthenticated: false
+       });
+      if (!token) {
+        return false;
+      }
+      // Utilisé lors de la request
+      localStorage.setItem("jwtToken", token);
+
+      console.log("OKOK");
+      // On récupère les informations de l'utilisateur
+      const response = await get<ResponseApi>("/api/app/users/me");
+      console.log("the respo" , response);
+      if (response.success) {
+        const infosUser = response.data as {
+          [key: string]: any;
+        };
+        const user = infosUser.user;
+        const org = infosUser.organisation;
+
+        if (user && org) {
+          localStorage.setItem("idUser", user.uuid);
+          localStorage.setItem("idOrganisation", org.id);
+          set({
+            user: {
+              uuidUser: user.id,
+              uuidOrganisation: org.uuid,
+              email: user.email as string,
+              roles: user.roles as string[]
+            },
+            isAuthenticated: true
+          });
+        }
+
+        set({
+          isLoading: false,
+        });
+        return true;
+      }
+    } catch (error) {
+      set({ isAuthenticated: false });
+    }
+    return false;
+  },
   checkAuth: async (role) => {
     try {
       const token = localStorage.getItem("jwtToken");

@@ -3,6 +3,8 @@ import { useState } from "react";
 import CustomButton from "@/components/custombutton";
 import Btn from "@/components/btn";
 import Link from "next/link";
+import { Form } from "@heroui/react";
+import Field from "@/components/field";
 
 interface LoginFormProps {
   registerButton: () => void;
@@ -10,64 +12,59 @@ interface LoginFormProps {
 }
 
 const LoginForm = ({ registerButton, connectButton }: LoginFormProps) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(undefined);
+  const [password, setPassword] = useState(undefined);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    if (!email || !password) {
+      setIsSubmitting(false);
+      return;
+    }
     await connectButton(email, password);
     setIsSubmitting(false);
   };
   return (
-    <div className="p-4">
-      <div className="flex flex-col gap-4 items-center sm:items-start">
-        <form
-          onSubmit={handleSubmit}
-          className="w-full flex flex-col gap-3 sm:gap-4">
-          <div className="flex flex-col">
-            <label
-              htmlFor="mail"
-              className="text-neutral-950 text-sm sm:text-base mb-1">
-              Email *
-            </label>
-            <input
-              type="email"
-              id="mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-neutral-200 rounded text-neutral-950 h-10 sm:h-11 p-2 sm:p-3"
-              placeholder="Ex: johndoe@gmail.com"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label
-              htmlFor="password"
-              className="text-neutral-950 text-sm sm:text-base mb-1">
-              Mot de passe *
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-neutral-200 rounded text-neutral-950 h-10 sm:h-11 p-2 sm:p-3"
-              placeholder="********"
-            />
-          </div>
-          <Link
+    <div className="mt-6">
+      <Form
+        className="flex flex-col gap-4"
+        onSubmit={handleSubmit}
+        validationBehavior="native"
+        >
+        <Field
+          isRequired
+          label="Email"
+          errorMessage="Veuillez renseigner votre email"
+          name="email"
+          value={email}
+          onChange={(e :any) => setEmail(e.target.value)}
+          type="email"
+          />
+        <Field
+          isRequired
+          label="Mot de passe"
+          errorMessage="Veuillez renseigner votre mot de passe"
+          name="password"
+          value={password}
+          onChange={(e :any) => setPassword(e.target.value)}
+          type="password"
+          />
+        <Link
             href="/forgot-password"
             className="text-neutral-400 hover:underline ml-auto">
             Mot de passe oublié ?
           </Link>
-          <Btn type="submit" isLoading={isSubmitting}>
+        <div className="flex gap-4 w-full mt-4">
+          <Btn
+            type="submit"
+            className="w-full"
+            isLoading={isSubmitting}
+            >
             Connexion
           </Btn>
-        </form>
-      </div>
-      <div className="flex flex-col justify-center gap-3 mt-4 items-center">
-        
-      </div>
+        </div>
+      </Form>
     </div>
   );
 };

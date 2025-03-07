@@ -31,9 +31,12 @@ export default function RootLayout({
         /> */}
       </div>
       <div className="p-4 sm:p-0 sm:w-1/2 flex justify-center items-center">
-        <div className="bg-white sm:min-h-screen p-6 sm:px-20 sm:py-10 w-full flex flex-col justify-center rounded sm:rounded-none">
-          {children}
+        <div className="sm:min-h-screen w-full bg-white p-6 flex flex-col justify-center rounded sm:rounded-none">
+          <div className="max-w-lg mx-auto w-full flex flex-col justify-center">
+            {children}
+          </div>
         </div>
+       
       </div>
     </div>
   );
