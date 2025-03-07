@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu, Search, Bell } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";
 import Btn from "@/components/btn";
+import { Badge, Dropdown, DropdownMenu, DropdownTrigger, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
 
 // Remplace éventuellement cette SearchBar par ton vrai composant si tu en as un
 function SearchBarPlaceholder() {
@@ -21,90 +22,60 @@ interface HeaderProps {
 }
 
 export default function Header({ onToggleNav }: HeaderProps) {
-  const [showDesktop, setShowDesktop] = useState(true);
-
   const { user } = useAuthStore();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      // Si l'utilisateur scrolle au-delà de 50px, on masque la version desktop
-      if (window.scrollY > 50) {
-        setShowDesktop(false);
-      } else {
-        setShowDesktop(true);
-      }
-    };
-
-    console.log("user", user);
-    
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <>
-      {/* Header mobile */}
-      <div className="sm:hidden flex items-center justify-between px-4 py-2 border-b border-neutral-200 bg-white">
-        <Btn
-          isIconOnly
-          variant="none"
-          className="btn-icon bg-transparent focus:outline-none"
-          onPress={onToggleNav}>
-          <Menu className="text-neutral-900" size={24} />
-        </Btn>
-        <div className="flex items-center gap-6">
-          <button>
-            <Search className="w-6 h-6 text-black" />
-          </button>
-          <button className="relative">
-            <Bell className="w-6 h-6 text-black" />
-            <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full" />
-          </button>
-          <div className="relative">
-            <img
-              className="w-8 h-8 rounded-full"
-              src="/asset/img/avatar.svg"
-              alt="Avatar"
-            />
-            <span className="absolute bottom-0 right-0 w-3 h-3 bg-brand-500 border-2 border-white rounded-full" />
+    <div className="flex items-center justify-between px-4 py-2 sm:px-8 sm:py-4 border-b border-neutral-200 bg-white">
+      <Btn
+        isIconOnly
+        variant="none"
+        className="btn-icon bg-transparent focus:outline-none md:hidden"
+        onPress={onToggleNav}>
+        <Menu className="text-neutral-900" size={24} />
+      </Btn>
+      {/* Barre de recherche à gauche */}
+      <div className="w-searchBarWidth hidden sm:block">
+        {/* Remplace ce placeholder par ton vrai composant SearchBar */}
+        <SearchBarPlaceholder />
+      </div>
+      <div className="flex items-center gap-3">
+        <div className="block sm:hidden">
+          {/* Remplace ce placeholder par ton vrai composant SearchBar */}
+          <Btn isIconOnly variant="none" className="bg-transparent btn-icon !p-0">
+            <Search size={24} className="text-black" />
+          </Btn>
+        </div>
+        <Popover color="foreground" offset={40} placement={"bottom-end"}>
+          <PopoverTrigger>
+            <Badge color="danger" content="" shape="circle">
+                <Btn isIconOnly aria-label="more than 99 notifications" variant="none" className="bg-transparent btn-icon !p-0">
+                    <Bell size={24} className="text-black" />
+                </Btn>
+              </Badge>
+          </PopoverTrigger>
+          <PopoverContent>
+          <div className="px-1 py-2">
+            <div className="text-small font-bold">Popover Content</div>
+            <div className="text-tiny">This is the popover content</div>
+          </div>
+          </PopoverContent>
+        </Popover>
+        <div className="flex items-center gap-3">
+          <img
+            className="w-8 h-8 rounded-full"
+            src="/asset/img/avatar.svg"
+            alt="Avatar"
+          />
+          <div className="flex-col items-start hidden sm:flex">
+            <p className="text-paragraphBold text-neutral-900">
+              {user?.fullname}
+            </p>
+            <p className="text-tag text-neutral-400">
+              {user?.email}
+            </p>
           </div>
         </div>
       </div>
-
-      {/* Header desktop, affiché uniquement si showDesktop = true */}
-      {showDesktop && (
-        <div className="hidden sm:flex items-center justify-between px-8 py-4 bg-white border-b border-neutral-200">
-          {/* Barre de recherche à gauche */}
-          <div className="w-searchBarWidth">
-            {/* Remplace ce placeholder par ton vrai composant SearchBar */}
-            <SearchBarPlaceholder />
-          </div>
-
-          {/* Icône de notification + avatar à droite */}
-          <div className="flex items-center gap-6">
-            <button className="relative">
-              <Bell className="w-6 h-6 text-black" />
-              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full" />
-            </button>
-            <div className="flex items-center gap-3">
-              <img
-                className="w-8 h-8 rounded-full"
-                src="/asset/img/avatar.svg"
-                alt="Avatar"
-              />
-              <div className="flex flex-col items-start">
-                <p className="text-paragraphBold text-neutral-900">
-                  {user?.fullname}
-                </p>
-                <p className="text-tag text-neutral-400">
-                  {user?.email}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+    </div>
   );
 }
