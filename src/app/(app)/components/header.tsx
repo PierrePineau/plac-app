@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Menu, Search, Bell } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";
+import Btn from "@/components/btn";
 
 // Remplace éventuellement cette SearchBar par ton vrai composant si tu en as un
 function SearchBarPlaceholder() {
@@ -45,9 +46,13 @@ export default function Header({ onToggleNav }: HeaderProps) {
     <>
       {/* Header mobile */}
       <div className="sm:hidden flex items-center justify-between px-4 py-2 border-b border-neutral-200 bg-white">
-        <button onClick={onToggleNav}>
-          <Menu className="w-6 h-6 text-neutral-900" />
-        </button>
+        <Btn
+          isIconOnly
+          variant="none"
+          className="btn-icon bg-transparent focus:outline-none"
+          onPress={onToggleNav}>
+          <Menu className="text-neutral-900" size={24} />
+        </Btn>
         <div className="flex items-center gap-6">
           <button>
             <Search className="w-6 h-6 text-black" />

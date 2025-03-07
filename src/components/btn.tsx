@@ -15,6 +15,9 @@ export default function Btn({
 }: ButtonProps) {
   if (variant === "primary") {
     className += " bg-brand-800 text-white";
+  } else if (variant === "secondary") {
+    className +=
+      " bg-accent-500 text-white";
   } else if (variant === "light") {
     className +=
       " bg-white text-neutral-800 hover:bg-gray-100 border border-neutral-200";
