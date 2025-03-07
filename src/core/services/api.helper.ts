@@ -41,33 +41,37 @@ export async function request<T>(
   fetchOptions.headers = { ...mergedHeaders, ...authHeaders };
   let response: Response;
   try {
-    console.log("URL:", url);
-    console.log("OPTIONS:", fetchOptions);
-    
+    console.log(
+      "URL:", url,
+      "OPTIONS:", fetchOptions
+    );
     response = await fetch(url, fetchOptions);
+    if (response.ok) {
+      try {
+        const data  = await response.json();
+        return data;
+      } catch (error) {
+        console.log("Error Message:", error);
+        throw new ApiError(response.status, response.statusText);
+      }
+    }else{
+      if (response.status === 401) throw new UnauthorizedError();
+      if (response.status === 404) throw new NotFoundError();
+      if (response.status === 422) throw new ValidationError();
+  
+      // Pour voir le message d'erreur
+      try {
+        const data = await response.json();
+        console.log("Error Message:", data.message);
+        console.log("Error content:", data);
+      } catch (error) {
+        
+      }
+      throw new ApiError(response.status, response.statusText);
+    }
   } catch {
     throw new NetworkError();
   }
-  if (!response.ok) {
-    if (response.status === 401) throw new UnauthorizedError();
-    if (response.status === 404) throw new NotFoundError();
-    if (response.status === 422) throw new ValidationError();
-
-    // Pour voir le message d'erreur
-    try {
-      const data = await response.json();
-      console.log("Error Message:", data.message);
-      console.log("Error content:", data);
-    } catch (error) {
-      
-    }
-    throw new ApiError(response.status, response.statusText);
-  }
-
-  const data  = await response.json();
-  // const data = decoded as unknown as ResponseApi;
-  console.log("DATA:", data);
-  return data;
 }
 
 export function get<T>(

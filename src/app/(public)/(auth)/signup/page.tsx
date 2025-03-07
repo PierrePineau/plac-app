@@ -9,10 +9,10 @@ import RegisterStepFour from "../signup/components/registerStepFour";
 import Btn from "@/components/btn";
 import Link from "next/link";
 import OauthConnect from "../oauth/components/OauthConnect";
+import { useUserStore } from "@/store/user/userStore";
 
 const SignUp = () => {
   const router = useRouter();
-  const [isSignUp, setIsSignUp] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [signupData, setSignupData] = useState({
     phone: "",
@@ -22,11 +22,29 @@ const SignUp = () => {
     password: "",
     confirmPassword: ""
   });
-  const login = useAuthStore((state) => state.login);
-  const handleSubmit = async (email: string, password: string) => {
-    const result = await login(email, password);
-    if (result) router.push("/");
-  };
+  const { create } = useUserStore();
+  const { authenticateUserByToken } = useAuthStore();
+  const handleRegister = async (data: {
+    phone: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+  }) => {
+    // setIsLoading(true);
+    const response = await create(data);
+
+    if (response) {
+      const token = (response as any).token;
+
+      // On authentifie l'utilisateur via le token
+      const isAuth = await authenticateUserByToken(token);
+      if (isAuth) {
+        router.push("/");
+      }
+    }
+    
+  }
   const updateSignupData = (key: string, value: string) => {
     setSignupData((prevData) => ({ ...prevData, [key]: value }));
   };
@@ -67,10 +85,14 @@ const SignUp = () => {
           <RegisterStepFour
             onPrevious={() => setCurrentStep(3)}
             updateData={(key, value) => updateSignupData(key, value)}
+            handleRegister={handleRegister}
             data={{
               password: signupData.password,
               confirmPassword: signupData.confirmPassword,
-              email: signupData.email
+              email: signupData.email,
+              phone: signupData.phone,
+              firstName: signupData.firstName,
+              lastName: signupData.lastName
             }}
           />
         );
@@ -97,14 +119,14 @@ const SignUp = () => {
         <Btn
             variant=""
             className="bg-danger-500 text-white"
-            onClick={() => setCurrentStep(currentStep - 1)}
+            onClick={() => setCurrentStep(currentStep > 1 ? currentStep - 1 : 1)}
             >
             Prev step dev
           </Btn>
           <Btn
             variant=""
             className="bg-danger-500 text-white"
-            onClick={() => setCurrentStep(currentStep + 1)}
+            onClick={() => setCurrentStep(currentStep < 4 ? currentStep + 1 : 4)}
             >
             Next step dev
           </Btn>

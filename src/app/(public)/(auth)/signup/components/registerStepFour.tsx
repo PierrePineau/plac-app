@@ -1,6 +1,5 @@
 "use client";
 import Btn from "@/components/btn";
-import CustomButton from "@/components/custombutton";
 import Field from "@/components/field";
 import { Form } from "@heroui/react";
 import { Check } from "lucide-react";
@@ -8,11 +7,19 @@ import { useState } from "react";
 
 interface StepFourProps {
   onPrevious: () => void;
-  data: { password: string; confirmPassword: string, email: string };
+  data: { password: string; confirmPassword: string, email: string, phone: string, firstName: string, lastName: string };
   updateData: (key: string, value: string) => void;
+  handleRegister: (data: { phone: string; firstName: string; lastName: string; email: string; password: string }) => void;
 }
 
-const RegisterStepFour = ({ onPrevious, data, updateData }: StepFourProps) => {
+const RegisterStepFour = ({
+  onPrevious,
+  data,
+  updateData,
+  handleRegister,
+}: StepFourProps) => {
+
+  const [isLoading, setIsLoading] = useState(false);
   const [password, setPassword] = useState(data.password);
   const [confirmPassword, setConfirmPassword] = useState(data.confirmPassword);
   const errors: { message:string, ok: boolean}[] = [];
@@ -39,15 +46,6 @@ const RegisterStepFour = ({ onPrevious, data, updateData }: StepFourProps) => {
     ok: (password.match(/[0-9]/g) || []).length >= 1,
   });
 
-  const checkErrors = () => {
-    let someErrors = errors.filter((error) => {
-      return !error.ok;
-    });
-    setHaveErrors(someErrors.length > 0);
-
-    console.log("someErrors", someErrors);
-  }
-
   return (
     <>
       <p className="text-neutral-400 text-base sm:text-paragraphMedium mb-4">
@@ -57,8 +55,19 @@ const RegisterStepFour = ({ onPrevious, data, updateData }: StepFourProps) => {
         className="flex flex-col gap-4"
         onSubmit={(e) => {
           e.preventDefault();
-          // onNext();
-          // checkErrors();
+          let someErrors = errors.filter((error) => {
+            return !error.ok;
+          });
+          setHaveErrors(someErrors.length > 0);
+          setIsLoading(true);
+          handleRegister({
+            phone: data.phone,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            password: password,
+          });
+          setIsLoading(false);
         }}
         validationBehavior="native"
         >
@@ -126,6 +135,7 @@ const RegisterStepFour = ({ onPrevious, data, updateData }: StepFourProps) => {
             Précédent
           </Btn>
           <Btn
+            isLoading={isLoading}
             type="submit"
             className="w-full"
             >
