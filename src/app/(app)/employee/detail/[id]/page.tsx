@@ -1,19 +1,19 @@
 "use client";
 
-import NavBar from "@/components/navBar";
-import Header from "@/components/headerpage";
-import CustomButton from "@/components/custombutton";
+import NavBar from "@components/navBar";
+import Header from "@components/headerpage";
+import CustomButton from "@components/custombutton";
 import { FileEdit, Home, Mail, Phone, Trash, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useEmployeStore } from "@/store/user/employeeStore";
-import BubbleText from "@/components/bubbleText";
-import Tabs from "@/components/tabs";
+import BubbleText from "@components/bubbleText";
+import Tabs from "@components/tabs";
 import EndOfSheetsTabComponentGrid from "../tabsComponents/endOfdaySheetsTab";
 import PointagesTabComponentGrid from "../tabsComponents/pointage";
-import Popup from "@/components/popup";
+import Popup from "@components/popup";
 import CreateOrModifyEmployee from "../../components/createOrModifyEmployee";
-import Spinner from "@/components/spinner";
+import Spinner from "@components/spinner";
 
 export default function EmployeeDetail() {
   const router = useRouter();

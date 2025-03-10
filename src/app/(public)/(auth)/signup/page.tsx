@@ -6,7 +6,7 @@ import RegisterStepOne from "../signup/components/registerStepOne";
 import RegisterStepTwo from "../signup/components/registerStepTwo";
 import RegisterStepThree from "../signup/components/registerStepThree";
 import RegisterStepFour from "../signup/components/registerStepFour";
-import Btn from "@/components/btn";
+import Btn from "@components/btn";
 import Link from "next/link";
 import OauthConnect from "../oauth/components/OauthConnect";
 import { useUserStore } from "@/store/user/userStore";

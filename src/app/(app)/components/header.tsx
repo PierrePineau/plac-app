@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Menu, Search, Bell } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";
-import Btn from "@/components/btn";
+import Btn from "@components/btn";
 import { Badge, Dropdown, DropdownMenu, DropdownTrigger, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
 
 // Remplace éventuellement cette SearchBar par ton vrai composant si tu en as un

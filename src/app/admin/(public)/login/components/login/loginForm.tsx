@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import CustomButton from "@/components/custombutton";
+import CustomButton from "@components/custombutton";
 
 interface LoginFormProps {
   connectButton: (email: string, password: string) => void;

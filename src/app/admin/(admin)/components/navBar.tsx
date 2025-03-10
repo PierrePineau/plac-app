@@ -7,7 +7,7 @@ import {
   LogOut,
 } from "lucide-react";
 import Link from "next/link";
-import Aside from "@/components/aside";
+import Aside from "@components/aside";
 
 export default function NavBar() {
   return (

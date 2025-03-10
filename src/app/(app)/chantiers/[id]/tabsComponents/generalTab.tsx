@@ -1,6 +1,6 @@
 "use client";
-import BubbleText from "@/components/bubbleText";
-import ProgressBar from "@/components/progressBar";
+import BubbleText from "@components/bubbleText";
+import ProgressBar from "@components/progressBar";
 import {
   CalendarMinus,
   CalendarPlus,

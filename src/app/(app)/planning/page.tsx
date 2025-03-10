@@ -4,7 +4,7 @@ import CustomButton from "../../../components/custombutton";
 import DayPlanning from "./components/dayPlanning";
 import Tabs from "../../../components/tabs";
 import HeaderPage from "../../../components/headerpage";
-import InConstruction from "@/components/inConstruction";
+import InConstruction from "@components/inConstruction";
 
 export default function PlanningPage() {
   const tabs = [

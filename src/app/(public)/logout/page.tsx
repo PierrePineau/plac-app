@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
-import SplashScreen from "@/components/SplashScreen";
+import SplashScreen from "@components/SplashScreen";
 
 const Logout = () => {
   const router = useRouter();

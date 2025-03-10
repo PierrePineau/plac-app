@@ -1,6 +1,6 @@
 "use client";
-import Btn from "@/components/btn";
-import CustomButton from "@/components/custombutton";
+import Btn from "@components/btn";
+import CustomButton from "@components/custombutton";
 import { InputOtp } from "@heroui/react";
 import { useState } from "react";
 

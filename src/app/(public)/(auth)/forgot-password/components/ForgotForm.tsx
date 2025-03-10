@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import Btn from "@/components/btn";
+import Btn from "@components/btn";
 import { Form } from "@heroui/react";
-import Field from "@/components/field";
+import Field from "@components/field";
 
 const ForgotForm = () => {
   const [email, setEmail] = useState(undefined);

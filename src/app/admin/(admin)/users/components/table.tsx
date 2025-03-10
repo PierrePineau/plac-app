@@ -1,9 +1,9 @@
 "use client";
-import DataTable from "@/components/CustomDataTable";
+import DataTable from "@components/CustomDataTable";
 import { useAdminStore } from "@/store/admin/adminStore";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import Field from "@/components/field";
+import Field from "@components/field";
 import Link from "next/link";
 import { Search } from "lucide-react";
 

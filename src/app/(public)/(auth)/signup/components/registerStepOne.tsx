@@ -1,6 +1,6 @@
-import Btn from "@/components/btn";
-import CustomButton from "@/components/custombutton";
-import Field from "@/components/field";
+import Btn from "@components/btn";
+import CustomButton from "@components/custombutton";
+import Field from "@components/field";
 import {Button, Form, Input} from "@heroui/react";
 import { useState } from "react";
 

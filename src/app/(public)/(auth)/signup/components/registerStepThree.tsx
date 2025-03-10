@@ -1,7 +1,7 @@
 "use client";
-import Btn from "@/components/btn";
-import CustomButton from "@/components/custombutton";
-import Field from "@/components/field";
+import Btn from "@components/btn";
+import CustomButton from "@components/custombutton";
+import Field from "@components/field";
 import { Checkbox, Form } from "@heroui/react";
 import Link from "next/link";
 import { useState } from "react";

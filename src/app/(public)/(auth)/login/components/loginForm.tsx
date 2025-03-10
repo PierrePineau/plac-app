@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import CustomButton from "@/components/custombutton";
-import Btn from "@/components/btn";
+import CustomButton from "@components/custombutton";
+import Btn from "@components/btn";
 import Link from "next/link";
 import { Form } from "@heroui/react";
-import Field from "@/components/field";
+import Field from "@components/field";
 
 interface LoginFormProps {
   registerButton: () => void;

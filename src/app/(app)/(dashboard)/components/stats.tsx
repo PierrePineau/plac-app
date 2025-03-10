@@ -1,5 +1,5 @@
 "use client";
-import BubbleText from "@/components/bubbleText";
+import BubbleText from "@components/bubbleText";
 import { ArrowUpRight, Users } from "lucide-react";
 
 interface StatsProps {

@@ -1,8 +1,8 @@
 "use client";
 
-import DataTable from "@/components/DataTable";
+import DataTable from "@components/DataTable";
 import { format } from "date-fns";
-import Field from "@/components/field";
+import Field from "@components/field";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { useOrganisationStore } from "@/store/admin/organisationStore";

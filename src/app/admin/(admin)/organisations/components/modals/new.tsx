@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef } from 'react';
-import Field from "@/components/field";
-import Modal from '@/components/modal';
+import Field from "@components/field";
+import Modal from '@components/modal';
 import { useOrganisationStore } from '@/store/admin/organisationStore';
 import { useRouter } from 'next/navigation';
 

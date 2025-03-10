@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import Field from "@/components/field";
-import Modal from "@/components/modal";
+import Field from "@components/field";
+import Modal from "@components/modal";
 import { useProjectStore } from "@/store/user/projectStore";
 import { FileEdit, Plus } from "lucide-react";
 import { useClientStore } from "@/store/user/clientStore";

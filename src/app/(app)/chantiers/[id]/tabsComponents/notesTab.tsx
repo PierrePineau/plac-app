@@ -1,15 +1,15 @@
 "use client";
-import BubbleText from "@/components/bubbleText";
-import CustomButton from "@/components/custombutton";
+import BubbleText from "@components/bubbleText";
+import CustomButton from "@components/custombutton";
 import { PlusIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import NoteCard from "../../components/note_component";
-import Popup from "@/components/popup";
+import Popup from "@components/popup";
 import CreateOrModifyNotes from "../../components/createOrModifyNotes";
 import SearchBar from "@/app/(app)/components/searchBar";
 import NewNote from "../../components/modals/newNotes";
 import { useNoteStore } from "@/store/user/noteStore";
-import Btn from "@/components/btn";
+import Btn from "@components/btn";
 
 const NotesGrid: React.FC = () => {
   const [search, setSearch] = useState("");

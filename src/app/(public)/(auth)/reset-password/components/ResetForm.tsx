@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import Btn from "@/components/btn";
+import Btn from "@components/btn";
 import { Alert, Form } from "@heroui/react";
-import Field from "@/components/field";
+import Field from "@components/field";
 import FielsetPassword from "../../components/FielsetPassword";
 
 const ResetForm = () => {

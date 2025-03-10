@@ -13,8 +13,8 @@ import {
   MessageCircle
 } from "lucide-react";
 import Link from "next/link";
-import Aside from "@/components/aside";
-import Btn from "@/components/btn";
+import Aside from "@components/aside";
+import Btn from "@components/btn";
 
 interface NavBarProps {
   isNavOpen: boolean;

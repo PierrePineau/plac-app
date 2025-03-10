@@ -1,15 +1,15 @@
 "use client";
-import CustomButton from "@/components/custombutton";
+import CustomButton from "@components/custombutton";
 import { Home, Mail, Phone, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import BubbleText from "@/components/bubbleText";
-import Tabs from "@/components/tabs";
-import Popup from "@/components/popup";
+import BubbleText from "@components/bubbleText";
+import Tabs from "@components/tabs";
+import Popup from "@components/popup";
 import { useClientStore } from "@/store/user/clientStore";
 import AssociatedYards from "./tabsComponents/associatedYardsTab";
 import NotesTabComponentGrid from "./tabsComponents/notesTabComponents";
-import Spinner from "@/components/spinner";
+import Spinner from "@components/spinner";
 import Modify from "../components/modals/modify";
 
 export default function ClientDetail() {

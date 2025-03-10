@@ -1,9 +1,9 @@
-import BubbleText from "@/components/bubbleText";
-import CustomButton from "@/components/custombutton";
+import BubbleText from "@components/bubbleText";
+import CustomButton from "@components/custombutton";
 import { File, PlusIcon } from "lucide-react";
 import React, { useState } from "react";
-import SearchBar from "@/components/searchBar";
-import Popup from "@/components/popup";
+import SearchBar from "@components/searchBar";
+import Popup from "@components/popup";
 import EndOfSheetCard from "../../components/viewEndOfSheet";
 
 const EndOfSheetsTabComponentGrid: React.FC<{ endOfSheets: EndOfSheet[] }> = ({

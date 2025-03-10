@@ -1,5 +1,5 @@
 "use client";
-import CustomButton from "@/components/custombutton";
+import CustomButton from "@components/custombutton";
 import { Printer } from "lucide-react";
 import GeneralTab from "./tabsComponents/generalTab";
 import DocumentsTab from "./tabsComponents/documentsTab";
@@ -7,10 +7,10 @@ import NotesGrid from "./tabsComponents/notesTab";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useProjectStore } from "@/store/user/projectStore";
-import Tabs from "@/components/tabs";
+import Tabs from "@components/tabs";
 import Modify from "../components/modals/modify";
-import Spinner from "@/components/spinner";
-import Btn from "@/components/btn";
+import Spinner from "@components/spinner";
+import Btn from "@components/btn";
 
 export default function ProjectDetail() {
   const router = useRouter();

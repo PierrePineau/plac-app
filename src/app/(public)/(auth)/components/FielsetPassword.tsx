@@ -1,5 +1,5 @@
 "use client";
-import Field from "@/components/field";
+import Field from "@components/field";
 import { Check } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 

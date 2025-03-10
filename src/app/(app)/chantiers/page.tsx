@@ -5,7 +5,7 @@ import Yard from "../../../components/yard";
 import { useProjectStore } from "@/store/user/projectStore";
 import { useOrganisationStore } from "@/store/user/organisationStore";
 import New from "./components/modals/new";
-import HeaderPage from "@/components/headerpage";
+import HeaderPage from "@components/headerpage";
 
 export default function Chantiers() {
   const { data: projects, fetchData } = useProjectStore();

@@ -1,5 +1,5 @@
 "use client";
-import Btn from "@/components/btn";
+import Btn from "@components/btn";
 import { get } from "@/core/services/api.helper";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";

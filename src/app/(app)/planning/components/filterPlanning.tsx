@@ -1,5 +1,5 @@
 "use client";
-import CustomButton from "@/components/custombutton";
+import CustomButton from "@components/custombutton";
 import {
   Calendar,
   ChevronLeft,

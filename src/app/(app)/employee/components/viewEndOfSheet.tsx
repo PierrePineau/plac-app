@@ -1,10 +1,10 @@
 "use client";
 
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import BubbleText from "@/components/bubbleText";
-import CustomButton from "@/components/custombutton";
+import BubbleText from "@components/bubbleText";
+import CustomButton from "@components/custombutton";
 import { File, MoreHorizontal, Edit, Trash } from "lucide-react";
-import Popup from "@/components/popup";
+import Popup from "@components/popup";
 import { useState } from "react";
 
 type EndOfSheetProps = {

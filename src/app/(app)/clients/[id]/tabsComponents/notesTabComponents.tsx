@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import CustomButton from "@/components/custombutton";
+import CustomButton from "@components/custombutton";
 import { PlusIcon } from "lucide-react";
 import NotesCard from "../../components/viewNotes";
-import Popup from "@/components/popup";
+import Popup from "@components/popup";
 import CreateOrModifyNotes from "@/app/(app)/chantiers/components/createOrModifyNotes";
 import SearchBar from "@/app/(app)/components/searchBar";
 

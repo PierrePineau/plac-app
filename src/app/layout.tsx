@@ -1,4 +1,4 @@
-import SplashScreen from "@/components/SplashScreen";
+import SplashScreen from "@components/SplashScreen";
 import "./globals.scss";
 import localFont from 'next/font/local';
 import { Providers } from "./providers";

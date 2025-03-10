@@ -1,4 +1,4 @@
-import HeaderPage from "@/components/headerpage";
+import HeaderPage from "@components/headerpage";
 import New from "./components/modals/new";
 import Table from "./components/table";
 import { Metadata } from "next";

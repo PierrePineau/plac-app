@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef } from 'react';
-import Btn from "@/components/btn";
-import Field from "@/components/field";
+import Btn from "@components/btn";
+import Field from "@components/field";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/react";
 import { Plus } from "lucide-react";
 import { useLoaderContext } from '@/core/context/LoaderContext';

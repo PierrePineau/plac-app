@@ -1,4 +1,4 @@
-import Field from "@/components/field";
+import Field from "@components/field";
 import { Search } from "lucide-react";
 
 interface SearchBarProps {
