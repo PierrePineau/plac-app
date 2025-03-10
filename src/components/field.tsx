@@ -175,12 +175,12 @@ const Field: React.FC<FieldProps> = ({
         "py-2",
         "w-full",
     ];
+    const [isVisible, setIsVisible] = useState(false);
+    const toggleVisibility = () => {
+        setIsVisible(!isVisible);
+        setType(isVisible ? 'password' : 'text');
+    }
     if (type === 'password') {
-        const [isVisible, setIsVisible] = useState(false);
-        const toggleVisibility = () => {
-            setIsVisible(!isVisible);
-            setType(isVisible ? 'password' : 'text');
-        }
         endContent = (
             <Btn
             isIconOnly

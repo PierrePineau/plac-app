@@ -66,6 +66,10 @@ const OauthConnect = () => {
         if (code && token) {
             getOauthUser(token);
         }
+
+        return () => {
+            setIsLoading(false);
+        }
     }, []);
 
 

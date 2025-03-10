@@ -48,7 +48,7 @@ const FielsetPassword = ({
         onValueChange={setPassword}
         placeholder="********"
         validate={(value:any) => {
-          let someErrors = errors.filter((error) => {
+          const someErrors = errors.filter((error) => {
             return !error.ok;
           });
           // Si l'utilisateur n'a pas rempli le champ

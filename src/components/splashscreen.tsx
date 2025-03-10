@@ -2,7 +2,7 @@
 import {Spinner} from "@heroui/spinner";
 import React, { useEffect, useState } from 'react';
 
-const splashScreen: React.FC = () => {
+const Splashscreen: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -35,4 +35,4 @@ const splashScreen: React.FC = () => {
     );
 };
 
-export default splashScreen;
+export default Splashscreen;

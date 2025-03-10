@@ -51,11 +51,11 @@ export default function Home() {
 
   useEffect(() => {
     fetchProjectData("");
-  }, []);
+  }, [fetchProjectData]);
 
   useEffect(() => {
     fetchClientData("");
-  }, []);
+  }, [fetchClientData]);
 
   const ongoingYards = projectData.filter(
     (project) => project.status?.name === "En cours"

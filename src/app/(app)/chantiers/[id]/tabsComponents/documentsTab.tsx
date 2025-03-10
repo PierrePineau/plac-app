@@ -43,8 +43,8 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
   }
 
 	const handleFilesAdded = (files: Files[]) => {
-		let newImage = files.filter((file) => file.type.includes("MEDIA"));
-		let newFile = files.filter((file) => !file.type.includes("MEDIA"));
+		const newImage = files.filter((file) => file.type.includes("MEDIA"));
+		const newFile = files.filter((file) => !file.type.includes("MEDIA"));
 
 		// On va récupe les fichiers ajoutés et les envoyer au serveur
 		// TODO : Ajouter directement au store ?
@@ -63,21 +63,21 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 	useEffect(() => {
 		setEndpointFiles(`/api/app/organisations/{idOrganisation}/projects/${project.id}/files`);
 		setEndpointMedias(`/api/app/organisations/{idOrganisation}/projects/${project.id}/files`);
-	}, []);
+	}, [setEndpointFiles, setEndpointMedias, project.id]);
 
 	useEffect(() => {
 		setIsLoadingFiles(true);
 		fetchDataFiles({
 			type: "FILE",
 		}).then(() => setIsLoadingFiles(false));
-	}, []);
+	}, [fetchDataFiles]);
 
 	useEffect(() => {
 		setIsLoadingMedias(true);
 		fetchDataMedias({
 			type: "MEDIA",
 		}).then(() => setIsLoadingMedias(false));
-	}, []);
+	}, [fetchDataMedias]);
 
   return (
     <div className="min-h-[500px] p-4 sm:p-8 @container/">

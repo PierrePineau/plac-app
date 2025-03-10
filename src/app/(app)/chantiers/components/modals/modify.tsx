@@ -18,13 +18,13 @@ export default function Modify({ id, title }: ModifyProps) {
     const project = {
       name: data.name as string,
       description: data.description as string,
-      startDate: data.startDate as String,
-      endDate: data.endDate as String,
-      chief: data.chief as String,
+      startDate: data.startDate as string,
+      endDate: data.endDate as string,
+      chief: data.chief as string,
       status: data.status,
-      adress: data.adress as String,
-      postal_code: data.postal_code as String,
-      city: data.city as String
+      adress: data.adress as string,
+      postal_code: data.postal_code as string,
+      city: data.city as string
     };
     // await update(id, project);
   };

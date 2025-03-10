@@ -174,7 +174,7 @@ const CardMedia: React.FC<CardMediaProp> = ({
         >
             <HeroUiCardBody className="overflow-visible p-0">
                 {
-                    path != "" && (
+                    (path != "" && name) && (
                         <Image alt={name} className="w-full object-cover object-center h-[230px]" radius="sm" src={path} width="100%" />
                     )
                 }

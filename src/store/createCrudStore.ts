@@ -15,7 +15,7 @@ interface CrudInterface<T> {
 
 export const createCrudStore = <
   T,
-  ExtraMethods extends Record<string, any> = {}
+  ExtraMethods extends Record<string, any> = Record<string, any>
 >(
   endpoint: string,
   extend?: (set: any, get: any) => ExtraMethods

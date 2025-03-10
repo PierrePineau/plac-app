@@ -74,7 +74,7 @@ const Uploader: React.FC<uppyProps> = ({
 				endpoint: endpoint,
 				fieldName: "file",
 				async onBeforeRequest(xhr) {
-					let token = localStorage.getItem("jwtToken");
+					const token = localStorage.getItem("jwtToken");
 					// if (!token) {
 					//   token = await getAuthToken();
 					// }

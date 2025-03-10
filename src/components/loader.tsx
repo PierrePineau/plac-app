@@ -3,7 +3,7 @@ import { useLoaderContext } from "@/core/context/LoaderContext";
 import {Spinner} from "@heroui/spinner";
 import React from 'react';
 
-const loader: React.FC = () => {
+const Loader: React.FC = () => {
     const { isLoading, canSee } = useLoaderContext();
 
     return (
@@ -13,4 +13,4 @@ const loader: React.FC = () => {
     );
 };
 
-export default loader;
+export default Loader;
