@@ -1,11 +1,11 @@
 "use client";
 import DataTable from "@components/CustomDataTable";
-import { useAdminStore } from "@/store/admin/adminStore";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import Field from "@components/field";
 import Link from "next/link";
 import { Search } from "lucide-react";
+import { useUserStore } from "@/store/admin/userStore";
 
 const columns = [
     {
@@ -36,7 +36,7 @@ const columns = [
 ];
 
 export default function Table() {
-    const { users, fetchUsers } = useAdminStore();
+    const { data: users , fetchData: fetchUsers } = useUserStore()
 
     return (
         <>

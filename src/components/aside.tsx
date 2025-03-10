@@ -24,7 +24,7 @@ import React from 'react';
 
 interface AsideProps {
     isOpen: boolean;
-    onOpenChange: () => void;
+    onOpenChange?: () => void;
     children: React.ReactNode;
 }
 

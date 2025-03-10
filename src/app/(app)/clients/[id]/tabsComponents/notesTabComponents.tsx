@@ -5,7 +5,7 @@ import { PlusIcon } from "lucide-react";
 import NotesCard from "../../components/viewNotes";
 import Popup from "@components/popup";
 import CreateOrModifyNotes from "@/app/(app)/chantiers/components/createOrModifyNotes";
-import SearchBar from "@/app/(app)/components/searchBar";
+// import SearchBar from "@/app/(app)/components/SearchBar";
 
 const NotesTabComponentGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -29,11 +29,11 @@ const NotesTabComponentGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {
     <div className="p-4 sm:p-8 flex flex-col gap-6">
       <div className="flex flex-col sm:flex-row justify-between items-end gap-4">
         <div className="w-full sm:w-1/2">
-          <SearchBar
+          {/* <SearchBar
             label="Rechercher une note"
             placeholder="Rechercher"
             onChange={(e: string) => setSearch(e)}
-          />
+          /> */}
         </div>
         <CustomButton
           text="Ajouter une note"

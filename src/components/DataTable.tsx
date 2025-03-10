@@ -6,7 +6,7 @@ import { useState, useCallback, useEffect } from "react";
 
 interface DataTableProps<T> {
 	children?: React.ReactNode;
-	store: CrudInterface<T>;
+	store: CrudInterface<Organisation> & Record<string, any>;
 	isLoading?: boolean;
 	columns: ColumnDef<T>[];
 	onRowSelectionChange?: (selectedRows: T[]) => void;
@@ -24,7 +24,7 @@ export default function DataTable<T extends object>({ children, store, isLoading
 	const [loading, setLoading] = useState(isLoading);
 	// Le store est utilisé pour les données de la table
 	const { data, fetchData } = store;
-	const [rows, setRows] = useState<T[]>(data);
+	const [rows, setRows] = useState<T[]>(data as T[]);
 
 	const handleRowSelection = useCallback(
 		(rowId: number) => {
@@ -38,7 +38,7 @@ export default function DataTable<T extends object>({ children, store, isLoading
 			setSelectedRows(newSelection);
 			if (onRowSelectionChange) {
 				const selectedData = data.filter((_: any, index: any) => newSelection.has(index));
-				onRowSelectionChange(selectedData);
+				onRowSelectionChange(selectedData as T[]);
 			}
 		},
 		[enableRowSelection, onRowSelectionChange, data, selectedRows]
@@ -52,7 +52,7 @@ export default function DataTable<T extends object>({ children, store, isLoading
 		} else {
 			const allRows = new Set<number>(data.map((_: any, index: any) => index));
 			setSelectedRows(allRows);
-			if (onRowSelectionChange) onRowSelectionChange(data);
+			if (onRowSelectionChange) onRowSelectionChange(data as T[]);
 		}
 	}, [enableRowSelection, selectedRows, data, onRowSelectionChange]);
 
@@ -84,7 +84,7 @@ export default function DataTable<T extends object>({ children, store, isLoading
 
 	useEffect(() => {
 		if (data && data.length > 0) {
-			setRows(data);
+			setRows(data as T[]);
 		} else {
 			loadData();
 		}

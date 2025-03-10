@@ -2,20 +2,20 @@ import BubbleText from "@components/bubbleText";
 import CustomButton from "@components/custombutton";
 import { File, PlusIcon } from "lucide-react";
 import React, { useState } from "react";
-import SearchBar from "@components/searchBar";
+// import SearchBar from "@components/searchBar";
 import Popup from "@components/popup";
-import EndOfSheetCard from "../../components/viewEndOfSheet";
-import DataTable from "../../components/pointageTab";
+import EndOfSheetCard from "../components/viewEndOfSheet";
+import DataTable from "../components/pointageTab";
 
 const formatDate = (date: Date): string => {
   return (
-    date.toLocaleDateString("fr-FR", {
+    date.toLocaleString("fr-FR", {
       day: "2-digit",
       month: "2-digit",
       year: "numeric"
     }) +
     " - " +
-    date.toLocaleTimeString("fr-FR", {
+    date.toLocaleString("fr-FR", {
       hour: "2-digit",
       minute: "2-digit"
     })
@@ -34,7 +34,7 @@ const columns = [
   }
 ];
 
-const PointagesTabComponentGrid: React.FC<{ pointages: Pointage[] }> = ({
+const PointagesTabComponentGrid: React.FC<{ pointages: any[] }> = ({
   pointages
 }) => {
   const [searchDate, setSearchDate] = useState("");

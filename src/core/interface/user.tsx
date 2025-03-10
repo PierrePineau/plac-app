@@ -2,12 +2,18 @@ interface User {
   id: number;
   uuid: string;
   email: string;
-  roles: string;
   deleted?: boolean;
   deletedAt?: Date;
-  enable: boolean;
+  enable?: boolean;
+  firstname: string;
+  lastname: string;
+  phone: string;
   userOrganisations?: Organisation[];
   userPreferences?: Preference[];
+  roles?: string[];
+  avatar?: string;
+  endOfSheets?: any[];
+  pointage?: any[];
 }
 
 interface Preference {

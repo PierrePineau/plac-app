@@ -1,6 +1,6 @@
 "use client";
 import { useAuthStore } from "@/store/useAuthStore";
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 
 export default function Header() {
   const { user } = useAuthStore();

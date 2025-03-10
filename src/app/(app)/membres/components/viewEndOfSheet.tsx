@@ -1,6 +1,5 @@
 "use client";
 
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import BubbleText from "@components/bubbleText";
 import CustomButton from "@components/custombutton";
 import { File, MoreHorizontal, Edit, Trash } from "lucide-react";
@@ -32,12 +31,12 @@ const EndOfSheetCard: React.FC<EndOfSheetProps> = ({
     document.body.style.overflow = "";
   };
 
-  const formattedDate = createdAt.toLocaleDateString("fr-FR", {
+  const formattedDate = createdAt.toLocaleString("fr-FR", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric"
   });
-  const formattedTime = createdAt.toLocaleTimeString("fr-FR", {
+  const formattedTime = createdAt.toLocaleString("fr-FR", {
     hour: "2-digit",
     minute: "2-digit"
   });

@@ -14,7 +14,7 @@ export default function MyCalendar() {
     const title = window.prompt("New Event name");
   };
 
-  const CustomHeader = ({ label }) => (
+  const CustomHeader = ({ label } : any) => (
     <div className="bg-neutral-50 text-neutral-950 border  font-semibold text-center p-2 rounded-lg">
       {label}
     </div>

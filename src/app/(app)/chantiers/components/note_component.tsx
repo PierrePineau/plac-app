@@ -37,12 +37,12 @@ const NoteCard: React.FC<NoteProps> = ({ id, name, content, createdAt }) => {
     // Logique pour supprimer la note
   };
 
-  const formattedDate = createdAt.toLocaleDateString("fr-FR", {
+  const formattedDate = createdAt.toLocaleString("fr-FR", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric"
   });
-  const formattedTime = createdAt.toLocaleTimeString("fr-FR", {
+  const formattedTime = createdAt.toLocaleString("fr-FR", {
     hour: "2-digit",
     minute: "2-digit"
   });

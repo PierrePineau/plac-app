@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import NavBar from "./components/navBar";
-import Header from "./components/header";
+import NavBar from "./components/NavBar";
+import Header from "./components/Header";
 import { Providers } from "./providers";
 import { AuthGuard } from "@/core/context/AuthContext";
 import { useDisclosure } from "@heroui/modal";

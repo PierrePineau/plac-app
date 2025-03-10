@@ -11,7 +11,9 @@ import Aside from "@components/aside";
 
 export default function NavBar() {
   return (
-    <Aside>
+    <Aside
+      isOpen={true}
+    >
         <div className="flex flex-col gap-4">
           <span className="text-xs text-sidebar_title text-neutral-400 uppercase">
             Général

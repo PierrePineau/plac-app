@@ -3,5 +3,5 @@ interface Notif {
   message: string;
   createdAt: Date;
   read: boolean;
-  sender: Employe;
+  sender: User;
 }

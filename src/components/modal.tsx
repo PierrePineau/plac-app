@@ -13,7 +13,7 @@ import { Plus } from "lucide-react";
 
 interface ModalProps {
   basePath?: string;
-  store: any;
+  store?: any;
   children?: React.ReactNode;
   text?: string;
   icon?: React.ReactNode;

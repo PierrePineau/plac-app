@@ -5,8 +5,7 @@ import { format } from "date-fns";
 import Field from "@components/field";
 import Link from "next/link";
 import { Search } from "lucide-react";
-import { useOrganisationStore } from "@/store/user/organisationStore";
-import { useAdminStore } from "@/store/admin/adminStore";
+import { useOrganisationStore } from "@/store/admin/organisationStore";
 
 const columns = [
   {
@@ -33,11 +32,11 @@ const columns = [
 ];
 
 export default function OrganisationTable() {
-  const { organisations, fetchOrganisations } = useAdminStore();
+  const { data, fetchData } = useOrganisationStore();
   return (
     <DataTable
-      fetchData={fetchOrganisations}
-      data={organisations}
+      fetchData={fetchData}
+      data={data}
       columns={columns}
       ellipsisEnabled={false}
       enableSorting={false}

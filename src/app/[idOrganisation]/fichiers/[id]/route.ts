@@ -1,16 +1,15 @@
 import { s3Client } from "@/core/services/s3.service";
 import { NextRequest, NextResponse } from "next/server";
 
-interface Props {
-    params: {
-        idOrganisation: string;
-        id: string;
-    };
-}
+// interface Props {
+//     params: {
+//         idOrganisation: string;
+//         id: string;
+//     };
+// }
 
-export async function GET(req: NextRequest, { params }: Props) {
+export async function GET(_: NextRequest, { params }: { params: Promise<{ idOrganisation: string; id: string }> }) {
     const { idOrganisation, id } = await params;
-    // const idOrg = req.cookies.get("idOrganisation")?.value; // ⚠️ Récupérer idOrganisation via un cookie
 
     if (!id || !idOrganisation) {
         return NextResponse.json({ error: "Missing file ID or organization ID" }, { status: 400 });

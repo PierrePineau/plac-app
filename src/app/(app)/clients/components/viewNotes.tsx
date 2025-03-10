@@ -11,7 +11,7 @@ type NotesProps = {
   id: number;
   name: string;
   content: string;
-  createdAt: Date;
+  createdAt: Date | string;
 };
 
 const NotesCard: React.FC<NotesProps> = ({ id, name, content, createdAt }) => {
@@ -27,12 +27,12 @@ const NotesCard: React.FC<NotesProps> = ({ id, name, content, createdAt }) => {
     document.body.style.overflow = "";
   };
 
-  const formattedDate = createdAt.toLocaleDateString("fr-FR", {
+  const formattedDate = createdAt.toLocaleString("fr-FR", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric"
   });
-  const formattedTime = createdAt.toLocaleTimeString("fr-FR", {
+  const formattedTime = createdAt.toLocaleString("fr-FR", {
     hour: "2-digit",
     minute: "2-digit"
   });

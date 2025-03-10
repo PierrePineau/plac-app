@@ -47,10 +47,10 @@ const items = [
 		href: "/planning"
 	},
 	{
-		key: "employee",
+		key: "members",
 		icon: LinkIcon,
 		label: "Employés",
-		href: "/employee"
+		href: "/membres"
 	},
 	{
 		key: "clients",

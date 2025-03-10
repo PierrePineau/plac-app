@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useClientStore } from "@/store/user/clientStore";
 import DataTable from "../../../components/CustomDataTable";
-import SearchBar from "@/app/admin/(admin)/components/searchBar";
+import SearchBar from "@/app/admin/(admin)/components/SearchBar";
 import New from "./components/modals/new";
 import Popup from "../../../components/popup";
 

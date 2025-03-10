@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Yard from "@components/yard";
-import SearchBar from "@/app/(app)/components/searchBar";
+import SearchBar from "@/app/(app)/components/SearchBar";
 
 const AssociatedYardTabComponentGrid: React.FC<{ yards: Project[] }> = ({
   yards
@@ -17,7 +17,7 @@ const AssociatedYardTabComponentGrid: React.FC<{ yards: Project[] }> = ({
           onChange={(e: string) => setSearch(e)}
         />
       </div>
-      <Yard yards={yards} />
+      {/* <Yard yards={yards} /> */}
     </div>
   );
 };

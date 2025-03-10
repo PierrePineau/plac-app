@@ -3,7 +3,7 @@ import React from "react";
 interface FormModalProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   submitLabel: string;
-  defaultValues?: Employe;
+  defaultValues?: User;
 }
 
 const CreateOrModifyEmployee: React.FC<FormModalProps> = ({

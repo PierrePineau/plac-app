@@ -14,7 +14,7 @@ import { useState, useCallback, useEffect } from "react";
 interface DataTableProps<T> {
   children?: React.ReactNode;
   data: T[];
-  fetchData?: (filters?: any) => Promise<T[]>;
+  fetchData?: (filters: any) => Promise<void>;
   isLoading?: boolean;
   columns: ColumnDef<T>[];
   onRowSelectionChange?: (selectedRows: T[]) => void;
@@ -101,8 +101,8 @@ export default function DataTable<T extends object>({
   const loadData = (filters = {}) => {
     if (!fetchData) return;
     setLoading(true);
-    fetchData(filters).then((newData) => {
-      setRows(newData);
+    fetchData(filters).then(() => {
+      // setRows(newData);
       setLoading(false);
     });
   };

@@ -35,13 +35,13 @@ export default function DataTable<T extends object>({
 
   const formatDate = (date: Date): string => {
     return (
-      date.toLocaleDateString("fr-FR", {
+      date.toLocaleString("fr-FR", {
         day: "2-digit",
         month: "2-digit",
         year: "numeric"
       }) +
       " - " +
-      date.toLocaleTimeString("fr-FR", {
+      date.toLocaleString("fr-FR", {
         hour: "2-digit",
         minute: "2-digit"
       })

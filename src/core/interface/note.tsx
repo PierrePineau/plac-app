@@ -4,8 +4,8 @@ interface Note {
   organisations?: Organisation[];
   name?: string;
   content?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
   deleted?: boolean;
   deletedAt?: Date;
   project: Project;
