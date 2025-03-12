@@ -22,20 +22,20 @@ export default function PlanningPage() {
       <HeaderPage title="Planning">
         {/* <New title={"Ajouter un chantier"} /> */}
         <CustomButton
-              icon={
-                <img
-                  src="/asset/img/googleCalendar.svg"
-                  alt="Google Calendar"
-                  width="25"
-                  height="25"
-                />
-              }
-              text="Synchroniser avec Google Agenda"
-              color="bg-brand-950"
-              textColor="text-white"
-              onClick={() => {}}
-              hover={"bg-brand-1000"}
+          icon={
+            <img
+              src="/asset/img/googleCalendar.svg"
+              alt="Google Calendar"
+              width="25"
+              height="25"
             />
+          }
+          text="Synchroniser avec Google Agenda"
+          color="bg-brand-950"
+          textColor="text-white"
+          onClick={() => {}}
+          hover={"bg-brand-1000"}
+        />
       </HeaderPage>
       <Tabs tabs={tabs} />
     </div>
