@@ -3,7 +3,7 @@ import { useState } from "react";
 import CustomButton from "../../../components/custombutton";
 import DayPlanning from "./components/dayPlanning";
 import Tabs from "../../../components/tabs";
-import HeaderPage from "../../../components/headerpage";
+import HeaderPage from "../../../components/HeaderPage";
 import InConstruction from "@components/inConstruction";
 
 export default function PlanningPage() {

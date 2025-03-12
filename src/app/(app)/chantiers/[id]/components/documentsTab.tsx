@@ -80,12 +80,12 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 	}, [fetchDataMedias]);
 
   return (
-    <div className="min-h-[500px] p-4 sm:p-8 @container/">
+    <div className="min-h-[500px]">
       {/* Section Documents */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-        <h2 className="font-medium text-neutral-950 text-lg sm:text-xl">
+        <h3 className="font-medium text-neutral-950 text-lg">
           Documents
-        </h2>
+        </h3>
         <div className="mt-2 sm:mt-0">
           <Btn variant="" className="text-brand-500 bg-transparent">
             <Download />
@@ -127,9 +127,9 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
       </div>
       {/* Section Médias */}
       <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center mt-6 mb-4">
-        <h2 className="font-medium text-neutral-950 text-lg md:text-xl">
+        <h3 className="font-medium text-neutral-950 text-lg">
           Médias
-        </h2>
+        </h3>
         <div className="">
           <Btn variant="" className="text-brand-500 bg-transparent">
             <Download />Tout Télécharger

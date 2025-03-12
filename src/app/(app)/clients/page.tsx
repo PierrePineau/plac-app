@@ -1,6 +1,6 @@
 import React from "react";
 import New from "./components/modals/new";
-import HeaderPage from "@components/headerpage";
+import HeaderPage from "@components/HeaderPage";
 import Table from "./components/table";
 import { Metadata } from "next";
 

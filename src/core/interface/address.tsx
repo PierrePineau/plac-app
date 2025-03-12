@@ -1,6 +1,5 @@
 interface Address {
-    id: number;
-    uuid: string;
+    id: string | number;
     country: string;
     state: string;
     city: string;

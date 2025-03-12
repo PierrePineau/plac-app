@@ -14,17 +14,17 @@ const HeaderPage: React.FC<HeaderPageProps> = ({
     showBreadcrumb = false
 }) => {
     return (
-        <div className="flex flex-col gap-4">
-            {showBreadcrumb && (
-                <AppBreadcrumbs name={title} />
-            )}
-            <div className="flex justify-between gap-4 flex-wrap">
+        <div className="flex flex-col gap-4 md:flex-row md:justify-between">
+            <div className="flex gap-2 flex-col">
+                {showBreadcrumb && (
+                    <AppBreadcrumbs name={title} />
+                )}
                 <h1 className="text-xl md:text-3xl font-bold">
                     {title}
                 </h1>
-                <div className="flex gap-4 flex-wrap max-w-[350px]">
-                    {children}
-                </div>
+            </div>
+            <div className="flex gap-4 flex-wrap md:max-w-[500px]">
+                {children}
             </div>
         </div>
     );

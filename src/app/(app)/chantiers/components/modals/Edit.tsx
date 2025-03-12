@@ -5,12 +5,11 @@ import Modal from "@components/modal";
 import { useProjectStore } from "@/store/user/projectStore";
 import { FileEdit, Plus } from "lucide-react";
 
-interface ModifyProps {
-  id: string;
-  title: string
+interface EditProps {
+  project: Project;
 }
 
-export default function Modify({ id, title }: ModifyProps) {
+export default function Edit({ project }: EditProps) {
   const { update } = useProjectStore();
 
   const handleSubmit = async (formData: FormData) => {
@@ -33,18 +32,18 @@ export default function Modify({ id, title }: ModifyProps) {
     <Modal
       title="Modifier les informations"
       icon={<FileEdit />}
-      text={title}
+      text={"Modifier les informations"}
       onSubmit={handleSubmit}
       buttonValidationTitle="Modifier"
       store={useProjectStore}>
-      <Field label="Nom du chantier" name="name" required />
-      <Field label="Description" name="description" type="textarea" required />
+      <Field label="Nom du chantier" name="name" isRequired />
+      <Field label="Description" name="description" type="textarea" />
       <div className="flex flex-row gap-4">
-        <Field label="Date de début" name="startDate" type="date" required />
-        <Field label="Date de fin" name="endDate" type="date" required />
+        <Field label="Date de début" name="startDate" type="date" />
+        <Field label="Date de fin" name="endDate" type="date" />
       </div>
       <div className="flex flex-row gap-4">
-        <Field label="Chef de chantier" name="chief" required />
+        <Field label="Chef de chantier" name="chief" />
         <Field
           label="Statut"
           name="status"

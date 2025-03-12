@@ -1,7 +1,7 @@
 "use client";
 import BubbleText from "@components/bubbleText";
 import CustomButton from "@components/custombutton";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, SearchIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import NoteCard from "../../components/note_component";
 import Popup from "@components/popup";
@@ -10,6 +10,7 @@ import SearchBar from "@/app/(app)/components/SearchBar";
 import NewNote from "../../components/modals/newNotes";
 import { useNoteStore } from "@/store/user/noteStore";
 import Btn from "@components/btn";
+import Field from "@components/field";
 
 const NotesGrid: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -39,11 +40,12 @@ const NotesGrid: React.FC = () => {
       <div className="flex flex-col gap-4">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end">
           <div className="w-full sm:w-1/2">
-            <SearchBar
+            <Field
               label="Rechercher une note"
-              placeholder="Rechercher"
-              onChange={(e: string) => setSearch(e)}
-            />
+              name="search"
+              placeholder="Rechercher une note"
+              startContent={<SearchIcon />}
+              />
           </div>
           <div className="mt-2 sm:mt-0">
             <NewNote title="Ajouter une note" />

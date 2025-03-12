@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@components/headerpage";
+import Header from "@components/HeaderPage";
 import CustomButton from "@components/custombutton";
 import { FileEdit, Home, Mail, Phone, Trash, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -13,7 +13,7 @@ import CreateOrModifyEmployee from "../components/createOrModifyEmployee";
 import Spinner from "@components/spinner";
 import { useUserStore } from "@/store/user/userStore";
 import { useLoaderContext } from "@/core/context/LoaderContext";
-import HeaderPage from "@components/headerpage";
+import HeaderPage from "@components/HeaderPage";
 
 export default function EmployeeDetail() {
 	const router = useRouter();

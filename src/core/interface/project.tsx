@@ -3,7 +3,7 @@ interface Project {
   reference?: string;
   name: string;
   description: string;
-  addresses?: Address;
+  addresses?: Address[];
   deleted?: boolean;
   clients?: Client[];
   files?: ProjectFile[];

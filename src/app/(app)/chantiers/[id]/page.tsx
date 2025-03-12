@@ -1,20 +1,23 @@
 "use client";
-import CustomButton from "@components/custombutton";
 import { Printer } from "lucide-react";
-import GeneralTab from "./tabsComponents/generalTab";
-import DocumentsTab from "./tabsComponents/documentsTab";
-import NotesGrid from "./tabsComponents/notesTab";
+import GeneralTab from "./components/generalTab";
+import DocumentsTab from "./components/documentsTab";
+import NotesGrid from "./components/notesTab";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useProjectStore } from "@/store/user/projectStore";
 import Tabs from "@components/tabs";
-import Modify from "../components/modals/modify";
+import Edit from "../components/modals/Edit";
 import Spinner from "@components/spinner";
 import Btn from "@components/btn";
 import { Image } from "@heroui/react";
+import HeaderPage from "@components/HeaderPage";
+
+// export const metadata: Metadata = {
+//   title: "Chantiers",
+// };
 
 export default function ProjectDetail() {
-  const router = useRouter();
   const { id } = useParams();
   const { data, getOneById, fetchData } = useProjectStore();
   const [project, setProject] = useState<Project | null>(null);
@@ -64,31 +67,16 @@ export default function ProjectDetail() {
           <Image alt={project.name} className="w-full object-cover h-48 sm:h-72" width={"100%"} radius="sm" src={path} />
       )}
       <div className="p-4 sm:p-8 flex flex-col gap-8 overflow-auto">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-          <div>
-            <p className="text-xs sm:text-paragraphMedium text-neutral-400">
-              <span className="sm:hidden">Chantiers / {project.name}</span>
-              <span className="hidden sm:inline">
-                Mes chantiers / {project.name}
-              </span>
-            </p>
-            <h1 className="text-xl sm:text-h1Desktop font-bold text-neutral-900">
-              {project.name}
-            </h1>
-          </div>
-          <div className="flex flex-row gap-2 sm:gap-4">
-            <Btn variant="light">
-              <Printer className="text-neutral-950" />
-              <span className="hidden sm:inline">Imprimer</span>
-            </Btn>
-            <div className="sm:hidden">
-              <Modify id={id as string} title={""} />
-            </div>
-            <div className="hidden sm:block">
-              <Modify id={id as string} title={"Modifier le chantier"} />
-            </div>
-          </div>
-        </div>
+        <HeaderPage
+            showBreadcrumb={true}
+          title={project.name}
+          >
+          <Btn variant="light">
+            <Printer className="text-neutral-950" />
+            <span className="hidden sm:inline">Imprimer</span>
+          </Btn>
+          <Edit project={project} />
+        </HeaderPage>
         <Tabs tabs={tabs} />
       </div>
     </div>
