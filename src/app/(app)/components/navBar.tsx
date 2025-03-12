@@ -82,6 +82,13 @@ const items2 = [
 ];
 
 export default function NavBar({ isNavOpen, onCloseNav }: NavBarProps) {
+
+	const closeOnClickMobile = () => {
+		if (isNavOpen && window.innerWidth <= 768) {
+			onCloseNav();
+		}
+	}
+
   return (
     <Aside
 		isOpen={isNavOpen}
@@ -92,7 +99,7 @@ export default function NavBar({ isNavOpen, onCloseNav }: NavBarProps) {
 			<nav className="flex-1 space-y-2">
 				{
 					items.map((item) => (
-						<Link key={item.key} href={item.href} className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
+						<Link key={item.key} href={item.href} onClick={closeOnClickMobile} className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
 							<item.icon className=" text-black w-6 h-6" />
 							{item.label}
 						</Link>
@@ -103,7 +110,7 @@ export default function NavBar({ isNavOpen, onCloseNav }: NavBarProps) {
 			<nav className="flex-1 space-y-2">
 				{
 					items2.map((item) => (
-						<Link key={item.key} href={item.href} className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
+						<Link key={item.key} href={item.href} onClick={closeOnClickMobile} className="flex flex-row gap-3 items-center text-button p-3 text-gray-900 hover:bg-neutral-100 rounded-lg">
 							<item.icon className=" text-black w-6 h-6" />
 							{item.label}
 						</Link>

@@ -18,6 +18,7 @@ interface ModalProps {
   text?: string;
   icon?: React.ReactNode;
   title?: string;
+  subtitle?: string;
   buttonValidationTitle?: string;
   onSubmit: (formData: FormData) => Promise<void>;
 }
@@ -27,6 +28,7 @@ export default function Modal({
   text = "Ajouter",
   icon = <Plus />,
   title = "Ajouter",
+  subtitle,
   buttonValidationTitle = "Ajouter",
   onSubmit
 }: ModalProps) {
@@ -56,7 +58,7 @@ export default function Modal({
         {icon}
         {text}
       </Btn>
-      <HerouiModal isOpen={isOpen} onOpenChange={onOpenChange} radius="sm">
+      <HerouiModal isOpen={isOpen} onOpenChange={onOpenChange} radius="sm" size="xl">
         <ModalContent>
           {(onClose) => (
             <>
@@ -64,7 +66,8 @@ export default function Modal({
                 {title}
               </ModalHeader>
               <ModalBody>
-                <form ref={formRef} onSubmit={handleSubmit}>
+                {subtitle && <p className="text-neutral-400">{subtitle}</p>}
+                <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
                   {children}
                 </form>
               </ModalBody>

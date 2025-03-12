@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-4">
+    <>
       <HeaderPage title="Membres">
         <New />
       </HeaderPage>
       <Table />
-    </div>
+    </>
   );
 }

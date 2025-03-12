@@ -11,12 +11,23 @@ import Tabs from "@components/tabs";
 import Modify from "../components/modals/modify";
 import Spinner from "@components/spinner";
 import Btn from "@components/btn";
+import { Image } from "@heroui/react";
 
 export default function ProjectDetail() {
   const router = useRouter();
   const { id } = useParams();
   const { data, getOneById, fetchData } = useProjectStore();
   const [project, setProject] = useState<Project | null>(null);
+  const [path, setPath] = useState<string>("");
+
+  useEffect(() => {
+    if (project && project.thumbnail) {
+      const idOrg = localStorage.getItem("idOrganisation");
+      setPath(`/${idOrg}/fichiers/${project.thumbnail.url}`);
+    }else {
+      setPath('/asset/img/yard.jpeg');
+    }
+  }, [project]);
 
   useEffect(() => {
     if (id) {
@@ -46,13 +57,12 @@ export default function ProjectDetail() {
     { label: "Bloc notes", content: <NotesGrid /> }
   ];
 
+
   return (
     <div className="bg-white h-full flex flex-col">
-      <img
-        className="w-full object-cover h-48 sm:h-72"
-        src="/asset/img/yard.jpeg"
-        alt={project.name}
-      />
+      { path != "" && (
+          <Image alt={project.name} className="w-full object-cover h-48 sm:h-72" width={"100%"} radius="sm" src={path} />
+      )}
       <div className="p-4 sm:p-8 flex flex-col gap-8 overflow-auto">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
           <div>

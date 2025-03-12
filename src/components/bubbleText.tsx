@@ -13,7 +13,7 @@ const BubbleText: React.FC<BubbleProps> = (bubble) => {
     <div
       className={`flex items-center justify-center rounded-full ${bubble.widthBubble} ${bubble.heightBubble} ${bubble.firstBackground ?? "bg-brand-50"} `}>
       <div
-        className={`flex items-center justify-center rounded-full ${bubble.widthSubBubble} ${bubble.heightSubBubble} ${bubble.secondBackground ?? "bg-brand-200"}`}>
+        className={`flex text-brand-500 items-center justify-center rounded-full ${bubble.widthSubBubble} ${bubble.heightSubBubble} ${bubble.secondBackground ?? "bg-brand-200"}`}>
         {bubble.icon}
       </div>
     </div>

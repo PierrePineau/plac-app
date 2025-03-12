@@ -1,6 +1,5 @@
 interface Project {
-  id?: string | number;
-  uuid?: string;
+  id: string | number;
   reference?: string;
   name: string;
   description: string;
@@ -11,7 +10,10 @@ interface Project {
   status?: Status;
   createAt?: Date;
   updateAt?: Date;
+  startAt?: Date;
+  endAt?: Date;
   tasks?: Task[];
   notes?: Note[];
   organisation?: Organisation;
+  thumbnail?: Files;
 }

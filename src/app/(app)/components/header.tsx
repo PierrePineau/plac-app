@@ -3,15 +3,18 @@ import { useEffect, useState } from "react";
 import { Menu, Search, Bell } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";
 import Btn from "@components/btn";
-import { Badge, Dropdown, DropdownMenu, DropdownTrigger, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
+import { Badge, Button, Dropdown, DropdownMenu, DropdownTrigger, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
+import Tabs from "@components/tabs";
+import Notifications from "./Notifications";
+import Field from "@components/field";
 
 // Remplace éventuellement cette SearchBar par ton vrai composant si tu en as un
 function SearchBarPlaceholder() {
   return (
-    <input
-      type="search"
+    <Field
+      name="search"
       placeholder="Rechercher"
-      className="border border-neutral-300 rounded px-3 py-2 w-full"
+      startContent={<Search />}
     />
   );
 }
@@ -45,19 +48,24 @@ export default function Header({ onToggleNav }: HeaderProps) {
             <Search size={24} className="text-black" />
           </Btn>
         </div>
-        <Popover color="foreground" offset={40} placement={"bottom-end"}>
+        <Popover color="default" offset={16} placement={"bottom-end"} radius="sm">
           <PopoverTrigger>
-            <Badge color="danger" content="" shape="circle">
-                <Btn isIconOnly aria-label="more than 99 notifications" variant="none" className="bg-transparent btn-icon !p-0">
-                    <Bell size={24} className="text-black" />
-                </Btn>
+              <Btn isIconOnly aria-label="more than 99 notifications" variant="none" className="bg-transparent btn-icon !p-0">
+                <Badge color="danger" content="" shape="circle">
+                  <Bell size={24} className="text-black" />
               </Badge>
+            </Btn>
           </PopoverTrigger>
           <PopoverContent>
-          <div className="px-1 py-2">
-            <div className="text-small font-bold">Popover Content</div>
-            <div className="text-tiny">This is the popover content</div>
-          </div>
+            <div className="p-2 flex flex-col gap-2 min-w-48 lg:min-w-96">
+              <h3 className="font-medium text-lg md:text-xl">Notifications</h3>
+              <Tabs
+                tabs={[
+                  { label: "Tout", content: <Notifications /> },
+                  { label: "Archivé", content: <Notifications /> },
+                ]}
+                />
+            </div>
           </PopoverContent>
         </Popover>
         <div className="flex items-center gap-3">

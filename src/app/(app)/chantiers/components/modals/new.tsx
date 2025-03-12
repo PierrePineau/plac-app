@@ -1,35 +1,45 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Field from "@components/field";
 import Modal from "@components/modal";
 import { useProjectStore } from "@/store/user/projectStore";
 import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-interface NewProps {
-  title: string;
-}
-
-export default function New({ title }: NewProps) {
+export default function New() {
+  const router = useRouter();
   const { create } = useProjectStore();
 
   const handleSubmit = async (formData: FormData) => {
     const data = Object.fromEntries(formData.entries());
-    const project = {
+    const project = await create({
       name: data.name as string,
-      description: data.desc as string
-    };
-    await create(project);
+      description: data.description as string,  
+    });
+
+    if (project) {
+        router.push(`/chantiers/${project.id}`);
+    }
   };
 
   return (
     <Modal
-      title="Ajouter un chantier" // Utilisation du titre passé en prop
+      title="Ajouter un chantier"
+      subtitle="Renseignez les informations sur votre chantier (modifiables par la suite)"
       icon={<Plus />}
-      text={title}
+      text={"Ajouter un chantier"}
       onSubmit={handleSubmit}
       store={useProjectStore}>
-      <Field label="Nom" name="name" required />
-      <Field label="Description" name="desc" required />
+      <Field
+        label="Nom du chantier"
+        name="name"
+        isRequired
+      />
+      <Field
+        label="Description"
+        type="textarea"
+        name="description"
+      />
     </Modal>
   );
 }

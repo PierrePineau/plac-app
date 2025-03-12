@@ -8,73 +8,32 @@ import ProgressBar from "../../../components/progressBar";
 import { useProjectStore } from "@/store/user/projectStore";
 import { useClientStore } from "@/store/user/clientStore";
 import { useAuthStore } from "@/store/useAuthStore";
-
-type TableData = {
-  user: string;
-  number: string;
-  date: string;
-  content?: string;
-  status?: string;
-};
-
-const columns = [
-  {
-    accessorKey: "name",
-    header: "Utilisateurs",
-    cell: (info: any) => {
-      const { firstname, lastname, email } = info.row.original;
-      return (
-        <div className="flex items-center space-x-2">
-          <img
-            className="w-auto h-8 rounded-full"
-            src="/asset/img/avatar.svg"
-            alt="Avatar"
-          />
-          <div className="flex flex-col">
-            <p className="text-paragraphBold text-neutral-950">
-              {firstname} {lastname}
-            </p>
-            <p className="text-gray-500">{email}</p>
-          </div>
-        </div>
-      );
-    }
-  }
-];
+import { ArrowUpRight, Blocks, CalendarClock, Users } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
-  const router = useRouter();
   const { data: projectData, fetchData: fetchProjectData } = useProjectStore();
   const { data: clientData, fetchData: fetchClientData } = useClientStore();
-  const [search, setSearch] = useState("");
   const { user } = useAuthStore();
 
   useEffect(() => {
     fetchProjectData("");
-  }, [fetchProjectData]);
+  }, []);
 
   useEffect(() => {
     fetchClientData("");
-  }, [fetchClientData]);
+  }, []);
 
   const ongoingYards = projectData.filter(
-    (project) => project.status?.name === "En cours"
+    (project) => project.status?.code === "EN_COURS"
   );
   const futureYards = projectData.filter(
-    (project) => project.status?.name === "En cours"
+    (project) => project.status?.code === "A_FAIRE"
   );
 
-  const handleEmployeeClick = (employeeId: number) => {
-    router.push(`/employee/detail/${employeeId}`);
-  };
-
-  const handleYardClick = (yardId: number) => {
-    router.push(`/yard/detail/${yardId}`);
-  };
-
   return (
-    <div className="flex flex-col bg-white overflow-auto p-4 sm:p-8 gap-4 sm:gap-8">
-      <div className="flex flex-col">
+    <>
+      <div className="flex flex-col gap-4">
         <p className="text-2xl sm:text-h1Desktop text-neutral-950">
           Bonjour { user?.fullname },
         </p>
@@ -83,24 +42,24 @@ export default function Home() {
           imperdiet congue lectus.
         </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8">
         <Stats
-          title="Total d'utilisateur"
+          icon={ <Users /> }
+          title="Nombre de clients"
           value={clientData.length}
-          redirectText="???"
-          onClick={() => {}}
+          link={ <Link href={"/clients"} className="text-brand-500 inline-flex gap-2"><ArrowUpRight/>Voir mes clients</Link>}
         />
         <Stats
+          icon={ <Blocks /> }
           title="Nombre de chantiers en cours"
           value={ongoingYards.length}
-          redirectText="Voir mes chantiers en cours"
-          onClick={() => router.push("/yards")}
+          link={ <Link href={"/chantiers"} className="text-brand-500 inline-flex gap-2"><ArrowUpRight/>Voir mes chantiers en cours</Link>}
         />
         <Stats
+          icon={ <CalendarClock /> }
           title="Nombre de chantiers à venir"
           value={futureYards.length}
-          redirectText="Voir mes chantiers à venir"
-          onClick={() => router.push("/yards")}
+          link={ <Link href={"/chantiers"} className="text-brand-500 inline-flex gap-2"><ArrowUpRight/>Voir mes chantiers à venir</Link>}
         />
       </div>
       <div className="flex flex-col gap-2">
@@ -109,6 +68,6 @@ export default function Home() {
         </p>
         {/* DataTable à intégrer si besoin */}
       </div>
-    </div>
+    </>
   );
 }

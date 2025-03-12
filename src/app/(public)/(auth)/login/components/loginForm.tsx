@@ -5,6 +5,7 @@ import Btn from "@components/btn";
 import Link from "next/link";
 import { Form } from "@heroui/react";
 import Field from "@components/field";
+import { Search } from "lucide-react";
 
 interface LoginFormProps {
   registerButton: () => void;

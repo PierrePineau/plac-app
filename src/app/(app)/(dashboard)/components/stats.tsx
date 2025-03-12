@@ -3,22 +3,22 @@ import BubbleText from "@components/bubbleText";
 import { ArrowUpRight, Users } from "lucide-react";
 
 interface StatsProps {
+  icon: React.ReactNode;
   title: string;
   value: number;
-  redirectText: string;
-  onClick: () => void;
+  link: React.ReactNode;
 }
 
 export default function Stats({
+  icon,
   title,
   value,
-  redirectText,
-  onClick
+  link,
 }: StatsProps): JSX.Element {
   return (
     <div className="flex flex-col gap-4 sm:gap-6 border rounded-lg p-4 sm:p-6">
       <BubbleText
-        icon={<Users className="text-neutral-950" />}
+        icon={ icon }
         widthBubble="w-16 sm:w-20"
         heightBubble="h-16 sm:h-20"
         widthSubBubble="w-12 sm:w-16"
@@ -31,14 +31,7 @@ export default function Stats({
         <p className="text-neutral-950 font-bold text-xl sm:text-stat">
           {value}
         </p>
-        <button onClick={onClick}>
-          <div className="flex flex-row gap-1 sm:gap-2 items-center">
-            <ArrowUpRight className="text-brand-500" />
-            <p className="text-brand-500 text-sm sm:text-paragraphMedium">
-              {redirectText}
-            </p>
-          </div>
-        </button>
+        {link}
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ interface Client {
   lastname?: string;
   email?: string;
   // adresses: string;
+  createdAt?: Date;
+  updatedAt?: Date;
   deleted?: boolean;
   deletedAt?: Date;
 }

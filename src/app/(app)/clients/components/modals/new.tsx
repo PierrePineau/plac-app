@@ -2,7 +2,6 @@
 import React from "react";
 import Field from "@components/field";
 import Modal from "@components/modal";
-import { useProjectStore } from "@/store/user/projectStore";
 import { Plus } from "lucide-react";
 import { useClientStore } from "@/store/user/clientStore";
 

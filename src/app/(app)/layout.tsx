@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import NavBar from "./components/NavBar";
 import Header from "./components/Header";
 import { Providers } from "./providers";
@@ -22,7 +21,7 @@ export default function RootLayout({
             <div className="sticky top-0 bg-white z-10 border-b border-neutral-200">
               <Header onToggleNav={onOpen} />
             </div>
-            <main className="@container flex flex-col bg-white overflow-auto p-8 gap-8">
+            <main className="@container flex flex-col bg-white overflow-auto p-4 lg:p-8 gap-8">
               {children}
             </main>
           </div>

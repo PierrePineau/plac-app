@@ -59,7 +59,7 @@ const Aside: React.FC<AsideProps> = ({
                     isOpen={isOpen}
                     placement={"left"}
                     onOpenChange={onOpenChange}
-                    size={"md"}
+                    size={"xs"}
                     className=""
                     radius="none"
                 >

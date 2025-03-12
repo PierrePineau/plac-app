@@ -1,6 +1,6 @@
 "use client";
-import { Input } from '@heroui/react';
-import React, { useState } from 'react';
+import { Input, Textarea } from '@heroui/react';
+import React, { use, useEffect, useState } from 'react';
 import Btn from './btn';
 import { Eye, EyeClosed } from 'lucide-react';
 
@@ -12,7 +12,6 @@ interface FieldProps {
   className?: string;
   containerClassName?: string;
   unit?: string;
-  value?: string;
   startContent?: React.ReactNode;
   endContent?: React.ReactNode;
   [key: string]: any; // Pour les attributs supplémentaires
@@ -151,7 +150,6 @@ const Field: React.FC<FieldProps> = ({
     label = null,
     className = '',
     containerClassName = '',
-    value = '',
     endContent = null,
     startContent = null,
     placeholder = ' ',
@@ -175,17 +173,23 @@ const Field: React.FC<FieldProps> = ({
         "py-2",
         "w-full",
     ];
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
         setType(isVisible ? 'password' : 'text');
     }
+    useEffect(() => {
+        setType(type);
+        if (type === 'password') {
+            setIsVisible(false);
+        }
+    }, []);
     if (type === 'password') {
         endContent = (
             <Btn
             isIconOnly
             variant="none"
-            className="btn-icon bg-transparent focus:outline-none" onClick={toggleVisibility}>
+            className="btn-icon bg-transparent focus:outline-none !p-0" onClick={toggleVisibility}>
             {isVisible ? (
                 <Eye className="text-neutral-400" width={18} />
             ) : (
@@ -197,7 +201,7 @@ const Field: React.FC<FieldProps> = ({
 
     if (endContent) {
         endContent = (
-            <div className="absolute right-0 flex items-center h-full">
+            <div className="absolute right-2 flex items-center h-full text-neutral-300">
                 {endContent}
             </div>
         );
@@ -209,47 +213,85 @@ const Field: React.FC<FieldProps> = ({
 
     if (startContent) {
         startContent = (
-            <div className="absolute left-0 flex items-center h-full">
+            <div className="absolute left-2 flex items-center h-full text-neutral-300">
                 {startContent}
             </div>
         );
 
         classInput.push('pl-10');
+        classInput.push('data-[has-start-content=true]:ps-10');
         // On retire la classe pl-4 pour éviter le conflit
         classInput.splice(classInput.indexOf('pl-4'), 1);
     }
+    
+    if (type === 'textarea') {
+        return (
+            <Textarea
+                className={`field ${className}`}
+                variant="bordered"
+                radius={"sm"}
+                startContent= {startContent ?? null}
+                endContent={endContent ?? null}
+                type={typeInput}
+                name={name ?? ''}
+                label={label ?? ''}
+                placeholder={placeholder ?? ' '}
+                labelPlacement={'outside'}
+                minRows={6}
+                classNames={{
+                    label: [
+                        "field__label",
+                        "font-normal",
+                    ],
+                    input: classInput,
+                    innerWrapper: "bg-transparent",
+                    inputWrapper: [
+                        "field__wrapper",
+                        "shadow-sm",
+                        "p-0",
+                        "min-h-unset",
+                        "h-unset",
+                        `${containerClassName}`,
+                    ],
+                }}
+                {...attributes}
+            />
+        );
+    }else{
+        return (
+            <Input
+                className={`field ${className}`}
+                variant="bordered"
+                radius={"sm"}
+                startContent= {startContent ?? null}
+                endContent={endContent ?? null}
+                type={typeInput}
+                name={name ?? ''}
+                label={label ?? ''}
+                placeholder={placeholder ?? ' '}
+                labelPlacement={'outside'}
+                classNames={{
+                    label: [
+                        "field__label",
+                        "font-normal",
+                    ],
+                    input: classInput,
+                    innerWrapper: "bg-transparent",
+                    inputWrapper: [
+                        "field__wrapper",
+                        "shadow-sm",
+                        "p-0",
+                        "min-h-unset",
+                        "h-unset",
+                        `${containerClassName}`,
+                    ],
+                }}
+                {...attributes}
+            />
+        );
+    }
 
-    return (
-        <Input
-            className={`field ${className}`}
-            variant="bordered"
-            radius={"sm"}
-            startContent= {startContent ?? null}
-            endContent={endContent ?? null}
-            type={typeInput}
-            name={name ?? ''}
-            label={label ?? ''}
-            placeholder={placeholder ?? ' '}
-            labelPlacement={'outside'}
-            value={value ?? ''}
-            classNames={{
-                label: [
-                    "field__label",
-                ],
-                input: classInput,
-                innerWrapper: "bg-transparent",
-                inputWrapper: [
-                    "field__wrapper",
-                    "shadow-sm",
-                    "p-0",
-                    "min-h-unset",
-                    "h-unset",
-                    `${containerClassName}`,
-                ],
-            }}
-            {...attributes}
-        />
-    );
+    
 };
 
 export default Field;
