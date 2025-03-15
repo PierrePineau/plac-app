@@ -1,17 +1,17 @@
 "use client";
 import { Printer } from "lucide-react";
-import GeneralTab from "./components/GeneralTab";
-import DocumentsTab from "./components/DocumentsTab";
-import NotesGrid from "./components/NotesTab";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useProjectStore } from "@/store/user/projectStore";
 import Tabs from "@components/Tabs";
+import Btn from "@components/btn";
 import Edit from "../components/modals/Edit";
 import Spinner from "@components/Spinner";
-import Btn from "@components/btn";
 import { Image } from "@heroui/react";
 import HeaderPage from "@components/HeaderPage";
+import GeneralTab from "./components/GeneralTab";
+import DocumentsTab from "./components/DocumentsTab";
+import NotesGrid from "./components/NotesTab";
 
 // export const metadata: Metadata = {
 //   title: "Chantiers",

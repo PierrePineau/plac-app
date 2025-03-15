@@ -173,4 +173,5 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
   );
 };
 
+
 export default GeneralTab;
