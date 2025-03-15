@@ -97,42 +97,19 @@ export const useAuthStore = create<AuthState>()(
         set({ user: null, isAuthenticated: false });
       },
       _setUser: (data: AuthResponse) => {
-        // Si l'utilisateur n'est pas défini, on retourne false
-        try {
-          if (!data.user) return false;
-        
-          const user = {
-            uuidUser: data.user.id ?? null,
-            uuidOrganisation: data.organisation ? data.organisation.uuid ?? data.organisation.id : null,
-            email: data.user.email,
-            roles: data.user.roles,
-            fullname: data.user.fullname ?? '',
-          };
-          
-          // Si l'utilisateur n'a pas d'organisation et n'est pas super admin, on retourne false
-          if (!data.organisation && !user.roles.includes("ROLE_SUPER_ADMIN")) return false;
-          
-          localStorage.setItem("idOrganisation", user.uuidOrganisation);
-          localStorage.setItem("idUser", user.uuidUser);
-
-          set({ 
-            user: user,
-            isAuthenticated: true
-          });
-
-          return true;
-        } catch (error) {
-          console.log("error", error);
-          return false;
-        }
-        
+        if (!data.user || !data.organisation) return false;
+        const user = {
+          uuidUser: data.user.id,
+          uuidOrganisation: data.organisation.id ?? data.organisation.uuid,
+          email: data.user.email,
+          roles: data.user.roles,
+          fullname: data.user.fullname
+        };
+        set({ user: user, isAuthenticated: true });
+        return true;
       },
       _clearAuth: () => {
         set({ isAuthenticated: false, user: null });
-
-        localStorage.removeItem("jwtToken");
-        localStorage.removeItem("idOrganisation");
-        localStorage.removeItem("idUser");
         return false;
       }
     }),
