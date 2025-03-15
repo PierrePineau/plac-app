@@ -120,7 +120,7 @@ export const useAuthStore = create<AuthState>()(
         
         const user = {
           uuidUser: data.user.id,
-          uuidOrganisation: data.organisation.uuid,
+          uuidOrganisation: data.organisation.id ?? data.organisation.uuid,
           email: data.user.email,
           roles: data.user.roles,
           fullname: data.user.fullname,
