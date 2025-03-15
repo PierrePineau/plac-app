@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Alert } from "@heroui/alert";
-import Btn from "@components/btn";
+import Btn from "@/components/Btn";
 
 const Reset = () => {
   const router = useRouter();

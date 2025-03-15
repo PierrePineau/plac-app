@@ -2,7 +2,7 @@
 import { AuthGuard } from "@/core/context/AuthContext";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
-import { Providers } from "./providers";
+import { Providers } from "./Providers";
 
 // export const metadata = {
 //   title: 'Plac',
@@ -25,7 +25,7 @@ export default function RootLayout({
               <div className="top-0 bg-white z-10 border-b border-neutral-200">
                 <Header />
               </div>
-              <main className="@container flex flex-col bg-white overflow-auto p-8 gap-8">
+              <main className="@container flex flex-col bg-white overflow-auto p-4 lg:p-8 gap-8">
                 {children}
               </main>
             </div>

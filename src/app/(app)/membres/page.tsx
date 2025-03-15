@@ -1,6 +1,6 @@
-import HeaderPage from "@components/headerpage";
-import New from "./components/modals/new";
-import Table from "./components/table";
+import HeaderPage from "@/components/HeaderPage";
+import New from "./components/modals/New";
+import Table from "./components/Table";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-4">
+    <>
       <HeaderPage title="Membres">
         <New />
       </HeaderPage>
       <Table />
-    </div>
+    </>
   );
 }

@@ -63,8 +63,6 @@ export const createCrudStore = <
       try {
         ep = get().getEndpoint();
         const response = await post<ResponseApi>(ep, item);
-        console.log(response);
-        console.log("lorem");
         if (response.success) {
           const newData = response.data as T;
           console.log(newData);

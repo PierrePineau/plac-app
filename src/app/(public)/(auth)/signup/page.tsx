@@ -2,11 +2,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
-import RegisterStepOne from "../signup/components/registerStepOne";
-import RegisterStepTwo from "../signup/components/registerStepTwo";
-import RegisterStepThree from "../signup/components/registerStepThree";
-import RegisterStepFour from "../signup/components/registerStepFour";
-import Btn from "@components/btn";
+import RegisterStepOne from "./components/RegisterStepOne";
+import RegisterStepTwo from "./components/RegisterStepTwo";
+import RegisterStepThree from "./components/RegisterStepThree";
+import RegisterStepFour from "./components/RegisterStepFour";
+import Btn from "@/components/Btn";
 import Link from "next/link";
 import OauthConnect from "../oauth/components/OauthConnect";
 import { useUserStore } from "@/store/user/userStore";
@@ -115,7 +115,7 @@ const SignUp = () => {
             Se connecter
           </Link>
         </div>
-        <div className="flex gap-4 justify-center w-full mt-4">
+        <div className="gap-4 justify-center w-full mt-4 hidden">
         <Btn
             variant=""
             className="bg-danger-500 text-white"

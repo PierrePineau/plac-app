@@ -1,5 +1,5 @@
 "use client";
-import HeaderPage from "@components/headerpage";
+import HeaderPage from "@/components/HeaderPage";
 import { useLoaderContext } from "@/core/context/LoaderContext";
 import { get } from "@/core/services/api.helper";
 import { useParams, useRouter } from "next/navigation";

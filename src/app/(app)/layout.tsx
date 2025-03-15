@@ -1,8 +1,7 @@
 "use client";
-import { useState } from "react";
 import NavBar from "./components/NavBar";
 import Header from "./components/Header";
-import { Providers } from "./providers";
+import { Providers } from "./Providers";
 import { AuthGuard } from "@/core/context/AuthContext";
 import { useDisclosure } from "@heroui/modal";
 
@@ -22,7 +21,7 @@ export default function RootLayout({
             <div className="sticky top-0 bg-white z-10 border-b border-neutral-200">
               <Header onToggleNav={onOpen} />
             </div>
-            <main className="@container flex flex-col bg-white overflow-auto p-8 gap-8">
+            <main className="@container flex flex-col bg-white overflow-auto p-4 lg:p-8 gap-4">
               {children}
             </main>
           </div>

@@ -1,29 +1,20 @@
-"use client";
-import { useEffect, useState } from "react";
-import { PlusIcon } from "lucide-react";
-import Yard from "../../../components/yard";
-import { useProjectStore } from "@/store/user/projectStore";
-import { useOrganisationStore } from "@/store/user/organisationStore";
-import New from "./components/modals/new";
-import HeaderPage from "@components/headerpage";
+import HeaderPage from "@/components/HeaderPage";
+import New from "./components/modals/New";
+import { Metadata } from "next";
+import Table from "./components/Table";
 
-export default function Chantiers() {
-  const { data: projects, fetchData } = useProjectStore();
-  const { data: organisation } = useOrganisationStore();
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+export const metadata: Metadata = {
+  title: "Chantiers",
+};
 
-  useEffect(() => {
-    if (organisation) {
-      fetchData("");
-    }
-  }, [organisation, fetchData]);
-
+export default function Page() {
   return (
-    <div className="flex flex-col gap-4">
-      <HeaderPage title="Mes chantiers">
-        <New title={"Ajouter un chantier"} />
+    <>
+      <HeaderPage title="Chantiers">
+        <New />
       </HeaderPage>
-      <Yard projects={projects} />
-    </div>
+      <Table />
+    </>
   );
 }
+
