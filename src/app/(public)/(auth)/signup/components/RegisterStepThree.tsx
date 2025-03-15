@@ -40,7 +40,7 @@ const RegisterStepThree = ({
         }}
         validationBehavior="native"
         >
-        <div className="flex gap-4">
+        <div className="flex gap-4 w-full">
           <Field
             isRequired
             label="Nom"
