@@ -2,7 +2,7 @@
 import { AuthGuard } from "@/core/context/AuthContext";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
-import { Providers } from "./providers";
+import { Providers } from "./Providers";
 
 // export const metadata = {
 //   title: 'Plac',

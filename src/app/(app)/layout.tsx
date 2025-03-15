@@ -1,7 +1,7 @@
 "use client";
 import NavBar from "./components/NavBar";
 import Header from "./components/Header";
-import { Providers } from "./providers";
+import { Providers } from "./Providers";
 import { AuthGuard } from "@/core/context/AuthContext";
 import { useDisclosure } from "@heroui/modal";
 
