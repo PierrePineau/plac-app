@@ -126,7 +126,10 @@ export const useAuthStore = create<AuthState>()(
           fullname: data.user.fullname,
         };
 
-        console.log("user", user);
+        localStorage.setItem("idOrganisation", user.uuidOrganisation);
+        localStorage.setItem("idUser", user.uuidUser);
+
+        // console.log("user", user);
 
         set({ 
           user: user,
