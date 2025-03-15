@@ -19,7 +19,7 @@
       }
     ],
     "paths": {
-      "@components/*": ["./src/components/*"],
+      "@components/*": ["src/components2/*"],
       "@/*": ["./src/*"]
     }
   },
@@ -28,7 +28,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components"
+    "src/components2"
   ],
   "exclude": ["node_modules"]
 }
