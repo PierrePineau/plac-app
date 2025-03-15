@@ -20,7 +20,7 @@ interface ProjectProps {
   project: Project;
 }
 
-const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
+const General: React.FC<ProjectProps> = ({ project }) => {
   return (
     <div className="flex flex-col gap-4">
       {/* Description & Statut */}
@@ -174,4 +174,4 @@ const GeneralTab: React.FC<ProjectProps> = ({ project }) => {
 };
 
 
-export default GeneralTab;
+export default General;

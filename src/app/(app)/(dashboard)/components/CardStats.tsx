@@ -9,7 +9,7 @@ interface StatsProps {
   link: React.ReactNode;
 }
 
-export default function Stats({
+export default function CardStats({
   icon,
   title,
   value,

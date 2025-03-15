@@ -1,15 +1,15 @@
 "use client";
 import { PlusIcon, SearchIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import NoteCard from "../../components/NoteCard";
+import NoteCard from "../../../components/NoteCard";
 import Popup from "@components/Popup";
-import CreateOrModifyNotes from "../../components/CreateOrModifyNotes";
-import NewNote from "../../components/modals/newNotes";
+import CreateOrModifyNotes from "../../../components/CreateOrModifyNotes";
+import NewNote from "../../../components/modals/newNotes";
 import { useNoteStore } from "@/store/user/noteStore";
 import Btn from "@components/btn";
 import Field from "@components/field";
 
-const NotesGrid: React.FC = () => {
+const Notes: React.FC = () => {
   const [search, setSearch] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { fetchData, data } = useNoteStore();
@@ -80,4 +80,4 @@ const NotesGrid: React.FC = () => {
   );
 };
 
-export default NotesGrid;
+export default Notes;

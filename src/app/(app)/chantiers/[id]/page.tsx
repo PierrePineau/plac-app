@@ -9,9 +9,12 @@ import Edit from "../components/modals/Edit";
 import Spinner from "@components/Spinner";
 import { Image } from "@heroui/react";
 import HeaderPage from "@components/HeaderPage";
-import GeneralTab from "./components/GeneralTab";
-import DocumentsTab from "./components/DocumentsTab";
-import NotesGrid from "./components/NotesTab";
+import General from "./components/tabs/General";
+import Documents from "./components/tabs/Documents";
+import Notes from "./components/tabs/Notes";
+// import GeneralTab from "./components/GeneralTab";
+// import DocumentsTab from "./components/DocumentsTab";
+// import NotesGrid from "./components/NotesTab";
 
 // export const metadata: Metadata = {
 //   title: "Chantiers",
@@ -52,12 +55,12 @@ export default function ProjectDetail() {
   }
 
   const tabs = [
-    { label: "Général", content: <GeneralTab project={project} /> },
+    { label: "Général", content: <General project={project} /> },
     {
       label: "Documents & Médias",
-      content: <DocumentsTab project={project} />
+      content: <Documents project={project} />
     },
-    { label: "Bloc notes", content: <NotesGrid /> }
+    { label: "Bloc notes", content: <Notes /> }
   ];
 
 

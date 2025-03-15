@@ -1,15 +1,11 @@
 "use client";
-import Dropdown from "../../../components/customDropdown";
-import DataTable from "../../../components/DataTable";
-import Stats from "./components/Stats";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import ProgressBar from "../../../components/ProgressBar";
 import { useProjectStore } from "@/store/user/projectStore";
 import { useClientStore } from "@/store/user/clientStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import { ArrowUpRight, Blocks, CalendarClock, Users } from "lucide-react";
 import Link from "next/link";
+import CardStats from "./components/CardStats";
 
 export default function Home() {
   const { data: projectData, fetchData: fetchProjectData } = useProjectStore();
@@ -43,19 +39,19 @@ export default function Home() {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8">
-        <Stats
+        <CardStats
           icon={ <Users /> }
           title="Nombre de clients"
           value={clientData.length}
           link={ <Link href={"/clients"} className="text-brand-500 inline-flex gap-2"><ArrowUpRight/>Voir mes clients</Link>}
         />
-        <Stats
+        <CardStats
           icon={ <Blocks /> }
           title="Nombre de chantiers en cours"
           value={ongoingYards.length}
           link={ <Link href={"/chantiers"} className="text-brand-500 inline-flex gap-2"><ArrowUpRight/>Voir mes chantiers en cours</Link>}
         />
-        <Stats
+        <CardStats
           icon={ <CalendarClock /> }
           title="Nombre de chantiers à venir"
           value={futureYards.length}

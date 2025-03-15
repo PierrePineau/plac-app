@@ -1,8 +1,8 @@
 "use client";
-import CustomButton from "@components/custombutton";
+// import CustomButton from "@components/custombutton";
 import { Download } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import FileCard from "../../components/FileCard";
+// import FileCard from "../../components/FileCard";
 import Uploader from "@components/Uploader";
 import { useFileStore, useMediaStore, useProjectFileStore, useProjectMediaStore } from "@/store/user/fileStore";
 import Spinner from "@components/Spinner";
@@ -13,7 +13,7 @@ interface ProjectProps {
   project: Project;
 }
 
-const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
+const Documents: React.FC<ProjectProps> = ({ project }) => {
   const [isLoadingFiles, setIsLoadingFiles] = useState(false);
   const [isLoadingMedias, setIsLoadingMedias] = useState(false);
   const { data: dataFiles, fetchData: fetchDataFiles, setEndpoint: setEndpointFiles } = useProjectFileStore();
@@ -174,4 +174,4 @@ const DocumentsTab: React.FC<ProjectProps> = ({ project }) => {
 };
 
 
-export default DocumentsTab;
+export default Documents;
