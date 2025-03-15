@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import Loader from "@components/Loader";
+import Loader from "@/components2/Loader";
 
 interface LoaderContextProps {
 	isLoading: boolean;
