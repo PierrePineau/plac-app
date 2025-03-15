@@ -105,7 +105,21 @@ export const useAuthStore = create<AuthState>()(
           roles: data.user.roles,
           fullname: data.user.fullname
         };
+<<<<<<< HEAD
         set({ user: user, isAuthenticated: true });
+=======
+
+        localStorage.setItem("idOrganisation", user.uuidOrganisation);
+        localStorage.setItem("idUser", user.uuidUser);
+
+        // console.log("user", user);
+
+        set({ 
+          user: user,
+          isAuthenticated: true
+        });
+
+>>>>>>> 64be114 (set local)
         return true;
       },
       _clearAuth: () => {
