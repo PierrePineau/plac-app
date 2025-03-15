@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import FilterPlanning from "./filterPlanning";
-import ScheduleTable from "./schedulePlanning";
+import FilterPlanning from "./FilterPlanning";
+import ScheduleTable from "./SchedulePlanning";
 
 export default function DayPlanning() {
   return (

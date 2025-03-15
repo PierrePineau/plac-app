@@ -7,7 +7,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 moment.locale("fr");
 const localizer = momentLocalizer(moment);
 
-export default function MyCalendar() {
+export default function SchedulePlanning() {
   const [currentView, setCurrentView] = useState<View>(Views.MONTH);
 
   const handleSelect = () => {

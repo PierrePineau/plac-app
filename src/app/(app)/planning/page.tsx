@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
 import CustomButton from "../../../components/custombutton";
-import DayPlanning from "./components/dayPlanning";
-import Tabs from "../../../components/tabs";
+import DayPlanning from "./components/DayPlanning";
+import Tabs from "../../../components/Tabs";
 import HeaderPage from "../../../components/HeaderPage";
-import InConstruction from "@components/inConstruction";
+import InConstruction from "@components/InConstruction";
 
 export default function PlanningPage() {
   const tabs = [

@@ -1,7 +1,7 @@
 "use client";
 import BubbleText from "@components/bubbleText";
-import MapComponent from "@components/map";
-import ProgressBar from "@components/progressBar";
+import MapComponent from "@components/MapComponent";
+import ProgressBar from "@components/ProgressBar";
 import { Progress } from "@heroui/react";
 import {
   CalendarMinus,

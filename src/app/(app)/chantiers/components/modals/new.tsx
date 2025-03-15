@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Field from "@components/field";
-import Modal from "@components/modal";
+import Modal from "@components/Modal";
 import { useProjectStore } from "@/store/user/projectStore";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";

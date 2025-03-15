@@ -4,7 +4,7 @@ import { Menu, Search, Bell } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";
 import Btn from "@components/btn";
 import { Badge, Button, Dropdown, DropdownMenu, DropdownTrigger, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
-import Tabs from "@components/tabs";
+import Tabs from "@components/Tabs";
 import Notifications from "./Notifications";
 import Field from "@components/field";
 

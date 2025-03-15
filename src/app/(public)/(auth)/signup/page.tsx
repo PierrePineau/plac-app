@@ -2,10 +2,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
-import RegisterStepOne from "../signup/components/registerStepOne";
-import RegisterStepTwo from "../signup/components/registerStepTwo";
-import RegisterStepThree from "../signup/components/registerStepThree";
-import RegisterStepFour from "../signup/components/registerStepFour";
+import RegisterStepOne from "./components/RegisterStepOne";
+import RegisterStepTwo from "./components/RegisterStepTwo";
+import RegisterStepThree from "./components/RegisterStepThree";
+import RegisterStepFour from "./components/RegisterStepFour";
 import Btn from "@components/btn";
 import Link from "next/link";
 import OauthConnect from "../oauth/components/OauthConnect";

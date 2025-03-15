@@ -2,10 +2,10 @@
 import CustomButton from "@components/custombutton";
 import { Download } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import FileCard from "../../components/file_component";
-import Uploader from "@components/uploader";
+import FileCard from "../../components/FileCard";
+import Uploader from "@components/Uploader";
 import { useFileStore, useMediaStore, useProjectFileStore, useProjectMediaStore } from "@/store/user/fileStore";
-import Spinner from "@components/spinner";
+import Spinner from "@components/Spinner";
 import { CardFile, CardMedia } from "@components/card";
 import Btn from "@components/btn";
 

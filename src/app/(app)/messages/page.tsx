@@ -1,6 +1,6 @@
 import HeaderPage from "@components/HeaderPage";
 import { Metadata } from "next";
-import InConstruction from "@components/inConstruction";
+import InConstruction from "@components/InConstruction";
 
 export const metadata: Metadata = {
   title: "Messages",

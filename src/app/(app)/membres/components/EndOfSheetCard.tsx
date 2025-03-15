@@ -3,7 +3,7 @@
 import BubbleText from "@components/bubbleText";
 import CustomButton from "@components/custombutton";
 import { File, MoreHorizontal, Edit, Trash } from "lucide-react";
-import Popup from "@components/popup";
+import Popup from "@components/Popup";
 import { useState } from "react";
 
 type EndOfSheetProps = {

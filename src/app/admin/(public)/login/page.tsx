@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import LoginForm from "./components/login/loginForm";
+import LoginForm from "./components/login/LoginForm";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
 

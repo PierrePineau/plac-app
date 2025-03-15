@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Yard from "@components/yard";
+import Yard from "@components/Yard";
 import SearchBar from "@/app/(app)/components/SearchBar";
 
 const AssociatedYardTabComponentGrid: React.FC<{ yards: Project[] }> = ({

@@ -1,7 +1,7 @@
 import HeaderPage from "@components/HeaderPage";
 import New from "./components/modals/New";
 import { Metadata } from "next";
-import Table from "./components/table";
+import Table from "./components/Table";
 
 export const metadata: Metadata = {
   title: "Chantiers",

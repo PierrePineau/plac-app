@@ -1,16 +1,15 @@
 "use client";
 
 import Header from "@components/HeaderPage";
-import CustomButton from "@components/custombutton";
 import { FileEdit, Home, Mail, Phone, Trash, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Tabs from "@components/tabs";
+import Tabs from "@components/Tabs";
 // import EndOfSheetsTabComponentGrid from "../components/endOfdaySheetsTab";
 // import PointagesTabComponentGrid from "../components/pointage";
-import Popup from "@components/popup";
-import CreateOrModifyEmployee from "../components/createOrModifyEmployee";
-import Spinner from "@components/spinner";
+import Popup from "@components/Popup";
+// import CreateOrModifyEmployee from "../components/CreateOrModifyEmployee";
+import Spinner from "@components/Spinner";
 import { useUserStore } from "@/store/user/userStore";
 import { useLoaderContext } from "@/core/context/LoaderContext";
 import HeaderPage from "@components/HeaderPage";

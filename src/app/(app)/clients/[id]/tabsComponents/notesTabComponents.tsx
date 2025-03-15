@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import CustomButton from "@components/custombutton";
 import { PlusIcon } from "lucide-react";
 import NotesCard from "../../components/viewNotes";
-import Popup from "@components/popup";
-import CreateOrModifyNotes from "@/app/(app)/chantiers/components/createOrModifyNotes";
+import Popup from "@components/Popup";
+import CreateOrModifyNotes from "@/app/(app)/chantiers/components/CreateOrModifyNotes";
 // import SearchBar from "@/app/(app)/components/SearchBar";
 
 const NotesTabComponentGrid: React.FC<{ notes: Note[] }> = ({ notes }) => {

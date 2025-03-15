@@ -1,10 +1,10 @@
 "use client";
 import Dropdown from "../../../components/customDropdown";
 import DataTable from "../../../components/DataTable";
-import Stats from "./components/stats";
+import Stats from "./components/Stats";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import ProgressBar from "../../../components/progressBar";
+import ProgressBar from "../../../components/ProgressBar";
 import { useProjectStore } from "@/store/user/projectStore";
 import { useClientStore } from "@/store/user/clientStore";
 import { useAuthStore } from "@/store/useAuthStore";

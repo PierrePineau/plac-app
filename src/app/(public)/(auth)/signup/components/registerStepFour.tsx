@@ -2,7 +2,6 @@
 import Btn from "@components/btn";
 import Field from "@components/field";
 import { Form } from "@heroui/react";
-import { Check } from "lucide-react";
 import { useState } from "react";
 import FielsetPassword from "../../components/FielsetPassword";
 

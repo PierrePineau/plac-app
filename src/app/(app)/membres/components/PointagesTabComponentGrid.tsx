@@ -3,9 +3,9 @@ import CustomButton from "@components/custombutton";
 import { File, PlusIcon } from "lucide-react";
 import React, { useState } from "react";
 // import SearchBar from "@components/searchBar";
-import Popup from "@components/popup";
-import EndOfSheetCard from "../components/viewEndOfSheet";
-import DataTable from "../components/pointageTab";
+import Popup from "@components/Popup";
+import EndOfSheetCard from "./EndOfSheetCard";
+import DataTable from "./PointageTab";
 
 const formatDate = (date: Date): string => {
   return (

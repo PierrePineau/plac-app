@@ -1,7 +1,7 @@
 import React from "react";
-import New from "./components/modals/new";
+import New from "./components/modals/New";
 import HeaderPage from "@components/HeaderPage";
-import Table from "./components/table";
+import Table from "./components/Table";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

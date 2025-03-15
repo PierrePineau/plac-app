@@ -2,10 +2,10 @@
 import Field from "@components/field";
 import { Search } from "lucide-react";
 import { useProjectStore } from "@/store/user/projectStore";
-import Tabs from "@components/tabs";
+import Tabs from "@components/Tabs";
 import { useEffect, useState } from "react";
-import Yard from "@components/yard";
-import Spinner from "@components/spinner";
+import Yard from "@components/Yard";
+import Spinner from "@components/Spinner";
 
 export default function Table() {
   const [isLoading, setIsLoading] = useState(true);

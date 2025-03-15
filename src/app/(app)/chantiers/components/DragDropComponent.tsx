@@ -8,7 +8,7 @@ interface DragDropProps {
   height?: string | null;
 }
 
-const DragDrop: React.FC<DragDropProps> = ({
+const DragDropComponent: React.FC<DragDropProps> = ({
   onDrop,
   width = "w-1/2",
   height = "h-48"
@@ -46,4 +46,4 @@ const DragDrop: React.FC<DragDropProps> = ({
   );
 };
 
-export default DragDrop;
+export default DragDropComponent;
