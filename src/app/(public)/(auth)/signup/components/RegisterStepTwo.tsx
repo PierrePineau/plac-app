@@ -1,6 +1,7 @@
 "use client";
 import Btn from "@/components/Btn";
 import CustomButton from "@/components/CustomButton";
+import InConstruction from "@components/InConstruction";
 import { InputOtp } from "@heroui/react";
 import { useState } from "react";
 
@@ -13,10 +14,11 @@ const RegisterStepTwo = ({ onNext, onPrevious }: StepVerificationCodeProps) => {
   const [value, setValue] = useState("");
   return (
     <>
-      <p className="text-neutral-400 text-base sm:text-paragraphMedium">
+      <p className="text-neutral-400 text-base sm:text-paragraphMedium pb-4">
         Vous avez reçu un code de validation par SMS, veuillez le saisir
         ci-dessous.
       </p>
+      <InConstruction message="Cette fonctionnalité n'est pas disponible pour la démo, vous pouvez passer à l'étape suivante." />
       <label htmlFor="code" className="text-neutral-950 text-base mt-4">
         Code reçu par SMS : *
       </label>

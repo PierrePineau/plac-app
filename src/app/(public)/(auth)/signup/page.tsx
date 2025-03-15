@@ -115,7 +115,7 @@ const SignUp = () => {
             Se connecter
           </Link>
         </div>
-        <div className="flex gap-4 justify-center w-full mt-4">
+        <div className="gap-4 justify-center w-full mt-4 hidden">
         <Btn
             variant=""
             className="bg-danger-500 text-white"
