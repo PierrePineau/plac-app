@@ -144,6 +144,10 @@ export const useAuthStore = create<AuthState>()(
        */
       _clearAuth: () => {
         set({ isAuthenticated: false, user: null });
+
+        localStorage.removeItem("jwtToken");
+        localStorage.removeItem("idOrganisation");
+        localStorage.removeItem("idUser");
         return false;
       },
     }),
