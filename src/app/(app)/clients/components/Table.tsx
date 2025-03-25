@@ -12,9 +12,9 @@ const columns = [
     accessorKey: "name",
     header: "Nom",
     cell: (info: any) => {
-      const { uuid, name } = info.row.original;
+      const { id, name } = info.row.original;
       return (
-        <Link href={`/clients/${uuid}`} className="link text-neutral-950">
+        <Link href={`/clients/${id}`} className="link text-neutral-950">
           {name}
         </Link>
       );
@@ -28,45 +28,7 @@ const columns = [
       return email;
     }
   },
-
-  {
-    accessorKey: "createdAt",
-    header: "Date de création",
-    cell: (info: any) => {
-      const { createdAt } = info.row.original;
-      const formattedDate = format(new Date(createdAt), "dd/MM/yyyy HH:mm");
-      return formattedDate;
-    }
-  }
 ];
-
-
-// const columns = [
-//   {
-//     id: "name",
-//     header: "Utilisateurs",
-//     accessorFn: (row: any) => row.name,
-//     cell: (info: any) => {
-//       const { avatar, firstname, lastname } = info.row.original;
-//       return (
-//         <div className="flex items-center space-x-2">
-//           <img className="w-auto h-8" src="/asset/img/avatar.svg" alt="Logo Plac" />
-//           <p className="text-sm font-semibold">{firstname} {lastname}</p>
-//         </div>
-//       );
-//     }
-//   },
-//   {
-//     id: "email",
-//     header: "Email",
-//     accessorFn: (row: any) => row.email
-//   },
-//   {
-//     id: "phone",
-//     header: "Numéro de téléphone",
-//     accessorFn: (row: any) => row.phone
-//   }
-// ];
 
 export default function Table() {
   return (

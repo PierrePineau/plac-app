@@ -1,9 +1,11 @@
 interface CrudInterface<T> {
     endpoint: string;
-    data: T[] | [];
-    fetchData: (filters: any) => Promise<void>;
-    getOneById: (id: string | number) => T | undefined;
-    create: (data: Partial<T>) => Promise<T | null>;
-    update: (id: number | string, data: Partial<T>) => Promise<T | null>;
-    delete: (id: number | string) => Promise<void>;
+    data: T[];
+    getEndpoint: (params?: any) => string;
+    setEndpoint: (newEndpoint: string) => void;
+    fetchData: (filters: any) => Promise<T[]>;
+    getOneById: (id: string) => T | undefined;
+    create: (item: Partial<T>) => Promise<T | null>;
+    update: (id: string | number, item: Partial<T>) => Promise<T | null>;
+    delete: (id: string | number) => Promise<void>;
 }

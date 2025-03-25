@@ -1,15 +1,17 @@
 "use client";
 import { PlusIcon, SearchIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import NoteCard from "../../../../../../components/NoteCard";
 import Popup from "@/components/Popup";
-import CreateOrModifyNotes from "../../../../../../components/CreateOrModifyNotes";
-import NewNote from "../../../components/modals/newNotes";
 import { useNoteStore } from "@/store/user/noteStore";
 import Btn from "@/components/Btn";
 import Field from "@/components/Field";
+import NewNote from "../../components/modals/NewNote";
+import CreateOrModifyNotes from "@components/CreateOrModifyNotes";
+import NoteCard from "@components/NoteCard";
 
-const Notes: React.FC = () => {
+const Notes: React.FC<{
+    client: Client;
+}> = ({ client }) => {
   const [search, setSearch] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { fetchData, data } = useNoteStore();

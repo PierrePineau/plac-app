@@ -1,19 +1,6 @@
 import { create } from "zustand";
 import { get as apiGet, post, remove } from "@/core/services/api.helper";
 
-interface CrudInterface<T> {
-  endpoint: string;
-  data: T[];
-  error: string | null;
-  getEndpoint: (params?: any) => string;
-  setEndpoint: (newEndpoint: string) => void;
-  fetchData: (filters: any) => Promise<void>;
-  getOneById: (id: string) => T | undefined;
-  create: (item: Partial<T>) => Promise<T | null>;
-  update: (id: string | number, item: Partial<T>) => Promise<T | null>;
-  delete: (id: string | number) => Promise<void>;
-}
-
 export const createCrudStore = <
   T,
   ExtraMethods extends Record<string, any> = Record<string, any>
@@ -23,7 +10,6 @@ export const createCrudStore = <
 ) => {
   return create<CrudInterface<T> & ExtraMethods>((set, get) => ({
     endpoint,
-    error: null,
     getEndpoint: (params?: any) => {
       const getOrgId = () => localStorage.getItem("idOrganisation") || "";
       const getProjectId = () => localStorage.getItem("projectId") || "";
@@ -39,25 +25,24 @@ export const createCrudStore = <
       let ep = "";
       try {
         ep = get().getEndpoint();
+        // On transforme les filtres en query string
         if (filters) {
           const params = new URLSearchParams(filters).toString();
           if (params) {
+            console.log("params", params);
             ep += "?" + params;
           }
         }
         const response = await apiGet<ResponseApi>(ep);
         if (response.success) {
-          const data = (response.data as any).results as T[];
-          set((state) => ({ ...state, data, error: null }));
+          const respData = (response.data as any).results as T[];
+          set((state) => ({ ...state, data: respData }));
         }
-      } catch (error: any) {
+        const { data } = get();
+        return data;
+      } catch (error) {
         console.error(`Error fetching from ${ep}:`, error);
-        set((state) => ({
-          ...state,
-          error: `Erreur lors du chargement des données: ${
-            error.message || error
-          }`
-        }));
+        return [];
       }
     },
     getOneById: (id) => {
@@ -71,19 +56,12 @@ export const createCrudStore = <
         const response = await post<ResponseApi>(ep, item);
         if (response.success) {
           const newData = response.data as T;
-          set((state) => ({
-            ...state,
-            data: [...state.data, newData],
-            error: null
-          }));
+          console.log(newData);
+          set((state) => ({ ...state, data: [...state.data, newData] }));
           return newData;
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error(`Error creating in ${ep}:`, error);
-        set((state) => ({
-          ...state,
-          error: `Erreur lors de la création: ${error.message || error}`
-        }));
       }
       return null;
     },
@@ -98,17 +76,12 @@ export const createCrudStore = <
             ...state,
             data: state.data.map((p) =>
               (p as any).id === id ? updatedData : p
-            ),
-            error: null
+            )
           }));
           return updatedData;
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error(`Error updating in ${ep}:`, error);
-        set((state) => ({
-          ...state,
-          error: `Erreur lors de la mise à jour: ${error.message || error}`
-        }));
       }
       return null;
     },
@@ -120,16 +93,11 @@ export const createCrudStore = <
         if (response.success) {
           set((state) => ({
             ...state,
-            data: state.data.filter((p) => (p as any).id !== id),
-            error: null
+            data: state.data.filter((p) => (p as any).id !== id)
           }));
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error(`Error deleting in ${ep}:`, error);
-        set((state) => ({
-          ...state,
-          error: `Erreur lors de la suppression: ${error.message || error}`
-        }));
       }
     },
     ...(extend ? extend(set, get) : ({} as ExtraMethods))

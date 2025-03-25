@@ -72,7 +72,7 @@ export default function ProjectDetail() {
       <div className="p-4 sm:p-8 flex flex-col gap-8 overflow-auto">
         <HeaderPage
             showBreadcrumb={true}
-          title={project.name}
+            title={project.name}
           >
           <Btn variant="light">
             <Printer className="text-neutral-950" />

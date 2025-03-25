@@ -1,40 +1,51 @@
 "use client";
 
 import DataTable from "@/components/DataTable";
-import { format } from "date-fns";
 import Field from "@/components/Field";
 import Link from "next/link";
 import { Search } from "lucide-react";
-import { useOrganisationStore } from "@/store/admin/organisationStore";
+import { useUserStore } from "@/store/user/userStore";
 
 const columns = [
   {
     accessorKey: "name",
     header: "Nom",
     cell: (info: any) => {
-      const { uuid, name } = info.row.original;
+      const { id, fullname } = info.row.original;
       return (
-        <Link href={`/admin/organisations/${uuid}`} className="link text-neutral-950">
-          {name}
+        <Link href={`/membres/${id}`} className="link text-neutral-950">
+          {fullname}
         </Link>
       );
     }
   },
   {
-    accessorKey: "createdAt",
-    header: "Date de création",
+    accessorKey: "email",
+    header: "Email",
     cell: (info: any) => {
-      const { createdAt } = info.row.original;
-      const formattedDate = format(new Date(createdAt), "dd/MM/yyyy HH:mm");
-      return formattedDate;
+      const { email } = info.row.original;
+      return email;
     }
-  }
+  },
+  // {
+  //   accessorKey: "createdAt",
+  //   header: "Date de création",
+  //   cell: (info: any) => {
+  //     const { createdAt } = info.row.original;
+  //     if (createdAt) {
+  //       const formattedDate = format(new Date(createdAt), "dd/MM/yyyy HH:mm");
+  //       return formattedDate;
+  //     }else{
+  //       return "";
+  //     }
+  //   }
+  // }
 ];
 
 export default function Table() {
   return (
     <DataTable
-      store={useOrganisationStore() as any}
+      store={useUserStore() as any}
       columns={columns}
       ellipsisEnabled={false}
       enableSorting={false}
@@ -42,7 +53,7 @@ export default function Table() {
       <Field
         type="search"
         name="search"
-        placeholder="Rechercher une organisation"
+        placeholder="Rechercher un membre"
         icon={<Search />}
         value=""
       />

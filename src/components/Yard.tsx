@@ -45,10 +45,11 @@ export default function Yard({ project }: ProjectProps) {
                     )}
                 </Link>
             </HeroUiCardBody>
-            <HeroUiCardFooter className="px-0 gap-2 flex items-start">
-                <div className="flex flex-col w-full">
-                    <Link href={`/chantiers/${project.id}`}>
-                        <h3 className="text-neutral-950 font-medium truncate w-full text-lg md:text-xl">{project.name}</h3>
+            <HeroUiCardFooter className="px-0 gap-2 flex items-start w-full">
+                <div className="flex flex-col grow flex-shrink">
+                    <Link href={`/chantiers/${project.id}`} className="flex-shrink inline-flex line-clamp-2 font-medium text-lg md:text-xl">
+                        {project.name}
+                        {/* <h3 className="text-neutral-950 font-medium truncate text-lg md:text-xl">{project.name}</h3> */}
                     </Link>
                     <p className="line-clamp-2 text-neutral-400 text-xs font-light">
                         {project.description}
@@ -56,10 +57,12 @@ export default function Yard({ project }: ProjectProps) {
                 </div>
                 {
                     actions.length > 0 && (
-                        <Actions
-                            onAction={(key) => console.log(key)}
-                            items={actions}
-                        />
+                        <div className="flex-shrink-0">
+                            <Actions
+                                onAction={(key) => console.log(key)}
+                                items={actions}
+                                />
+                        </div>
                     )
                 }
                 
