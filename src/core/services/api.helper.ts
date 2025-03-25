@@ -53,41 +53,18 @@ export async function request<T>(
       // Pour voir le message d'erreur
       try {
         const data = await response.json();
-        switch (response.status) {
-          case 400:
-            addToast({
-              title: "Warning",
-              description: "Vous n'avez pas le droit",
-              color: "warning"
-            });
-          case 401:
-            addToast({
-              title: "Erreur",
-              description:
-                "Vous n'êtes pas autoriser à accèder à cette ressources",
-              color: "danger"
-            });
-            break;
-          case 404:
-            addToast({
-              title: "Erreur",
-              description: "Page non trouvé",
-              color: "danger"
-            });
-            break;
-          case 422:
-            addToast({
-              title: "Erreur",
-              description: "Erreur de validation",
-              color: "danger"
-            });
-          case 500:
-            addToast({
-              title: "Erreur",
-              description: "Erreur serveur",
-              color: "danger"
-            });
-            break;
+        if (response.status === 400) {
+          addToast({
+            title: "Warning",
+            description: data.message ?? "Une erreur est survenue, veuillez contacter le SAV",
+            color: "warning"
+          });
+        }else{
+          addToast({
+            title: "Erreur",
+            description: data.message ?? "Une erreur est survenue, veuillez contacter le SAV",
+            color: "danger"
+          });
         }
         console.log("Error Message:", data.message);
         console.log("Error content:", data);
