@@ -50,10 +50,6 @@ export async function request<T>(
 
       return data;
     } else {
-      if (response.status === 401) throw new UnauthorizedError();
-      if (response.status === 404) throw new NotFoundError();
-      if (response.status === 422) throw new ValidationError();
-
       // Pour voir le message d'erreur
       try {
         const data = await response.json();
@@ -75,7 +71,7 @@ export async function request<T>(
           case 404:
             addToast({
               title: "Erreur",
-              description: "Page non trouver",
+              description: "Page non trouvé",
               color: "danger"
             });
             break;
@@ -99,7 +95,7 @@ export async function request<T>(
       } catch (error) {
         addToast({
           title: "Erreur",
-          description: "Une erreur est detecter veuiller contact le SAV",
+          description: "Une erreur est survenue, veuillez contacter le SAV",
           color: "danger"
         });
       }
@@ -109,7 +105,7 @@ export async function request<T>(
     console.log("Error:", error);
     addToast({
       title: "Erreur",
-      description: "Erreur de connexion",
+      description: "Une erreur est survenue, veuillez contacter le SAV",
       color: "danger"
     });
     throw new NetworkError();
