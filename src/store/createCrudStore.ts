@@ -10,6 +10,7 @@ export const createCrudStore = <
 ) => {
   return create<CrudInterface<T> & ExtraMethods>((set, get) => ({
     endpoint,
+    error: null,
     getEndpoint: (params?: any) => {
       const getOrgId = () => localStorage.getItem("idOrganisation") || "";
       const getProjectId = () => localStorage.getItem("projectId") || "";
@@ -25,23 +26,27 @@ export const createCrudStore = <
       let ep = "";
       try {
         ep = get().getEndpoint();
-        // On transforme les filtres en query string
         if (filters) {
           const params = new URLSearchParams(filters).toString();
           if (params) {
-            console.log("params", params);
             ep += "?" + params;
           }
         }
         const response = await apiGet<ResponseApi>(ep);
         if (response.success) {
-          const respData = (response.data as any).results as T[];
-          set((state) => ({ ...state, data: respData }));
+          const data = (response.data as any).results as T[];
+          set((state) => ({ ...state, data, error: null }));
         }
         const { data } = get();
         return data;
-      } catch (error) {
+      } catch (error: any) {
         console.error(`Error fetching from ${ep}:`, error);
+        set((state) => ({
+          ...state,
+          error: `Erreur lors du chargement des données: ${
+            error.message || error
+          }`
+        }));
         return [];
       }
     },
@@ -56,12 +61,19 @@ export const createCrudStore = <
         const response = await post<ResponseApi>(ep, item);
         if (response.success) {
           const newData = response.data as T;
-          console.log(newData);
-          set((state) => ({ ...state, data: [...state.data, newData] }));
+          set((state) => ({
+            ...state,
+            data: [...state.data, newData],
+            error: null
+          }));
           return newData;
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error(`Error creating in ${ep}:`, error);
+        set((state) => ({
+          ...state,
+          error: `Erreur lors de la création: ${error.message || error}`
+        }));
       }
       return null;
     },
@@ -76,12 +88,17 @@ export const createCrudStore = <
             ...state,
             data: state.data.map((p) =>
               (p as any).id === id ? updatedData : p
-            )
+            ),
+            error: null
           }));
           return updatedData;
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error(`Error updating in ${ep}:`, error);
+        set((state) => ({
+          ...state,
+          error: `Erreur lors de la mise à jour: ${error.message || error}`
+        }));
       }
       return null;
     },
@@ -93,11 +110,16 @@ export const createCrudStore = <
         if (response.success) {
           set((state) => ({
             ...state,
-            data: state.data.filter((p) => (p as any).id !== id)
+            data: state.data.filter((p) => (p as any).id !== id),
+            error: null
           }));
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error(`Error deleting in ${ep}:`, error);
+        set((state) => ({
+          ...state,
+          error: `Erreur lors de la suppression: ${error.message || error}`
+        }));
       }
     },
     ...(extend ? extend(set, get) : ({} as ExtraMethods))

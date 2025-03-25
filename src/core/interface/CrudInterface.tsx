@@ -1,6 +1,7 @@
 interface CrudInterface<T> {
     endpoint: string;
     data: T[];
+    error: string | null;
     getEndpoint: (params?: any) => string;
     setEndpoint: (newEndpoint: string) => void;
     fetchData: (filters: any) => Promise<T[]>;
