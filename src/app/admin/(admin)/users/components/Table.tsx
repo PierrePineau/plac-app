@@ -1,11 +1,11 @@
 "use client";
-import DataTable from "@/components/CustomDataTable";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import Field from "@/components/Field";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { useUserStore } from "@/store/admin/userStore";
+import DataTable from "@components/DataTable";
 
 const columns = [
     {
@@ -48,8 +48,7 @@ export default function Table() {
                 value=""
             />
             <DataTable
-                fetchData={fetchUsers}
-                data={users}
+                store={useUserStore() as any}
                 columns={columns}
                 ellipsisEnabled={false}
                 enableSorting={false}
