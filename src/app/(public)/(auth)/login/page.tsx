@@ -32,7 +32,7 @@ const Login = () => {
         connectButton={handleSubmit}
       />
       {error && (
-        <Alert color="danger" title="Erreur" type="error">
+        <Alert color="danger" title="Erreur">
           {error}
         </Alert>
       )}

@@ -1,11 +1,10 @@
 "use client";
-
-import DataTable from "@/components/CustomDataTable";
 import { format } from "date-fns";
 import Field from "@/components/Field";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { useOrganisationStore } from "@/store/admin/organisationStore";
+import DataTable from "@components/DataTable";
 
 const columns = [
   {
@@ -32,15 +31,13 @@ const columns = [
 ];
 
 export default function OrganisationTable() {
-  const { data, fetchData } = useOrganisationStore();
   return (
     <DataTable
-      fetchData={fetchData}
-      data={data}
-      columns={columns}
-      ellipsisEnabled={false}
-      enableSorting={false}
-    >
+        store={useOrganisationStore() as any}
+        columns={columns}
+        ellipsisEnabled={false}
+        enableSorting={false}
+      >
       <Field
         type="search"
         name="search"
