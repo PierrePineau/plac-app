@@ -25,7 +25,7 @@ export default function Edit({ project }: EditProps) {
       // postal_code: data.postal_code as string,
       // city: data.city as string
     };
-    await update(project.id, projectUpdate);
+    // await update(project.id, projectUpdate);
   };
 
   return (
@@ -68,32 +68,39 @@ export default function Edit({ project }: EditProps) {
           defaultValue={project.organisation?.owner}
           name="chief"
         />
-        <Field
+        {/* <Field
           label="Statut"
           name="status"
           type="select"
           options={[
-            { value: "en_cours", label: "En cours" },
-            { value: "termine", label: "Terminé" },
-            { value: "annule", label: "Annulé" }
+            {
+              label: "En cours",
+              value: "en_cours"
+            },
+            {
+              label: "Terminé",
+              value: "termine"
+            },
+            { 
+              label: "Annulé",
+              value: "annule"
+            }
           ]}
-          defaultValue={project.status}
+          selectedKeys={project.status?.code}
           isRequired
-        />
+        /> */}
       </div>
       <Field
         label="Adresse"
         name="adress"
         defaultValue={project.addresses}
-        required
       />
       <Field
         label="Code Postal"
         name="postal_code"
         defaultValue="test"
-        required
       />
-      <Field label="Ville" name="city" defaultValue="test" required />
+      <Field label="Ville" name="city" defaultValue="test" />
     </Modal>
   );
 }

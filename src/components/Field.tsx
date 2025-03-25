@@ -30,11 +30,9 @@ const Field: React.FC<FieldProps> = ({
   startContent = null,
   placeholder = " ",
   options = null,
-  selectedOption = null,
   ...attributes
 }) => {
   const [typeInput, setType] = useState(type ?? "text");
-  const [selected, setSelected] = useState(selectedOption || "");
   const classInput = [
     "field",
     "placeholder:text-neutral-300",
@@ -97,11 +95,45 @@ const Field: React.FC<FieldProps> = ({
     classInput.splice(classInput.indexOf("pl-4"), 1);
   }
   if (type === "select" && options != null) {
+    // return (
+    //   <div className="field__container">
+    //     <label htmlFor="" className="field__label">
+    //       {label}
+    //     </label>
+    //     <select
+    //       className={`field font-normal bg-transparent !outline-none focus-visible:outline-none data-[has-start-content=true]:ps-1.5 data-[has-end-content=true]:pe-1.5 file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text text-small field placeholder:text-neutral-300 hover:border-neutral-400 focus:ring-2 focus:ring-blue-500 focus:outline rounded min-h-10 h-10 pl-4 pr-4 py-2 w-full ${className}`}
+    //       name={name ?? ""}
+    //       id={id ?? ""}
+    //       {...attributes}>
+    //       {options.map((option) => (
+    //         <option key={option.value} value={option.value}>
+    //           {option.label}
+    //         </option>
+    //       ))}
+    //     </select>
+    //   </div>
+    // );
     return (
       <Select
-        label={label}
-        value={selected}
-        onChange={(e) => setSelected(e.target.value)}
+        className={`field ${className}`}
+        variant="bordered"
+        radius={"sm"}
+        // startContent={startContent ?? null}
+        // endContent={endContent ?? null}
+        name={name ?? ""}
+        label={label ?? ""}
+        placeholder={placeholder ?? " "}
+        labelPlacement={"outside"}
+        classNames={{
+          label: ["field__label", "font-normal"],
+          // input: classInput,
+          innerWrapper: "bg-transparent",
+          listboxWrapper: [
+            "p-0",
+            "bg-red-500",
+            "z-100"
+          ],
+        }}
         {...attributes}>
         {options.map((option) => (
           <SelectItem key={option.value} value={option.value}>
