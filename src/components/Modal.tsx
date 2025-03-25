@@ -17,6 +17,7 @@ interface ModalProps {
   children?: React.ReactNode;
   text?: string;
   icon?: React.ReactNode;
+  btnVariant?: "primary" | "secondary" | "danger" | "light";
   title?: string;
   subtitle?: string;
   buttonValidationTitle?: string;
@@ -28,6 +29,7 @@ export default function Modal({
   text = "Ajouter",
   icon = <Plus />,
   title = "Ajouter",
+  btnVariant = "primary",
   subtitle,
   buttonValidationTitle = "Ajouter",
   onSubmit
@@ -54,7 +56,7 @@ export default function Modal({
 
   return (
     <>
-      <Btn onPress={onOpen}>
+      <Btn onPress={onOpen} variant={btnVariant}>
         {icon}
         {text}
       </Btn>
@@ -75,7 +77,7 @@ export default function Modal({
                 <Btn onPress={onClose} variant="light">
                   Annuler
                 </Btn>
-                <Btn onPress={() => handleSubmit()} isLoading={isSubmitting}>
+                <Btn onPress={() => handleSubmit()} isLoading={isSubmitting} variant={btnVariant}>
                   {buttonValidationTitle}
                 </Btn>
               </ModalFooter>

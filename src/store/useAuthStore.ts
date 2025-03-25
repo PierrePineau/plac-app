@@ -7,7 +7,7 @@ interface JwtPayload {
   iat: number;
   exp: number;
   roles: string[];
-  username: string;
+  username: string; // email
 }
 
 interface AuthResponse {
@@ -17,17 +17,13 @@ interface AuthResponse {
 }
 
 interface AuthState {
-  user: any;
+  user: AuthenticateUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
   authenticateUserByToken: (token: string) => Promise<boolean>;
   checkAuth: (role: string) => Promise<boolean>;
-  login: (
-    email: string,
-    password: string,
-    authTarget?: string
-  ) => Promise<boolean>;
+  login: (email: string, password: string, authTarget?: string) => Promise<boolean>;
   logout: () => void;
   _setUser: (data: AuthResponse) => boolean;
   _clearAuth: () => boolean;
@@ -40,12 +36,21 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       isLoading: false,
       error: null,
+
+      /**
+       * Authentifie un utilisateur via un token JWT.
+       */
       authenticateUserByToken: async (token: string) => {
         if (!token) return false;
-        set({ isLoading: true });
-        localStorage.setItem("jwtToken", token);
+
         try {
+          set({ isLoading: true });
+
+          localStorage.setItem("jwtToken", token);
+
+          // Récupération des infos utilisateur depuis l'API
           const response = await apiGet<ResponseApi>("/api/app/users/me");
+
           if (response.success) {
             return get()._setUser(response.data);
           }
@@ -56,72 +61,95 @@ export const useAuthStore = create<AuthState>()(
         }
         return false;
       },
+
+      /**
+       * Vérifie si un utilisateur est authentifié et possède un rôle donné.
+       */
       checkAuth: async (role: string) => {
         try {
           const token = localStorage.getItem("jwtToken");
           if (!token) return get()._clearAuth();
+
           const decoded = jwtDecode<JwtPayload>(token);
+
           if (decoded.exp * 1000 < Date.now()) return get()._clearAuth();
+
           if (!decoded.roles.includes(role)) return get()._clearAuth();
+
           return true;
         } catch {
           return get()._clearAuth();
         }
       },
+
+      /**
+       * Gère la connexion utilisateur.
+       */
       login: async (email, password, authTarget = "user") => {
         set({ isLoading: true, error: null });
+
         try {
-          const path =
-            authTarget === "admin"
-              ? "/api/admin/login_check"
-              : "/api/app/login_check";
-          const data = await post<AuthResponse>(
-            path,
-            { username: email, password },
-            { skipAuth: true }
-          );
+          const path = authTarget === "admin" ? "/api/admin/login_check" : "/api/app/login_check";
+          const data = await post<AuthResponse>(path, { username: email, password }, { skipAuth: true });
+
           if (data.token) {
             localStorage.setItem("jwtToken", data.token);
             return get()._setUser(data);
           }
-          set({ error: "Les identifiants ne sont pas bons" });
         } catch {
-          set({ error: "Les identifiants ne sont pas bons" });
+          set({ error: "Invalid credentials or network error" });
         } finally {
           set({ isLoading: false });
         }
         return false;
       },
+
+      /**
+       * Déconnexion de l'utilisateur.
+       */
       logout: () => {
         localStorage.removeItem("jwtToken");
         set({ user: null, isAuthenticated: false });
       },
+
+      /**
+       * Fonction interne pour stocker les infos utilisateur après authentification.
+       */
       _setUser: (data: AuthResponse) => {
-        if (!data.user || !data.organisation) return false;
-        const user = {
-          uuidUser: data.user.id,
-          uuidOrganisation: data.organisation.id ?? data.organisation.uuid,
-          email: data.user.email,
-          roles: data.user.roles,
-          fullname: data.user.fullname
-        };
-<<<<<<< HEAD
-        set({ user: user, isAuthenticated: true });
-=======
+        // Si l'utilisateur n'est pas défini, on retourne false
+        try {
+          if (!data.user) return false;
+        
+          const user = {
+            uuidUser: data.user.id ?? null,
+            uuidOrganisation: data.organisation ? data.organisation.uuid ?? data.organisation.id : null,
+            email: data.user.email,
+            roles: data.user.roles,
+            fullname: data.user.fullname ?? '',
+          };
+          
+          // Si l'utilisateur n'a pas d'organisation et n'est pas super admin, on retourne false
+          if (!data.organisation && !user.roles.includes("ROLE_SUPER_ADMIN")) return false;
+          
+          localStorage.setItem("idOrganisation", user.uuidOrganisation);
+          localStorage.setItem("idUser", user.uuidUser);
 
-        localStorage.setItem("idOrganisation", user.uuidOrganisation);
-        localStorage.setItem("idUser", user.uuidUser);
+          set({ 
+            user: user,
+            isAuthenticated: true
+          });
 
-        // console.log("user", user);
-
-        set({ 
-          user: user,
-          isAuthenticated: true
-        });
-
->>>>>>> 64be114 (set local)
-        return true;
+          return true;
+        } catch (error) {
+          console.log("error", error);
+          return false;
+        }
+        
       },
+
+      /**
+       * Fonction interne pour nettoyer l'authentification en cas d'erreur.
+       */
       _clearAuth: () => {
         set({ isAuthenticated: false, user: null });
 
@@ -129,14 +157,8 @@ export const useAuthStore = create<AuthState>()(
         localStorage.removeItem("idOrganisation");
         localStorage.removeItem("idUser");
         return false;
-      }
+      },
     }),
-    {
-      name: "auth-store",
-      partialize: (state) => ({
-        user: state.user,
-        isAuthenticated: state.isAuthenticated
-      })
-    }
+    { name: "auth-store" } // Activation du persist pour garder l'état après un refresh
   )
 );

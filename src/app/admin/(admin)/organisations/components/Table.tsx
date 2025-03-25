@@ -13,6 +13,7 @@ const columns = [
     header: "Nom",
     cell: (info: any) => {
       const { uuid, name } = info.row.original;
+      console.log(info.row.original);
       return (
         <Link href={`/admin/organisations/${uuid}`} className="link text-neutral-950">
           {name}
