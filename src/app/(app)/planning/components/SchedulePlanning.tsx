@@ -1,11 +1,22 @@
 import React, { useState } from "react";
-import { Calendar, momentLocalizer, Views, View } from "react-big-calendar";
-import moment from "moment";
+import { Calendar, momentLocalizer, Views, View, dateFnsLocalizer } from "react-big-calendar";
 import "moment/locale/fr";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-moment.locale("fr");
-const localizer = momentLocalizer(moment);
+import { format, parse, startOfWeek, getDay} from 'date-fns'
+import {fr} from 'date-fns/locale'
+
+const locales = {
+  'fr': fr
+}
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+})
 
 export default function SchedulePlanning() {
   const [currentView, setCurrentView] = useState<View>(Views.MONTH);
