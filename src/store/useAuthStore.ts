@@ -116,27 +116,35 @@ export const useAuthStore = create<AuthState>()(
        * Fonction interne pour stocker les infos utilisateur après authentification.
        */
       _setUser: (data: AuthResponse) => {
-        if (!data.user || !data.organisation) return false;
+        // Si l'utilisateur n'est pas défini, on retourne false
+        try {
+          if (!data.user) return false;
         
-        const user = {
-          uuidUser: data.user.id,
-          uuidOrganisation: data.organisation.id ?? data.organisation.uuid,
-          email: data.user.email,
-          roles: data.user.roles,
-          fullname: data.user.fullname,
-        };
+          const user = {
+            uuidUser: data.user.id ?? null,
+            uuidOrganisation: data.organisation ? data.organisation.uuid ?? data.organisation.id : null,
+            email: data.user.email,
+            roles: data.user.roles,
+            fullname: data.user.fullname ?? '',
+          };
+          
+          // Si l'utilisateur n'a pas d'organisation et n'est pas super admin, on retourne false
+          if (!data.organisation && !user.roles.includes("ROLE_SUPER_ADMIN")) return false;
+          
+          localStorage.setItem("idOrganisation", user.uuidOrganisation);
+          localStorage.setItem("idUser", user.uuidUser);
 
-        localStorage.setItem("idOrganisation", user.uuidOrganisation);
-        localStorage.setItem("idUser", user.uuidUser);
+          set({ 
+            user: user,
+            isAuthenticated: true
+          });
 
-        // console.log("user", user);
-
-        set({ 
-          user: user,
-          isAuthenticated: true
-        });
-
-        return true;
+          return true;
+        } catch (error) {
+          console.log("error", error);
+          return false;
+        }
+        
       },
 
       /**

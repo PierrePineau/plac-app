@@ -1,18 +1,6 @@
 import { create } from "zustand";
 import { get as apiGet, post, remove } from "@/core/services/api.helper";
 
-interface CrudInterface<T> {
-  endpoint: string;
-  data: T[];
-  getEndpoint: (params?: any) => string;
-  setEndpoint: (newEndpoint: string) => void;
-  fetchData: (filters: any) => Promise<void>;
-  getOneById: (id: string) => T | undefined;
-  create: (item: Partial<T>) => Promise<T | null>;
-  update: (id: string | number, item: Partial<T>) => Promise<T | null>;
-  delete: (id: string | number) => Promise<void>;
-}
-
 export const createCrudStore = <
   T,
   ExtraMethods extends Record<string, any> = Record<string, any>
@@ -47,11 +35,14 @@ export const createCrudStore = <
         }
         const response = await apiGet<ResponseApi>(ep);
         if (response.success) {
-          const data = (response.data as any).results as T[];
-          set((state) => ({ ...state, data }));
+          const respData = (response.data as any).results as T[];
+          set((state) => ({ ...state, data: respData }));
         }
+        const { data } = get();
+        return data;
       } catch (error) {
         console.error(`Error fetching from ${ep}:`, error);
+        return [];
       }
     },
     getOneById: (id) => {

@@ -78,14 +78,13 @@ export default function DataTable<T extends object>({ children, store, isLoading
 	const loadData = async (filters = {}) => {
 		if (!fetchData) return;
 		setLoading(true);
-		const resp = await fetchData(filters);
+		const newData = await fetchData(filters);
 		setLoading(false);
+		setRows(newData as T[]);
 	};
 
 	useEffect(() => {
-		if (data && data.length > 0) {
-			setRows(data as T[]);
-		} else {
+		if (!data || data.length == 0) {
 			loadData();
 		}
 	}, []);

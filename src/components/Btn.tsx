@@ -18,6 +18,9 @@ export default function Btn({
   } else if (variant === "secondary") {
     className +=
       " bg-accent-500 text-white";
+  } else if (variant === "danger") {
+        className +=
+          " bg-danger-500 text-white";
   } else if (variant === "light") {
     className +=
       " bg-white text-neutral-800 hover:bg-gray-100 border border-neutral-200";

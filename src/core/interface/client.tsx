@@ -5,7 +5,7 @@ interface Client {
   lastname?: string;
   email?: string;
   phone?: string;
-  // adresses: string;
+  adresses: Address[] | null;
   createdAt?: Date;
   updatedAt?: Date;
   deleted?: boolean;

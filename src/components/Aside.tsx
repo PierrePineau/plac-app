@@ -73,7 +73,7 @@ const Aside: React.FC<AsideProps> = ({
             </Drawer>
             
             {/* ORDI */}
-            <aside className="hidden md:flex w-sideBarWidth border-r border-neutral-200">
+            <aside className="hidden md:flex w-sideBarWidth border-r border-neutral-200 md:sticky top-0 h-full bg-white z-50 max-h-screen">
                 <div className="flex w-sideBarWidth flex-col">
                     { renderChildren() }
                 </div>

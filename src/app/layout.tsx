@@ -3,7 +3,6 @@ import "./globals.scss";
 import localFont from 'next/font/local';
 import { Providers } from "./Providers";
 import { Metadata, Viewport } from "next";
-import Head from "next/head";
 
 const APP_NAME = "Plac";
 const APP_DEFAULT_TITLE = "Plac";
@@ -104,9 +103,9 @@ export default function RootLayout({
 
   return (
     <html lang="fr">
-      <Head>
+      <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
+      </head>
       <body className="min-h-screen flex flex-col">
           <Providers>
             <SplashScreen />

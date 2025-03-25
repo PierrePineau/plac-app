@@ -1,5 +1,5 @@
 "use client";
-
+import { format } from "date-fns";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import BubbleText from "@/components/BubbleText";
 import CustomButton from "@/components/CustomButton";
@@ -37,15 +37,16 @@ const NoteCard: React.FC<NoteProps> = ({ id, name, content, createdAt }) => {
     // Logique pour supprimer la note
   };
 
-  const formattedDate = createdAt.toLocaleString("fr-FR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric"
-  });
-  const formattedTime = createdAt.toLocaleString("fr-FR", {
-    hour: "2-digit",
-    minute: "2-digit"
-  });
+  const formattedDate = format(new Date(createdAt), "dd/MM/yyyy - HH:mm");
+  // const formattedDate = createdAt.toLocaleString("fr-FR", {
+  //   day: "2-digit",
+  //   month: "2-digit",
+  //   year: "numeric"
+  // });
+  // const formattedTime = createdAt.toLocaleString("fr-FR", {
+  //   hour: "2-digit",
+  //   minute: "2-digit"
+  // });
 
   return (
     <div className="bg-white border border-neutral-200 rounded-lg p-4 gap-2 flex flex-col justify-between relative">
@@ -96,7 +97,7 @@ const NoteCard: React.FC<NoteProps> = ({ id, name, content, createdAt }) => {
       </p>
 
       <div className="flex justify-between items-center   text-tag text-neutral-400">
-        <span>{`${formattedDate} - ${formattedTime}`}</span>
+        <span>{`${formattedDate}`}</span>
         <CustomButton
           text={"Voir plus"}
           color={"bg-neutral-50"}

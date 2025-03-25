@@ -1,33 +1,21 @@
 "use client";
-import CustomButton from "@/components/CustomButton";
 import { Home, Mail, Phone, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BubbleText from "@/components/BubbleText";
 import Tabs from "@/components/Tabs";
-import Popup from "@/components/Popup";
 import { useClientStore } from "@/store/user/clientStore";
-import AssociatedYards from "./tabsComponents/associatedYardsTab";
-import NotesTabComponentGrid from "./tabsComponents/notesTabComponents";
 import Spinner from "@/components/Spinner";
-import Modify from "../components/modals/Modify";
+import HeaderPage from "@components/HeaderPage";
+import Edit from "../components/modals/Edit";
+import Delete from "../components/modals/Delete";
+import Notes from "./tabsComponents/Notes";
+import AssociatedChantiers from "./tabsComponents/AssociatedChantiers";
 
 export default function ClientDetail() {
-  const router = useRouter();
   const { id } = useParams();
   const [client, setClient] = useState<any>(null);
-  const [isPopupDeleteOpen, setIsPopupDeleteOpen] = useState(false);
   const { data, getOneById, fetchData } = useClientStore();
-
-  const handleDeleteClient = () => {
-    setIsPopupDeleteOpen(true);
-    document.body.style.overflow = "hidden";
-  };
-
-  const handleClosePopup = () => {
-    setIsPopupDeleteOpen(false);
-    document.body.style.overflow = "";
-  };
 
   useEffect(() => {
     if (id) {
@@ -44,24 +32,23 @@ export default function ClientDetail() {
   }, [id, getOneById, fetchData]);
 
   if (!client) {
-    return <Spinner message="Chargement des détails du client..." />;
+    return <Spinner message="Chargement du client..." />;
   }
 
   const tabs = [
     {
       label: "Chantiers associées",
-      content: <AssociatedYards yards={client.yards} />
+      content: <AssociatedChantiers client={client} />
     },
     {
       label: "Notes",
-      content: <NotesTabComponentGrid notes={client.notes} />
+      content: <Notes client={client} />
     }
   ];
 
   return (
     <>
-      <div className="bg-white w-full p-4 sm:p-8">
-        {/* Breadcrumb */}
+      {/* <div className="bg-white w-full p-4 sm:p-8">
         <div className="mb-4">
           <p className="text-sm text-neutral-400">
             Mes clients /{" "}
@@ -70,7 +57,6 @@ export default function ClientDetail() {
             </span>
           </p>
         </div>
-        {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
             <img
@@ -94,89 +80,74 @@ export default function ClientDetail() {
             <Modify id={id as string} />
           </div>
         </div>
-        {/* À Propos */}
-        <div className="mt-6">
-          <h2 className="text-base sm:text-paragraphBold text-neutral-950 mb-4">
-            À Propos
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex items-center space-x-3">
-              <BubbleText
-                icon={<Mail className="text-accent-500" />}
-                widthBubble="w-12"
-                heightBubble="h-12"
-                widthSubBubble="w-10"
-                heightSubBubble="h-10"
-                firstBackground="bg-accent-100"
-                secondBackground="bg-accent-200"
-              />
-              <div>
-                <p className="text-xs sm:text-sm text-neutral-500">Email</p>
-                <p className="text-sm sm:text-paragraphBold text-neutral-950">
-                  {client.email}
-                </p>
-              </div>
+      </div> */}
+      <HeaderPage
+          showBreadcrumb={true}
+          title={client.name}
+        >
+        <Delete client={client} />
+        <Edit client={client} />
+      </HeaderPage>
+      {/* À Propos */}
+      <div className="mb-4">
+        <h2 className="text-base sm:text-paragraphBold text-neutral-950 mb-4">
+          À Propos
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+          <div className="flex items-center space-x-3">
+            <BubbleText
+              icon={<Mail className="text-accent-500" />}
+              widthBubble="w-12"
+              heightBubble="h-12"
+              widthSubBubble="w-10"
+              heightSubBubble="h-10"
+              firstBackground="bg-accent-100"
+              secondBackground="bg-accent-200"
+            />
+            <div>
+              <p className="text-xs sm:text-sm text-neutral-500">Email</p>
+              <p className="text-sm sm:text-paragraphBold text-neutral-950">
+                {client.email}
+              </p>
             </div>
-            <div className="flex items-center space-x-3">
-              <BubbleText
-                icon={<Phone className="text-accent-500" />}
-                widthBubble="w-12"
-                heightBubble="h-12"
-                widthSubBubble="w-10"
-                heightSubBubble="h-10"
-                firstBackground="bg-accent-100"
-                secondBackground="bg-accent-200"
-              />
-              <div>
-                <p className="text-xs sm:text-sm text-neutral-500">Téléphone</p>
-                <p className="text-sm sm:text-paragraphBold text-neutral-950">
-                  {client.phone}
-                </p>
-              </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <BubbleText
+              icon={<Phone className="text-accent-500" />}
+              widthBubble="w-12"
+              heightBubble="h-12"
+              widthSubBubble="w-10"
+              heightSubBubble="h-10"
+              firstBackground="bg-accent-100"
+              secondBackground="bg-accent-200"
+            />
+            <div>
+              <p className="text-xs sm:text-sm text-neutral-500">Téléphone</p>
+              <p className="text-sm sm:text-paragraphBold text-neutral-950">
+                {client.phone}
+              </p>
             </div>
-            <div className="flex items-center space-x-3">
-              <BubbleText
-                icon={<Home className="text-accent-500" />}
-                widthBubble="w-12"
-                heightBubble="h-12"
-                widthSubBubble="w-10"
-                heightSubBubble="h-10"
-                firstBackground="bg-accent-100"
-                secondBackground="bg-accent-200"
-              />
-              <div>
-                <p className="text-xs sm:text-sm text-neutral-500">Adresse</p>
-                <p className="text-sm sm:text-paragraphBold text-neutral-950">
-                  {client.address}
-                </p>
-              </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <BubbleText
+              icon={<Home className="text-accent-500" />}
+              widthBubble="w-12"
+              heightBubble="h-12"
+              widthSubBubble="w-10"
+              heightSubBubble="h-10"
+              firstBackground="bg-accent-100"
+              secondBackground="bg-accent-200"
+            />
+            <div>
+              <p className="text-xs sm:text-sm text-neutral-500">Adresse</p>
+              <p className="text-sm sm:text-paragraphBold text-neutral-950">
+                {client.address}
+              </p>
             </div>
           </div>
         </div>
-        {/* Tabs */}
-        <div className="mt-6">
-          <Tabs tabs={tabs} />
-        </div>
       </div>
-
-      <Popup
-        isOpen={isPopupDeleteOpen}
-        onClose={handleClosePopup}
-        title="Supprimer ce client"
-        desc="Cette action est irréversible">
-        <div className="flex flex-row gap-2 items-end justify-end">
-          <button
-            type="button"
-            className="bg-neutral-50 text-neutral-950 text-sm px-4 py-2 rounded-md hover:bg-neutral-100">
-            Annuler
-          </button>
-          <button
-            type="button"
-            className="bg-negative-500 text-white text-sm px-4 py-2 rounded-md hover:bg-negative-600">
-            Supprimer
-          </button>
-        </div>
-      </Popup>
+      <Tabs tabs={tabs} />
     </>
   );
 }
