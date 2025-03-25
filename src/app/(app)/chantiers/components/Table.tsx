@@ -29,7 +29,7 @@ export default function Table() {
     }
   }, [search, projects]);
 
-  const renderTabs = (projects) => {
+  const renderTabs = (projects : Project[] | []) => {
     return (
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-8">
         {isLoading ? (
@@ -86,7 +86,7 @@ export default function Table() {
         onChangeValue={setSearch}
       />
       {error && (
-        <Alert color="danger" title="Erreur" type="error">
+        <Alert color="danger" title="Erreur">
           {error}
         </Alert>
       )}

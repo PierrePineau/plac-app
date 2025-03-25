@@ -1,3 +1,4 @@
+import {addToast} from "@heroui/react";
 import {
   ApiError,
   UnauthorizedError,
@@ -69,6 +70,9 @@ export async function request<T>(
     }
   } catch (error) {
     console.log("Error:", error);
+    addToast({
+      title: "Toast Title",
+    });
     throw new NetworkError();
   }
 }
