@@ -31,11 +31,6 @@ const Login = () => {
         registerButton={() => setIsSignUp(true)}
         connectButton={handleSubmit}
       />
-      {error && (
-        <Alert color="danger" title="Erreur">
-          {error}
-        </Alert>
-      )}
       <div className="mt-6">
         <div className="flex flex-wrap gap-2 justify-center items-center">
           <p className="text-neutral-400 text-base sm:text-paragraphMedium">

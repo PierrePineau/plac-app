@@ -32,7 +32,7 @@ export default function New({ title }: NewProps) {
       store={useNoteStore}>
       <Field label="Nom" name="name" required />
       <Field label="Description" name="desc" required />
-      {error && <Alert color="danger">{error}</Alert>}
+
     </Modal>
   );
 }

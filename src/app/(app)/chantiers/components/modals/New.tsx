@@ -32,7 +32,6 @@ export default function New() {
       store={useProjectStore}>
       <Field label="Nom du chantier" name="name" isRequired />
       <Field label="Description" type="textarea" name="description" />
-      {error && <Alert color="danger">{error}</Alert>}
     </Modal>
   );
 }

@@ -1,4 +1,4 @@
-import {addToast} from "@heroui/toast";
+import { addToast } from "@heroui/toast";
 
 import {
   ApiError,
@@ -13,8 +13,7 @@ interface ExtendedRequestInit extends RequestInit {
   authTarget?: "admin" | "user";
 }
 
-function getAuthHeaders(
-): Record<string, string> {
+function getAuthHeaders(): Record<string, string> {
   const tokenKey = "jwtToken";
   const token = localStorage.getItem(tokenKey);
   return token ? { Authorization: `Bearer ${token}` } : {};
@@ -43,36 +42,75 @@ export async function request<T>(
   fetchOptions.headers = { ...mergedHeaders, ...authHeaders };
   let response: Response;
   try {
-    console.log(
-      "URL:", url,
-      "OPTIONS:", fetchOptions
-    );
+    console.log("URL:", url, "OPTIONS:", fetchOptions);
     response = await fetch(url, fetchOptions);
     if (response.ok) {
-      const data  = await response.json();
+      const data = await response.json();
       console.log("Data:", data);
-      
+
       return data;
-    }else{
+    } else {
       if (response.status === 401) throw new UnauthorizedError();
       if (response.status === 404) throw new NotFoundError();
       if (response.status === 422) throw new ValidationError();
-  
+
       // Pour voir le message d'erreur
       try {
         const data = await response.json();
+        switch (response.status) {
+          case 400:
+            addToast({
+              title: "Warning",
+              description: "Vous n'avez pas le droit",
+              color: "warning"
+            });
+          case 401:
+            addToast({
+              title: "Erreur",
+              description:
+                "Vous n'êtes pas autoriser à accèder à cette ressources",
+              color: "danger"
+            });
+            break;
+          case 404:
+            addToast({
+              title: "Erreur",
+              description: "Page non trouver",
+              color: "danger"
+            });
+            break;
+          case 422:
+            addToast({
+              title: "Erreur",
+              description: "Erreur de validation",
+              color: "danger"
+            });
+          case 500:
+            addToast({
+              title: "Erreur",
+              description: "Erreur serveur",
+              color: "danger"
+            });
+            break;
+        }
         console.log("Error Message:", data.message);
         console.log("Error content:", data);
         return data;
       } catch (error) {
-        
+        addToast({
+          title: "Erreur",
+          description: "Une erreur est detecter veuiller contact le SAV",
+          color: "danger"
+        });
       }
       throw new ApiError(response.status, response.statusText);
     }
   } catch (error) {
     console.log("Error:", error);
     addToast({
-      title: "Toast Title",
+      title: "Erreur",
+      description: "Erreur de connexion",
+      color: "danger"
     });
     throw new NetworkError();
   }
@@ -90,9 +128,9 @@ export function post<T>(
   body: unknown,
   options: ExtendedRequestInit = {}
 ): Promise<T> {
+  const data =
+    body instanceof FormData ? Object.fromEntries(body.entries()) : body;
 
-  const data = body instanceof FormData ? Object.fromEntries(body.entries()) : body;
-  
   return request<T>(url, {
     ...options,
     method: "POST",
@@ -109,8 +147,8 @@ export function put<T>(
   body: unknown,
   options: ExtendedRequestInit = {}
 ): Promise<T> {
-
-  const data = body instanceof FormData ? Object.fromEntries(body.entries()) : body;
+  const data =
+    body instanceof FormData ? Object.fromEntries(body.entries()) : body;
   return request<T>(url, {
     ...options,
     method: "PUT",

@@ -47,8 +47,6 @@ export default function Home() {
           imperdiet congue lectus.
         </p>
       </div>
-      {projectError && <Alert color="danger">{projectError}</Alert>}
-      {clientError && <Alert color="danger">{clientError}</Alert>}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8">
         <CardStats
           icon={<Users />}

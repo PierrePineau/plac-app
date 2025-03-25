@@ -85,11 +85,6 @@ export default function Table() {
         value={search}
         onChangeValue={setSearch}
       />
-      {error && (
-        <Alert color="danger" title="Erreur">
-          {error}
-        </Alert>
-      )}
       <Tabs tabs={tabs} />
     </>
   );
