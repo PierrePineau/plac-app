@@ -60,7 +60,7 @@ export default function Modal({
         {icon}
         {text}
       </Btn>
-      <HerouiModal isOpen={isOpen} onOpenChange={onOpenChange} radius="sm" size="xl">
+      <HerouiModal isOpen={isOpen} scrollBehavior={"inside"} onOpenChange={onOpenChange} radius="sm" size="xl">
         <ModalContent>
           {(onClose) => (
             <>
