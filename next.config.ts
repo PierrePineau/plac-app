@@ -43,7 +43,34 @@ const nextConfig: NextConfig = {
             value: "X-Requested-With, Content-Type, Authorization"
           }
         ]
-      }
+      },
+      {
+        source: "/_next/image",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, s-maxage=31536000, immutable"
+          }
+        ]
+      },
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=1, s-maxage=1, must-revalidate"
+          }
+        ]
+      },
+      {
+        source: "/sw.js",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-cache, no-store, must-revalidate"
+          },
+        ]
+      },
     ];
   }
 };
@@ -51,7 +78,7 @@ const nextConfig: NextConfig = {
 const config = (phase: string): NextConfig => {
   if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
     return withPWA({
-      dest: "public"
+      dest: "public",
     })(nextConfig);
   }
   return nextConfig;
