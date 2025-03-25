@@ -76,11 +76,6 @@ export default function Table() {
 
   return (
     <>
-      {error && (
-        <Alert title="Erreur" type="error">
-          {error}
-        </Alert>
-      )}
       <Field
         label="Rechercher un chantier"
         type="search"
@@ -90,6 +85,11 @@ export default function Table() {
         value={search}
         onChangeValue={setSearch}
       />
+      {error && (
+        <Alert color="danger" title="Erreur" type="error">
+          {error}
+        </Alert>
+      )}
       <Tabs tabs={tabs} />
     </>
   );
