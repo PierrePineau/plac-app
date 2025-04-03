@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+"use client";
+import React, { use, useState } from "react";
 import {Tabs as HeroUiTabs, Tab as HeroUiTab} from "@heroui/tabs";
 
 interface Tab {

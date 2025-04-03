@@ -3,7 +3,7 @@ import { Home, Mail, Phone, Trash2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BubbleText from "@/components/BubbleText";
-import Tabs from "@/components/Tabs";
+import Tabs from "@components/Tabs";
 import { useClientStore } from "@/store/user/clientStore";
 import Spinner from "@/components/Spinner";
 import HeaderPage from "@components/HeaderPage";

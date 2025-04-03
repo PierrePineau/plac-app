@@ -64,7 +64,6 @@ export default function ProjectDetail() {
     { label: "Bloc notes", content: <Notes /> }
   ];
 
-
   return (
     <div className="bg-white h-full flex flex-col">
       { path != "" && (

@@ -10,23 +10,24 @@ export const metadata: Metadata = {
   title: "Paramètres",
 };
 
-
-
 export default function Page() {
   const tabs = [
-    { label: "Compte",
+    {
+      label: "Compte",
       content: <General />
     },
-    // { label: "Notifications",
-    //   content: <Notifications />
-    // },
-    // {
-    //   label: "Abonnement",
-    //   content: <Abonnement />
-    // },
-    // { label: "Facturations",
-    //   content: <Facturations />
-    // },
+    {
+      label: "Notifications",
+      content: <Notifications />
+    },
+    {
+      label: "Abonnement",
+      content: <Abonnement />
+    },
+    {
+      label: "Facturations",
+      content: <Facturations />
+    },
   ];
 
   return (
